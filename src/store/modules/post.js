@@ -13,7 +13,17 @@ const getters = {
     return state.recent;
   },
 
-  recentPostsLoaded: state => state.loaded
+  recentPostsLoaded: state => state.loaded,
+
+  recentPost: state => id => {
+   /* if (!id || !_.isNumber(id) || _.isNull(id) || typeof id == 'undefined') {
+      return state.recent
+    }
+    let recent = state.recent*/
+    return ;
+  },
+
+  recentPostLoaded: state => (id) => state.loaded
 }
 
 // actions
@@ -22,6 +32,14 @@ const actions = {
     api.getPosts(posts => {
       commit(types.STORE_FETCHED_POSTS, { posts })
       commit(types.POSTS_LOADED, true)
+      commit(types.INCREMENT_LOADING_PROGRESS)
+    })
+  },
+  getPost({ commit }) {
+    console.log(id);
+    api.getPost(41, post => {
+      commit(types.STORE_FETCHED_POST, { post })
+      commit(types.POST_LOADED, true)
       commit(types.INCREMENT_LOADING_PROGRESS)
     })
   }
@@ -34,6 +52,14 @@ const mutations = {
   },
 
   [types.POSTS_LOADED] (state, val) {
+    state.loaded = val
+  },
+
+  [types.STORE_FETCHED_POST](state, { post }) {
+    state.recent = post
+  },
+
+  [types.POST_LOADED](state, val) {
     state.loaded = val
   }
 }

@@ -1,5 +1,6 @@
+
 <template>
-  <div id="my-app" class="page-wrapper">
+  <div class="page-container">
     <transition
       name="loader-animation"
       enter-active-class="animated fadeIn"
@@ -8,31 +9,33 @@
         <div class="progress-bar" role="progressbar" :style="loaderStyle" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
     </transition>
+    <md-app md-mode="reveal">
+      <md-app-toolbar class="md-primary">
+        <span class="md-title">My Title</span>
+      </md-app-toolbar>
 
-    <app-header></app-header>
-
-    <transition name="page-transition" mode="out-in" appear>
-      <div class="page-content-wrapper">
+      <md-app-content>
         <router-view></router-view>
-        
-      </div>
-    </transition>
-
-    <app-footer></app-footer>
+      </md-app-content>
+    </md-app>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  @import './styles/app.scss';
+  
+</style>
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Header from './components/partials/Header'
 import Footer from './components/partials/Footer'
-
 export default {
-  data() {
-    return {
-      showLoader: true
-    }
-  },
+  name: 'Reveal',
+  data: () => ({
+    menuVisible: false,
+    showLoader: true
+  }),
   computed: {
     ...mapGetters({
       isLoading: 'isLoading',
@@ -62,6 +65,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-  @import './styles/app.scss';
-</style>
