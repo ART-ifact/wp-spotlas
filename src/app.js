@@ -34,6 +34,7 @@ Vue.use(VueGoogleMaps, {
     libraries: 'places', // This is required if you use the Autocomplete plugin
   }
 })
+Vue.component('google-cluster', VueGoogleMaps.Cluster);
 
 router.afterEach((to, from) => {
   // Add a body class specific to the route we're viewing

@@ -41,8 +41,6 @@ export default {
         }
         var positionArray = { lat: parseFloat(response.data.lat), lng: parseFloat(response.data.lng) };
         response.data.lng = positionArray;
-        console.log(response.data.lng)
-        console.log(response.data);
         cb(response.data)
       })
       .catch(e => {
@@ -58,6 +56,9 @@ export default {
             var imageStringToJson = JSON.stringify(eval('(' + response.data[i].images + ')'));
             response.data[i].images = JSON.parse(imageStringToJson);
           }
+          var positionArray = { lat: parseFloat(response.data[i].lat), lng: parseFloat(response.data[i].lng) };
+          response.data[i].lng = positionArray;
+          console.log(positionArray);
         }
 
         cb(response.data)

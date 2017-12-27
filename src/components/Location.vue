@@ -25,14 +25,24 @@
                         >
                             <gmap-marker
                             :position="locationdata.lng"
-                            @click="center=m.position"
-                            ></gmap-marker>
+                            :clickable="true"
+                            @click="infoWinOpen=true"
+                            >
+                                <gmap-info-window
+                                    :options="infoOptions"
+                                    :position="infoWindowPos"
+                                    :opened="infoWinOpen"
+                                    @closeclick="infoWinOpen=false">
+                                    <div class="infowindow">{{locationdata.title.rendered}}</div>
+                                    </gmap-info-window>
+                            </gmap-marker>
                         </gmap-map>
                     </b-col>
                 </b-row>
             </b-container>
 
         </div>
+                       <!--     :icon="{url:'http://www.innovita.com/hunt/images/iconmaroon/SVG/map-marker.svg'}"-->
     </div>
 </template>
 
@@ -53,7 +63,8 @@ export default {
         return {
         loading: false,
         locationdata: null,
-        error: null
+        error: null,
+        infoWinOpen: false
         }
     },
 

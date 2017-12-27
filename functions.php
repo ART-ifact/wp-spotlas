@@ -1,6 +1,7 @@
 <?php
 // Remove all default WP template redirects/lookups
 remove_action('template_redirect', 'redirect_canonical');
+show_admin_bar(false);
 
 // Redirect all requests to index.php so the Vue app is loaded and 404s aren't thrown
 function remove_redirects() {
