@@ -22,7 +22,9 @@ import router from './router'
 import App from './App.vue'
 import store from './store'
 import * as types from './store/mutation-types'
+import VueCarousel from 'vue-carousel';
 
+Vue.use(VueCarousel);
 Vue.use(VueLazyload)
 Vue.use(BootstrapVue)
 

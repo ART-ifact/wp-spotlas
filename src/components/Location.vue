@@ -5,10 +5,20 @@
         </div>
         <div v-if="locationdata" class="content">
 
-            <h2>{{ locationdata.title.rendered }}</h2>
-            <span v-for="image in locationdata.images" :key="image.id">
-                <img :src="image.large">
-            </span>
+           
+            
+            <b-container class="bv-example-row">
+                <b-row>
+                    <h2>{{ locationdata.title.rendered }}</h2>
+                    <b-col>
+                        <carousel :perPageCustom="[[1920, 1]]" :navigationEnabled="true">
+                            <slide v-for="image in locationdata.images" :key="image.id">
+                                <img :src="image.large">
+                            </slide>
+                        </carousel>
+                    </b-col>
+                </b-row>
+            </b-container>
 
         </div>
     </div>
@@ -19,10 +29,14 @@ import {
     mapGetters
 } from 'vuex'
 import api from '../api'
-import types from '../store/mutation-types'
+import { Carousel, Slide } from 'vue-carousel';
 
 export default {
     props: ['id'],
+    components: {
+        Carousel,
+        Slide
+    },
     data () {
         return {
         loading: false,
