@@ -23,10 +23,17 @@ import App from './App.vue'
 import store from './store'
 import * as types from './store/mutation-types'
 import VueCarousel from 'vue-carousel';
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueCarousel);
-Vue.use(VueLazyload)
-Vue.use(BootstrapVue)
+Vue.use(VueLazyload);
+Vue.use(BootstrapVue);
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyA4ALxZp1Ourvckn_07_BahbGq7KI4u8Dg',
+    libraries: 'places', // This is required if you use the Autocomplete plugin
+  }
+})
 
 router.afterEach((to, from) => {
   // Add a body class specific to the route we're viewing

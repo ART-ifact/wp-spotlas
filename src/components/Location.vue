@@ -16,6 +16,18 @@
                                 <img :src="image.large">
                             </slide>
                         </carousel>
+                        {{ locationdata.lat }},  {{ locationdata.lng }}
+                        <gmap-map
+                        v-if="locationdata"
+                        :center="locationdata.lng"
+                        :zoom="14"
+                        style="width: 100%; min-height: 300px"
+                        >
+                            <gmap-marker
+                            :position="locationdata.lng"
+                            @click="center=m.position"
+                            ></gmap-marker>
+                        </gmap-map>
                     </b-col>
                 </b-row>
             </b-container>

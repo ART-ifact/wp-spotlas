@@ -31,7 +31,6 @@ export default {
   },
 
   getPost(id, cb) {
-    console.log('getpost:' + id)
     //if (_.isNull(id) || !_.isNumber(id)) return false
     axios.get(window.SETTINGS.API_BASE_PATH + 'posts/' + id)
       .then(response => {
@@ -40,6 +39,9 @@ export default {
           var imageStringToJson = JSON.stringify(eval('(' + response.data.images + ')'));
           response.data.images = JSON.parse(imageStringToJson);
         }
+        var positionArray = { lat: parseFloat(response.data.lat), lng: parseFloat(response.data.lng) };
+        response.data.lng = positionArray;
+        console.log(response.data.lng)
         console.log(response.data);
         cb(response.data)
       })
