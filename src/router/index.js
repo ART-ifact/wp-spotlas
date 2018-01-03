@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
 
 
 // Components
@@ -9,9 +7,10 @@ import Home from '../components/Home'
 import Login from '../components/Login'
 import Location from '../components/Location'
 import Map from '../components/Map'
+import Add from '../components/Add'
 
 Vue.use(Router)
-Vue.use(VueMaterial)
+
 
 const router = new Router({
   routes: [
@@ -25,6 +24,12 @@ const router = new Router({
       path: '/grid',
       name: 'Home',
       component: Home,
+      // props: { pageContentID: 383 }
+    },
+    {
+      path: '/add',
+      name: 'Add',
+      component: Add,
       // props: { pageContentID: 383 }
     },
     {

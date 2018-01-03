@@ -6,6 +6,10 @@ window.SETTINGS = {
   API_BASE_PATH: '/wordpress/wp-json/wp/v2/'
 }
 
+window.SETTINGS.WPPATH = '/wordpress/';
+window.SETTINGS.NONCE = document.getElementsByClassName('wpnonce')[0].value;
+window.SETTINGS.AJAXNONCE = document.getElementsByClassName('wpnonce-rest')[0].value;
+
 require('./bootstrap')
 
 import 'babel-polyfill'
@@ -24,9 +28,11 @@ import store from './store'
 import * as types from './store/mutation-types'
 import VueCarousel from 'vue-carousel';
 import * as VueGoogleMaps from 'vue2-google-maps'
+import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/black-green-dark.css' // This line here
 
+Vue.use(VueMaterial)
 Vue.use(VueCarousel);
 Vue.use(VueLazyload);
 Vue.use(BootstrapVue);

@@ -46,10 +46,13 @@
     "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
+    "exif-js": "^2.3.0",
     "marker-clusterer-plus": "^2.1.4",
-    "vue": "2.5.2",
+    "vue": "^2.5.2",
     "vue-carousel": "^0.6.5",
     "vue-material": "^1.0.0-beta-7",
-    "vue2-google-maps": "^0.8.4"
+    "vue-range-slider": "^0.2.4",
+    "vue2-google-maps": "^0.8.4",
+    "vuelidate": "^0.6.1"
   }
 }
