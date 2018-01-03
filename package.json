@@ -26,7 +26,7 @@
     "fs": "0.0.1-security",
     "jquery": "^3.1.1",
     "jslint": "^0.11.0",
-    "laravel-mix": "^1.5.0",
+    "laravel-mix": "^1.7.2",
     "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
     "object-path": "^0.11.4",

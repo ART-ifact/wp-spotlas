@@ -82,8 +82,11 @@
                     </b-col>
                 </b-row>
             </b-container>
-
+            
         </div>
+        <a href="/wordpress/edit/" :href="'/wordpress/edit/'+locationdata.id" class="md-button md-fab md-mini md-fab-bottom-right md-primary md-theme-default btn-edit">
+          <div class="md-ripple"><div class="md-button-content"><i  class="md-icon md-icon-font md-theme-default">add</i></div> <!----></div>
+        </a>
                        <!--     :icon="{url:'http://www.innovita.com/hunt/images/iconmaroon/SVG/map-marker.svg'}"-->
     </div>
 </template>
@@ -160,4 +163,9 @@ export default {
         flex-grow: 1 !important;
     }
 
+    .vue--page--location {
+        .btn-add {
+            display: none;
+        }
+    }
 </style>

@@ -12,6 +12,10 @@ let mix = require('laravel-mix');
  */
 
 mix.setPublicPath('dist')
+  .options({
+    processCssUrls: false,
+    uglify: true
+  })
    .js('src/app.js', 'scripts/')
    .extract([
       'jquery',
@@ -26,9 +30,4 @@ mix.setPublicPath('dist')
    ])
   .sass('src/styles/app.scss', 'styles/')
    .copyDirectory('src/assets', 'dist/assets')
-   .options({
-      processCssUrls: false,
-      uglify: true,
-      relativeUrls: true
-    })
    .version();

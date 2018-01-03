@@ -16,16 +16,16 @@
 
       <md-app-content>
         <router-view></router-view>
-        <md-button class="md-fab md-mini md-fab-bottom-right md-primary" :href="/add/">
-          <md-icon>add</md-icon>
-        </md-button>
+        <a href="/wordpress/add/" class="md-button md-fab md-mini md-fab-bottom-right md-primary md-theme-default btn-add">
+          <div class="md-ripple"><div class="md-button-content"><i  class="md-icon md-icon-font md-theme-default">add</i></div> <!----></div>
+        </a>
       </md-app-content>
+      
     </md-app>
   </div>
 </template>
 
 <style lang="scss" scoped>
-  @import './styles/app.scss';
 </style>
 
 <script>
