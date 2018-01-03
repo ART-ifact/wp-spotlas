@@ -14,6 +14,8 @@
         <input type="hidden" class="wpnonce" value="<?php echo $my_nonce; ?>">
         <?php $my_api_nonce = wp_create_nonce('wp_rest'); ?>
         <input type="hidden" class="wpnonce-rest" value="<?php echo $my_api_nonce; ?>">
+        <input type="hidden" class="logout-link" value="<?php echo wp_logout_url( home_url() ); ?>">
+        <input type="hidden" class="theme-url" value="<?php echo esc_url( get_template_directory_uri() ); ?>">
         <?php if ( !is_user_logged_in() ) {
             ?>
             <script>

@@ -6,15 +6,20 @@
                     <div class="well mt50">
                         <form v-on:submit.prevent="login">
                             <p class="login-username form-group label-static">
-                                <label for="user_login" class="control-label">Benutzername oder E-Mail-Adresse</label>
-                                <input name="log" id="user_login" class="input form-control" value="" v-model="username" type="text">
+                                <md-field>
+                                    <label>Username</label>
+                                    <md-input id="user_login" v-model="username" type="text"></md-input>
+                                </md-field>
                             </p>
                             <p class="login-password form-group label-static">
-                                <label for="user_pass" class="control-label">Passwort</label>
-                                <input name="pwd" id="user_pass" class="input form-control" value="" v-model="password" type="password">
+                                <md-field>
+                                    <label>Password</label>
+                                    <md-input id="user_password" v-model="password" type="password"></md-input>
+                                </md-field>
                             </p>
+                            
                             <p class="login-submit">
-                                <input name="wp-submit" class="button button-primary btn btn-primary btn-spottr pull-right" value="Anmelden" type="submit">
+                                <md-button class="md-primary" name="wp-submit" value="Anmelden" type="submit">Primary</md-button>
                             </p>
                         </form>
                     </div>
@@ -29,8 +34,8 @@
 export default {
     data: {
         // declare message with an empty value 
-        username: '',
-        password: '',
+        username: null,
+        password: null,
     },
     methods: {
         login: function () {

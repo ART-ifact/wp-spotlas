@@ -5,7 +5,7 @@
     </div>
     <div class="content">
         <b-container class="bv-example-row">
-            <form novalidate class="md-layout-row md-gutter" @submit.prevent="validateUser">
+            <form novalidate class="md-layout-row md-gutter" @submit.prevent="saveForm">
                 <b-row>
                     <b-col cols="12" md="6">
                         <md-field>
@@ -30,15 +30,20 @@
                         <gmap-map :zoom="14" :center="map" style="width: 100%; min-height: 300px">
                             <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                         </gmap-map>
+                        <md-field>
+                        <label>Textarea</label>
+                            <md-textarea v-model="form.description" required></md-textarea>
+                            <span class="md-helper-text">Helper text</span>
+                            <span class="md-error">There is an error</span>
+                        </md-field>
                     </b-col>
 
                     <b-col cols="12" md="6">
                         <md-field :class="getValidationClass('locationName')">
-                            <label for="location-name">Location Name</label>
-                            <md-input name="location-name" id="location-name" autocomplete="given-name" v-model="form.locationName" :disabled="sending"
+                            <label for="title">Location Name</label>
+                            <md-input name="title" id="title" v-model="form.title" :disabled="sending"
                             />
-                            <span class="md-error" v-if="!$v.form.locationName.required">The location name is required</span>
-                            <span class="md-error" v-else-if="!$v.form.locationName.minlength">Invalid location name</span>
+                            
                         </md-field>
 
                         <h4>Accesibillity</h4>
@@ -74,46 +79,47 @@
                             <h4>Wheather</h4>
                         <b-row>
                             <b-col>
-                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="form.cloudy" id="cloudy">
+                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" value="true" v-model="form.cloudy" id="cloudy">
                                 <label class="weather-label" for="cloudy"></label>
                             </b-col>
                             <b-col>
-                                <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="form.foggy" id="foggy">
+                                <input type="checkbox" name="foggy" class="weather-icon foggy" value="true" v-model="form.foggy" id="foggy">
                                 <label class="weather-label" for="foggy"></label>
                             </b-col>
                             <b-col>
-                                <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy">
+                                <input type="checkbox" name="rainy" class="weather-icon rainy" value="true" v-model="form.rainy" id="rainy">
                                 <label class="weather-label" for="rainy"></label>
                             </b-col>
                             <b-col>
-                                <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny">
+                                <input type="checkbox" name="sunny" class="weather-icon sunny" value="true" v-model="form.sunny" id="sunny">
                                 <label class="weather-label" for="sunny"></label>
                             </b-col>
                         </b-row>
                         <h4>Seasons</h4>
                         <b-row>
                             <b-col>
-                                <input type="checkbox" name="spring" class="season-icon spring" v-model="form.spring" id="spring">
+                                <input type="checkbox" name="spring" class="season-icon spring" value="true" v-model="form.spring" id="spring">
                                 <label class="season-label" for="spring"></label>
                             </b-col>
                             <b-col>
-                                <input type="checkbox" name="summer" class="season-icon summer" v-model="form.summer" id="summer">
+                                <input type="checkbox" name="summer" class="season-icon summer" value="true" v-model="form.summer" id="summer">
                                 <label class="season-label" for="summer"></label>
                             </b-col>
                             <b-col>
-                                <input type="checkbox" name="autumn" class="season-icon autumn" v-model="form.autumn" id="autumn">
+                                <input type="checkbox" name="autumn" class="season-icon autumn" value="true" v-model="form.autumn" id="autumn">
                                 <label class="season-label" for="autumn"></label>
                             </b-col>
                             <b-col>
-                                <input type="checkbox" name="winter" class="season-icon winter" v-model="form.winter" id="winter">
+                                <input type="checkbox" name="winter" class="season-icon winter" value="true" v-model="form.winter" id="winter">
                                 <label class="season-label" for="winter"></label>
                             </b-col>
                         </b-row>
                     </b-col>
                 </b-row>
-                <md-snackbar :md-position="left" :md-duration="2000" :md-active.sync="showSnackbar" md-persistent>
+                <md-snackbar :md-duration="2000" :md-active.sync="showSnackbar" md-persistent>
                     <span>Image deleted!</span>
                 </md-snackbar>
+                <md-button class="md-primary" name="wp-submit" value="Anmelden" type="submit">Save</md-button>
             </form>
         </b-container>
 
@@ -148,14 +154,23 @@ export default {
     },
     data: () => ({
         form: {
-            locationName: null,
+            title: 'null',
             type: null,
             category: null,
             accessibility: 0,
             email: null,
             latitude: 0,
             longitude: 0,
-            images: []
+            images: [],
+            sunny: "false",
+            cloudy: "false",
+            foggy: "false",
+            rainy: "false",
+            spring: "false",
+            summer: "false",
+            autumn: "false",
+            winter: "false",
+            description: 'null'
         },
         map: { lat: 51.07415364657628, lng: 13.762693740427494 },
         marker: { lat: 51.07415364657628, lng: 13.762693740427494 },
@@ -166,7 +181,7 @@ export default {
     }),
     validations: {
         form: {
-            locationName: {
+            title: {
                 required,
                 minLength: minLength(3)
             },
@@ -189,6 +204,39 @@ export default {
                 }
             }
         },
+        saveForm() {
+            console.log(this.form);
+            var path = window.SETTINGS.THEMEURL + '/formhandlers/add-location.php';
+            var formData = new FormData();
+            formData.append("title", this.form.title);
+            formData.append("type", this.form.type);
+            formData.append("category", this.form.category);
+            formData.append("accesibility", this.form.accessibility);
+            formData.append("lat", this.form.latitude);
+            formData.append("lng", this.form.longitude);
+            formData.append("images", JSON.stringify(this.form.images));
+            formData.append("sunny", this.form.sunny);
+            formData.append("cloudy", this.form.cloudy);
+            formData.append("foggy", this.form.foggy);
+            formData.append("rainy", this.form.rainy);
+            formData.append("spring", this.form.spring);
+            formData.append("summer", this.form.summer);
+            formData.append("autumn", this.form.autumn);
+            formData.append("winter", this.form.winter);
+            formData.append("description", this.form.description);
+
+            axios.post(path, formData)
+            .then(function(response){
+                console.log(response)
+            }).catch(function(e){
+                console.log(e);
+            });
+
+            var formData = new FormData();
+            formData.append("action", "upload-attachment");
+            formData.append("async-upload", fileInput);
+            formData.append("name", fileInput.name);
+        },
         getMarkerPosition(marker) {
             let _this = this
             console.log(JSON.stringify(marker));
@@ -208,7 +256,7 @@ export default {
         uploadImage(event) {
             var file = event.target.files[0];
             let _this = this;
-            
+
             EXIF.getData(file, function() {
                 if (EXIF.getTag(this, 'GPSLatitude') && EXIF.getTag(this, 'GPSLongitude')) {
                     var latitude  = _this.toDecimal(EXIF.getTag(this, 'GPSLatitude'));
@@ -243,9 +291,9 @@ export default {
                             console.log(_this.form.images)
                             _this.form.images.push(tmp_obj);
 
-                           console.log(_this.form.images);
+                            console.log(_this.form.images);
 
-                           _this.fileinput = null;
+                            _this.fileinput = null;
                     }
                 }
             };
@@ -266,7 +314,7 @@ export default {
             data = data.trim();
 
             // Make sure the incoming data is actual JSON
-            // Logic borrowed from http://json.org/json2.js
+            // Logic borrowed from http://JSON.org/JSON2.js
             if ( /^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
                 .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
                 .replace(/(?:^|:|,)(?:\s*\[)+/g, "")) ) {
@@ -282,7 +330,7 @@ export default {
         },
         deleteImage(imageID) {
             let _this = this;
-            var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/' + imageID + '?force=true';
+            var path = window.SETTINGS.WPPATH + 'wp-JSON/wp/v2/media/' + imageID + '?force=true';
             axios.delete(path, {force:true})
             .then(function(response){
                 console.log('deleted successfully')
