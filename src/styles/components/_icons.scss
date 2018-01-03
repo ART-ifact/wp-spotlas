@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'MeteoconsRegular';
+    src: url('../assets/fonts/meteocons-webfont.eot');
+    src: url('../assets/fonts/meteocons-webfont.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/meteocons-webfont.woff') format('woff'), url('../assets/fonts/meteocons-webfont.ttf') format('truetype'), url('../assets/fonts/meteocons-webfont.svg#MeteoconsRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Flaticon';
+    src: url('../assets/fonts/Flaticon.eot');
+    src: url('../assets/fonts/Flaticon.eot?#iefix') format('embedded-opentype'), url('../assets/fonts/Flaticon.woff') format('woff'), url('../assets/fonts/Flaticon.ttf') format('truetype'), url('../assets/fonts/Flaticon.svg#Flaticon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+input.weather-icon {
+    display: none;
+}
+
+input.weather-icon+label:before {
+    font-family: MeteoconsRegular;
+    display: inline-block;
+    color: #fff;
+    font-size: 45px;
+}
+
+input.cloudy+label:before {
+    content: '\4e';
+}
+
+input.foggy+label:before {
+    content: '\4c';
+}
+
+input.rainy+label:before {
+    content: '\38';
+}
+
+input.sunny+label:before {
+    content: '\42';
+}
+
+input.weather-icon:checked+label:before,
+input.weather-icon.on+label:before {
+    color: teal;
+    letter-spacing: 5px;
+}
+
+input.season-icon {
+    display: none;
+}
+
+input.season-icon+label:before {
+    font-family: Flaticon;
+    display: inline-block;
+    color: #fff;
+    font-size: 45px;
+}
+
+input.spring+label:before {
+    content: '\f101';
+}
+
+input.summer+label:before {
+    content: '\f103';
+}
+
+input.autumn+label:before {
+    content: '\f102';
+}
+
+input.winter+label:before {
+    content: '\f100';
+}
+
+input.season-icon:checked+label:before,
+input.season-icon.on+label:before {
+    color: teal;
+    letter-spacing: 5px;
+}

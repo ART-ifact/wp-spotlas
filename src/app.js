@@ -24,6 +24,8 @@ import store from './store'
 import * as types from './store/mutation-types'
 import VueCarousel from 'vue-carousel';
 import * as VueGoogleMaps from 'vue2-google-maps'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/black-green-dark.css' // This line here
 
 Vue.use(VueCarousel);
 Vue.use(VueLazyload);

@@ -24,10 +24,11 @@ mix.setPublicPath('dist')
       'vuex',
       'vuex-localstorage'
    ])
-   .sass('src/styles/app.scss', 'styles/')
+  .sass('src/styles/app.scss', 'styles/')
    .copyDirectory('src/assets', 'dist/assets')
    .options({
       processCssUrls: false,
-      uglify: true
+      uglify: true,
+      relativeUrls: true
     })
    .version();

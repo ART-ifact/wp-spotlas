@@ -16,6 +16,9 @@
 
       <md-app-content>
         <router-view></router-view>
+        <md-button class="md-fab md-mini md-fab-bottom-right md-primary" :href="/add/">
+          <md-icon>add</md-icon>
+        </md-button>
       </md-app-content>
     </md-app>
   </div>
@@ -23,7 +26,6 @@
 
 <style lang="scss" scoped>
   @import './styles/app.scss';
-  
 </style>
 
 <script>

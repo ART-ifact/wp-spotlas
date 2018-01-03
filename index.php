@@ -7,6 +7,7 @@
   <link rel="profile" href="http://gmpg.org/xfn/11">
   <?php wp_head(); ?>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
+  <base href="/wordpress/">
 </head>
 <body>
 <?php $my_nonce = wp_create_nonce('media-form'); ?>
