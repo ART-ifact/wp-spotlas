@@ -16,6 +16,8 @@
         <input type="hidden" class="wpnonce-rest" value="<?php echo $my_api_nonce; ?>">
         <input type="hidden" class="logout-link" value="<?php echo wp_logout_url( home_url() ); ?>">
         <input type="hidden" class="theme-url" value="<?php echo esc_url( get_template_directory_uri() ); ?>">
+        <input type="hidden" name="default_latitude" class="default_lat" value="<?php echo of_get_option('latitude');?>">
+        <input type="hidden" name="default_longitude" class="default_lng" value="<?php echo of_get_option('longitude');?>">
         <?php if ( !is_user_logged_in() ) {
             ?>
             <script>

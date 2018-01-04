@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex sm4 xs12 v-for="post in recentPosts" :key="post.id">
-        <v-card>
+        <v-card color="dark darken-2" class="white--text">
           <router-link v-bind:to="'/location/'+post.id">
             <v-card-media  height="200px">
               <div v-if="post.images.length > 0" v-for="(image, index) in post.images.slice(0,1)" :key="image.id">

@@ -3,11 +3,24 @@
   <v-app id="inspire" dark>
     <v-toolbar app fixed clipped-left>
       <v-toolbar-title>Spottr</v-toolbar-title>
-      <v-fab-transition>
-        <v-btn color="teal" :href="'/wordpress/add/'" fab small large dark absolute bottom right class="btn-add">
-          <v-icon>add_location</v-icon>
-        </v-btn>
-      </v-fab-transition>
+
+      <v-speed-dial fab small large dark absolute top right  class="btn-add"  :direction="'bottom'" :hover="true"
+                    :transition="'slide-y-reverse-transition'">
+                    <v-btn slot="activator" color="teal darken-2" dark fab hover>
+                        <v-icon>menu</v-icon>
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-btn :href="'/wordpress/add/'" fab dark small color="teal">
+                        <v-icon>add_location</v-icon>
+                    </v-btn>
+                    <v-btn :href="'/wordpress/grid/'" fab dark small color="teal">
+                        <v-icon>grid_on</v-icon>
+                    </v-btn>
+                    <v-btn :href="'/wordpress/'" fab dark small color="teal">
+                        <v-icon>map</v-icon>
+                    </v-btn>
+                    
+                </v-speed-dial>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>

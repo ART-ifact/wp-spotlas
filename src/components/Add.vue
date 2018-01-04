@@ -214,7 +214,7 @@ export default {
             axios.post(path, formData)
             .then(function(response){
                 console.log(response)
-                router.push('/')
+                router.push('/grid/')
             }).catch(function(e){
                 console.log(e);
             });
@@ -227,9 +227,12 @@ export default {
         getMarkerPosition(marker) {
             let _this = this
             _this.map = marker;
+            console.log(JSON.stringify(marker));
             var markerObject = JSON.parse(JSON.stringify(marker));
             _this.form.latitude = JSON.stringify(markerObject.lat);
             _this.form.longitude = JSON.stringify(markerObject.lng);
+            console.log(_this.form.latitude, _this.form.longitude)
+
         },
         updateMap(longitude,latitude) {
             let _this = this

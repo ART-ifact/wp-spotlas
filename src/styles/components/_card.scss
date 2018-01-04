@@ -8,3 +8,10 @@
         transform: translateY(-50%);
     }
 }
+
+.md-theme-default a:not(.md-button) {
+    color: rgb(192, 192, 192) !important;
+    &:hover {
+        color: teal !important;
+    }
+}
