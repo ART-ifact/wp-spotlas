@@ -11,11 +11,10 @@
                         <span class="accessibility" v-bind:style="{ width: locationdata.accesibility + '0%' }"></span>
                     </span>
                     <v-flex sm6 xs12 class="pa-3">
-                        <carousel :perPageCustom="[[1920, 1]]" :navigationEnabled="true">
-                            <slide v-for="image in locationdata.images" :key="image.id">
-                                <img :src="image.large">
-                            </slide>
-                        </carousel>
+                        <v-carousel dark>
+                            <v-carousel-item v-if="locationdata.images.length > 0" v-for="(image,i) in locationdata.images" v-bind:src="image.large" :key="i"></v-carousel-item>
+                            <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>
+                        </v-carousel>
                         <gmap-map v-if="locationdata" :center="locationdata.lng" :zoom="14" style="width: 100%; min-height: 300px">
                             <gmap-marker :position="locationdata.lng" :clickable="false">
                             </gmap-marker>
@@ -99,7 +98,8 @@ export default {
         loading: false,
         locationdata: null,
         error: null,
-        infoWinOpen: false
+        infoWinOpen: false,
+        placeholderImage: ''
         }
     },
 
@@ -119,6 +119,8 @@ export default {
     created() {
         //this.$store.dispatch('getPost')
         this.loading = true
+        let _this = this;
+        _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
         api.getPost(this.id, this.handleData);
 
     }

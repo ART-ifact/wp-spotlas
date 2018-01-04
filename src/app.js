@@ -27,7 +27,6 @@ import router from './router';
 import App from './App.vue';
 import store from './store';
 import * as types from './store/mutation-types';
-import VueCarousel from 'vue-carousel';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import {
   MdButton,
@@ -39,7 +38,6 @@ import 'vue-material/dist/theme/black-green-dark.css'; // This line here
 Vue.use(MdButton);
 Vue.use(MdField);
 Vue.use(Vuetify);
-Vue.use(VueCarousel);
 Vue.use(VueLazyload);
 Vue.use(VueGoogleMaps, {
   load: {
