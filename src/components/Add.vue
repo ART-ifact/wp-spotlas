@@ -24,7 +24,7 @@
                     <input type="hidden" name="latitude" :value="form.latitude" id="latitude">
                     <input type="hidden" name="longitude" :value="form.longitude" id="longitude">
 
-                    <gmap-map :zoom="14" :center="map" style="width: 100%; min-height: 300px">
+                    <gmap-map :zoom="14" :center="map" :options="{styles: styles}" style="width: 100%; min-height: 300px">
                         <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
                     <v-text-field dark multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import router from '../router';
 import RangeSlider from 'vue-range-slider'
 import EXIF from 'exif-js'
 import {
@@ -160,6 +161,7 @@ export default {
         sending: false,
         fileinput: null,
         showSnackbar: false,
+        styles: null
     }),
     validations: {
         form: {
@@ -212,6 +214,7 @@ export default {
             axios.post(path, formData)
             .then(function(response){
                 console.log(response)
+                router.push('/')
             }).catch(function(e){
                 console.log(e);
             });
@@ -341,6 +344,7 @@ export default {
 
     created() {
         //this.$store.dispatch('getPost')
+        this.styles = window.SETTINGS.mapStyles
         this.loading = false
         console.log(window.SETTINGS.NONCE);
 

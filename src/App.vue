@@ -5,7 +5,7 @@
       <v-toolbar-title>Spottr</v-toolbar-title>
       <v-fab-transition>
         <v-btn color="teal" :href="'/wordpress/add/'" fab small large dark absolute bottom right class="btn-add">
-          <v-icon>add</v-icon>
+          <v-icon>add_location</v-icon>
         </v-btn>
       </v-fab-transition>
     </v-toolbar>

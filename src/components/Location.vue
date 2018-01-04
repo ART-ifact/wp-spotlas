@@ -17,7 +17,7 @@
                                     :key="i"></v-carousel-item>
                                 <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>
                             </v-carousel>
-                            <gmap-map v-if="locationdata" :center="locationdata.lng" :zoom="14" style="width: 100%; min-height: 300px">
+                            <gmap-map v-if="locationdata" :center="locationdata.lng" :options="{styles: styles}" :zoom="14" style="width: 100%; min-height: 300px">
                                 <gmap-marker :position="locationdata.lng" :clickable="false">
                                 </gmap-marker>
                             </gmap-map>
@@ -73,18 +73,37 @@
                     </v-layout>
 
                 </v-container>
-                <a :href="'/wordpress/edit/'+locationdata.id" class="btn btn--absolute btn--floating btn--right btn--top theme--dark teal"
-                    data-ripple="true">
-                    <div class="btn__content">
-                        <i aria-hidden="true" class="material-icons icon">mode_edit</i>
-                    </div>
-                </a>
+                <v-speed-dial fab small large dark absolute top right  class="btn-edit"  :direction="'bottom'" :hover="true"
+                    :transition="'slide-y-reverse-transition'">
+                    <v-btn slot="activator" color="teal darken-2" dark fab hover>
+                        <v-icon>edit_location</v-icon>
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <v-btn :href="'/wordpress/edit/'+locationdata.id" fab dark small color="teal">
+                        <v-icon>edit</v-icon>
+                    </v-btn>
+                    <v-btn @click.native="dialog = true" fab dark small color="red">
+                        <v-icon>delete</v-icon>
+                    </v-btn>
+                </v-speed-dial>
+                <v-dialog v-model="dialog" persistent max-width="380">
+                    <v-card>
+                        <v-card-title class="headline">You sure want to delete location {{ locationdata.title.rendered }} ?</v-card-title>
+                        <v-card-actions>
+                            <v-btn color="teal darken-1" @click.stop="dialog=false">Abort</v-btn>
+                            <v-spacer></v-spacer>
+                            <v-btn color="red darken-1" @click="deleteLocation">Delete</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
             </div>
         </v-layout>
     </v-container>
 </template>
 
 <script>
+import router from '../router';
 import {
     mapGetters
 } from 'vuex'
@@ -103,7 +122,9 @@ export default {
         locationdata: null,
         error: null,
         infoWinOpen: false,
-        placeholderImage: ''
+        placeholderImage: '',
+        dialog: false,
+        styles: null
         }
     },
 
@@ -112,8 +133,38 @@ export default {
             this.locationdata = data;
             console.log(JSON.stringify(this.locationdata))
             this.loading = false
-        }
+        },
+
+        deleteLocation() {
+            let _this = this
+            if (_this.locationdata.images.length > 0) {
+                for (let index = 0; index < _this.locationdata.images.length; index++) {
+                    const elementID = _this.locationdata.images[index].id;
+                    _this.deleteImage(elementID);
+                }
+            }
+            
+            _this.deletePost(_this.locationdata.id);
+        },
+        deleteImage(imageID) {
+            let _this = this;
+            var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/' + imageID + '?force=true';
+            axios.delete(path, {force:true})
+            .then(function(response){
+                console.log('deleted successfully')
+            });
+        },
+        deletePost(id) {
+            let _this = this;
+                var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/posts/' + id + '?force=true';
+                axios.delete(path, {force:true})
+                .then(function(response){
+                    console.log('deleted post successfully')
+                    router.push('/')
+                });
+        },
     },
+    
 
     watch: {
         // call again the method if the route changes
@@ -122,6 +173,7 @@ export default {
 
     created() {
         //this.$store.dispatch('getPost')
+        this.styles = window.SETTINGS.mapStyles
         this.loading = true
         let _this = this;
         _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
