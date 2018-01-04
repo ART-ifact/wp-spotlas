@@ -17,6 +17,8 @@ if (isset ($_POST['description'])) {
 
 echo($_POST['title']);
 echo($_POST['description']);
+echo($_POST['rainy']);
+echo($_POST['cloudy']);
 
 // Add the content of the form to $post as an array
 $post = array(
@@ -30,7 +32,7 @@ $post = array(
 $pid = wp_insert_post($post);  // Pass  the value of $post to WordPress the insert function
 // http://codex.wordpress.org/Function_Reference/wp_insert_post
 
-
+echo($pid);
 //insert custom fields
 update_post_meta($pid,'type',$_POST['type']);
 update_post_meta($pid,'lng',$_POST['lng']);
@@ -39,14 +41,14 @@ update_post_meta($pid,'adress',$_POST['adress']);
 update_post_meta($pid,'accesibility',$_POST['accesibility']);
 update_post_meta($pid,'category',$_POST['category']);
 update_post_meta($pid,'images',$_POST['images']);
-update_post_meta($pid,'rainy',!isset($_POST['rainy']));
-update_post_meta($pid,'foggy',!isset($_POST['foggy']));
-update_post_meta($pid,'cloudy',!isset($_POST['cloudy']));
-update_post_meta($pid,'sunny',!isset($_POST['sunny']));
-update_post_meta($pid,'spring',!isset($_POST['spring']));
-update_post_meta($pid,'summer',!isset($_POST['summer']));
-update_post_meta($pid,'autumn',!isset($_POST['autumn']));
-update_post_meta($pid,'winter',!isset($_POST['winter']));
+update_post_meta($pid,'rainy',$_POST['rainy']);
+update_post_meta($pid,'foggy',$_POST['foggy']);
+update_post_meta($pid,'cloudy',$_POST['cloudy']);
+update_post_meta($pid,'sunny',$_POST['sunny']);
+update_post_meta($pid,'spring',$_POST['spring']);
+update_post_meta($pid,'summer',$_POST['summer']);
+update_post_meta($pid,'autumn',$_POST['autumn']);
+update_post_meta($pid,'winter',$_POST['winter']);
 
 return $pid;
 ?>

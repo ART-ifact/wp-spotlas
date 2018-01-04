@@ -1,13 +1,17 @@
 
 <template>
-   <v-app id="inspire" dark>
+  <v-app id="inspire" dark>
     <v-toolbar app fixed clipped-left>
       <v-toolbar-title>Spottr</v-toolbar-title>
+      <v-fab-transition>
+        <v-btn color="teal" :href="'/wordpress/add/'" fab small large dark absolute bottom right class="btn-add">
+          <v-icon>add</v-icon>
+        </v-btn>
+      </v-fab-transition>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
-       <router-view></router-view>
-       <a href="/wordpress/add/" class="btn btn--absolute btn--floating btn--right btn--top theme--dark teal" data-ripple="true"><div class="btn__content"><i aria-hidden="true" class="material-icons icon">add</i></div></a>
+        <router-view></router-view>
       </v-container>
     </v-content>
   </v-app>

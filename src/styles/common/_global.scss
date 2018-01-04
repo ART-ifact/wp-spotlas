@@ -1,26 +1,11 @@
-.page-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: blue;
-}
 
-.page-content-wrapper {
-    flex: 1;
-}
-
-.widget {
-    ul {
-        margin-left: 2rem;
-    }
-}
-
-.md-app-content {
-    height: calc(100vh - 64px) !important;
-}
 
 .vue--page--add {
     .btn-add {
         display: none;
     }
+}
+body,
+html {
+    overflow-y: auto !important;
 }

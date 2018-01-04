@@ -27,14 +27,14 @@
                     <gmap-map :zoom="14" :center="map" style="width: 100%; min-height: 300px">
                         <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
-                    <v-text-field box dark multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
+                    <v-text-field dark multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
                 </v-flex>
                 <v-flex sm6 xs12 class="pa-3">
-                    <v-text-field box dark label="Location Name" v-model="form.title" :disabled="sending"></v-text-field>
+                    <v-text-field dark label="Location Name" v-model="form.title" :disabled="sending"></v-text-field>
 
                     <h4>Accesibillity</h4>
 
-                    <v-slider color="teal" min="1" max="10" thumb-label ticks="true" v-model="form.accessibility"></v-slider>
+                    <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" v-model="form.accessibility"></v-slider>
 
                     <v-select v-bind:items="type" v-model="form.type" label="Type" dark item-value="text" :disabled="sending"></v-select>
 
@@ -44,19 +44,19 @@
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
-                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" value="true" v-model="form.cloudy" id="cloudy">
+                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="form.cloudy" id="cloudy">
                                 <label class="weather-label" for="cloudy"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="foggy" class="weather-icon foggy" value="true" v-model="form.foggy" id="foggy">
+                                <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="form.foggy" id="foggy">
                                 <label class="weather-label" for="foggy"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="rainy" class="weather-icon rainy" value="true" v-model="form.rainy" id="rainy">
+                                <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy">
                                 <label class="weather-label" for="rainy"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="sunny" class="weather-icon sunny" value="true" v-model="form.sunny" id="sunny">
+                                <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny">
                                 <label class="weather-label" for="sunny"></label>
                             </v-flex>
                         </v-layout>
@@ -67,26 +67,26 @@
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
-                                <input type="checkbox" name="spring" class="season-icon spring" value="true" v-model="form.spring" id="spring">
+                                <input type="checkbox" name="spring" class="season-icon spring" v-model="form.spring" id="spring">
                                 <label class="season-label" for="spring"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="summer" class="season-icon summer" value="true" v-model="form.summer" id="summer">
+                                <input type="checkbox" name="summer" class="season-icon summer" v-model="form.summer" id="summer">
                                 <label class="season-label" for="summer"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="autumn" class="season-icon autumn" value="true" v-model="form.autumn" id="autumn">
+                                <input type="checkbox" name="autumn" class="season-icon autumn" v-model="form.autumn" id="autumn">
                                 <label class="season-label" for="autumn"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="winter" class="season-icon winter" value="true" v-model="form.winter" id="winter">
+                                <input type="checkbox" name="winter" class="season-icon winter" v-model="form.winter" id="winter">
                                 <label class="season-label" for="winter"></label>
                             </v-flex>
                         </v-layout>
                     </v-container>
 
                 </v-flex>
-                <v-snackbar :timeout="2500" :color="success" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
+                <v-snackbar :timeout="2500" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
                     Successfull deleted Image
                     <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
                 </v-snackbar>
@@ -122,7 +122,7 @@ export default {
     },
     data: () => ({
         form: {
-            title: 'null',
+            title: '',
             type: null,
             category: null,
             accessibility: 0,
@@ -130,15 +130,15 @@ export default {
             latitude: 0,
             longitude: 0,
             images: [],
-            sunny: "false",
-            cloudy: "false",
-            foggy: "false",
-            rainy: "false",
-            spring: "false",
-            summer: "false",
-            autumn: "false",
-            winter: "false",
-            description: 'null'
+            sunny: false,
+            cloudy: false,
+            foggy: false,
+            rainy: false,
+            spring: false,
+            summer: false,
+            autumn: false,
+            winter: false,
+            description: ''
         },
         type: [
           { text: 'Industry' },
@@ -152,6 +152,8 @@ export default {
           { text: 'Urban' },
           { text: 'Water' }
         ],
+        ticks: true,
+        mode: '',
         map: { lat: 51.07415364657628, lng: 13.762693740427494 },
         marker: { lat: 51.07415364657628, lng: 13.762693740427494 },
         locationSaved: false,
@@ -205,6 +207,8 @@ export default {
             formData.append("winter", this.form.winter);
             formData.append("description", this.form.description);
 
+            console.log(formData);
+
             axios.post(path, formData)
             .then(function(response){
                 console.log(response)
@@ -219,10 +223,10 @@ export default {
         },
         getMarkerPosition(marker) {
             let _this = this
-            console.log(JSON.stringify(marker));
             _this.map = marker;
-            _this.form.latitude = JSON.stringify(marker.lat);
-            _this.form.longitude = JSON.stringify(marker.lng);
+            var markerObject = JSON.parse(JSON.stringify(marker));
+            _this.form.latitude = JSON.stringify(markerObject.lat);
+            _this.form.longitude = JSON.stringify(markerObject.lng);
         },
         updateMap(longitude,latitude) {
             let _this = this
@@ -230,7 +234,6 @@ export default {
             _this.marker = { lat: latitude, lng: longitude }
             _this.form.latitude = latitude
             _this.form.longitude = longitude
-            console.log(_this.map);
         },
 
         uploadImage(event) {

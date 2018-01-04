@@ -17,10 +17,7 @@
                             </slide>
                         </carousel>
                         <gmap-map v-if="locationdata" :center="locationdata.lng" :zoom="14" style="width: 100%; min-height: 300px">
-                            <gmap-marker :position="locationdata.lng" :clickable="true" @click="infoWinOpen=true">
-                                <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" @closeclick="infoWinOpen=false">
-                                    <div class="infowindow">{{locationdata.title.rendered}}</div>
-                                </gmap-info-window>
+                            <gmap-marker :position="locationdata.lng" :clickable="false">
                             </gmap-marker>
                         </gmap-map>
                     </v-flex>
@@ -33,19 +30,19 @@
                         <v-container fluid>
                             <v-layout wrap>
                                 <v-flex xs3>
-                                    <input type="checkbox" name="cloudy" class="weather-icon cloudy" :checked="locationdata.cloudy == 1" readonly>
+                                    <input type="checkbox" name="cloudy" class="weather-icon cloudy" :checked="locationdata.cloudy == 'true'" readonly>
                                     <label class="weather-label" for="cloudy"></label>
                                 </v-flex>
                                 <v-flex xs3>
-                                    <input type="checkbox" name="foggy" class="weather-icon foggy" :checked="locationdata.foggy == 1" readonly>
+                                    <input type="checkbox" name="foggy" class="weather-icon foggy" :checked="locationdata.foggy == 'true'" readonly>
                                     <label class="weather-label" for="foggy"></label>
                                 </v-flex>
                                 <v-flex xs3>
-                                    <input type="checkbox" name="rainy" class="weather-icon rainy" :checked="locationdata.rainy == 1" readonly>
+                                    <input type="checkbox" name="rainy" class="weather-icon rainy" :checked="locationdata.rainy == 'true'" readonly>
                                     <label class="weather-label" for="rainy"></label>
                                 </v-flex>
                                 <v-flex xs3>
-                                    <input type="checkbox" name="sunny" class="weather-icon sunny" :checked="locationdata.sunny == 1" readonly>
+                                    <input type="checkbox" name="sunny" class="weather-icon sunny" :checked="locationdata.sunny == 'true'" readonly>
                                     <label class="weather-label" for="sunny"></label>
                                 </v-flex>
                             </v-layout>
@@ -53,19 +50,19 @@
                         <v-container fluid>
                             <v-layout wrap>
                                 <v-flex xs3>
-                                    <input type="checkbox" name="spring" class="season-icon spring" :checked="locationdata.spring == 1" readonly>
+                                    <input type="checkbox" name="spring" class="season-icon spring" :checked="locationdata.spring == 'true'" readonly>
                                     <label class="season-label" for="spring"></label>
                                 </v-flex>
                                 <v-flex xs3>
-                                    <input type="checkbox" name="summer" class="season-icon summer" :checked="locationdata.summer == 1" readonly>
+                                    <input type="checkbox" name="summer" class="season-icon summer" :checked="locationdata.summer == 'true'" readonly>
                                     <label class="season-label" for="summer"></label>
                                 </v-flex>
                                 <v-flex xs3>
-                                    <input type="checkbox" name="autumn" class="season-icon autumn" :checked="locationdata.autumn == 1" readonly>
+                                    <input type="checkbox" name="autumn" class="season-icon autumn" :checked="locationdata.autumn == 'true'" readonly>
                                     <label class="season-label" for="autumn"></label>
                                 </v-flex>
                                 <v-flex xs3>
-                                    <input type="checkbox" name="winter" class="season-icon winter" :checked="locationdata.winter == 1" readonly>
+                                    <input type="checkbox" name="winter" class="season-icon winter" :checked="locationdata.winter == 'true'" readonly>
                                     <label class="season-label" for="winter"></label>
                                 </v-flex>
                             </v-layout>
@@ -109,7 +106,7 @@ export default {
     methods: {
         handleData(data) {;
             this.locationdata = data;
-            console.log('data.post:'+ data.locationdata)
+            console.log(JSON.stringify(this.locationdata))
             this.loading = false
         }
     },
