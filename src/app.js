@@ -188,6 +188,24 @@ new Vue({
     this.$store.dispatch('getAllCategories')
     this.$store.dispatch('getAllPages')
 
+    VueGoogleMaps.loaded.then(function () {
+      self.mapOptions = {
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+          position: google.maps.ControlPosition.TOP_LEFT
+        },
+        streetViewControl: true,
+        streetViewControlOptions: {
+          position: google.maps.ControlPosition.TOP_RIGHT
+        },
+        zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.TOP_RIGHT
+        }
+      };
+    });
+
     // Once user is signed in/out, uncomment if you need Firebase authentication
     // auth.onAuthStateChanged(user => {
     //   if (user) {

@@ -2,17 +2,17 @@
 require_once("../../../../wp-load.php");
 global $wpdb;
 
-if (isset ($_POST['id_edit'])) {
-    $id = $_POST['id_edit'];
+if (isset ($_POST['id'])) {
+    $id = $_POST['id'];
 }
-if (isset ($_POST['title_edit'])) {
-    $title =  $_POST['title_edit'];
+if (isset ($_POST['title'])) {
+    $title =  $_POST['title'];
 } else {
     echo 'Please enter a title';
 }
 
-if (isset ($_POST['description_edit'])) {
-    $description =  $_POST['description_edit'];
+if (isset ($_POST['description'])) {
+    $description =  $_POST['description'];
 } else {
     echo 'Please enter a note';
 }
@@ -23,7 +23,7 @@ $post = array(
     'ID'            => $id,
     'post_title'    => $title,
     'post_content'  => $description,
-    'post_status'   => 'private',           // Choose: publish, preview, future, etc.
+    'post_status'   => 'publish',           // Choose: publish, preview, future, etc.
 );
 
 
@@ -32,21 +32,21 @@ wp_update_post($post);  // Pass  the value of $post to WordPress the insert func
 
 
 //insert custom fields
-update_post_meta($id,'type', $_POST['type_edit']);
-update_post_meta($id,'lng', $_POST['lng_edit']);
-update_post_meta($id,'lat', $_POST['lat_edit']);
-update_post_meta($id,'adress', $_POST['adress_edit']);
-update_post_meta($id,'accesibility', $_POST['accesibility_edit']);
-update_post_meta($id,'category', $_POST['category_edit']);
-update_post_meta($id,'images', $_POST['images_edit']);
-update_post_meta($id,'rainy', $_POST['rainy_edit']);
-update_post_meta($id,'foggy', $_POST['foggy_edit']);
-update_post_meta($id,'cloudy', $_POST['cloudy_edit']);
-update_post_meta($id,'sunny', $_POST['sunny_edit']);
-update_post_meta($id,'spring', $_POST['spring_edit']);
-update_post_meta($id,'summer', $_POST['summer_edit']);
-update_post_meta($id,'autumn', $_POST['autumn_edit']);
-update_post_meta($id,'winter', $_POST['winter_edit']);
+update_post_meta($id,'type', $_POST['type']);
+update_post_meta($id,'lng', $_POST['lng']);
+update_post_meta($id,'lat', $_POST['lat']);
+update_post_meta($id,'adress', $_POST['adress']);
+update_post_meta($id,'accesibility', $_POST['accesibility']);
+update_post_meta($id,'category', $_POST['category']);
+update_post_meta($id,'images', $_POST['images']);
+update_post_meta($id,'rainy', $_POST['rainy']);
+update_post_meta($id,'foggy', $_POST['foggy']);
+update_post_meta($id,'cloudy', $_POST['cloudy']);
+update_post_meta($id,'sunny', $_POST['sunny']);
+update_post_meta($id,'spring', $_POST['spring']);
+update_post_meta($id,'summer', $_POST['summer']);
+update_post_meta($id,'autumn', $_POST['autumn']);
+update_post_meta($id,'winter', $_POST['winter']);
 
 
 ?>

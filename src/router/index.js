@@ -8,6 +8,7 @@ import Login from '../components/Login'
 import Location from '../components/Location'
 import Map from '../components/Map'
 import Add from '../components/Add'
+import Edit from '../components/Edit'
 
 Vue.use(Router)
 
@@ -43,6 +44,13 @@ const router = new Router({
       name: 'Location',
       component: Location,
       components: { default: Location },
+      props: { default: true }
+    },
+    {
+      path: '/edit/:id',
+      name: 'Edit',
+      component: Edit,
+      components: { default: Edit },
       props: { default: true }
     }
   ],

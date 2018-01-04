@@ -21,11 +21,11 @@
                         </ul>
                     </div>
 
-                    <input type="hidden" name="latitude" :value="form.latitude" id="latitude">
-                    <input type="hidden" name="longitude" :value="form.longitude" id="longitude">
+                    <input type="hidden" name="latitude" :value="form.longitude" id="latitude">
+                    <input type="hidden" name="longitude" :value="form.latitude" id="longitude">
 
-                    <gmap-map :zoom="12" :center="map" :options="{styles: styles}" style="width: 100%; min-height: 300px">
-                        <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
+                    <gmap-map :zoom="12" v-if="form.lng" :center="form.lng" :options="{styles: styles}" style="width: 100%; min-height: 300px">
+                        <gmap-marker :position="form.lng" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
                     <v-text-field dark multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
                 </v-flex>
@@ -44,21 +44,22 @@
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
-                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="form.cloudy" id="cloudy">
-                                <label class="weather-label" for="cloudy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="form.foggy" id="foggy">
-                                <label class="weather-label" for="foggy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy">
-                                <label class="weather-label" for="rainy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny">
-                                <label class="weather-label" for="sunny"></label>
-                            </v-flex>
+                                        <input type="checkbox" name="cloudy" class="weather-icon cloudy"  v-model="form.cloudy" id="cloudy">
+                                        <label class="weather-label" for="cloudy"></label>
+                                    </v-flex>
+                                    <v-flex xs3>
+                                        <input type="checkbox" name="foggy" class="weather-icon foggy"  v-model="form.foggy" id="foggy">
+                                        <label class="weather-label" for="foggy"></label>
+                                    </v-flex>
+                                    <v-flex xs3>
+                                        <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy">
+                                        <label class="weather-label" for="rainy"></label>
+                                    </v-flex>
+                                    <v-flex xs3>
+                                        <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny">
+                                        <label class="weather-label" for="sunny"></label>
+                                    </v-flex>
+                            
                         </v-layout>
                     </v-container>
 
@@ -116,6 +117,7 @@ import api from '../api'
 
 
 export default {
+    props: ['id'],
     name: 'FormValidation',
     mixins: [validationMixin],
     components: {
@@ -123,6 +125,7 @@ export default {
     },
     data: () => ({
         form: {
+            id: 0,
             title: '',
             type: null,
             category: null,
@@ -179,19 +182,32 @@ export default {
     },
 
     methods: {
-        getValidationClass(fieldName) {
-            const field = this.$v.form[fieldName]
-
-            if (field) {
-                return {
-                    'md-invalid': field.$invalid && field.$dirty
-                }
-            }
+        handleData(data) {;
+            this.form = data;
+            console.log(data)
+            console.log(JSON.stringify(this.form));
+            this.form.id = this.form.id;
+            this.form.latitude = this.form.lng.lat;
+            this.form.longitude = this.form.lng.lng;
+            this.form.title = this.form.title.rendered;
+            this.form.description = this.form.content.rendered.replace(/<\/?p[^>]*>/g, "");
+            this.form.accessibility = this.form.accesibility;
+            this.form.rainy = JSON.parse(this.form.rainy);
+            this.form.sunny = JSON.parse(this.form.sunny);
+            this.form.cloudy = JSON.parse(this.form.cloudy);
+            this.form.foggy = JSON.parse(this.form.foggy);
+            this.form.summer = JSON.parse(this.form.summer);
+            this.form.winter = JSON.parse(this.form.winter);
+            this.form.autumn = JSON.parse(this.form.autumn);
+            this.form.spring = JSON.parse(this.form.spring);
+            console.log(this.form);
+            this.loading = false
         },
         saveForm() {
             console.log(this.form);
-            var path = window.SETTINGS.THEMEURL + '/formhandlers/add-location.php';
+            var path = window.SETTINGS.THEMEURL + '/formhandlers/edit-location.php';
             var formData = new FormData();
+            formData.append("id", this.form.id);
             formData.append("title", this.form.title);
             formData.append("type", this.form.type);
             formData.append("category", this.form.category);
@@ -210,11 +226,12 @@ export default {
             formData.append("description", this.form.description);
 
             console.log(formData);
+            let _this = this;
 
             axios.post(path, formData)
             .then(function(response){
                 console.log(response)
-                router.push('/grid/')
+                router.push('/location/'+_this.form.id)
             }).catch(function(e){
                 console.log(e);
             });
@@ -342,15 +359,17 @@ export default {
 
     watch: {
         // call again the method if the route changes
-        '$route': 'handleData'
+       // '$route': 'handleData'
     },
 
     created() {
         //this.$store.dispatch('getPost')
-        this.map = window.SETTINGS.MAPCENTER
-        this.marker = this.mapCenter = window.SETTINGS.MAPCENTER
         this.styles = window.SETTINGS.mapStyles
-        this.loading = false
+        this.loading = true
+        let _this = this;
+        _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
+        console.log(this.id)
+        api.getPost(this.id, this.handleData);
 
 
     }
