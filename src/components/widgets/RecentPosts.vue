@@ -1,18 +1,23 @@
 <template>
-  <div class="card-expansion">
-    <md-card v-for="post in recentPosts" :key="post.id">
-      <router-link v-bind:to="'/location/'+post.id">
-          <md-card-media v-for="(image, index) in post.images.slice(0,1)" :key="image.id">
-            <img :src="image.large">
-          </md-card-media>
-
-          <md-card-header>
-            <div class="md-title">{{ post.title.rendered }}</div>
-            <div class="md-subhead">{{ post.category }}</div>
-          </md-card-header>
-      </router-link>
-    </md-card>
-  </div>
+  <v-container fluid>
+    <v-layout row wrap>
+      <v-flex sm4 xs12 v-for="post in recentPosts" :key="post.id">
+        <v-card>
+          <router-link v-bind:to="'/location/'+post.id">
+            <v-card-media v-for="(image, index) in post.images.slice(0,1)" :key="image.id" height="200px">
+              <img :src="image.large">
+            </v-card-media>
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">{{ post.title.rendered }}</h3>
+                <div>{{ post.category }}</div>
+              </div>
+            </v-card-title>
+          </router-link>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

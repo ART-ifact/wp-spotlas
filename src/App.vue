@@ -1,31 +1,16 @@
 
 <template>
-  <div class="page-container">
-    <transition
-      name="loader-animation"
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut">
-      <div class="progress loader" v-if="showLoader">
-        <div class="progress-bar" role="progressbar" :style="loaderStyle" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-    </transition>
-    <md-app md-mode="reveal">
-      <md-app-toolbar class="md-primary">
-        <span class="md-title">Spottr</span>
-        <a v-bind:href="logoutLink" class="md-button  md-primary md-theme-default">
-          <div class="md-ripple"><div class="md-button-content"><i  class="md-icon md-icon-font md-theme-default">power_settings_new</i></div> <!----></div>
-        </a> 
-      </md-app-toolbar>
-
-      <md-app-content>
-        <router-view></router-view>
-        <a href="/wordpress/add/" class="md-button md-fab md-mini md-fab-bottom-right md-primary md-theme-default btn-add">
-          <div class="md-ripple"><div class="md-button-content"><i  class="md-icon md-icon-font md-theme-default">add</i></div> <!----></div>
-        </a>
-      </md-app-content>
-      
-    </md-app>
-  </div>
+   <v-app id="inspire" dark>
+    <v-toolbar app fixed clipped-left>
+      <v-toolbar-title>Spottr</v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <v-container fluid fill-height>
+       <router-view></router-view>
+       <a href="/wordpress/add/" class="btn btn--absolute btn--floating btn--right btn--top theme--dark teal" data-ripple="true"><div class="btn__content"><i aria-hidden="true" class="material-icons icon">add</i></div></a>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <style lang="scss" scoped>

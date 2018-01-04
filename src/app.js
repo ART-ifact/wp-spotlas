@@ -19,25 +19,28 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueLazyload from 'vue-lazyload'
 
-import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 
-import router from './router'
 // import { auth, database } from './firebase.config.js' - Uncomment if you need firebase
-import App from './App.vue'
-import store from './store'
-import * as types from './store/mutation-types'
+import router from './router';
+import App from './App.vue';
+import store from './store';
+import * as types from './store/mutation-types';
 import VueCarousel from 'vue-carousel';
-import * as VueGoogleMaps from 'vue2-google-maps'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/black-green-dark.css' // This line here
+import * as VueGoogleMaps from 'vue2-google-maps';
+import {
+  MdButton,
+  MdField
+} from 'vue-material/dist/components';;
+import 'vue-material/dist/vue-material.min.css';
+import 'vue-material/dist/theme/black-green-dark.css'; // This line here
 
-Vue.use(VueMaterial)
+Vue.use(MdButton);
+Vue.use(MdField);
+Vue.use(Vuetify);
 Vue.use(VueCarousel);
 Vue.use(VueLazyload);
-Vue.use(BootstrapVue);
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyA4ALxZp1Ourvckn_07_BahbGq7KI4u8Dg',

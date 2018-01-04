@@ -1,131 +1,99 @@
 <template>
-<div class="location">
-    <div class="loading" v-if="loading">
-        Loading...
-    </div>
-    <div class="content">
-        <b-container class="bv-example-row">
-            <form novalidate class="md-layout-row md-gutter" @submit.prevent="saveForm">
-                <b-row>
-                    <b-col cols="12" md="6">
-                        <md-field>
-                            <label>Select a picture</label>
-                            <md-file single v-model="fileinput" accept="image/*" @change="uploadImage($event)"/>
-                        </md-field>
+    <v-container fluid>
+        <v-layout wrap>
+            <div class="loading" v-if="loading">
+                Loading...
+            </div>
+            <form novalidate class="layout  wrap" @submit.prevent="saveForm">
+                <v-flex sm6 xs12 class="pa-3">
+                    <md-field>
+                        <label>Select a picture</label>
+                        <md-file single v-model="fileinput" accept="image/*" @change="uploadImage($event)" />
+                    </md-field>
+                    <div class="imagebox">
+                        <ul>
+                            <li :key="index" v-for="(image, index) in form.images">
+                                <img v-bind:src="image.thumb" alt="" />
+                                <span type="button" v-on:click="deleteImage(image.id)">
+                                    <v-icon dark>delete</v-icon>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
 
-                        <div class="imagebox">
-                            <ul>
-                                <li :key="index" v-for="(image, index) in form.images">
-                                    <img v-bind:src="image.thumb" alt="" />
-                                    <span type="button" v-on:click="deleteImage(image.id)">
-                                        <i  class="md-icon md-icon-font md-theme-default">delete</i>
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
+                    <input type="hidden" name="latitude" :value="form.latitude" id="latitude">
+                    <input type="hidden" name="longitude" :value="form.longitude" id="longitude">
 
-                        <input type="hidden" name="latitude" :value="form.latitude" id="latitude">
-                        <input type="hidden" name="longitude" :value="form.longitude" id="longitude">
-                        
-                        <gmap-map :zoom="14" :center="map" style="width: 100%; min-height: 300px">
-                            <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
-                        </gmap-map>
-                        <md-field>
-                        <label>Textarea</label>
-                            <md-textarea v-model="form.description" required></md-textarea>
-                            <span class="md-helper-text">Helper text</span>
-                            <span class="md-error">There is an error</span>
-                        </md-field>
-                    </b-col>
+                    <gmap-map :zoom="14" :center="map" style="width: 100%; min-height: 300px">
+                        <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
+                    </gmap-map>
+                    <v-text-field box dark multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
+                </v-flex>
+                <v-flex sm6 xs12 class="pa-3">
+                    <v-text-field box dark label="Location Name" v-model="form.title" :disabled="sending"></v-text-field>
 
-                    <b-col cols="12" md="6">
-                        <md-field :class="getValidationClass('locationName')">
-                            <label for="title">Location Name</label>
-                            <md-input name="title" id="title" v-model="form.title" :disabled="sending"
-                            />
-                            
-                        </md-field>
+                    <h4>Accesibillity</h4>
 
-                        <h4>Accesibillity</h4>
-                        <range-slider
-                            class="slider"
-                            min="0"
-                            max="10"
-                            step="1"
-                            v-model="form.accessibility">
-                        </range-slider>
-                        <md-field :class="getValidationClass('type')">
-                            <label for="type">Type</label>
-                            <md-select name="type" id="type" v-model="form.type" md-dense :disabled="sending">
-                                <md-option></md-option>
-                                <md-option value="Industry">Industry</md-option>
-                                <md-option value="Outdoor">Outdoor</md-option>
-                                <md-option value="Architecture">Architecture</md-option>
-                                <md-option value="Monument">Monument</md-option>
-                            </md-select>
-                            <span class="md-error">The type is required</span>
-                        </md-field>
-                        <md-field :class="getValidationClass('category')">
-                            <label for="category">Category</label>
-                            <md-select name="category" id="category" v-model="form.category" md-dense :disabled="sending">
-                                <md-option></md-option>
-                                <md-option value="building">Building</md-option>
-                                <md-option value="landscape">Landscape</md-option>
-                                <md-option value="urban">Urban</md-option>
-                                <md-option value="water">Water</md-option>
-                            </md-select>
-                            <span class="md-error">The category is required</span>
-                        </md-field>
-                            <h4>Wheather</h4>
-                        <b-row>
-                            <b-col>
+                    <v-slider color="teal" min="1" max="10" thumb-label ticks="true" v-model="form.accessibility"></v-slider>
+
+                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark item-value="text" :disabled="sending"></v-select>
+
+                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark item-value="text" :disabled="sending"></v-select>
+
+                    <h4>Wheather</h4>
+                    <v-container fluid>
+                        <v-layout wrap>
+                            <v-flex xs3>
                                 <input type="checkbox" name="cloudy" class="weather-icon cloudy" value="true" v-model="form.cloudy" id="cloudy">
                                 <label class="weather-label" for="cloudy"></label>
-                            </b-col>
-                            <b-col>
+                            </v-flex>
+                            <v-flex xs3>
                                 <input type="checkbox" name="foggy" class="weather-icon foggy" value="true" v-model="form.foggy" id="foggy">
                                 <label class="weather-label" for="foggy"></label>
-                            </b-col>
-                            <b-col>
+                            </v-flex>
+                            <v-flex xs3>
                                 <input type="checkbox" name="rainy" class="weather-icon rainy" value="true" v-model="form.rainy" id="rainy">
                                 <label class="weather-label" for="rainy"></label>
-                            </b-col>
-                            <b-col>
+                            </v-flex>
+                            <v-flex xs3>
                                 <input type="checkbox" name="sunny" class="weather-icon sunny" value="true" v-model="form.sunny" id="sunny">
                                 <label class="weather-label" for="sunny"></label>
-                            </b-col>
-                        </b-row>
-                        <h4>Seasons</h4>
-                        <b-row>
-                            <b-col>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+
+
+                    <h4>Seasons</h4>
+                    <v-container fluid>
+                        <v-layout wrap>
+                            <v-flex xs3>
                                 <input type="checkbox" name="spring" class="season-icon spring" value="true" v-model="form.spring" id="spring">
                                 <label class="season-label" for="spring"></label>
-                            </b-col>
-                            <b-col>
+                            </v-flex>
+                            <v-flex xs3>
                                 <input type="checkbox" name="summer" class="season-icon summer" value="true" v-model="form.summer" id="summer">
                                 <label class="season-label" for="summer"></label>
-                            </b-col>
-                            <b-col>
+                            </v-flex>
+                            <v-flex xs3>
                                 <input type="checkbox" name="autumn" class="season-icon autumn" value="true" v-model="form.autumn" id="autumn">
                                 <label class="season-label" for="autumn"></label>
-                            </b-col>
-                            <b-col>
+                            </v-flex>
+                            <v-flex xs3>
                                 <input type="checkbox" name="winter" class="season-icon winter" value="true" v-model="form.winter" id="winter">
                                 <label class="season-label" for="winter"></label>
-                            </b-col>
-                        </b-row>
-                    </b-col>
-                </b-row>
-                <md-snackbar :md-duration="2000" :md-active.sync="showSnackbar" md-persistent>
-                    <span>Image deleted!</span>
-                </md-snackbar>
-                <md-button class="md-primary" name="wp-submit" value="Anmelden" type="submit">Save</md-button>
-            </form>
-        </b-container>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
 
-    </div>
-    <!--     :icon="{url:'http://www.innovita.com/hunt/images/iconmaroon/SVG/map-marker.svg'}"-->
-</div>
+                </v-flex>
+                <v-snackbar :timeout="2500" :color="success" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
+                    Successfull deleted Image
+                    <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
+                </v-snackbar>
+                <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
+            </form>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -172,6 +140,18 @@ export default {
             winter: "false",
             description: 'null'
         },
+        type: [
+          { text: 'Industry' },
+          { text: 'Outdoor' },
+          { text: 'Architecture' },
+          { text: 'Monument' }
+        ],
+        category: [
+          { text: 'Building' },
+          { text: 'Landscape' },
+          { text: 'Urban' },
+          { text: 'Water' }
+        ],
         map: { lat: 51.07415364657628, lng: 13.762693740427494 },
         marker: { lat: 51.07415364657628, lng: 13.762693740427494 },
         locationSaved: false,

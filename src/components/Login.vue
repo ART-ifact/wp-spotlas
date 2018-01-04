@@ -1,41 +1,37 @@
 <template>
-    <b-container class="bv-example-row">
-        <b-row>
-            <b-col>
-                <login class="col-xs-10 col-sm-8 col-xs-offset-1 col-sm-offset-2">
-                    <div class="well mt50">
-                        <form v-on:submit.prevent="login">
-                            <p class="login-username form-group label-static">
-                                <md-field>
-                                    <label>Username</label>
-                                    <md-input id="user_login" v-model="username" type="text"></md-input>
-                                </md-field>
-                            </p>
-                            <p class="login-password form-group label-static">
-                                <md-field>
-                                    <label>Password</label>
-                                    <md-input id="user_password" v-model="password" type="password"></md-input>
-                                </md-field>
-                            </p>
-                            
-                            <p class="login-submit">
-                                <md-button class="md-primary" name="wp-submit" value="Anmelden" type="submit">Primary</md-button>
-                            </p>
-                        </form>
-                    </div>
-                </login>
-            </b-col>
-        </b-row>
-    </b-container>
+
+    <v-container grid-list-xl text-xs-center>
+        <v-layout row wrap>
+            <v-flex xs12 sm8 offset-xs0 offset-sm2>
+                <v-card dark color="dark" class="pa-3">
+                    <form v-on:submit.prevent="login">
+
+                        <v-text-field dark label="Username" id="user_login" v-model="username" required></v-text-field>
+
+                        <v-text-field
+                            label="Enter your password"
+                            v-model="password"
+                            :append-icon="passwordfield ? 'visibility' : 'visibility_off'"
+                            :append-icon-cb="() => (passwordfield = !passwordfield)"
+                            :type="passwordfield ? 'password' : 'text'"
+                            ></v-text-field>
+                            <v-btn color="primary" dark type="submit">Login</v-btn>
+                    </form>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
 
 export default {
-    data: {
-        // declare message with an empty value 
+    data () {
+      return {
         username: null,
         password: null,
+        passwordfield: true,
+      }
     },
     methods: {
         login: function () {

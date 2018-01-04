@@ -1,11 +1,11 @@
 <template>
-    <b-container class="bv-example-row">
-        <b-row>
-            <b-col>
+    <v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
+            <v-flex xs12>
                 <recent-posts-widget>Recent Posts</recent-posts-widget>
-            </b-col>
-        </b-row>
-    </b-container>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
