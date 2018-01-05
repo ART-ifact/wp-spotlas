@@ -1,11 +1,11 @@
 <template>
-    <v-container fluid>
-        <v-layout wrap>
-            <v-flex xs12 v-if="loading">
-                <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
-            </v-flex>
-            <v-form class="layout  wrap" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
-                <v-flex sm6 xs12 class="pa-3">
+    <v-layout row wrap>
+        <v-flex xs12 v-if="loading">
+            <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+        </v-flex>
+        <v-form class="xs12 flex" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
+            <v-layout row wrap>
+                <v-flex md6 xs12 class="pa-3">
                     <md-field>
                         <label>Select a picture</label>
                         <md-file single v-model="fileinput" accept="image/*" @change="uploadImage($event)" />
@@ -29,37 +29,39 @@
                     </gmap-map>
                     <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" required :rules="descriptionRules"></v-text-field>
                 </v-flex>
-                <v-flex sm6 xs12 class="pa-3">
+                <v-flex md6 xs12 class="pa-3">
                     <v-text-field dark color="teal" label="Location Name" v-model="form.title" :rules="titleRules" :disabled="sending"></v-text-field>
 
                     <h4>Accesibillity</h4>
 
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" v-model="form.accessibility" :disabled="sending"></v-slider>
 
-                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark color="teal" item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
+                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark color="teal" item-value="text" :disabled="sending" required
+                        :rules="typeRules"></v-select>
 
-                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark color="teal" item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
+                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark color="teal" item-value="text" :disabled="sending"
+                        required :rules="categoryRules"></v-select>
 
                     <h4>Wheather</h4>
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
-                                        <input type="checkbox" name="cloudy" class="weather-icon cloudy"  v-model="form.cloudy" id="cloudy" :disabled="sending">
-                                        <label class="weather-label" for="cloudy"></label>
-                                    </v-flex>
-                                    <v-flex xs3>
-                                        <input type="checkbox" name="foggy" class="weather-icon foggy"  v-model="form.foggy" id="foggy" :disabled="sending">
-                                        <label class="weather-label" for="foggy"></label>
-                                    </v-flex>
-                                    <v-flex xs3>
-                                        <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy" :disabled="sending">
-                                        <label class="weather-label" for="rainy"></label>
-                                    </v-flex>
-                                    <v-flex xs3>
-                                        <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny" :disabled="sending">
-                                        <label class="weather-label" for="sunny"></label>
-                                    </v-flex>
-                            
+                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="form.cloudy" id="cloudy" :disabled="sending">
+                                <label class="weather-label" for="cloudy"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="form.foggy" id="foggy" :disabled="sending">
+                                <label class="weather-label" for="foggy"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy" :disabled="sending">
+                                <label class="weather-label" for="rainy"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny" :disabled="sending">
+                                <label class="weather-label" for="sunny"></label>
+                            </v-flex>
+
                         </v-layout>
                     </v-container>
 
@@ -92,9 +94,9 @@
                     <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
                 </v-snackbar>
                 <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
-            </v-form>
-        </v-layout>
-    </v-container>
+            </v-layout>
+        </v-form>
+    </v-layout>
 </template>
 
 <script>

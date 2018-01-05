@@ -1,11 +1,11 @@
 <template>
-    <v-container fluid>
-        <v-layout wrap>
-            <div class="loading" v-if="loading || sending">
-                Loading...
-            </div>
-            <v-form class="layout  wrap" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
-                <v-flex sm6 xs12 class="pa-3">
+    <v-layout wrap>
+        <v-flex xs12 v-if="loading">
+            <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+        </v-flex>
+        <v-form class="xs12 flex" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
+            <v-layout row wrap>
+                <v-flex md6 xs12 class="pa-3">
                     <md-field>
                         <label>Select a picture</label>
                         <md-file single v-model="fileinput" accept="image/*" @change="uploadImage($event)" />
@@ -27,10 +27,12 @@
                     <gmap-map :zoom="12" :center="map" :options="{styles: styles}" style="width: 100%; margin-bottom: 1rem; min-height: 300px">
                         <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
-                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" :rules="descriptionRules" disabled="sending" required></v-text-field>
+                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" :rules="descriptionRules" disabled="sending"
+                        required></v-text-field>
                 </v-flex>
-                <v-flex sm6 xs12 class="pa-3">
-                    <v-text-field dark color="teal" :class="errors.has('title') ? error : valid" label="Location Name" v-model="form.title" :rules="titleRules" :disabled="sending" required>
+                <v-flex md6 xs12 class="pa-3">
+                    <v-text-field dark color="teal" :class="errors.has('title') ? error : valid" label="Location Name" v-model="form.title" :rules="titleRules"
+                        :disabled="sending" required>
                     </v-text-field>
 
                     <h4>Accesibillity</h4>
@@ -39,7 +41,8 @@
 
                     <v-select v-bind:items="type" v-model="form.type" label="Type" dark item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
 
-                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
+                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark item-value="text" :disabled="sending" required
+                        :rules="categoryRules"></v-select>
 
                     <h4>Wheather</h4>
                     <v-container fluid>
@@ -92,9 +95,9 @@
                     <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
                 </v-snackbar>
                 <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
-            </v-form>
-        </v-layout>
-    </v-container>
+            </v-layout>
+        </v-form>
+    </v-layout>
 </template>
 
 <script>
