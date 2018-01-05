@@ -31,11 +31,12 @@
                     </div>
                 </div>
             </gmap-info-window>
-            <gmap-marker v-if="m.category == 'Landscape'" :key="index" v-for="(m, index) in recentPosts" :icon="landscape" :position="m.lng" :clickable="true"  @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
-            <gmap-marker v-if="m.category == 'Building'" :key="index" v-for="(m, index) in recentPosts" :icon="builing" :position="m.lng"
-                :clickable="true" @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
-            <gmap-marker v-if="m.category != 'Building' && m.category != 'Landscape'" :key="index" v-for="(m, index) in recentPosts"
-                :icon="marker_icon" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
+            <gmap-marker v-if="m.type == 'Industry'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_industry" :position="m.lng" :clickable="true"  @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
+            <gmap-marker v-if="m.type == 'Outdoor'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_outdoor" :position="m.lng" :clickable="true"  @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
+            <gmap-marker v-if="m.type == 'Architecture'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_architecture" :position="m.lng" :clickable="true"  @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
+            <gmap-marker v-if="m.type == 'Monument'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_monument" :position="m.lng" :clickable="true"  @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
+            <gmap-marker v-if="m.type != 'Monument' && m.type != 'Architecture' && m.type != 'Outdoor' && m.type != 'Industry'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_icon" :position="m.lng" :clickable="true"  @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
+            
         </google-cluster>
     </gmap-map>
     </div>
@@ -61,41 +62,45 @@ export default {
             cluster_styles : [
                 {
                     url: 'https://www.yellowmap.de/Presentation/AldiSued/Content/img/pois/Clustericon.svg',
-                    height: 53,
-                    width: 53,
-                    textColor: '#FFFFFF',
-                    textSize: 13
+                    height: 30,
+                    width: 30,
+                    textColor: '#424242',
+                    textSize: 11
                 }
             ],
             marker_icon : {
-               url: 'https://www.walmart.ca/assets/img/pip/pickup-icon.svg'
+               url: ''
             },
-            landscape : {
-                url: 'https://www.walmart.ca/assets/img/pip/pickup-icon.svg'
+            marker_industry : {
+                url: ''
             },
-            builing : {
-                url: 'https://www.walmart.ca/assets/img/pip/pickup-icon.svg'
+            marker_outdoor : {
+                url: ''
+            },
+            marker_architecture : {
+                url: ''
+            },
+            marker_monument : {
+                url: ''
             },
             selectedMarker: null,
             showInfo: false,
             infoOptions: {
-                pixelOffset: {width: 0, height: -25}
+                pixelOffset: {width: 0, height: -29}
             }
       }
     },
      methods: {
-                toggleInfoWindow( idx) {
-                    //check if its the same marker that was selected if yes toggle
-                    if (this.currentMidx == idx) {
-                    this.infoWinOpen = !this.infoWinOpen;
-                    }
-                    //if different marker set infowindow to open and reset current marker index
-                    else {
-                    this.infoWinOpen = true;
-                    this.currentMidx = idx;
-                    }
-                }
-            },     
+            getIconPaths() {
+                this.cluster_styles[0].url = window.SETTINGS.THEMEURL + '/dist/assets/img/clustericon.svg'
+                this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
+                this.marker_industry.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_industry.svg'
+                this.marker_outdoor.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_outdoor.svg'
+                this.marker_architecture.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_architecture.svg'
+                this.marker_monument.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_monument.svg'
+                console.log(this.marker_icon.url);
+            }
+     },
 
     mounted() {
         this.styles = window.SETTINGS.mapStyles
@@ -103,6 +108,7 @@ export default {
     },
     created() {
         this.mapCenter = window.SETTINGS.MAPCENTER
+        this.getIconPaths();
     }
 }
 </script>

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-
+import router from '../router';
 export default {
     data () {
       return {
@@ -37,7 +37,7 @@ export default {
         login: function () {
             var url = '/wordpress/wp-json/custom-plugin/login?username=' + this.username + '&password=' + this.password;
             axios.get(url).then(function (response) {
-                window.location.reload(true);
+                router.push('/')
             }, function (error) {
                 console.log(error.statusText);
             });
