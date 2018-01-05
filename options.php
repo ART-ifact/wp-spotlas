@@ -90,6 +90,13 @@ function optionsframework_options() {
         		'name' => __('Map center Latitude', 'options_check'),
             		'id' => 'longitude',
         		'std' => '13.737262099999953',
+				'type' => 'text');
+		
+	$options[] = array(
+				'name' => __('The Location Basepath', 'options_check'),
+				'desc' => __('When your Wordpress is in a subdirectory of your domain', 'options_check'),
+            	'id' => 'basepath',
+        		'std' => '/',
         		'type' => 'text');
 
 	$options[] = array(

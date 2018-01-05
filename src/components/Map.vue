@@ -12,7 +12,7 @@
                 <div v-else class="infobox">
                     <div class="inner">
                         <div class="image">
-                            <a :href="'/wordpress/location/'+selectedMarker.id" class="quick-view">
+                            <a :href="wppath+'location/'+selectedMarker.id" class="quick-view">
                                 <div class="meta">
                                     <h2> {{selectedMarker.title.rendered}} </h2>
                                     <span class="location-access " v-bind:class="selectedMarker.accesibility">
@@ -20,9 +20,13 @@
                                     </span>
                                 </div>
                                 <div class="imageWrapper">
-                                    <div v-if="selectedMarker.images.length > 0" v-for="(image, index) in selectedMarker.images.slice(0,1)" :key="image.id">
+                                    <div v-if="selectedMarker.images.length > 0" v-for="image in selectedMarker.images.slice(0,1)" :key="image.id">
                                         <img  :src="image.large" :key="image.large" class="leaderimg">
                                         <div class="overlay"><span>Show Location</span></div>
+                                    </div>
+                                    <div v-if="selectedMarker.images.length < 1">
+                                        <img :src="placeholderImage">
+
                                     </div>
                                 </div>
                             </a>
@@ -53,8 +57,12 @@ export default {
         ...mapGetters({
             recentPosts: 'recentPosts',
             recentPostsLoaded: 'recentPostsLoaded'
-        })
+        }),
+        wppath() { 
+        return window.SETTINGS.WPPATH; 
+        }
     },
+
     data () {
       return {
             styles: null,
@@ -85,6 +93,7 @@ export default {
             },
             selectedMarker: null,
             showInfo: false,
+            placeholderImage: '',
             infoOptions: {
                 pixelOffset: {width: 0, height: -29}
             }
@@ -98,13 +107,13 @@ export default {
                 this.marker_outdoor.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_outdoor.svg'
                 this.marker_architecture.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_architecture.svg'
                 this.marker_monument.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_monument.svg'
-                console.log(this.marker_icon.url);
             }
      },
 
     mounted() {
         this.styles = window.SETTINGS.mapStyles
         this.$store.dispatch('getPosts')
+        this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
     },
     created() {
         this.mapCenter = window.SETTINGS.MAPCENTER

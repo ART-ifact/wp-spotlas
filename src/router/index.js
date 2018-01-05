@@ -13,6 +13,8 @@ import Edit from '../components/Edit'
 Vue.use(Router)
 
 
+console.log(document.getElementsByClassName('theme-url')[0].value);
+
 const router = new Router({
   routes: [
     {
@@ -55,7 +57,7 @@ const router = new Router({
     }
   ],
   mode: 'history',
-  base: '/wordpress',
+  base: document.getElementsByClassName('app-base')[0].value,
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
@@ -64,5 +66,6 @@ const router = new Router({
     }
   }
 })
+
 
 export default router

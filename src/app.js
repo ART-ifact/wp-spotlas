@@ -3,10 +3,10 @@ window.SETTINGS = {
   // This is likely determined by how many dispatched actions you have below
   // in the created() method
   LOADING_SEGMENTS: 2,
-  API_BASE_PATH: '/wordpress/wp-json/wp/v2/'
+  API_BASE_PATH: document.getElementsByClassName('app-base')[0].value + 'wp-json/wp/v2/'
 }
 
-window.SETTINGS.WPPATH = '/wordpress/';
+window.SETTINGS.WPPATH = document.getElementsByClassName('app-base')[0].value;
 window.SETTINGS.NONCE = document.getElementsByClassName('wpnonce')[0].value;
 window.SETTINGS.AJAXNONCE = document.getElementsByClassName('wpnonce-rest')[0].value;
 window.SETTINGS.LOGOUT = document.getElementsByClassName('logout-link')[0].value;
@@ -134,7 +134,7 @@ window.SETTINGS.mapStyles = [{
                             }]
                           }]
 
-require('./bootstrap')
+require('./bootstrap') 
 
 import 'babel-polyfill'
 import Vue from 'vue'
@@ -154,7 +154,7 @@ import * as VueGoogleMaps from 'vue2-google-maps';
 import {
   MdButton,
   MdField
-} from 'vue-material/dist/components';;
+} from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/black-green-dark.css'; // This line here
 
@@ -187,8 +187,6 @@ new Vue({
   render: h => h(App),
   created () {
     this.$store.commit(types.RESET_LOADING_PROGRESS)
-    this.$store.dispatch('getAllCategories')
-    this.$store.dispatch('getAllPages')
 
     // Once user is signed in/out, uncomment if you need Firebase authentication
     // auth.onAuthStateChanged(user => {

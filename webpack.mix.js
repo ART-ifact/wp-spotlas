@@ -14,7 +14,18 @@ let mix = require('laravel-mix');
 mix.setPublicPath('dist')
   .options({
     processCssUrls: false,
-    uglify: true
+    uglify: {
+      uglifyOptions: {
+        sourceMap: true,
+        compress: {
+          warnings: false,
+          drop_console: true,
+        },
+        output: {
+          comments: false
+        }
+      }
+    }, 
   })
    .js('src/app.js', 'scripts/')
    .extract([
@@ -24,7 +35,6 @@ mix.setPublicPath('dist')
       'lodash',
       'tether',
       'vue',
-      'bootstrap-vue',
       'vuex',
       'vuex-localstorage'
    ])

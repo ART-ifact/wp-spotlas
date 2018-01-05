@@ -10,13 +10,13 @@
                         <v-icon>menu</v-icon>
                         <v-icon>close</v-icon>
                     </v-btn>
-                    <v-btn :href="'/wordpress/add/'" fab dark small color="teal">
+                    <v-btn :href="wppath+'add/'" fab dark small color="teal">
                         <v-icon>add_location</v-icon>
                     </v-btn>
-                    <v-btn :href="'/wordpress/grid/'" fab dark small color="teal">
+                    <v-btn :href="wppath+'grid/'" fab dark small color="teal">
                         <v-icon>grid_on</v-icon>
                     </v-btn>
-                    <v-btn :href="'/wordpress/'" fab dark small color="teal">
+                    <v-btn :href="wppath" fab dark small color="teal">
                         <v-icon>map</v-icon>
                     </v-btn>
                     
@@ -52,9 +52,11 @@ export default {
 
     loaderStyle() {
       return `width: ${this.loadingProgress}%;`
+    },
+    wppath() { 
+      return window.SETTINGS.WPPATH; 
     }
   },
-
   components: {
     appHeader: Header,
     appFooter: Footer

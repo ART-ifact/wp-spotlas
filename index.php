@@ -7,7 +7,6 @@
   <link rel="profile" href="http://gmpg.org/xfn/11">
   <?php wp_head(); ?>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
-  <base href="/wordpress/">
 </head>
 <body>
 <?php $my_nonce = wp_create_nonce('media-form'); ?>
@@ -18,6 +17,7 @@
         <input type="hidden" class="theme-url" value="<?php echo esc_url( get_template_directory_uri() ); ?>">
         <input type="hidden" name="default_latitude" class="default_lat" value="<?php echo of_get_option('latitude');?>">
         <input type="hidden" name="default_longitude" class="default_lng" value="<?php echo of_get_option('longitude');?>">
+        <input type="hidden" name="app-base" class="app-base" value="<?php echo of_get_option('basepath');?>">
         <?php if ( !is_user_logged_in() ) {
             ?>
             <script>

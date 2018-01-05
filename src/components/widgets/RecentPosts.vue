@@ -63,7 +63,7 @@
                             </v-container>
             </div>
             <v-card-media  height="200px">
-              <div v-if="post.images.length > 0" v-for="(image, index) in post.images.slice(0,1)" :key="image.id">
+              <div v-if="post.images.length > 0" v-for="image in post.images.slice(0,1)" :key="image.id">
                 <img  :src="image.large" :key="image.large" class="leaderimg">
 
               </div>

@@ -33,9 +33,15 @@ export default {
         passwordfield: true,
       }
     },
+    computed: {
+        wppath() { 
+        return window.SETTINGS.WPPATH; 
+        }
+    },
+
     methods: {
         login: function () {
-            var url = '/wordpress/wp-json/custom-plugin/login?username=' + this.username + '&password=' + this.password;
+            var url = wppath() + 'wp-json/custom-plugin/login?username=' + this.username + '&password=' + this.password;
             axios.get(url).then(function (response) {
                 router.push('/')
             }, function (error) {

@@ -104,7 +104,7 @@
                 <v-icon>edit_location</v-icon>
                 <v-icon>close</v-icon>
             </v-btn>
-            <v-btn :href="'/wordpress/edit/'+locationdata.id" fab dark small color="teal">
+            <v-btn :href="wppath+'edit/'+locationdata.id" fab dark small color="teal">
                 <v-icon>edit</v-icon>
             </v-btn>
             <v-btn @click.native="dialog = true" fab dark small color="red">
@@ -225,7 +225,13 @@ export default {
         _this.getIconPaths();
         api.getPost(this.id, this.handleData);
 
-    }
+    },
+    computed: {
+        wppath() { 
+        return window.SETTINGS.WPPATH; 
+        }
+    },
+
 }
 </script>
 
