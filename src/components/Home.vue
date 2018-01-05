@@ -1,11 +1,8 @@
 <template>
-    <v-container grid-list-md text-xs-center>
-        <v-layout row wrap>
-            <v-flex xs12>
-                <recent-posts-widget>Recent Posts</recent-posts-widget>
-            </v-flex>
-        </v-layout>
-    </v-container>
+    <v-flex xs12 grid-list-md text-xs-center>
+        <recent-posts-widget>Recent Posts</recent-posts-widget>
+
+    </v-flex>
 </template>
 
 <script>

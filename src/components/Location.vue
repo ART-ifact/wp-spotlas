@@ -1,123 +1,124 @@
 <template>
-        <v-layout row wrap>
-            <v-flex xs12 v-if="loading">
-                <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
-            </v-flex>
+    <v-layout row wrap>
+        <v-flex xs12 v-if="loading">
+            <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+        </v-flex>
 
-                <v-flex xs12 v-if="locationdata">
-                    <h1 class="location-title">{{ locationdata.title.rendered }}</h1>
-                    <span class="location-access " v-bind:class="locationdata.accesibility">
-                        <span class="accessibility" v-bind:style="{ width: locationdata.accesibility + '0%' }"></span>
-                    </span>
-                </v-flex>
-                <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
-                    <v-carousel dark>
-                        <v-carousel-item v-if="locationdata.images.length > 0" v-for="(image,i) in locationdata.images" v-bind:src="image.large"
-                            :key="i"></v-carousel-item>
-                        <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>
-                    </v-carousel>
-                    <gmap-map v-if="locationdata" :center="locationdata.lng" :options="{styles: styles}" :zoom="14" style="width: 100%; min-height: 300px">
-                        <gmap-marker :position="locationdata.lng" :clickable="false">
-                        </gmap-marker>
-                    </gmap-map>
-                </v-flex>
-                <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
-                    <v-container fluid>
-                        <v-layout wrap>
-                            <v-flex xs6>
-                                <h4>Category</h4>
-                                <v-icon v-if="locationdata.category == 'landscape'">local_florist</v-icon>
-                                <v-icon v-if="locationdata.category == 'building'">home</v-icon>
-                                <v-icon v-if="locationdata.category == 'urban'">location_city</v-icon>
-                                <v-icon v-if="locationdata.category == 'water'">directions_boat</v-icon>
-                                {{locationdata.category}}
-                            </v-flex>
-                            <v-flex xs6>
-                                <h4>Type</h4>
-                                <v-icon v-if="locationdata.type == 'Industry'">build</v-icon>
-                                <v-icon v-if="locationdata.type == 'Outdoor'">terrain</v-icon>
-                                <v-icon v-if="locationdata.type == 'Architecture'">domain</v-icon>
-                                <v-icon v-if="locationdata.type == 'Monument'">whats_hot</v-icon>
-                                {{locationdata.type}}
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
+        <v-flex xs12 v-if="locationdata">
+            <h1 class="location-title">{{ locationdata.title.rendered }}</h1>
+            <span class="location-access " v-bind:class="locationdata.accesibility">
+                <span class="accessibility" v-bind:style="{ width: locationdata.accesibility + '0%' }"></span>
+            </span>
+        </v-flex>
+        <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
+            <v-carousel dark>
+                <v-carousel-item v-if="locationdata.images.length > 0" v-for="(image,i) in locationdata.images" v-bind:src="image.large"
+                    :key="i"></v-carousel-item>
+                <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>
+            </v-carousel>
+            <gmap-map v-if="locationdata" :center="locationdata.lng" :options="{styles: styles}" :zoom="14" style="width: 100%; min-height: 300px">
+                <gmap-marker :position="locationdata.lng" :clickable="false">
+                </gmap-marker>
+            </gmap-map>
+        </v-flex>
+        <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
+            <v-container fluid>
+                <v-layout wrap>
+                    <v-flex xs6>
+                        <h4>Category</h4>
+                        <v-icon v-if="locationdata.category == 'landscape'">local_florist</v-icon>
+                        <v-icon v-if="locationdata.category == 'building'">home</v-icon>
+                        <v-icon v-if="locationdata.category == 'urban'">location_city</v-icon>
+                        <v-icon v-if="locationdata.category == 'water'">directions_boat</v-icon>
+                        {{locationdata.category}}
+                    </v-flex>
+                    <v-flex xs6>
+                        <h4>Type</h4>
+                        <v-icon v-if="locationdata.type == 'Industry'">build</v-icon>
+                        <v-icon v-if="locationdata.type == 'Outdoor'">terrain</v-icon>
+                        <v-icon v-if="locationdata.type == 'Architecture'">domain</v-icon>
+                        <v-icon v-if="locationdata.type == 'Monument'">whats_hot</v-icon>
+                        {{locationdata.type}}
+                    </v-flex>
+                </v-layout>
+            </v-container>
 
-                    <v-container fluid>
-                        <v-layout wrap>
-                            <v-flex xs3>
-                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" :checked="locationdata.cloudy == 'true'" readonly>
-                                <label class="weather-label" for="cloudy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="foggy" class="weather-icon foggy" :checked="locationdata.foggy == 'true'" readonly>
-                                <label class="weather-label" for="foggy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="rainy" class="weather-icon rainy" :checked="locationdata.rainy == 'true'" readonly>
-                                <label class="weather-label" for="rainy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="sunny" class="weather-icon sunny" :checked="locationdata.sunny == 'true'" readonly>
-                                <label class="weather-label" for="sunny"></label>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                    <v-container fluid>
-                        <v-layout wrap>
-                            <v-flex xs3>
-                                <input type="checkbox" name="spring" class="season-icon spring" :checked="locationdata.spring == 'true'" readonly>
-                                <label class="season-label" for="spring"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="summer" class="season-icon summer" :checked="locationdata.summer == 'true'" readonly>
-                                <label class="season-label" for="summer"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="autumn" class="season-icon autumn" :checked="locationdata.autumn == 'true'" readonly>
-                                <label class="season-label" for="autumn"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="winter" class="season-icon winter" :checked="locationdata.winter == 'true'" readonly>
-                                <label class="season-label" for="winter"></label>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                    <v-container fluid>
-                        <v-layout wrap>
-                            <v-flex xs12>
-                                <h4>Notes</h4>
-                                <p>
-                                    {{locationdata.content.rendered}}
-                                </p>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
+            <v-container fluid>
+                <v-layout wrap>
+                    <v-flex xs3>
+                        <input type="checkbox" name="cloudy" class="weather-icon cloudy" :checked="locationdata.cloudy == 'true'" readonly>
+                        <label class="weather-label" for="cloudy"></label>
+                    </v-flex>
+                    <v-flex xs3>
+                        <input type="checkbox" name="foggy" class="weather-icon foggy" :checked="locationdata.foggy == 'true'" readonly>
+                        <label class="weather-label" for="foggy"></label>
+                    </v-flex>
+                    <v-flex xs3>
+                        <input type="checkbox" name="rainy" class="weather-icon rainy" :checked="locationdata.rainy == 'true'" readonly>
+                        <label class="weather-label" for="rainy"></label>
+                    </v-flex>
+                    <v-flex xs3>
+                        <input type="checkbox" name="sunny" class="weather-icon sunny" :checked="locationdata.sunny == 'true'" readonly>
+                        <label class="weather-label" for="sunny"></label>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+            <v-container fluid>
+                <v-layout wrap>
+                    <v-flex xs3>
+                        <input type="checkbox" name="spring" class="season-icon spring" :checked="locationdata.spring == 'true'" readonly>
+                        <label class="season-label" for="spring"></label>
+                    </v-flex>
+                    <v-flex xs3>
+                        <input type="checkbox" name="summer" class="season-icon summer" :checked="locationdata.summer == 'true'" readonly>
+                        <label class="season-label" for="summer"></label>
+                    </v-flex>
+                    <v-flex xs3>
+                        <input type="checkbox" name="autumn" class="season-icon autumn" :checked="locationdata.autumn == 'true'" readonly>
+                        <label class="season-label" for="autumn"></label>
+                    </v-flex>
+                    <v-flex xs3>
+                        <input type="checkbox" name="winter" class="season-icon winter" :checked="locationdata.winter == 'true'" readonly>
+                        <label class="season-label" for="winter"></label>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+            <v-container fluid>
+                <v-layout wrap>
+                    <v-flex xs12>
+                        <h4>Notes</h4>
+                        <p>
+                            {{locationdata.content.rendered}}
+                        </p>
+                    </v-flex>
+                </v-layout>
+            </v-container>
 
-                </v-flex>
-                <v-speed-dial v-if="locationdata" fab small large dark absolute top right class="btn-edit" :direction="'bottom'" :hover="true" :transition="'slide-y-reverse-transition'">
-                    <v-btn slot="activator" color="teal darken-2" dark fab hover>
-                        <v-icon>edit_location</v-icon>
-                        <v-icon>close</v-icon>
-                    </v-btn>
-                    <v-btn :href="'/wordpress/edit/'+locationdata.id" fab dark small color="teal">
-                        <v-icon>edit</v-icon>
-                    </v-btn>
-                    <v-btn @click.native="dialog = true" fab dark small color="red">
-                        <v-icon>delete</v-icon>
-                    </v-btn>
-                </v-speed-dial>
-                <v-dialog v-if="locationdata" v-model="dialog" persistent max-width="380">
-                    <v-card>
-                        <v-card-title class="headline">You sure want to delete location {{ locationdata.title.rendered }} ?</v-card-title>
-                        <v-card-actions>
-                            <v-btn color="teal darken-1" @click.stop="dialog=false">Abort</v-btn>
-                            <v-spacer></v-spacer>
-                            <v-btn color="red darken-1" @click="deleteLocation">Delete</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-        </v-layout>
+        </v-flex>
+        <v-speed-dial v-if="locationdata" fab small large dark absolute top right class="btn-edit" :direction="'bottom'" :hover="true"
+            :transition="'slide-y-reverse-transition'">
+            <v-btn slot="activator" color="teal darken-2" dark fab hover>
+                <v-icon>edit_location</v-icon>
+                <v-icon>close</v-icon>
+            </v-btn>
+            <v-btn :href="'/wordpress/edit/'+locationdata.id" fab dark small color="teal">
+                <v-icon>edit</v-icon>
+            </v-btn>
+            <v-btn @click.native="dialog = true" fab dark small color="red">
+                <v-icon>delete</v-icon>
+            </v-btn>
+        </v-speed-dial>
+        <v-dialog v-if="locationdata" v-model="dialog" persistent max-width="380">
+            <v-card>
+                <v-card-title class="headline">You sure want to delete location {{ locationdata.title.rendered }} ?</v-card-title>
+                <v-card-actions>
+                    <v-btn color="teal darken-1" @click.stop="dialog=false">Abort</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn color="red darken-1" @click="deleteLocation">Delete</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </v-layout>
 </template>
 
 <script>

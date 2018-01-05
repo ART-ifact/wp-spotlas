@@ -1,10 +1,9 @@
 <template>
-  <v-container fluid>
     <v-layout row wrap>
       <v-flex xs12 v-if="!recentPosts">
         <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
       </v-flex>
-      <v-flex sm4 xs12 md3 v-for="post in recentPosts" :key="post.id">
+      <v-flex class="pa-2" md3 sm6 xs12 v-for="post in recentPosts" :key="post.id">
         <v-card color="dark darken-2" class="white--text">
           <router-link v-bind:to="'/location/'+post.id">
             <div class="meta-data">
@@ -79,7 +78,6 @@
         </v-card>
       </v-flex>
     </v-layout>
-  </v-container>
 </template>
 
 <script>
