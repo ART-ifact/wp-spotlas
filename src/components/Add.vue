@@ -27,14 +27,14 @@
                     <gmap-map :zoom="12" :center="map" :options="{styles: styles}" style="width: 100%; min-height: 300px">
                         <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
-                    <v-text-field dark multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
+                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
                 </v-flex>
                 <v-flex sm6 xs12 class="pa-3">
-                    <v-text-field dark label="Location Name" v-model="form.title" :disabled="sending"></v-text-field>
+                    <v-text-field dark color="teal" label="Location Name" v-model="form.title" :disabled="sending" required></v-text-field>
 
                     <h4>Accesibillity</h4>
 
-                    <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" v-model="form.accessibility"></v-slider>
+                    <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" :disabled="sending" v-model="form.accessibility"></v-slider>
 
                     <v-select v-bind:items="type" v-model="form.type" label="Type" dark item-value="text" :disabled="sending"></v-select>
 
@@ -44,19 +44,19 @@
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
-                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="form.cloudy" id="cloudy">
+                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="form.cloudy" id="cloudy" :disabled="sending">
                                 <label class="weather-label" for="cloudy"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="form.foggy" id="foggy">
+                                <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="form.foggy" id="foggy" :disabled="sending">
                                 <label class="weather-label" for="foggy"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy">
+                                <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy" :disabled="sending">
                                 <label class="weather-label" for="rainy"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny">
+                                <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny" :disabled="sending">
                                 <label class="weather-label" for="sunny"></label>
                             </v-flex>
                         </v-layout>
@@ -67,19 +67,19 @@
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
-                                <input type="checkbox" name="spring" class="season-icon spring" v-model="form.spring" id="spring">
+                                <input type="checkbox" name="spring" class="season-icon spring" v-model="form.spring" id="spring" :disabled="sending">
                                 <label class="season-label" for="spring"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="summer" class="season-icon summer" v-model="form.summer" id="summer">
+                                <input type="checkbox" name="summer" class="season-icon summer" v-model="form.summer" id="summer" :disabled="sending">
                                 <label class="season-label" for="summer"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="autumn" class="season-icon autumn" v-model="form.autumn" id="autumn">
+                                <input type="checkbox" name="autumn" class="season-icon autumn" v-model="form.autumn" id="autumn" :disabled="sending">
                                 <label class="season-label" for="autumn"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="winter" class="season-icon winter" v-model="form.winter" id="winter">
+                                <input type="checkbox" name="winter" class="season-icon winter" v-model="form.winter" id="winter" :disabled="sending">
                                 <label class="season-label" for="winter"></label>
                             </v-flex>
                         </v-layout>
