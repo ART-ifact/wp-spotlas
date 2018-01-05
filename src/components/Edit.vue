@@ -1,9 +1,9 @@
 <template>
     <v-container fluid>
         <v-layout wrap>
-            <div class="loading" v-if="loading">
-                Loading...
-            </div>
+            <v-flex xs12 v-if="loading">
+                <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+            </v-flex>
             <v-form class="layout  wrap" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
                 <v-flex sm6 xs12 class="pa-3">
                     <md-field>

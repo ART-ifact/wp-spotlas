@@ -1,9 +1,9 @@
 <template>
     <v-container fluid>
         <v-layout wrap>
-            <div class="loading" v-if="loading">
-                Loading...
-            </div>
+            <v-flex xs12 v-if="loading">
+                <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+            </v-flex>
             <div v-if="locationdata" class="content">
                 <v-container class="location ">
                     <h2 class="location-title">{{ locationdata.title.rendered }}</h2>

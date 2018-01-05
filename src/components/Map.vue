@@ -1,5 +1,9 @@
 <template>
-    <gmap-map :center="mapCenter" :zoom="12" ref="mmm" :options="{styles: styles}" style="width: 100vw; height: calc(100vh - 66px);margin: -15px;">
+    <div style="display: contents;">
+        <v-flex xs12 v-if="!recentPosts">
+            <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+        </v-flex>
+        <gmap-map :center="mapCenter" :zoom="12" ref="mmm" :options="{styles: styles}" style="width: 100vw; height: calc(100vh - 66px);margin: -15px;">
         <google-cluster :styles="cluster_styles">
             <gmap-info-window :position="selectedMarker.lng" :options="infoOptions" v-if="selectedMarker">
                 <div class="infobox">
@@ -37,6 +41,7 @@
                 :icon="marker_icon" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;" ></gmap-marker>
         </google-cluster>
     </gmap-map>
+    </div>
 </template>
 
 <script>

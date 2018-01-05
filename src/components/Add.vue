@@ -138,10 +138,10 @@ export default {
           { text: 'Monument' }
         ],
         category: [
-          { text: 'Building' },
-          { text: 'Landscape' },
-          { text: 'Urban' },
-          { text: 'Water' }
+          { text: 'building' },
+          { text: 'landscape' },
+          { text: 'urban' },
+          { text: 'water' }
         ],
         ticks: true,
         mode: '',
