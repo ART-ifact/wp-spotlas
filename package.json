@@ -48,6 +48,7 @@
   "dependencies": {
     "exif-js": "^2.3.0",
     "marker-clusterer-plus": "^2.1.4",
+    "vee-validate": "^2.0.0",
     "vue": "^2.5.2",
     "vue-carousel": "^0.6.5",
     "vue-material": "^1.0.0-beta-7",

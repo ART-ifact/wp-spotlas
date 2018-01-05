@@ -4,7 +4,7 @@
             <div class="loading" v-if="loading">
                 Loading...
             </div>
-            <form novalidate class="layout  wrap" @submit.prevent="saveForm">
+            <v-form class="layout  wrap" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
                 <v-flex sm6 xs12 class="pa-3">
                     <md-field>
                         <label>Select a picture</label>
@@ -27,36 +27,36 @@
                     <gmap-map :zoom="12" v-if="form.lng" :center="form.lng" :options="{styles: styles}" style="width: 100%; min-height: 300px">
                         <gmap-marker :position="form.lng" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
-                    <v-text-field dark multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
+                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" required :rules="descriptionRules"></v-text-field>
                 </v-flex>
                 <v-flex sm6 xs12 class="pa-3">
-                    <v-text-field dark label="Location Name" v-model="form.title" :disabled="sending"></v-text-field>
+                    <v-text-field dark color="teal" label="Location Name" v-model="form.title" :rules="titleRules" :disabled="sending"></v-text-field>
 
                     <h4>Accesibillity</h4>
 
-                    <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" v-model="form.accessibility"></v-slider>
+                    <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" v-model="form.accessibility" :disabled="sending"></v-slider>
 
-                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark item-value="text" :disabled="sending"></v-select>
+                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark color="teal" item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
 
-                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark item-value="text" :disabled="sending"></v-select>
+                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark color="teal" item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
 
                     <h4>Wheather</h4>
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
-                                        <input type="checkbox" name="cloudy" class="weather-icon cloudy"  v-model="form.cloudy" id="cloudy">
+                                        <input type="checkbox" name="cloudy" class="weather-icon cloudy"  v-model="form.cloudy" id="cloudy" :disabled="sending">
                                         <label class="weather-label" for="cloudy"></label>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <input type="checkbox" name="foggy" class="weather-icon foggy"  v-model="form.foggy" id="foggy">
+                                        <input type="checkbox" name="foggy" class="weather-icon foggy"  v-model="form.foggy" id="foggy" :disabled="sending">
                                         <label class="weather-label" for="foggy"></label>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy">
+                                        <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="form.rainy" id="rainy" :disabled="sending">
                                         <label class="weather-label" for="rainy"></label>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny">
+                                        <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="form.sunny" id="sunny" :disabled="sending">
                                         <label class="weather-label" for="sunny"></label>
                                     </v-flex>
                             
@@ -68,19 +68,19 @@
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
-                                <input type="checkbox" name="spring" class="season-icon spring" v-model="form.spring" id="spring">
+                                <input type="checkbox" name="spring" class="season-icon spring" v-model="form.spring" id="spring" :disabled="sending">
                                 <label class="season-label" for="spring"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="summer" class="season-icon summer" v-model="form.summer" id="summer">
+                                <input type="checkbox" name="summer" class="season-icon summer" v-model="form.summer" id="summer" :disabled="sending">
                                 <label class="season-label" for="summer"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="autumn" class="season-icon autumn" v-model="form.autumn" id="autumn">
+                                <input type="checkbox" name="autumn" class="season-icon autumn" v-model="form.autumn" id="autumn" :disabled="sending">
                                 <label class="season-label" for="autumn"></label>
                             </v-flex>
                             <v-flex xs3>
-                                <input type="checkbox" name="winter" class="season-icon winter" v-model="form.winter" id="winter">
+                                <input type="checkbox" name="winter" class="season-icon winter" v-model="form.winter" id="winter" :disabled="sending">
                                 <label class="season-label" for="winter"></label>
                             </v-flex>
                         </v-layout>
@@ -92,7 +92,7 @@
                     <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
                 </v-snackbar>
                 <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
-            </form>
+            </v-form>
         </v-layout>
     </v-container>
 </template>
@@ -164,7 +164,20 @@ export default {
         sending: false,
         fileinput: null,
         showSnackbar: false,
-        styles: null
+        styles: null,
+        valid: true,
+        titleRules: [
+          (v) => !!v || 'Title is required'
+        ],
+        descriptionRules: [
+          (v) => !!v || 'Title is required'
+        ],
+        typeRules: [
+          (v) => !!v || 'Type is required'
+        ],
+        categoryRules: [
+          (v) => !!v || 'Category is required'
+        ],
     }),
     validations: {
         form: {
@@ -204,42 +217,39 @@ export default {
             this.loading = false
         },
         saveForm() {
-            console.log(this.form);
-            var path = window.SETTINGS.THEMEURL + '/formhandlers/edit-location.php';
-            var formData = new FormData();
-            formData.append("id", this.form.id);
-            formData.append("title", this.form.title);
-            formData.append("type", this.form.type);
-            formData.append("category", this.form.category);
-            formData.append("accesibility", this.form.accessibility);
-            formData.append("lat", this.form.latitude);
-            formData.append("lng", this.form.longitude);
-            formData.append("images", JSON.stringify(this.form.images));
-            formData.append("sunny", this.form.sunny);
-            formData.append("cloudy", this.form.cloudy);
-            formData.append("foggy", this.form.foggy);
-            formData.append("rainy", this.form.rainy);
-            formData.append("spring", this.form.spring);
-            formData.append("summer", this.form.summer);
-            formData.append("autumn", this.form.autumn);
-            formData.append("winter", this.form.winter);
-            formData.append("description", this.form.description);
+            if (this.$refs.form.validate()) {
+                console.log(this.form);
+                var path = window.SETTINGS.THEMEURL + '/formhandlers/edit-location.php';
+                var formData = new FormData();
+                formData.append("id", this.form.id);
+                formData.append("title", this.form.title);
+                formData.append("type", this.form.type);
+                formData.append("category", this.form.category);
+                formData.append("accesibility", this.form.accessibility);
+                formData.append("lat", this.form.latitude);
+                formData.append("lng", this.form.longitude);
+                formData.append("images", JSON.stringify(this.form.images));
+                formData.append("sunny", this.form.sunny);
+                formData.append("cloudy", this.form.cloudy);
+                formData.append("foggy", this.form.foggy);
+                formData.append("rainy", this.form.rainy);
+                formData.append("spring", this.form.spring);
+                formData.append("summer", this.form.summer);
+                formData.append("autumn", this.form.autumn);
+                formData.append("winter", this.form.winter);
+                formData.append("description", this.form.description);
 
-            console.log(formData);
-            let _this = this;
+                console.log(formData);
+                let _this = this;
 
-            axios.post(path, formData)
-            .then(function(response){
-                console.log(response)
-                router.push('/location/'+_this.form.id)
-            }).catch(function(e){
-                console.log(e);
-            });
-
-            var formData = new FormData();
-            formData.append("action", "upload-attachment");
-            formData.append("async-upload", fileInput);
-            formData.append("name", fileInput.name);
+                axios.post(path, formData)
+                .then(function(response){
+                    console.log(response)
+                    router.push('/location/'+_this.form.id)
+                }).catch(function(e){
+                    console.log(e);
+                });
+            }
         },
         getMarkerPosition(marker) {
             let _this = this

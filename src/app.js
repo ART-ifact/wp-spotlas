@@ -140,6 +140,7 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueLazyload from 'vue-lazyload'
+import VeeValidate from 'vee-validate';
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -158,6 +159,7 @@ import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/black-green-dark.css'; // This line here
 
 Vue.use(MdButton);
+Vue.use(VeeValidate);
 Vue.use(MdField);
 Vue.use(Vuetify);
 Vue.use(VueLazyload);
@@ -165,7 +167,7 @@ Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyA4ALxZp1Ourvckn_07_BahbGq7KI4u8Dg',
     libraries: 'places', // This is required if you use the Autocomplete plugin
-  }
+  },
 })
 Vue.component('google-cluster', VueGoogleMaps.Cluster);
 
@@ -187,24 +189,6 @@ new Vue({
     this.$store.commit(types.RESET_LOADING_PROGRESS)
     this.$store.dispatch('getAllCategories')
     this.$store.dispatch('getAllPages')
-
-    VueGoogleMaps.loaded.then(function () {
-      self.mapOptions = {
-        mapTypeControl: true,
-        mapTypeControlOptions: {
-          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-          position: google.maps.ControlPosition.TOP_LEFT
-        },
-        streetViewControl: true,
-        streetViewControlOptions: {
-          position: google.maps.ControlPosition.TOP_RIGHT
-        },
-        zoomControl: true,
-        zoomControlOptions: {
-          position: google.maps.ControlPosition.TOP_RIGHT
-        }
-      };
-    });
 
     // Once user is signed in/out, uncomment if you need Firebase authentication
     // auth.onAuthStateChanged(user => {

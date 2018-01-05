@@ -12,7 +12,7 @@
                     </span>
                     <v-layout>
                         <v-flex sm6 xs12 class="pa-3">
-                            <v-carousel dark>
+                            <v-carousel dark >
                                 <v-carousel-item v-if="locationdata.images.length > 0" v-for="(image,i) in locationdata.images" v-bind:src="image.large"
                                     :key="i"></v-carousel-item>
                                 <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>

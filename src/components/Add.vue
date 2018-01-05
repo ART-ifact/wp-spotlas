@@ -1,10 +1,10 @@
 <template>
     <v-container fluid>
         <v-layout wrap>
-            <div class="loading" v-if="loading">
+            <div class="loading" v-if="loading || sending">
                 Loading...
             </div>
-            <form novalidate class="layout  wrap" @submit.prevent="saveForm">
+            <v-form class="layout  wrap" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
                 <v-flex sm6 xs12 class="pa-3">
                     <md-field>
                         <label>Select a picture</label>
@@ -24,21 +24,22 @@
                     <input type="hidden" name="latitude" :value="form.latitude" id="latitude">
                     <input type="hidden" name="longitude" :value="form.longitude" id="longitude">
 
-                    <gmap-map :zoom="12" :center="map" :options="{styles: styles}" style="width: 100%; min-height: 300px">
+                    <gmap-map :zoom="12" :center="map" :options="{styles: styles}" style="width: 100%; margin-bottom: 1rem; min-height: 300px">
                         <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
-                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" required></v-text-field>
+                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" :rules="descriptionRules" disabled="sending" required></v-text-field>
                 </v-flex>
                 <v-flex sm6 xs12 class="pa-3">
-                    <v-text-field dark color="teal" label="Location Name" v-model="form.title" :disabled="sending" required></v-text-field>
+                    <v-text-field dark color="teal" :class="errors.has('title') ? error : valid" label="Location Name" v-model="form.title" :rules="titleRules" :disabled="sending" required>
+                    </v-text-field>
 
                     <h4>Accesibillity</h4>
 
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" :disabled="sending" v-model="form.accessibility"></v-slider>
 
-                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark item-value="text" :disabled="sending"></v-select>
+                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
 
-                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark item-value="text" :disabled="sending"></v-select>
+                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
 
                     <h4>Wheather</h4>
                     <v-container fluid>
@@ -91,7 +92,7 @@
                     <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
                 </v-snackbar>
                 <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
-            </form>
+            </v-form>
         </v-layout>
     </v-container>
 </template>
@@ -101,23 +102,12 @@ import router from '../router';
 import RangeSlider from 'vue-range-slider'
 import EXIF from 'exif-js'
 import {
-    validationMixin
-} from 'vuelidate'
-import {
-    required,
-    email,
-    minLength,
-    maxLength
-} from 'vuelidate/lib/validators'
-import {
     mapGetters
 } from 'vuex'
 import api from '../api'
 
 
 export default {
-    name: 'FormValidation',
-    mixins: [validationMixin],
     components: {
         RangeSlider
     },
@@ -161,77 +151,60 @@ export default {
         sending: false,
         fileinput: null,
         showSnackbar: false,
-        styles: null
+        styles: null,
+        valid: false,
+        titleRules: [
+          (v) => !!v || 'Title is required'
+        ],
+        descriptionRules: [
+          (v) => !!v || 'Title is required'
+        ],
+        typeRules: [
+          (v) => !!v || 'Type is required'
+        ],
+        categoryRules: [
+          (v) => !!v || 'Category is required'
+        ],
     }),
-    validations: {
-        form: {
-            title: {
-                required,
-                minLength: minLength(3)
-            },
-            type: {
-                required
-            },
-            category: {
-                required
-            },
-        }
-    },
-
     methods: {
-        getValidationClass(fieldName) {
-            const field = this.$v.form[fieldName]
-
-            if (field) {
-                return {
-                    'md-invalid': field.$invalid && field.$dirty
-                }
-            }
-        },
         saveForm() {
-            console.log(this.form);
-            var path = window.SETTINGS.THEMEURL + '/formhandlers/add-location.php';
-            var formData = new FormData();
-            formData.append("title", this.form.title);
-            formData.append("type", this.form.type);
-            formData.append("category", this.form.category);
-            formData.append("accesibility", this.form.accessibility);
-            formData.append("lat", this.form.latitude);
-            formData.append("lng", this.form.longitude);
-            formData.append("images", JSON.stringify(this.form.images));
-            formData.append("sunny", this.form.sunny);
-            formData.append("cloudy", this.form.cloudy);
-            formData.append("foggy", this.form.foggy);
-            formData.append("rainy", this.form.rainy);
-            formData.append("spring", this.form.spring);
-            formData.append("summer", this.form.summer);
-            formData.append("autumn", this.form.autumn);
-            formData.append("winter", this.form.winter);
-            formData.append("description", this.form.description);
+            if (this.$refs.form.validate()) {
+                console.log(this.form);
+                var path = window.SETTINGS.THEMEURL + '/formhandlers/add-location.php';
+                var formData = new FormData();
+                formData.append("title", this.form.title);
+                formData.append("type", this.form.type);
+                formData.append("category", this.form.category);
+                formData.append("accesibility", this.form.accessibility);
+                formData.append("lat", this.form.latitude);
+                formData.append("lng", this.form.longitude);
+                formData.append("images", JSON.stringify(this.form.images));
+                formData.append("sunny", this.form.sunny);
+                formData.append("cloudy", this.form.cloudy);
+                formData.append("foggy", this.form.foggy);
+                formData.append("rainy", this.form.rainy);
+                formData.append("spring", this.form.spring);
+                formData.append("summer", this.form.summer);
+                formData.append("autumn", this.form.autumn);
+                formData.append("winter", this.form.winter);
+                formData.append("description", this.form.description);
 
-            console.log(formData);
+                console.log(formData);
 
-            axios.post(path, formData)
-            .then(function(response){
-                console.log(response)
-                router.push('/grid/')
-            }).catch(function(e){
-                console.log(e);
-            });
-
-            var formData = new FormData();
-            formData.append("action", "upload-attachment");
-            formData.append("async-upload", fileInput);
-            formData.append("name", fileInput.name);
+                axios.post(path, formData)
+                .then(function(response){
+                    router.push('/grid/')
+                }).catch(function(e){
+                    console.log(e);
+                });
+            }
         },
         getMarkerPosition(marker) {
             let _this = this
             _this.map = marker;
-            console.log(JSON.stringify(marker));
             var markerObject = JSON.parse(JSON.stringify(marker));
             _this.form.latitude = JSON.stringify(markerObject.lat);
             _this.form.longitude = JSON.stringify(markerObject.lng);
-            console.log(_this.form.latitude, _this.form.longitude)
 
         },
         updateMap(longitude,latitude) {
@@ -258,16 +231,15 @@ export default {
         },
         upload(fileInput){
             let _this = this
-            console.log(fileInput.name, fileInput)
             var formData = new FormData();
+            var xhr = new XMLHttpRequest();
+            _this.sending = true;
+
             formData.append("action", "upload-attachment");
             formData.append("async-upload", fileInput);
             formData.append("name", fileInput.name);
-
-            //also available on page from _wpPluploadSettings.defaults.multipart_params._wpnonce
-
             formData.append("_wpnonce", window.SETTINGS.NONCE);
-            var xhr = new XMLHttpRequest();
+
             xhr.onreadystatechange=function(){
                 if (xhr.readyState==4 && xhr.status==200){
                     if (xhr.responseText){
@@ -277,12 +249,11 @@ export default {
                             var pictureURLLarge = response.data.sizes.full.url;
                             var pictureURLThumb = response.data.sizes.thumbnail.url;
                             var tmp_obj = {"id": response.data.id, "large": pictureURLLarge, "thumb": pictureURLThumb};
-                            console.log(_this.form.images)
+
                             _this.form.images.push(tmp_obj);
 
-                            console.log(_this.form.images);
-
                             _this.fileinput = null;
+                            _this.sending = false;
                     }
                 }
             };
