@@ -25,9 +25,9 @@
                     <input type="hidden" name="longitude" :value="form.longitude" id="longitude">
 
                     <gmap-map :zoom="12" :center="map" :options="{styles: styles}" style="width: 100%; margin-bottom: 1rem; min-height: 300px">
-                        <gmap-marker :position="marker" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
+                        <gmap-marker :position="marker" :clickable="true" :icon="marker_icon" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
-                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" :rules="descriptionRules" disabled="sending"
+                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" :rules="descriptionRules" :disabled="sending"
                         required></v-text-field>
                 </v-flex>
                 <v-flex md6 xs12 class="pa-3">
@@ -146,6 +146,9 @@ export default {
           { text: 'urban' },
           { text: 'water' }
         ],
+        marker_icon : {
+               url: ''
+            },
         ticks: true,
         mode: '',
         map: null,
@@ -202,6 +205,9 @@ export default {
                 });
             }
         },
+        getIconPaths() {
+                this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
+            },
         getMarkerPosition(marker) {
             let _this = this
             _this.map = marker;
@@ -325,7 +331,7 @@ export default {
         this.marker = this.mapCenter = window.SETTINGS.MAPCENTER
         this.styles = window.SETTINGS.mapStyles
         this.loading = false
-
+        this.getIconPaths();
 
     }
 }

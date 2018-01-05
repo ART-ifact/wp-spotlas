@@ -17,8 +17,11 @@
                 <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>
             </v-carousel>
             <gmap-map v-if="locationdata" :center="locationdata.lng" :options="{styles: styles}" :zoom="14" style="width: 100%; min-height: 300px">
-                <gmap-marker :position="locationdata.lng" :clickable="false">
-                </gmap-marker>
+                <gmap-marker v-if="locationdata.type == 'Industry'"  :icon="marker_industry" :position="locationdata.lng"  ></gmap-marker>
+                <gmap-marker v-if="locationdata.type == 'Outdoor'"  :icon="marker_outdoor" :position="locationdata.lng"  ></gmap-marker>
+                <gmap-marker v-if="locationdata.type == 'Architecture'"  :icon="marker_architecture" :position="locationdata.lng"  ></gmap-marker>
+                <gmap-marker v-if="locationdata.type == 'Monument'"  :icon="marker_monument" :position="locationdata.lng"  ></gmap-marker>
+                <gmap-marker v-if="locationdata.type != 'Monument' && locationdata.type != 'Architecture' && locationdata.type != 'Outdoor' && locationdata.type != 'Industry'"  :icon="marker_icon" :position="locationdata.lng"  ></gmap-marker>
             </gmap-map>
         </v-flex>
         <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
@@ -143,11 +146,33 @@ export default {
         infoWinOpen: false,
         placeholderImage: '',
         dialog: false,
-        styles: null
+        styles: null,
+        marker_icon : {
+               url: ''
+            },
+            marker_industry : {
+                url: ''
+            },
+            marker_outdoor : {
+                url: ''
+            },
+            marker_architecture : {
+                url: ''
+            },
+            marker_monument : {
+                url: ''
+            },
         }
     },
 
     methods: {
+        getIconPaths() {
+                this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
+                this.marker_industry.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_industry.svg'
+                this.marker_outdoor.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_outdoor.svg'
+                this.marker_architecture.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_architecture.svg'
+                this.marker_monument.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_monument.svg'
+            },
         handleData(data) {;
             this.locationdata = data;
             console.log(JSON.stringify(this.locationdata))
@@ -197,6 +222,7 @@ export default {
         this.loading = true
         let _this = this;
         _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
+        _this.getIconPaths();
         api.getPost(this.id, this.handleData);
 
     }

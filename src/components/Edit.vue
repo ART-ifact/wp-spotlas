@@ -25,7 +25,7 @@
                     <input type="hidden" name="longitude" :value="form.latitude" id="longitude">
 
                     <gmap-map :zoom="12" v-if="form.lng" :center="form.lng" :options="{styles: styles}" style="width: 100%; min-height: 300px">
-                        <gmap-marker :position="form.lng" :clickable="true" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
+                        <gmap-marker :position="form.lng" :clickable="true" :icon="marker_icon" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
                     <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" required :rules="descriptionRules"></v-text-field>
                 </v-flex>
@@ -168,6 +168,9 @@ export default {
         showSnackbar: false,
         styles: null,
         valid: true,
+        marker_icon : {
+               url: ''
+            },
         titleRules: [
           (v) => !!v || 'Title is required'
         ],
@@ -218,6 +221,9 @@ export default {
             console.log(this.form);
             this.loading = false
         },
+        getIconPaths() {
+                this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
+            },
         saveForm() {
             if (this.$refs.form.validate()) {
                 console.log(this.form);
@@ -381,6 +387,7 @@ export default {
         let _this = this;
         _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
         console.log(this.id)
+        _this.getIconPaths();
         api.getPost(this.id, this.handleData);
 
 
