@@ -1,0 +1,153 @@
+.infobox {
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    display: block;
+    width: 100%;
+
+    .close {
+        position: absolute;
+
+        z-index: 100000;
+
+        right: -5px;
+
+        top: -28px;
+    }
+    >img {
+        z-index: 1 !important;
+    }
+    .progress {
+        margin-bottom: 0;
+    }
+    .inner {
+        border-bottom: 35px solid teal;
+        .image {
+            position: relative;
+            width: 100%;
+            background: white;
+            .imageWrapper {
+                overflow: hidden;
+                max-height: 220px;
+            }
+            img {
+                width: 100%;
+            }
+            .meta {
+                h2 {
+                    font-size: 26px;
+                    margin: 30px 0 0 0 !important;
+                    padding: 8px;
+                }
+                figure {
+                    margin: 0 40px;
+                }
+            }
+            .item-specific {
+                position: absolute;
+                bottom: 20px;
+                left: 36px;
+                width: initial;
+                height: inherit;
+                margin-top: 3px;
+                padding: 5px;
+                opacity: 0.95;
+                color: white;
+                background-color: rgba(0, 0, 0, 0.8);
+                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+                span {
+                    font-size: 11px;
+                    margin-right: 10px;
+                    img {
+                        width: auto;
+                        margin-right: 5px;
+                        vertical-align: baseline;
+                    }
+                }
+            }
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                -webkit-transition: 0.4s;
+                -moz-transition: 0.4s;
+                transition: 0.4s;
+                text-align: center;
+                opacity: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+                filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                &:hover {
+                    opacity: 1;
+                    filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+                    .wrapper {
+                        hr {
+                            width: 140px;
+                            opacity: 1;
+                            filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+                        }
+                        .detail {
+                            -webkit-transition-delay: 0.1s;
+                            -moz-transition-delay: 0.1s;
+                            transition-delay: 0.1s;
+                            opacity: 1;
+                            filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+                        }
+                        .quick-view {
+                            display: inline-block;
+                            padding: 36px 0;
+                            opacity: 1;
+                            filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+                        }
+                    }
+                }
+                .wrapper {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 80px;
+                    margin: auto;
+                    a {
+                        font-size: 14px;
+                        font-weight: bold;
+                        z-index: 1;
+                        -webkit-transition: 0.2s;
+                        -moz-transition: 0.2s;
+                        transition: 0.2s;
+                        opacity: 0;
+                        color: white;
+                        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                        &:hover {
+                            color: teal;
+                        }
+                    }
+                    hr {
+                        width: 0;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        -webkit-transition: 0.2s;
+                        -moz-transition: 0.2s;
+                        transition: 0.2s;
+                        opacity: 0;
+                        border-width: 2px;
+                        border-color: teal;
+                        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+                    }
+                }
+            }
+        }
+        a {
+            &.nav-link {
+                font-size: 14px;
+                position: absolute;
+                bottom: 4px;
+                width: 100%;
+                padding: 4px 8px;
+                color: white;
+            }
+        }
+    }
+}
