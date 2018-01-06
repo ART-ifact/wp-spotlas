@@ -111,11 +111,14 @@
         </v-speed-dial>
         <v-dialog v-if="locationdata" v-model="dialog" persistent max-width="380">
             <v-card>
-                <v-card-title class="headline">You sure want to delete location {{ locationdata.title.rendered }} ?</v-card-title>
+                <v-card-title v-if="!deleting" class="headline">You sure want to delete location {{ locationdata.title.rendered }} ?</v-card-title>
+                <v-flex xs12 v-if="deleting">
+                    <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+                </v-flex>
                 <v-card-actions>
-                    <v-btn color="teal darken-1" @click.stop="dialog=false">Abort</v-btn>
+                    <v-btn color="teal darken-1" v-if="!deleting" @click.stop="dialog=false">Abort</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn color="red darken-1" @click="deleteLocation">Delete</v-btn>
+                    <v-btn color="red darken-1" v-if="!deleting" @click="deleteLocation">Delete</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -142,6 +145,7 @@
         data() {
             return {
                 loading: false,
+                deleting: false,
                 locationdata: null,
                 error: null,
                 infoWinOpen: false,
@@ -176,7 +180,6 @@
             },
             handleData(data) {;
                 this.locationdata = data;
-                console.log(JSON.stringify(this.locationdata))
                 this.locationdata.content.rendered = this.locationdata.content.rendered.replace(/<\/?p[^>]*>/g, "")
                 this.loading = false
             },
@@ -205,6 +208,13 @@
             deletePost(id) {
                 let _this = this;
                 var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/posts/' + id + '?force=true';
+
+                this.deleting = true;
+                
+                for (let index = 0; index < this.locationdata.images.length; index++) {
+                    this.deleteImage(this.locationdata.images[index].id)
+                }
+
                 axios.delete(path, {
                         force: true
                     })

@@ -81,7 +81,9 @@
                     Successfull deleted Image
                     <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
                 </v-snackbar>
-                <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
+                <v-flex x1 offset-xs10>
+                    <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
+                </v-flex>
             </v-layout>
         </v-form>
     </v-layout>
@@ -223,21 +225,24 @@
             },
 
             uploadImage(event) {
-                var file = event.target.files[0];
-                let _this = this;
+                console.log(event.target.files);
+                if (event !== undefined) {
+                    const file = event.target.files[0];
+                    let _this = this;
 
-                EXIF.getData(file, function() {
-                    if (
-                        EXIF.getTag(this, "GPSLatitude") &&
-                        EXIF.getTag(this, "GPSLongitude")
-                    ) {
-                        var latitude = _this.toDecimal(EXIF.getTag(this, "GPSLatitude"));
-                        var longitude = _this.toDecimal(EXIF.getTag(this, "GPSLongitude"));
-                        _this.updateMap(longitude, latitude);
-                    }
-                });
+                    EXIF.getData(file, function() {
+                        if (
+                            EXIF.getTag(this, "GPSLatitude") &&
+                            EXIF.getTag(this, "GPSLongitude")
+                        ) {
+                            var latitude = _this.toDecimal(EXIF.getTag(this, "GPSLatitude"));
+                            var longitude = _this.toDecimal(EXIF.getTag(this, "GPSLongitude"));
+                            _this.updateMap(longitude, latitude);
+                        }
+                    });
 
-                _this.upload(file);
+                    _this.upload(file);
+                }
             },
             upload(fileInput) {
                 let _this = this;
@@ -255,6 +260,7 @@
                         if (xhr.responseText) {
                             console.log(xhr.responseText);
                             var response = _this.parseJSON(xhr.responseText);
+                            console.log(xhr.responseText)
 
                             var pictureURLLarge = response.data.sizes.full.url;
                             var pictureURLThumb = response.data.sizes.thumbnail.url;
