@@ -1,5 +1,5 @@
 {
-	"indent_with_tabs": true,
+	"indent_with_tabs": false,
 	"max_preserve_newlines": 1,
 	"preserve_newlines": true,
 	"keep_array_indentation": true,

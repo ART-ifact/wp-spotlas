@@ -5,29 +5,29 @@
 
     img {
         position: absolute;
-        top: 50%;
 
         width: 100%;
         height: auto;
 
+        top: 50%;
         transform: translateY(-50%);
     }
 }
 
 .card__title {
     padding: 16px !important;
+
     >div {
         width: 100%;
     }
-    .headline {
-        overflow: hidden;
 
+    .headline {
         width: 100%;
 
+        overflow: hidden;
         text-align: left;
         white-space: nowrap;
         text-overflow: ellipsis;
-
         font-size: 18px !important;
         line-height: 22px !important;
     }
@@ -39,23 +39,31 @@
             display: table;
         }
     }
-    .meta-data {
-        position: absolute;
-        z-index: 1000;
 
+    .meta-data {
         display: none;
+        position: absolute;
 
         width: 100%;
         height: calc(100% - 60px);
+
         padding: 12px 0;
 
         background: rgba(0, 0, 0, 0.8);
+
+        z-index: 2;
+
+        > .layout {
+            max-height: 54px;
+        }
+
         input.weather-icon+label::before,
         input.season-icon+label::before {
             color: #c0c0c0 !important;
 
             font-size: 20px !important;
         }
+
         .icon,
         input.weather-icon:checked+label::before,
         input.weather-icon.on+label::before,
@@ -68,6 +76,7 @@
 
 .md-theme-default a:not(.md-button) {
     color: rgb(192, 192, 192) !important;
+
     &:hover {
         color: teal !important;
     }

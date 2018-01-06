@@ -12,7 +12,7 @@ require_once dirname(__FILE__).'/class-tgm-plugin-activation.php';
 
 add_action('tgmpa_register', 'mytheme_require_plugins');
 
-function mytheme_require_plugins()
+function mytheme_require_plugins() 
 {
     $plugins = array(
         array(
