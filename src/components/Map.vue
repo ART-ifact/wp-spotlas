@@ -1,9 +1,9 @@
 <template>
     <div style="display: contents;">
-        <v-flex xs12 v-if="!recentPosts">
+        <v-flex xs12 v-if="!recentPosts && isSigned">
             <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
         </v-flex>
-        <gmap-map :center="mapCenter" :zoom="12" ref="mmm" :options="{styles: styles}" style="width: 100vw; height: calc(100vh - 66px);margin: -15px;">
+        <gmap-map v-if="!isSigned" :center="mapCenter" :zoom="12" ref="mmm" :options="{styles: styles}" style="width: 100vw; height: calc(100vh - 66px);margin: -15px;">
             <google-cluster :styles="cluster_styles">
                 <gmap-info-window :position="selectedMarker.lng" :options="infoOptions" v-if="selectedMarker" @closeclick="selectedMarker=false">
                     <v-flex xs12 v-if="!selectedMarker">
@@ -90,6 +90,7 @@
                 },
                 selectedMarker: null,
                 showInfo: false,
+                isSigned: false,
                 placeholderImage: '',
                 infoOptions: {
                     pixelOffset: {
@@ -112,8 +113,13 @@
 
         mounted() {
             this.styles = window.SETTINGS.mapStyles
+            this.isSigned = window.isSigned
+            if (window.isSigned) {
+              window.location.reload();
+            }
             this.$store.dispatch('getPosts')
             this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
+            
         },
         created() {
             this.mapCenter = window.SETTINGS.MAPCENTER

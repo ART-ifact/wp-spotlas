@@ -36,6 +36,7 @@
             login: function() {
                 var url = this.wppath + 'wp-json/custom-plugin/login?username=' + this.username + '&password=' + this.password;
                 axios.get(url).then(function(response) {
+                    window.isSigned = true;
                     router.push('/')
                 }, function(error) {
                     console.log(error.statusText);

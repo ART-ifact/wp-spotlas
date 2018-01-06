@@ -18,6 +18,9 @@
                 <v-btn :href="wppath" fab dark small color="teal">
                     <v-icon>map</v-icon>
                 </v-btn>
+                <v-btn :href="logoutLink" fab dark small color="teal">
+                    <v-icon>exit_to_app</v-icon>
+                </v-btn>
 
             </v-speed-dial>
         </v-toolbar>
@@ -53,10 +56,6 @@
                 isLoading: 'isLoading',
                 loadingProgress: 'loadingProgress'
             }),
-
-            loaderStyle() {
-                return `width: ${this.loadingProgress}%;`
-            },
             wppath() {
                 return window.SETTINGS.WPPATH;
             }
