@@ -13,58 +13,66 @@ import Edit from '../components/Edit'
 Vue.use(Router)
 
 
-console.log(document.getElementsByClassName('theme-url')[0].value);
-
 const router = new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Map',
-      component: Map,
-      // props: { pageContentID: 383 }
-    },
-    {
-      path: '/grid',
-      name: 'Home',
-      component: Home,
-      // props: { pageContentID: 383 }
-    },
-    {
-      path: '/add',
-      name: 'Add',
-      component: Add,
-      // props: { pageContentID: 383 }
-    },
-    {
-      path: '/authenticate',
-      name: 'Login',
-      component: Login,
-      // props: { pageContentID: 383 }
-    },
-    {
-      path: '/location/:id',
-      name: 'Location',
-      component: Location,
-      components: { default: Location },
-      props: { default: true }
-    },
-    {
-      path: '/edit/:id',
-      name: 'Edit',
-      component: Edit,
-      components: { default: Edit },
-      props: { default: true }
+    routes: [{
+            path: '/',
+            name: 'Map',
+            component: Map,
+            // props: { pageContentID: 383 }
+        },
+        {
+            path: '/grid',
+            name: 'Home',
+            component: Home,
+            // props: { pageContentID: 383 }
+        },
+        {
+            path: '/add',
+            name: 'Add',
+            component: Add,
+            // props: { pageContentID: 383 }
+        },
+        {
+            path: '/authenticate',
+            name: 'Login',
+            component: Login,
+            // props: { pageContentID: 383 }
+        },
+        {
+            path: '/location/:id',
+            name: 'Location',
+            component: Location,
+            components: {
+                default: Location
+            },
+            props: {
+                default: true
+            }
+        },
+        {
+            path: '/edit/:id',
+            name: 'Edit',
+            component: Edit,
+            components: {
+                default: Edit
+            },
+            props: {
+                default: true
+            }
+        }
+    ],
+    mode: 'history',
+    base: document.getElementsByClassName('app-base')[0].value,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return {
+                x: 0,
+                y: 0
+            }
+        }
     }
-  ],
-  mode: 'history',
-  base: document.getElementsByClassName('app-base')[0].value,
-  scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
-    }
-  }
 })
 
 

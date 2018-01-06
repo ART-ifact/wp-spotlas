@@ -1,12 +1,16 @@
 .location-access {
-            height: 5px;
-            width: 100%;
-            display: block;
-            background: #363636;
+    display: block;
 
-            > span {
-                height: 5px;
-                background: green;
-                display: inherit;
-            }
-        }
+    width: 100%;
+    height: 5px;
+
+    background: #363636;
+
+    >span {
+        display: inherit;
+
+        height: 5px;
+
+        background: green;
+    }
+}

@@ -36,11 +36,9 @@
 
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" v-model="form.accessibility" :disabled="sending"></v-slider>
 
-                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark color="teal" item-value="text" :disabled="sending" required
-                        :rules="typeRules"></v-select>
+                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark color="teal" item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
 
-                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark color="teal" item-value="text" :disabled="sending"
-                        required :rules="categoryRules"></v-select>
+                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark color="teal" item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
 
                     <h4>Wheather</h4>
                     <v-container fluid>
@@ -100,299 +98,327 @@
 </template>
 
 <script>
-import router from '../router';
-import RangeSlider from 'vue-range-slider'
-import EXIF from 'exif-js'
-import {
-    validationMixin
-} from 'vuelidate'
-import {
-    required,
-    email,
-    minLength,
-    maxLength
-} from 'vuelidate/lib/validators'
-import {
-    mapGetters
-} from 'vuex'
-import api from '../api'
+    import router from '../router';
+    import RangeSlider from 'vue-range-slider'
+    import EXIF from 'exif-js'
+    import {
+        validationMixin
+    } from 'vuelidate'
+    import {
+        required,
+        email,
+        minLength,
+        maxLength
+    } from 'vuelidate/lib/validators'
+    import {
+        mapGetters
+    } from 'vuex'
+    import api from '../api'
 
 
-export default {
-    props: ['id'],
-    name: 'FormValidation',
-    mixins: [validationMixin],
-    components: {
-        RangeSlider
-    },
-    data: () => ({
-        form: {
-            id: 0,
-            title: '',
-            type: null,
-            category: null,
-            accessibility: 0,
-            email: null,
-            latitude: 0,
-            longitude: 0,
-            images: [],
-            sunny: false,
-            cloudy: false,
-            foggy: false,
-            rainy: false,
-            spring: false,
-            summer: false,
-            autumn: false,
-            winter: false,
-            description: ''
+    export default {
+        props: ['id'],
+        name: 'FormValidation',
+        mixins: [validationMixin],
+        components: {
+            RangeSlider
         },
-        type: [
-          { text: 'Industry' },
-          { text: 'Outdoor' },
-          { text: 'Architecture' },
-          { text: 'Monument' }
-        ],
-        category: [
-          { text: 'Building' },
-          { text: 'Landscape' },
-          { text: 'Urban' },
-          { text: 'Water' }
-        ],
-        ticks: true,
-        mode: '',
-        map: null,
-        marker: null,
-        locationSaved: false,
-        sending: false,
-        fileinput: null,
-        showSnackbar: false,
-        styles: null,
-        valid: true,
-        marker_icon : {
-               url: ''
+        data: () => ({
+            form: {
+                id: 0,
+                title: '',
+                type: null,
+                category: null,
+                accessibility: 0,
+                email: null,
+                latitude: 0,
+                longitude: 0,
+                lng: null,
+                images: [],
+                sunny: false,
+                cloudy: false,
+                foggy: false,
+                rainy: false,
+                spring: false,
+                summer: false,
+                autumn: false,
+                winter: false,
+                description: ''
             },
-        titleRules: [
-          (v) => !!v || 'Title is required'
-        ],
-        descriptionRules: [
-          (v) => !!v || 'Title is required'
-        ],
-        typeRules: [
-          (v) => !!v || 'Type is required'
-        ],
-        categoryRules: [
-          (v) => !!v || 'Category is required'
-        ],
-    }),
-    validations: {
-        form: {
-            title: {
-                required,
-                minLength: minLength(3)
+            type: [{
+                    text: 'Industry'
+                },
+                {
+                    text: 'Outdoor'
+                },
+                {
+                    text: 'Architecture'
+                },
+                {
+                    text: 'Monument'
+                }
+            ],
+            category: [{
+                    text: 'Building'
+                },
+                {
+                    text: 'Landscape'
+                },
+                {
+                    text: 'Urban'
+                },
+                {
+                    text: 'Water'
+                }
+            ],
+            ticks: true,
+            mode: '',
+            map: null,
+            marker: null,
+            locationSaved: false,
+            sending: false,
+            fileinput: null,
+            showSnackbar: false,
+            styles: null,
+            valid: true,
+            marker_icon: {
+                url: ''
             },
-            type: {
-                required
-            },
-            category: {
-                required
-            },
-        }
-    },
-
-    methods: {
-        handleData(data) {;
-            this.form = data;
-            console.log(data)
-            console.log(JSON.stringify(this.form));
-            this.form.id = this.form.id;
-            this.form.latitude = this.form.lng.lat;
-            this.form.longitude = this.form.lng.lng;
-            this.form.title = this.form.title.rendered;
-            this.form.description = this.form.content.rendered.replace(/<\/?p[^>]*>/g, "");
-            this.form.accessibility = this.form.accesibility;
-            this.form.rainy = JSON.parse(this.form.rainy);
-            this.form.sunny = JSON.parse(this.form.sunny);
-            this.form.cloudy = JSON.parse(this.form.cloudy);
-            this.form.foggy = JSON.parse(this.form.foggy);
-            this.form.summer = JSON.parse(this.form.summer);
-            this.form.winter = JSON.parse(this.form.winter);
-            this.form.autumn = JSON.parse(this.form.autumn);
-            this.form.spring = JSON.parse(this.form.spring);
-            console.log(this.form);
-            this.loading = false
-        },
-        getIconPaths() {
-                this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
-            },
-        saveForm() {
-            if (this.$refs.form.validate()) {
-                console.log(this.form);
-                var path = window.SETTINGS.THEMEURL + '/formhandlers/edit-location.php';
-                var formData = new FormData();
-                formData.append("id", this.form.id);
-                formData.append("title", this.form.title);
-                formData.append("type", this.form.type);
-                formData.append("category", this.form.category);
-                formData.append("accesibility", this.form.accessibility);
-                formData.append("lat", this.form.latitude);
-                formData.append("lng", this.form.longitude);
-                formData.append("images", JSON.stringify(this.form.images));
-                formData.append("sunny", this.form.sunny);
-                formData.append("cloudy", this.form.cloudy);
-                formData.append("foggy", this.form.foggy);
-                formData.append("rainy", this.form.rainy);
-                formData.append("spring", this.form.spring);
-                formData.append("summer", this.form.summer);
-                formData.append("autumn", this.form.autumn);
-                formData.append("winter", this.form.winter);
-                formData.append("description", this.form.description);
-
-                console.log(formData);
-                let _this = this;
-
-                axios.post(path, formData)
-                .then(function(response){
-                    console.log(response)
-                    router.push('/location/'+_this.form.id)
-                }).catch(function(e){
-                    console.log(e);
-                });
+            titleRules: [
+                (v) => !!v || 'Title is required'
+            ],
+            descriptionRules: [
+                (v) => !!v || 'Title is required'
+            ],
+            typeRules: [
+                (v) => !!v || 'Type is required'
+            ],
+            categoryRules: [
+                (v) => !!v || 'Category is required'
+            ],
+        }),
+        validations: {
+            form: {
+                title: {
+                    required,
+                    minLength: minLength(3)
+                },
+                type: {
+                    required
+                },
+                category: {
+                    required
+                },
             }
         },
-        getMarkerPosition(marker) {
-            let _this = this
-            _this.map = marker;
-            console.log(JSON.stringify(marker));
-            var markerObject = JSON.parse(JSON.stringify(marker));
-            _this.form.latitude = JSON.stringify(markerObject.lat);
-            _this.form.longitude = JSON.stringify(markerObject.lng);
-            console.log(_this.form.latitude, _this.form.longitude)
 
-        },
-        updateMap(longitude,latitude) {
-            let _this = this
-            _this.map = { lat: latitude, lng: longitude }
-            _this.marker = { lat: latitude, lng: longitude }
-            _this.form.latitude = latitude
-            _this.form.longitude = longitude
-        },
+        methods: {
+            handleData(data) {;
+                this.form = data;
+                console.log(data)
+                console.log(JSON.stringify(this.form));
+                this.form.id = this.form.id;
+                this.form.lng = data.lng
+                this.form.latitude = this.form.lng.lat;
+                this.form.longitude = this.form.lng.lng;
+                this.form.title = this.form.title.rendered;
+                this.form.description = this.form.content.rendered.replace(/<\/?p[^>]*>/g, "");
+                this.form.accessibility = this.form.accesibility;
+                this.form.rainy = JSON.parse(this.form.rainy);
+                this.form.sunny = JSON.parse(this.form.sunny);
+                this.form.cloudy = JSON.parse(this.form.cloudy);
+                this.form.foggy = JSON.parse(this.form.foggy);
+                this.form.summer = JSON.parse(this.form.summer);
+                this.form.winter = JSON.parse(this.form.winter);
+                this.form.autumn = JSON.parse(this.form.autumn);
+                this.form.spring = JSON.parse(this.form.spring);
+                console.log(this.form);
+                this.loading = false
+            },
+            getIconPaths() {
+                this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
+            },
+            saveForm() {
+                if (this.$refs.form.validate()) {
+                    console.log(this.form);
+                    var path = window.SETTINGS.THEMEURL + '/formhandlers/edit-location.php';
+                    var formData = new FormData();
+                    formData.append("id", this.form.id);
+                    formData.append("title", this.form.title);
+                    formData.append("type", this.form.type);
+                    formData.append("category", this.form.category);
+                    formData.append("accesibility", this.form.accessibility);
+                    formData.append("lat", this.form.latitude);
+                    formData.append("lng", this.form.longitude);
+                    formData.append("images", JSON.stringify(this.form.images));
+                    formData.append("sunny", this.form.sunny);
+                    formData.append("cloudy", this.form.cloudy);
+                    formData.append("foggy", this.form.foggy);
+                    formData.append("rainy", this.form.rainy);
+                    formData.append("spring", this.form.spring);
+                    formData.append("summer", this.form.summer);
+                    formData.append("autumn", this.form.autumn);
+                    formData.append("winter", this.form.winter);
+                    formData.append("description", this.form.description);
 
-        uploadImage(event) {
-            var file = event.target.files[0];
-            let _this = this;
+                    console.log(formData);
+                    let _this = this;
 
-            EXIF.getData(file, function() {
-                if (EXIF.getTag(this, 'GPSLatitude') && EXIF.getTag(this, 'GPSLongitude')) {
-                    var latitude  = _this.toDecimal(EXIF.getTag(this, 'GPSLatitude'));
-                    var longitude = _this.toDecimal(EXIF.getTag(this, 'GPSLongitude'));
-                    _this.updateMap(longitude, latitude);
+                    axios.post(path, formData)
+                        .then(function(response) {
+                            console.log(response)
+                            router.push('/location/' + _this.form.id)
+                        }).catch(function(e) {
+                            console.log(e);
+                        });
                 }
-            });
+            },
+            getMarkerPosition(marker) {
+                let _this = this
+                _this.map = marker;
+                console.log(JSON.stringify(marker));
+                var markerObject = JSON.parse(JSON.stringify(marker));
+                _this.form.latitude = JSON.stringify(markerObject.lat);
+                _this.form.longitude = JSON.stringify(markerObject.lng);
+                console.log(_this.form.latitude, _this.form.longitude)
 
-            _this.upload(file);
-        },
-        upload(fileInput){
-            let _this = this
-            console.log(fileInput.name, fileInput)
-            var formData = new FormData();
-            formData.append("action", "upload-attachment");
-            formData.append("async-upload", fileInput);
-            formData.append("name", fileInput.name);
+            },
+            updateMap(longitude, latitude) {
+                let _this = this
+                _this.map = {
+                    lat: latitude,
+                    lng: longitude
+                }
+                _this.marker = {
+                    lat: latitude,
+                    lng: longitude
+                }
+                _this.form.latitude = latitude
+                _this.form.longitude = longitude
+            },
 
-            //also available on page from _wpPluploadSettings.defaults.multipart_params._wpnonce
+            uploadImage(event) {
+                var file = event.target.files[0];
+                let _this = this;
 
-            formData.append("_wpnonce", window.SETTINGS.NONCE);
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange=function(){
-                if (xhr.readyState==4 && xhr.status==200){
-                    if (xhr.responseText){
-                        console.log(xhr.responseText)
-                        var response = _this.parseJSON(xhr.responseText);
+                EXIF.getData(file, function() {
+                    if (EXIF.getTag(this, 'GPSLatitude') && EXIF.getTag(this, 'GPSLongitude')) {
+                        var latitude = _this.toDecimal(EXIF.getTag(this, 'GPSLatitude'));
+                        var longitude = _this.toDecimal(EXIF.getTag(this, 'GPSLongitude'));
+                        _this.updateMap(longitude, latitude);
+                    }
+                });
+
+                _this.upload(file);
+            },
+            upload(fileInput) {
+                let _this = this
+                console.log(fileInput.name, fileInput)
+                var formData = new FormData();
+                formData.append("action", "upload-attachment");
+                formData.append("async-upload", fileInput);
+                formData.append("name", fileInput.name);
+
+                //also available on page from _wpPluploadSettings.defaults.multipart_params._wpnonce
+
+                formData.append("_wpnonce", window.SETTINGS.NONCE);
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        if (xhr.responseText) {
+                            console.log(xhr.responseText)
+                            var response = _this.parseJSON(xhr.responseText);
 
                             var pictureURLLarge = response.data.sizes.full.url;
                             var pictureURLThumb = response.data.sizes.thumbnail.url;
-                            var tmp_obj = {"id": response.data.id, "large": pictureURLLarge, "thumb": pictureURLThumb};
+                            var tmp_obj = {
+                                "id": response.data.id,
+                                "large": pictureURLLarge,
+                                "thumb": pictureURLThumb
+                            };
                             console.log(_this.form.images)
                             _this.form.images.push(tmp_obj);
 
                             console.log(_this.form.images);
 
                             _this.fileinput = null;
+                        }
+                    }
+                };
+
+                var uploadPath = window.SETTINGS.WPPATH + 'wp-admin/async-upload.php';
+                xhr.open("POST", uploadPath, true);
+                xhr.send(formData);
+            },
+            toDecimal(number) {
+                return number[0].numerator + number[1].numerator / (60 * number[1].denominator) + number[2].numerator / (3600 * number[2].denominator);
+            },
+            parseJSON(data) {
+                if (typeof data !== "string" || !data) {
+                    return null;
+                }
+
+                // Make sure leading/trailing whitespace is removed (IE can't handle it)
+                data = data.trim();
+
+                // Make sure the incoming data is actual JSON
+                // Logic borrowed from http://JSON.org/JSON2.js
+                if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
+                        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
+                        .replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
+
+                    // Try to use the native JSON parser first
+                    return window.JSON && window.JSON.parse ?
+                        window.JSON.parse(data) :
+                        (new Function("return " + data))();
+
+                } else {
+                    console.error("Invalid JSON: " + data);
+                }
+            },
+            deleteImage(imageID) {
+                let _this = this;
+                var path = window.SETTINGS.WPPATH + 'wp-JSON/wp/v2/media/' + imageID + '?force=true';
+                axios.delete(path, {
+                        force: true
+                    })
+                    .then(function(response) {
+                        console.log('deleted successfully')
+                        _this.deleteImageFromArray(imageID);
+                    });
+
+            },
+            deleteImageFromArray(imageID) {
+                let _this = this
+                for (var i = 0; i < _this.form.images.length; i++) {
+                    if (_this.form.images[i].id == imageID) {
+                        _this.form.images.splice(i, 1);
+                        break;
                     }
                 }
-            };
-
-            var uploadPath = window.SETTINGS.WPPATH + 'wp-admin/async-upload.php';
-            xhr.open("POST",uploadPath,true);
-            xhr.send(formData);
-        },
-        toDecimal(number) {
-            return number[0].numerator + number[1].numerator / (60 * number[1].denominator) + number[2].numerator / (3600 * number[2].denominator);
-        },
-        parseJSON( data ) {
-            if ( typeof data !== "string" || !data ) {
-                return null;
+                _this.showSnackbar = true;
             }
 
-            // Make sure leading/trailing whitespace is removed (IE can't handle it)
-            data = data.trim();
-
-            // Make sure the incoming data is actual JSON
-            // Logic borrowed from http://JSON.org/JSON2.js
-            if ( /^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
-                .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
-                .replace(/(?:^|:|,)(?:\s*\[)+/g, "")) ) {
-
-                // Try to use the native JSON parser first
-                return window.JSON && window.JSON.parse ?
-                    window.JSON.parse( data ) :
-                    (new Function("return " + data))();
-
-            } else {
-                console.error( "Invalid JSON: " + data );
-            }
         },
-        deleteImage(imageID) {
+
+        watch: {
+            // call again the method if the route changes
+            // '$route': 'handleData'
+        },
+
+        created() {
+            //this.$store.dispatch('getPost')
+            this.styles = window.SETTINGS.mapStyles
+            this.loading = true
             let _this = this;
-            var path = window.SETTINGS.WPPATH + 'wp-JSON/wp/v2/media/' + imageID + '?force=true';
-            axios.delete(path, {force:true})
-            .then(function(response){
-                console.log('deleted successfully')
-                _this.deleteImageFromArray(imageID);
-            });
+            _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
+            console.log(this.id)
+            _this.getIconPaths();
+            api.getPost(this.id, this.handleData);
 
-        },
-        deleteImageFromArray(imageID) {
-            let _this = this
-            for(var i = 0; i < _this.form.images.length; i++) {
-                if(_this.form.images[i].id == imageID) {
-                    _this.form.images.splice(i, 1);
-                    break;
-                }
-            }
-            _this.showSnackbar = true; 
+
         }
-
-    },
-
-    watch: {
-        // call again the method if the route changes
-       // '$route': 'handleData'
-    },
-
-    created() {
-        //this.$store.dispatch('getPost')
-        this.styles = window.SETTINGS.mapStyles
-        this.loading = true
-        let _this = this;
-        _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
-        console.log(this.id)
-        _this.getIconPaths();
-        api.getPost(this.id, this.handleData);
-
-
     }
-}
 </script>
 
 <style lang="scss">

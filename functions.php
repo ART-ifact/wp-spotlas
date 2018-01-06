@@ -342,7 +342,7 @@ add_action('wp_enqueue_scripts', 'load_vue_scripts', 100);
       add_filter( 'rest_pre_dispatch', function($request) {
           $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
           $path = $uri_parts[0];
-        if ( ! is_user_logged_in() && $path !== "/wordpress/wp-json/custom-plugin/login") {
+        if ( ! is_user_logged_in() && $path !== "/wp-json/custom-plugin/login") {
             return new WP_Error( 'not-logged-in', 'API Requests are only supported for authenticated requests', array( 'status' => 401 ) );
         }
 

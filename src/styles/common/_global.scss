@@ -1,10 +1,10 @@
-
-
-.vue--page--add {
+.vue--page--add,
+.vue--page--login {
     .btn-add {
         display: none;
     }
 }
+
 body,
 html {
     overflow-y: auto !important;

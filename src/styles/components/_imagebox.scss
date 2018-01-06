@@ -1,19 +1,23 @@
 .imagebox {
-
     display: inline-block;
-    margin: 0;
+
     width: 100%;
+    margin: 0;
 
     ul {
-        list-style: none;
-        width: 100%;
-        padding: 0;
         display: inline-block;
 
+        width: 100%;
+        padding: 0;
+
+        list-style: none;
+
         li {
-            float: left;
             position: relative;
+
             display: inline-block;
+            float: left;
+
             width: 150px;
             height: 150px;
             margin: 8px 0 8px 25px;
@@ -23,22 +27,25 @@
             }
 
             span {
-                cursor: pointer;
-                z-index: 400;
                 position: absolute;
-                bottom: 0;
+                z-index: 400;
                 right: 0;
+                bottom: 0;
 
                 width: 0;
                 height: 0;
+
+                cursor: pointer;
+
                 border-bottom: 60px solid rgb(97, 18, 18);
                 border-left: 60px solid transparent;
 
                 i {
                     position: absolute;
                     right: 5px;
-                    color: white;
                     bottom: -53px;
+
+                    color: white;
                 }
             }
         }

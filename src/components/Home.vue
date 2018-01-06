@@ -6,18 +6,15 @@
 </template>
 
 <script>
-import RecentPostsWidget from './widgets/RecentPosts'
-import PagesWidget from './widgets/Pages'
+    import RecentPostsWidget from './widgets/RecentPosts'
+    import PagesWidget from './widgets/Pages'
 
-export default {
-    components: {
-        RecentPostsWidget
+    export default {
+        components: {
+            RecentPostsWidget
+        }
     }
-}
 </script>
 
 <style lang="scss">
-    .jumbotron {
-        margin-top: 5%;
-    }
 </style>
