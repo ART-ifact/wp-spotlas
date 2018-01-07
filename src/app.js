@@ -11,6 +11,7 @@ window.SETTINGS.NONCE = document.getElementsByClassName('wpnonce')[0].value;
 window.SETTINGS.AJAXNONCE = document.getElementsByClassName('wpnonce-rest')[0].value;
 window.SETTINGS.LOGOUT = document.getElementsByClassName('logout-link')[0].value;
 window.SETTINGS.THEMEURL = document.getElementsByClassName('theme-url')[0].value;
+window.SETTINGS.LOGO = document.getElementsByClassName('logo-url')[0].value;
 window.SETTINGS.MAPCENTER = {
     lat: parseFloat(document.getElementsByClassName('default_lat')[0].value),
     lng: parseFloat(document.getElementsByClassName('default_lng')[0].value)

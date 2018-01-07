@@ -2,7 +2,9 @@
 <template>
     <v-app id="inspire" dark>
         <v-toolbar app fixed clipped-left>
-            <v-toolbar-title>Spottr</v-toolbar-title>
+            <v-toolbar-title>
+                <img :src="getLogoPath" alt="Logo">
+            </v-toolbar-title>
 
             <v-speed-dial fab small large dark absolute top right class="btn-add" :direction="'bottom'" :hover="true" :transition="'slide-y-reverse-transition'">
                 <v-btn slot="activator" color="teal darken-2" dark fab hover>
@@ -49,7 +51,8 @@
         data: () => ({
             menuVisible: false,
             showLoader: true,
-            logoutLink: window.SETTINGS.LOGOUT
+            logoutLink: window.SETTINGS.LOGOUT,
+            logo_path: ''
         }),
         computed: {
             ...mapGetters({
@@ -58,6 +61,9 @@
             }),
             wppath() {
                 return window.SETTINGS.WPPATH;
+            },
+            getLogoPath() {
+                return window.SETTINGS.LOGO;
             }
         },
         components: {
