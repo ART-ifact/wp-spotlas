@@ -115,11 +115,10 @@
             this.styles = window.SETTINGS.mapStyles
             this.isSigned = window.isSigned
             if (window.isSigned) {
-              window.location.reload();
+                window.location.reload();
             }
             this.$store.dispatch('getPosts')
             this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
-            
         },
         created() {
             this.mapCenter = window.SETTINGS.MAPCENTER

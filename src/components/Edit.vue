@@ -378,7 +378,7 @@
             },
             deleteImage(imageID) {
                 let _this = this;
-                var path = window.SETTINGS.WPPATH + 'wp-JSON/wp/v2/media/' + imageID + '?force=true';
+                var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/' + imageID + '?force=true';
                 axios.delete(path, {
                         force: true
                     })
@@ -386,7 +386,6 @@
                         console.log('deleted successfully')
                         _this.deleteImageFromArray(imageID);
                     });
-
             },
             deleteImageFromArray(imageID) {
                 let _this = this

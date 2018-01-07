@@ -320,19 +320,17 @@
             },
             deleteImage(imageID) {
                 let _this = this;
-                var path =
-                    window.SETTINGS.WPPATH +
-                    "wp-JSON/wp/v2/media/" +
-                    imageID +
-                    "?force=true";
-                axios
-                    .delete(path, {
+                var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/' + imageID + '?force=true';
+                if (path !== undefined) {
+                    axios.delete(path, {
                         force: true
-                    })
-                    .then(function(response) {
+                    }).then(function(response) {
                         console.log("deleted successfully");
                         _this.deleteImageFromArray(imageID);
                     });
+                } else {
+                    console.log('Path undefined');
+                }
             },
             deleteImageFromArray(imageID) {
                 let _this = this;
