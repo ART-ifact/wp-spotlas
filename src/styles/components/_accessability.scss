@@ -2,15 +2,39 @@
     display: block;
 
     width: 100%;
-    height: 5px;
+    height: 8px;
 
     background: #363636;
 
     >span {
         display: inherit;
 
-        height: 5px;
+        height: 8px;
+    }
 
-        background: green;
+
+    &._1,
+    &._2,
+    &._3 {
+        > span {
+            background: red;
+        }
+    }
+
+    &._4,
+    &._5,
+    &._6 {
+        > span {
+            background: orange;
+        }
+    }
+
+    &._7,
+    &._8,
+    &._9,
+    &._10 {
+        > span {
+            background: green;
+        }
     }
 }

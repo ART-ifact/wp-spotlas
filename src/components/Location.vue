@@ -6,7 +6,7 @@
 
         <v-flex xs12 v-if="locationdata">
             <h1 class="location-title">{{ locationdata.title.rendered }}</h1>
-            <span class="location-access " v-bind:class="locationdata.accesibility">
+            <span class="location-access " v-bind:class="'_'+locationdata.accesibility">
                     <span class="accessibility" v-bind:style="{ width: locationdata.accesibility + '0%' }"></span>
             </span>
         </v-flex>
