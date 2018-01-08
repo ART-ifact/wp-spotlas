@@ -114,6 +114,7 @@
         mapGetters
     } from 'vuex'
     import api from '../api'
+    import helper from '../helper'
 
 
     export default {
@@ -303,8 +304,8 @@
 
                 EXIF.getData(file, function() {
                     if (EXIF.getTag(this, 'GPSLatitude') && EXIF.getTag(this, 'GPSLongitude')) {
-                        var latitude = _this.toDecimal(EXIF.getTag(this, 'GPSLatitude'));
-                        var longitude = _this.toDecimal(EXIF.getTag(this, 'GPSLongitude'));
+                        var latitude = helper.toDecimal(EXIF.getTag(this, 'GPSLatitude'));
+                        var longitude = helper.toDecimal(EXIF.getTag(this, 'GPSLongitude'));
                         _this.updateMap(longitude, latitude);
                     }
                 });

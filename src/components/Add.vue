@@ -97,6 +97,7 @@
         mapGetters
     } from "vuex";
     import api from "../api";
+    import helper from "../helper";
 
     export default {
         components: {
@@ -235,8 +236,8 @@
                             EXIF.getTag(this, "GPSLatitude") &&
                             EXIF.getTag(this, "GPSLongitude")
                         ) {
-                            var latitude = _this.toDecimal(EXIF.getTag(this, "GPSLatitude"));
-                            var longitude = _this.toDecimal(EXIF.getTag(this, "GPSLongitude"));
+                            var latitude = helper.toDecimal(EXIF.getTag(this, "GPSLatitude"));
+                            var longitude = helper.toDecimal(EXIF.getTag(this, "GPSLongitude"));
                             _this.updateMap(longitude, latitude);
                         }
                     });
@@ -281,13 +282,6 @@
                 var uploadPath = window.SETTINGS.WPPATH + "wp-admin/async-upload.php";
                 xhr.open("POST", uploadPath, true);
                 xhr.send(formData);
-            },
-            toDecimal(number) {
-                return (
-                    number[0].numerator +
-                    number[1].numerator / (60 * number[1].denominator) +
-                    number[2].numerator / (3600 * number[2].denominator)
-                );
             },
             deleteImage(imageID) {
                 let _this = this;
