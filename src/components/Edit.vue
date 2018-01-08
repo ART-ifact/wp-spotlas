@@ -320,8 +320,6 @@
                 formData.append("async-upload", fileInput);
                 formData.append("name", fileInput.name);
 
-                //also available on page from _wpPluploadSettings.defaults.multipart_params._wpnonce
-
                 formData.append("_wpnonce", window.SETTINGS.NONCE);
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
@@ -350,9 +348,6 @@
                 var uploadPath = window.SETTINGS.WPPATH + 'wp-admin/async-upload.php';
                 xhr.open("POST", uploadPath, true);
                 xhr.send(formData);
-            },
-            toDecimal(number) {
-                return number[0].numerator + number[1].numerator / (60 * number[1].denominator) + number[2].numerator / (3600 * number[2].denominator);
             },
             deleteImage(imageID) {
                 let _this = this;
