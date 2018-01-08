@@ -91,7 +91,9 @@
                     Successfull deleted Image
                     <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
                 </v-snackbar>
-                <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
+                <v-flex x1 offset-xs10>
+                    <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
+                </v-flex>
             </v-layout>
         </v-form>
     </v-layout>
@@ -216,8 +218,6 @@
         methods: {
             handleData(data) {;
                 this.form = data;
-                console.log(data)
-                console.log(JSON.stringify(this.form));
                 this.form.id = this.form.id;
                 this.form.lng = data.lng
                 this.form.latitude = this.form.lng.lat;
@@ -233,16 +233,11 @@
                 this.form.winter = JSON.parse(this.form.winter);
                 this.form.autumn = JSON.parse(this.form.autumn);
                 this.form.spring = JSON.parse(this.form.spring);
-                console.log(this.form);
+
                 this.loading = false
-            },
-            getIconPaths() {
-                this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
             },
             saveForm() {
                 if (this.$refs.form.validate()) {
-                    console.log(this.form);
-                    var path = window.SETTINGS.THEMEURL + '/formhandlers/edit-location.php';
                     var formData = new FormData();
                     formData.append("id", this.form.id);
                     formData.append("title", this.form.title);
@@ -262,26 +257,22 @@
                     formData.append("winter", this.form.winter);
                     formData.append("description", this.form.description);
 
-                    console.log(formData);
-                    let _this = this;
-
-                    axios.post(path, formData)
-                        .then(function(response) {
-                            console.log(response)
-                            router.push('/location/' + _this.form.id)
-                        }).catch(function(e) {
-                            console.log(e);
-                        });
+                    api.editLocation(formData,this.afterSave);
+                }
+            },
+            afterSave(response) {
+                if (response.status === 200) {
+                    router.push('/location/' + this.form.id);
+                } else {
+                    console.error(response);
                 }
             },
             getMarkerPosition(marker) {
                 let _this = this
                 _this.map = marker;
-                console.log(JSON.stringify(marker));
                 var markerObject = JSON.parse(JSON.stringify(marker));
                 _this.form.latitude = JSON.stringify(markerObject.lat);
                 _this.form.longitude = JSON.stringify(markerObject.lng);
-                console.log(_this.form.latitude, _this.form.longitude)
 
             },
             updateMap(longitude, latitude) {
@@ -313,52 +304,28 @@
                 _this.upload(file);
             },
             upload(fileInput) {
-                let _this = this
-                console.log(fileInput.name, fileInput)
-                var formData = new FormData();
-                formData.append("action", "upload-attachment");
-                formData.append("async-upload", fileInput);
-                formData.append("name", fileInput.name);
+                let _this = this;
+                _this.sending = true;
+                api.uploadMedia(fileInput,this.updateImageArray)
+            },
+            updateImageArray(api_response) {
+                api_response = api_response.data;
 
-                formData.append("_wpnonce", window.SETTINGS.NONCE);
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        if (xhr.responseText) {
-                            console.log(xhr.responseText)
-                            var response = window.$.parseJSON(xhr.responseText);
-
-                            var pictureURLLarge = response.data.sizes.full.url;
-                            var pictureURLThumb = response.data.sizes.thumbnail.url;
-                            var tmp_obj = {
-                                "id": response.data.id,
-                                "large": pictureURLLarge,
-                                "thumb": pictureURLThumb
-                            };
-                            console.log(_this.form.images)
-                            _this.form.images.push(tmp_obj);
-
-                            console.log(_this.form.images);
-
-                            _this.fileinput = null;
-                        }
-                    }
+                var pictureURLLarge = api_response.sizes.full.url;
+                var pictureURLThumb = api_response.sizes.thumbnail.url;
+                var tmp_obj = {
+                    id: api_response.id,
+                    large: pictureURLLarge,
+                    thumb: pictureURLThumb
                 };
 
-                var uploadPath = window.SETTINGS.WPPATH + 'wp-admin/async-upload.php';
-                xhr.open("POST", uploadPath, true);
-                xhr.send(formData);
+                this.form.images.push(tmp_obj);
+
+                this.fileinput = null;
+                this.sending = false;
             },
             deleteImage(imageID) {
-                let _this = this;
-                var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/' + imageID + '?force=true';
-                axios.delete(path, {
-                        force: true
-                    })
-                    .then(function(response) {
-                        console.log('deleted successfully')
-                        _this.deleteImageFromArray(imageID);
-                    });
+                api.deleteMedia(imageID,this.deleteImageFromArray);
             },
             deleteImageFromArray(imageID) {
                 let _this = this
@@ -385,7 +352,7 @@
             let _this = this;
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
             console.log(this.id)
-            _this.getIconPaths();
+            this.marker_icon.url = helper.getIconPaths();
             api.getPost(this.id, this.handleData);
 
 

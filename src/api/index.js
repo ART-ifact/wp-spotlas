@@ -85,4 +85,13 @@ export default {
                 cb(e);
             });
     },
+
+    editLocation(formData, cb) {
+        axios.post(window.SETTINGS.THEMEURL + '/formhandlers/edit-location.php', formData)
+            .then(function (response) {
+                cb(response);
+            }).catch(function (e) {
+                cb(e);
+            });
+    },
 }
