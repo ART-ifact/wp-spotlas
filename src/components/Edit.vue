@@ -294,15 +294,7 @@
                 api.uploadMedia(mediaForm,this.updateImageArray)
             },
             updateImageArray(api_response) {
-                api_response = api_response.data;
-
-                var pictureURLLarge = api_response.sizes.full.url;
-                var pictureURLThumb = api_response.sizes.thumbnail.url;
-                var tmp_obj = {
-                    id: api_response.id,
-                    large: pictureURLLarge,
-                    thumb: pictureURLThumb
-                };
+                var tmp_obj = helper.buildImageObject(api_response.data);
 
                 this.form.images.push(tmp_obj);
 

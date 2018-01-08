@@ -56,5 +56,14 @@ export default {
         formData.append("_wpnonce", window.SETTINGS.NONCE);
 
         return formData;
+    },
+
+    buildImageObject(imageData) {
+        var tmp_obj = {
+            id: imageData.id,
+            large: imageData.sizes.full.url,
+            thumb: imageData.sizes.thumbnail.url
+        };
+        return tmp_obj;
     }
 }
