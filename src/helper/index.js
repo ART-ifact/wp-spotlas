@@ -19,5 +19,31 @@ export default {
 
     getIconPaths() {
         return window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg';
+    },
+
+    buildFormData(form,widthID) {
+        var formData = new FormData();
+
+        if(widthID) {
+            formData.append("id",form.id);
+        }
+        formData.append("title", form.title);
+        formData.append("type", form.type);
+        formData.append("category", form.category);
+        formData.append("accesibility", form.accessibility);
+        formData.append("lat", form.latitude);
+        formData.append("lng", form.longitude);
+        formData.append("images", JSON.stringify(form.images));
+        formData.append("sunny", form.sunny);
+        formData.append("cloudy", form.cloudy);
+        formData.append("foggy", form.foggy);
+        formData.append("rainy", form.rainy);
+        formData.append("spring", form.spring);
+        formData.append("summer", form.summer);
+        formData.append("autumn", form.autumn);
+        formData.append("winter", form.winter);
+        formData.append("description", form.description);
+
+        return formData;
     }
 }

@@ -238,24 +238,7 @@
             },
             saveForm() {
                 if (this.$refs.form.validate()) {
-                    var formData = new FormData();
-                    formData.append("id", this.form.id);
-                    formData.append("title", this.form.title);
-                    formData.append("type", this.form.type);
-                    formData.append("category", this.form.category);
-                    formData.append("accesibility", this.form.accessibility);
-                    formData.append("lat", this.form.latitude);
-                    formData.append("lng", this.form.longitude);
-                    formData.append("images", JSON.stringify(this.form.images));
-                    formData.append("sunny", this.form.sunny);
-                    formData.append("cloudy", this.form.cloudy);
-                    formData.append("foggy", this.form.foggy);
-                    formData.append("rainy", this.form.rainy);
-                    formData.append("spring", this.form.spring);
-                    formData.append("summer", this.form.summer);
-                    formData.append("autumn", this.form.autumn);
-                    formData.append("winter", this.form.winter);
-                    formData.append("description", this.form.description);
+                    var formData = helper.buildFormData(this.form, true);
 
                     api.editLocation(formData,this.afterSave);
                 }
