@@ -43,27 +43,15 @@ export default {
             })
     },
 
-    uploadMedia(fileInput, cb) {
+    uploadMedia(formData, cb) {
 
-        var formData = new FormData();
-        formData.append("action", "upload-attachment");
-        formData.append("async-upload", fileInput);
-        formData.append("name", fileInput.name);
-
-        formData.append("_wpnonce", window.SETTINGS.NONCE);
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                if (xhr.responseText) {
-                    console.log(xhr.responseText)
-                    cb(window.$.parseJSON(xhr.responseText));
-                }
-            }
-        };
-
-        var uploadPath = window.SETTINGS.WPPATH + 'wp-admin/async-upload.php';
-        xhr.open("POST", uploadPath, true);
-        xhr.send(formData);
+        axios.post(window.SETTINGS.WPPATH + 'wp-admin/async-upload.php', formData)
+            .then(function (response) {
+                console.log(response.data)
+                cb(response.data);
+            }).catch(function (e) {
+                cb(e);
+            });
     },
 
     deleteMedia(id, cb) {

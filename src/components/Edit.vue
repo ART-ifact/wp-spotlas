@@ -289,7 +289,9 @@
             upload(fileInput) {
                 let _this = this;
                 _this.sending = true;
-                api.uploadMedia(fileInput,this.updateImageArray)
+                var mediaForm = helper.buildMediaData(fileInput);
+
+                api.uploadMedia(mediaForm,this.updateImageArray)
             },
             updateImageArray(api_response) {
                 api_response = api_response.data;

@@ -45,5 +45,16 @@ export default {
         formData.append("description", form.description);
 
         return formData;
+    },
+
+    buildMediaData(fileInput) {
+        var formData = new FormData();
+        formData.append("action", "upload-attachment");
+        formData.append("async-upload", fileInput);
+        formData.append("name", fileInput.name);
+
+        formData.append("_wpnonce", window.SETTINGS.NONCE);
+
+        return formData;
     }
 }
