@@ -327,7 +327,7 @@
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         if (xhr.responseText) {
                             console.log(xhr.responseText)
-                            var response = _this.parseJSON(xhr.responseText);
+                            var response = window.$.parseJSON(xhr.responseText);
 
                             var pictureURLLarge = response.data.sizes.full.url;
                             var pictureURLThumb = response.data.sizes.thumbnail.url;
@@ -352,29 +352,6 @@
             },
             toDecimal(number) {
                 return number[0].numerator + number[1].numerator / (60 * number[1].denominator) + number[2].numerator / (3600 * number[2].denominator);
-            },
-            parseJSON(data) {
-                if (typeof data !== "string" || !data) {
-                    return null;
-                }
-
-                // Make sure leading/trailing whitespace is removed (IE can't handle it)
-                data = data.trim();
-
-                // Make sure the incoming data is actual JSON
-                // Logic borrowed from http://JSON.org/JSON2.js
-                if (/^[\],:{}\s]*$/.test(data.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@")
-                        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]")
-                        .replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
-
-                    // Try to use the native JSON parser first
-                    return window.JSON && window.JSON.parse ?
-                        window.JSON.parse(data) :
-                        (new Function("return " + data))();
-
-                } else {
-                    console.error("Invalid JSON: " + data);
-                }
             },
             deleteImage(imageID) {
                 let _this = this;
