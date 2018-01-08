@@ -42,4 +42,47 @@ export default {
                 cb(e)
             })
     },
+
+    uploadMedia(fileInput, cb) {
+
+        var formData = new FormData();
+        formData.append("action", "upload-attachment");
+        formData.append("async-upload", fileInput);
+        formData.append("name", fileInput.name);
+
+        formData.append("_wpnonce", window.SETTINGS.NONCE);
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText) {
+                    console.log(xhr.responseText)
+                    cb(window.$.parseJSON(xhr.responseText));
+                }
+            }
+        };
+
+        var uploadPath = window.SETTINGS.WPPATH + 'wp-admin/async-upload.php';
+        xhr.open("POST", uploadPath, true);
+        xhr.send(formData);
+    },
+
+    deleteMedia(id, cb) {
+        axios.delete(window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/' + id + '?force=true', {
+            force: true
+        }).then(function (response) {
+            console.log("deleted successfully");
+            cb(id);
+        }).catch(e => {
+            cb(e)
+        });
+    },
+
+    addLocation(formData, cb) {
+        axios.post(window.SETTINGS.THEMEURL + '/formhandlers/add-location.php', formData)
+            .then(function (response) {
+                cb(response);
+            }).catch(function (e) {
+                cb(e);
+            });
+    },
 }

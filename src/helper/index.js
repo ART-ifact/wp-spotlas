@@ -16,4 +16,8 @@ export default {
             number[2].numerator / (3600 * number[2].denominator)
         );
     },
+
+    getIconPaths() {
+        return window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg';
+    }
 }

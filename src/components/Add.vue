@@ -32,8 +32,8 @@
                     </v-text-field>
                     <h4>Accesibillity</h4>
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" :disabled="sending" v-model="form.accessibility"></v-slider>
-                    <v-select v-bind:items="type" v-model="form.type" label="Type" dark item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
-                    <v-select v-bind:items="category" v-model="form.category" label="Category" dark item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
+                    <v-select v-bind:items="type" v-model="form.type" label="Type" color="teal" dark item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
+                    <v-select v-bind:items="category" v-model="form.category" label="Category" color="teal" dark item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
                     <h4>Wheather</h4>
                     <v-container fluid>
                         <v-layout wrap>
@@ -171,7 +171,6 @@
             saveForm() {
                 if (this.$refs.form.validate()) {
                     console.log(this.form);
-                    var path = window.SETTINGS.THEMEURL + "/formhandlers/add-location.php";
                     var formData = new FormData();
                     formData.append("title", this.form.title);
                     formData.append("type", this.form.type);
@@ -190,19 +189,15 @@
                     formData.append("winter", this.form.winter);
                     formData.append("description", this.form.description);
 
-                    axios
-                        .post(path, formData)
-                        .then(function(response) {
-                            router.push("/grid/");
-                        })
-                        .catch(function(e) {
-                            console.log(e);
-                        });
+                    api.addLocation(formData,this.afterSave)
                 }
             },
-            getIconPaths() {
-                this.marker_icon.url =
-                    window.SETTINGS.THEMEURL + "/dist/assets/img/marker.svg";
+            afterSave(response) {
+                if (response.status === 200) {
+                    router.push("/grid/")
+                } else {
+                    console.error(response);
+                }
             },
             getMarkerPosition(marker) {
                 let _this = this;
@@ -247,55 +242,27 @@
             },
             upload(fileInput) {
                 let _this = this;
-                var formData = new FormData();
-                var xhr = new XMLHttpRequest();
                 _this.sending = true;
+                api.uploadMedia(fileInput,this.updateImageArray)
+            },
+            updateImageArray(api_response) {
+                api_response = api_response.data;
 
-                formData.append("action", "upload-attachment");
-                formData.append("async-upload", fileInput);
-                formData.append("name", fileInput.name);
-                formData.append("_wpnonce", window.SETTINGS.NONCE);
-
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        if (xhr.responseText) {
-                            console.log(xhr.responseText);
-                            var response = window.$.parseJSON(xhr.responseText);
-                            console.log(xhr.responseText)
-
-                            var pictureURLLarge = response.data.sizes.full.url;
-                            var pictureURLThumb = response.data.sizes.thumbnail.url;
-                            var tmp_obj = {
-                                id: response.data.id,
-                                large: pictureURLLarge,
-                                thumb: pictureURLThumb
-                            };
-
-                            _this.form.images.push(tmp_obj);
-
-                            _this.fileinput = null;
-                            _this.sending = false;
-                        }
-                    }
+                var pictureURLLarge = api_response.sizes.full.url;
+                var pictureURLThumb = api_response.sizes.thumbnail.url;
+                var tmp_obj = {
+                    id: api_response.id,
+                    large: pictureURLLarge,
+                    thumb: pictureURLThumb
                 };
 
-                var uploadPath = window.SETTINGS.WPPATH + "wp-admin/async-upload.php";
-                xhr.open("POST", uploadPath, true);
-                xhr.send(formData);
+                this.form.images.push(tmp_obj);
+
+                this.fileinput = null;
+                this.sending = false;
             },
             deleteImage(imageID) {
-                let _this = this;
-                var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/' + imageID + '?force=true';
-                if (path !== undefined) {
-                    axios.delete(path, {
-                        force: true
-                    }).then(function(response) {
-                        console.log("deleted successfully");
-                        _this.deleteImageFromArray(imageID);
-                    });
-                } else {
-                    console.log('Path undefined');
-                }
+                api.deleteMedia(imageID,this.deleteImageFromArray);
             },
             deleteImageFromArray(imageID) {
                 let _this = this;
@@ -319,8 +286,8 @@
             this.map = window.SETTINGS.MAPCENTER;
             this.marker = this.mapCenter = window.SETTINGS.MAPCENTER;
             this.styles = window.SETTINGS.mapStyles;
+            this.marker_icon.url = helper.getIconPaths();
             this.loading = false;
-            this.getIconPaths();
         }
     };
 </script>
