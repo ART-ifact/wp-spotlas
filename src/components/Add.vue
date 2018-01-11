@@ -280,6 +280,9 @@
             //this.$store.dispatch('getPost')
             this.map = window.SETTINGS.MAPCENTER;
             this.marker = this.mapCenter = window.SETTINGS.MAPCENTER;
+            console.log(this.marker);
+            this.form.longitude = this.marker.lng;
+            this.form.latitude = this.marker.lat;
             this.styles = window.SETTINGS.mapStyles;
             this.marker_icon.url = helper.getIconPaths();
             this.loading = false;
