@@ -12,7 +12,10 @@
             "note": "Note",
             "locationName": "Location Name",
             "type": "Type",
-            "category": "Category"
+            "category": "Category",
+            "locationDeleteHint": "You sure want to delete location?",
+            "delete": "Delete",
+            "abort": "Abort"
         }
     },
     "de": {
@@ -28,7 +31,10 @@
             "note": "Notiz",
             "locationName": "Name der Location",
             "type": "Typ",
-            "category": "Kategorie"
+            "category": "Kategorie",
+            "locationDeleteHint": "Möchtest du die folgende Location wirklich löschen?",
+            "delete": "Löschen",
+            "abort": "Abbrechen"
         }
     }
 }
