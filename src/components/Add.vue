@@ -43,8 +43,8 @@
                     </v-text-field>
                     <h4>{{ $t('message.accesibillity') }}</h4>
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" :disabled="sending" v-model="form.accessibility"></v-slider>
-                    <v-select v-bind:items="type" v-model="form.type" v-bind:label="$t('message.type')" color="teal" dark item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
-                    <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" color="teal" dark item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
+                    <v-select v-bind:items="type" v-model="form.type" v-bind:label="$t('message.type')" color="teal" dark item-value="value" item-text="text" :disabled="sending" required :rules="typeRules"></v-select>
+                    <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" color="teal" dark item-value="value" item-text="text" :disabled="sending" required :rules="categoryRules"></v-select>
                     <h4>{{ $t('message.wheather') }}</h4>
                     <v-container fluid>
                         <v-layout wrap>
@@ -135,29 +135,37 @@
                 description: ""
             },
             type: [{
-                    text: "Industry"
+                    text: "Industry",
+                    value: "Industry",
                 },
                 {
-                    text: "Outdoor"
+                    text: "Outdoor",
+                    value: "Outdoor"
                 },
                 {
-                    text: "Architecture"
+                    text: "Architecture",
+                    value: "Architecture"
                 },
                 {
-                    text: "Monument"
+                    text: "Monument",
+                    value: "Monument"
                 }
             ],
             category: [{
-                    text: "building"
+                    text: "building",
+                    value: "building"
                 },
                 {
-                    text: "landscape"
+                    text: "landscape",
+                    value: "landscape"
                 },
                 {
-                    text: "urban"
+                    text: "urban",
+                    value: "urban"
                 },
                 {
-                    text: "water"
+                    text: "water",
+                    value: "water"
                 }
             ],
             marker_icon: {
@@ -285,7 +293,10 @@
             this.form.latitude = this.marker.lat;
             this.styles = window.SETTINGS.mapStyles;
             this.marker_icon.url = helper.getIconPaths();
+            this.type = helper.createTranslatedTypeObject(this.$t('message.industry'),this.$t('message.outdoor'), this.$t('message.architecture'), this.$t('message.monument'));
+            this.category = helper.createTranslatedCategoryObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'));
             this.loading = false;
+
         }
     };
 </script>

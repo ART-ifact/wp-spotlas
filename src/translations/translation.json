@@ -17,7 +17,18 @@
             "delete": "Delete",
             "abort": "Abort",
             "showLocation": "Show Location",
-            "openInMaps": "open in GoogleMaps"
+            "openInMaps": "open in GoogleMaps",
+            "username": "Username",
+            "password": "Enter your password",
+            "login": "Login",
+            "industry": "Industry",
+            "outdoor": "Outdoor",
+            "architecture": "Architecture",
+            "monument": "Monument",
+            "building": "Building",
+            "landscape": "Landscape",
+            "urban": "Urban",
+            "water": "Water"
         }
     },
     "de": {
@@ -38,7 +49,18 @@
             "delete": "Löschen",
             "abort": "Abbrechen",
             "showLocation": "Location ansehen",
-            "openInMaps": "In GoogleMaps öffnen"
+            "openInMaps": "In GoogleMaps öffnen",
+            "username": "Benutzername",
+            "password": "Passwort eingeben",
+            "login": "Einloggen",
+            "industry": "Industrie",
+            "outdoor": "Outdoor",
+            "architecture": "Architektur",
+            "monument": "Sehenswürdigkeit",
+            "building": "Gebäude",
+            "landscape": "Landschaft",
+            "urban": "Urban",
+            "water": "Wasser"
         }
     }
 }

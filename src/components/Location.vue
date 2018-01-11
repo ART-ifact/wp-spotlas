@@ -28,19 +28,41 @@
                 <v-layout wrap>
                     <v-flex xs6>
                         <h4>{{ $t('message.category') }}</h4>
-                        <v-icon v-if="locationdata.category == 'landscape'">local_florist</v-icon>
-                        <v-icon v-if="locationdata.category == 'building'">home</v-icon>
-                        <v-icon v-if="locationdata.category == 'urban'">location_city</v-icon>
-                        <v-icon v-if="locationdata.category == 'water'">directions_boat</v-icon>
-                        {{locationdata.category}}
+                        <span v-if="locationdata.category == 'landscape'">
+                            <v-icon>local_florist</v-icon>
+                            {{ $t('message.landscape') }}
+                        </span>
+                        <span v-if="locationdata.category == 'building'">
+                            <v-icon>home</v-icon>
+                            {{ $t('message.building') }}
+                        </span>
+                        <span v-if="locationdata.category == 'urban'">
+                            <v-icon>location_city</v-icon>
+                            {{ $t('message.urban') }}
+                        </span>
+                        <span v-if="locationdata.category == 'water'">
+                            <v-icon>directions_boat</v-icon>
+                            </span>
+                        </span>
                     </v-flex>
                     <v-flex xs6>
                         <h4>{{ $t('message.type') }}</h4>
-                        <v-icon v-if="locationdata.type == 'Industry'">build</v-icon>
-                        <v-icon v-if="locationdata.type == 'Outdoor'">terrain</v-icon>
-                        <v-icon v-if="locationdata.type == 'Architecture'">domain</v-icon>
-                        <v-icon v-if="locationdata.type == 'Monument'">whats_hot</v-icon>
-                        {{locationdata.type}}
+                        <span v-if="locationdata.type == 'Industry'">
+                            <v-icon>build</v-icon>
+                            {{ $t('message.industry') }}
+                        </span>
+                        <span v-if="locationdata.type == 'Outdoor'">
+                            <v-icon>terrain</v-icon>
+                            {{ $t('message.outdoor') }}
+                        </span>
+                        <span v-if="locationdata.type == 'Architecture'">
+                            <v-icon>domain</v-icon>
+                            {{ $t('message.architecture') }}
+                        </span>
+                        <span v-if="locationdata.type == 'Monument'">
+                            <v-icon>whats_hot</v-icon>
+                            {{ $t('message.monument') }}
+                        </span>
                     </v-flex>
                 </v-layout>
             </v-container>
