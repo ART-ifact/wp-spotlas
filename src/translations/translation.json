@@ -15,7 +15,9 @@
             "category": "Category",
             "locationDeleteHint": "You sure want to delete location?",
             "delete": "Delete",
-            "abort": "Abort"
+            "abort": "Abort",
+            "showLocation": "Show Location",
+            "openInMaps": "open in GoogleMaps"
         }
     },
     "de": {
@@ -34,7 +36,9 @@
             "category": "Kategorie",
             "locationDeleteHint": "Möchtest du die folgende Location wirklich löschen?",
             "delete": "Löschen",
-            "abort": "Abbrechen"
+            "abort": "Abbrechen",
+            "showLocation": "Location ansehen",
+            "openInMaps": "In GoogleMaps öffnen"
         }
     }
 }

@@ -188,12 +188,12 @@ router.afterEach((to, from) => {
 })
 
 const messages = require('./translations/translation.json');
-  
-  // Create VueI18n instance with options
-  const i18n = new VueI18n({
+
+// Create VueI18n instance with options
+const i18n = new VueI18n({
     locale: window.SETTINGS.LOCALE, // set locale
     messages, // set locale messages
-  })
+})
 
 
 new Vue({
