@@ -65,5 +65,15 @@ export default {
             thumb: imageData.sizes.thumbnail.url
         };
         return tmp_obj;
+    },
+
+    getCurrentLocation(cb) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                cb(position.coords.longitude,position.coords.latitude);
+            });
+        } else {
+            console.log('Geolocation is not supported by this browser.');
+        }
     }
 }

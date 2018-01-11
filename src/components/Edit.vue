@@ -24,9 +24,20 @@
                     <input type="hidden" name="latitude" :value="form.longitude" id="latitude">
                     <input type="hidden" name="longitude" :value="form.latitude" id="longitude">
 
-                    <gmap-map :zoom="12" v-if="form.lng" :center="form.lng" :options="{styles: styles}" style="width: 100%; min-height: 300px">
+                    <gmap-map :zoom="12" v-if="form.lng" :center="form.lng" :options="{styles: styles}" style="width: 100%; min-height: 300px; margin-bottom: 1rem;">
                         <gmap-marker :position="form.lng" :clickable="true" :icon="marker_icon" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
+                    <v-flex x12>
+                        <v-btn
+                        :loading="gettingLocation"
+                        @click.native="getCurrentLocation();gettingLocation = true"
+                        color="teal"
+                        class="white--text full-width"
+                        >
+                            <v-icon left dark>my_location</v-icon>
+                            Get current Location
+                        </v-btn>
+                    </v-flex>
                     <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" required :rules="descriptionRules"></v-text-field>
                 </v-flex>
                 <v-flex md6 xs12 class="pa-3">
@@ -184,6 +195,7 @@
             showSnackbar: false,
             styles: null,
             valid: true,
+            gettingLocation: false,
             marker_icon: {
                 url: ''
             },
@@ -250,6 +262,11 @@
                     console.error(response);
                 }
             },
+            getCurrentLocation() {
+                let _this = this;
+                _this.gettingLocation = true;
+                helper.getCurrentLocation(_this.updateMap);
+            },
             getMarkerPosition(marker) {
                 let _this = this
                 _this.map = marker;
@@ -270,6 +287,8 @@
                 }
                 _this.form.latitude = latitude
                 _this.form.longitude = longitude
+                _this.form.lng = _this.marker
+                _this.gettingLocation = false;
             },
 
             uploadImage(event) {

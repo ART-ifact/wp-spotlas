@@ -25,6 +25,17 @@
                     <gmap-map :zoom="12" :center="map" :options="{styles: styles}" style="width: 100%; margin-bottom: 1rem; min-height: 300px">
                         <gmap-marker :position="marker" :clickable="true" :icon="marker_icon" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
+                    <v-flex x12>
+                        <v-btn
+                        :loading="gettingLocation"
+                        @click.native="getCurrentLocation();gettingLocation = true"
+                        color="teal"
+                        class="white--text full-width"
+                        >
+                            <v-icon left dark>my_location</v-icon>
+                            Get current Location
+                        </v-btn>
+                    </v-flex>
                     <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" :rules="descriptionRules" :disabled="sending" required></v-text-field>
                 </v-flex>
                 <v-flex md6 xs12 class="pa-3">
@@ -162,6 +173,7 @@
             showSnackbar: false,
             styles: null,
             valid: false,
+            gettingLocation: false,
             titleRules: [v => !!v || "Title is required"],
             descriptionRules: [v => !!v || "Title is required"],
             typeRules: [v => !!v || "Type is required"],
@@ -183,6 +195,11 @@
                     console.error(response);
                 }
             },
+            getCurrentLocation() {
+                let _this = this;
+                _this.gettingLocation = true;
+                helper.getCurrentLocation(_this.updateMap);
+            },
             getMarkerPosition(marker) {
                 let _this = this;
                 _this.map = marker;
@@ -202,6 +219,7 @@
                 };
                 _this.form.latitude = latitude;
                 _this.form.longitude = longitude;
+                _this.gettingLocation = false;
             },
 
             uploadImage(event) {
