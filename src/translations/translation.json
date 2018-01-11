@@ -1,0 +1,34 @@
+{
+    "en": {
+        "message": {
+            "selectPicture": "Select Picture",
+            "getCurrentLocation": "Get current Location",
+            "accesibillity": "Accesibillity",
+            "wheather": "Wheather",
+            "seasons": "Seasons",
+            "deletedImageSucess": "Successfull deleted Image",
+            "close": "Close",
+            "save": "Save",
+            "note": "Note",
+            "locationName": "Location Name",
+            "type": "Type",
+            "category": "Category"
+        }
+    },
+    "de": {
+        "message": {
+            "selectPicture": "Bild auswählen",
+            "getCurrentLocation": "Aktuelle Position",
+            "accesibillity": "Zugänglichkeit",
+            "wheather": "Wetter",
+            "seasons": "Jahreszeiten",
+            "deletedImageSucess": "Bild erfolgreich gelöscht",
+            "close": "Schließen",
+            "save": "Speichern",
+            "note": "Notiz",
+            "locationName": "Name der Location",
+            "type": "Typ",
+            "category": "Kategorie"
+        }
+    }
+}
