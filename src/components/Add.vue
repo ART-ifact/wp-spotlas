@@ -7,7 +7,7 @@
             <v-layout row wrap>
                 <v-flex md6 xs12 class="pa-3">
                     <md-field>
-                        <label>Select a picture</label>
+                        <label>{{ $t('message.selectPicture') }}</label>
                         <md-file single v-model="fileinput" accept="image/*" @change="uploadImage($event)" />
                     </md-field>
                     <div class="imagebox">
@@ -25,16 +25,27 @@
                     <gmap-map :zoom="12" :center="map" :options="{styles: styles}" style="width: 100%; margin-bottom: 1rem; min-height: 300px">
                         <gmap-marker :position="marker" :clickable="true" :icon="marker_icon" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
-                    <v-text-field dark color="teal" multi-line label="Descriptiontext" v-model="form.description" :rules="descriptionRules" :disabled="sending" required></v-text-field>
+                    <v-flex x12>
+                        <v-btn
+                        :loading="gettingLocation"
+                        @click.native="getCurrentLocation();gettingLocation = true"
+                        color="teal"
+                        class="white--text full-width"
+                        >
+                            <v-icon left dark>my_location</v-icon>
+                            {{ $t('message.getCurrentLocation') }}
+                        </v-btn>
+                    </v-flex>
+                    <v-text-field dark color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description" :rules="descriptionRules" :disabled="sending" required></v-text-field>
                 </v-flex>
                 <v-flex md6 xs12 class="pa-3">
-                    <v-text-field dark color="teal" :class="errors.has('title') ? error : valid" label="Location Name" v-model="form.title" :rules="titleRules" :disabled="sending" required>
+                    <v-text-field dark color="teal" :class="errors.has('title') ? error : valid" v-bind:label="$t('message.locationName')" v-model="form.title" :rules="titleRules" :disabled="sending" required>
                     </v-text-field>
-                    <h4>Accesibillity</h4>
+                    <h4>{{ $t('message.accesibillity') }}</h4>
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" :disabled="sending" v-model="form.accessibility"></v-slider>
-                    <v-select v-bind:items="type" v-model="form.type" label="Type" color="teal" dark item-value="text" :disabled="sending" required :rules="typeRules"></v-select>
-                    <v-select v-bind:items="category" v-model="form.category" label="Category" color="teal" dark item-value="text" :disabled="sending" required :rules="categoryRules"></v-select>
-                    <h4>Wheather</h4>
+                    <v-select v-bind:items="type" v-model="form.type" v-bind:label="$t('message.type')" color="teal" dark item-value="value" item-text="text" :disabled="sending" required :rules="typeRules"></v-select>
+                    <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" color="teal" dark item-value="value" item-text="text" :disabled="sending" required :rules="categoryRules"></v-select>
+                    <h4>{{ $t('message.wheather') }}</h4>
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
@@ -55,7 +66,7 @@
                             </v-flex>
                         </v-layout>
                     </v-container>
-                    <h4>Seasons</h4>
+                    <h4>{{ $t('message.seasons') }}</h4>
                     <v-container fluid>
                         <v-layout wrap>
                             <v-flex xs3>
@@ -78,11 +89,11 @@
                     </v-container>
                 </v-flex>
                 <v-snackbar :timeout="2500" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
-                    Successfull deleted Image
-                    <v-btn dark flat @click.native="showSnackbar = false">Close</v-btn>
+                    {{ $t('message.deletedImageSucess') }}
+                    <v-btn dark flat @click.native="showSnackbar = false">{{ $t('message.close') }}</v-btn>
                 </v-snackbar>
                 <v-flex x1 offset-xs10>
-                    <v-btn color="teal" dark name="wp-submit" type="submit">Save</v-btn>
+                    <v-btn color="teal" dark name="wp-submit" type="submit">{{ $t('message.save') }}</v-btn>
                 </v-flex>
             </v-layout>
         </v-form>
@@ -124,29 +135,37 @@
                 description: ""
             },
             type: [{
-                    text: "Industry"
+                    text: "Industry",
+                    value: "Industry",
                 },
                 {
-                    text: "Outdoor"
+                    text: "Outdoor",
+                    value: "Outdoor"
                 },
                 {
-                    text: "Architecture"
+                    text: "Architecture",
+                    value: "Architecture"
                 },
                 {
-                    text: "Monument"
+                    text: "Monument",
+                    value: "Monument"
                 }
             ],
             category: [{
-                    text: "building"
+                    text: "building",
+                    value: "building"
                 },
                 {
-                    text: "landscape"
+                    text: "landscape",
+                    value: "landscape"
                 },
                 {
-                    text: "urban"
+                    text: "urban",
+                    value: "urban"
                 },
                 {
-                    text: "water"
+                    text: "water",
+                    value: "water"
                 }
             ],
             marker_icon: {
@@ -162,6 +181,7 @@
             showSnackbar: false,
             styles: null,
             valid: false,
+            gettingLocation: false,
             titleRules: [v => !!v || "Title is required"],
             descriptionRules: [v => !!v || "Title is required"],
             typeRules: [v => !!v || "Type is required"],
@@ -183,6 +203,11 @@
                     console.error(response);
                 }
             },
+            getCurrentLocation() {
+                let _this = this;
+                _this.gettingLocation = true;
+                helper.getCurrentLocation(_this.updateMap);
+            },
             getMarkerPosition(marker) {
                 let _this = this;
                 _this.map = marker;
@@ -202,6 +227,7 @@
                 };
                 _this.form.latitude = latitude;
                 _this.form.longitude = longitude;
+                _this.gettingLocation = false;
             },
 
             uploadImage(event) {
@@ -262,9 +288,15 @@
             //this.$store.dispatch('getPost')
             this.map = window.SETTINGS.MAPCENTER;
             this.marker = this.mapCenter = window.SETTINGS.MAPCENTER;
+            console.log(this.marker);
+            this.form.longitude = this.marker.lng;
+            this.form.latitude = this.marker.lat;
             this.styles = window.SETTINGS.mapStyles;
             this.marker_icon.url = helper.getIconPaths();
+            this.type = helper.createTranslatedTypeObject(this.$t('message.industry'),this.$t('message.outdoor'), this.$t('message.architecture'), this.$t('message.monument'));
+            this.category = helper.createTranslatedCategoryObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'));
             this.loading = false;
+
         }
     };
 </script>

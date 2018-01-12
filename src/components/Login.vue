@@ -5,10 +5,10 @@
                 <v-card dark color="dark" class="pa-3">
                     <form v-on:submit.prevent="login">
     
-                        <v-text-field dark label="Username" color="teal" id="user_login" v-model="username" required></v-text-field>
+                        <v-text-field dark v-bind:label="$t('message.username')" color="teal" id="user_login" v-model="username" required></v-text-field>
     
-                        <v-text-field label="Enter your password" v-model="password" color="teal" :append-icon="passwordfield ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (passwordfield = !passwordfield)" :type="passwordfield ? 'password' : 'text'"></v-text-field>
-                        <v-btn color="teal" dark type="submit">Login</v-btn>
+                        <v-text-field v-bind:label="$t('message.username')" v-model="password" color="teal" :append-icon="passwordfield ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (passwordfield = !passwordfield)" :type="passwordfield ? 'password' : 'text'"></v-text-field>
+                        <v-btn color="teal" dark class="full-width" type="submit">{{ $t('message.login') }}</v-btn>
                     </form>
                 </v-card>
             </v-flex>

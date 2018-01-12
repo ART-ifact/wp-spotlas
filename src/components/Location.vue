@@ -27,20 +27,42 @@
             <v-container fluid>
                 <v-layout wrap>
                     <v-flex xs6>
-                        <h4>Category</h4>
-                        <v-icon v-if="locationdata.category == 'landscape'">local_florist</v-icon>
-                        <v-icon v-if="locationdata.category == 'building'">home</v-icon>
-                        <v-icon v-if="locationdata.category == 'urban'">location_city</v-icon>
-                        <v-icon v-if="locationdata.category == 'water'">directions_boat</v-icon>
-                        {{locationdata.category}}
+                        <h4>{{ $t('message.category') }}</h4>
+                        <span v-if="locationdata.category == 'landscape'">
+                            <v-icon>local_florist</v-icon>
+                            {{ $t('message.landscape') }}
+                        </span>
+                        <span v-if="locationdata.category == 'building'">
+                            <v-icon>home</v-icon>
+                            {{ $t('message.building') }}
+                        </span>
+                        <span v-if="locationdata.category == 'urban'">
+                            <v-icon>location_city</v-icon>
+                            {{ $t('message.urban') }}
+                        </span>
+                        <span v-if="locationdata.category == 'water'">
+                            <v-icon>directions_boat</v-icon>
+                            </span>
+                        </span>
                     </v-flex>
                     <v-flex xs6>
-                        <h4>Type</h4>
-                        <v-icon v-if="locationdata.type == 'Industry'">build</v-icon>
-                        <v-icon v-if="locationdata.type == 'Outdoor'">terrain</v-icon>
-                        <v-icon v-if="locationdata.type == 'Architecture'">domain</v-icon>
-                        <v-icon v-if="locationdata.type == 'Monument'">whats_hot</v-icon>
-                        {{locationdata.type}}
+                        <h4>{{ $t('message.type') }}</h4>
+                        <span v-if="locationdata.type == 'Industry'">
+                            <v-icon>build</v-icon>
+                            {{ $t('message.industry') }}
+                        </span>
+                        <span v-if="locationdata.type == 'Outdoor'">
+                            <v-icon>terrain</v-icon>
+                            {{ $t('message.outdoor') }}
+                        </span>
+                        <span v-if="locationdata.type == 'Architecture'">
+                            <v-icon>domain</v-icon>
+                            {{ $t('message.architecture') }}
+                        </span>
+                        <span v-if="locationdata.type == 'Monument'">
+                            <v-icon>whats_hot</v-icon>
+                            {{ $t('message.monument') }}
+                        </span>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -88,7 +110,7 @@
             <v-container fluid>
                 <v-layout wrap>
                     <v-flex xs12>
-                        <h4>Notes</h4>
+                        <h4>{{ $t('message.note') }}</h4>
                         <p>
                             {{locationdata.content.rendered}}
                         </p>
@@ -100,7 +122,7 @@
         <v-speed-dial v-if="locationdata" fab small large dark absolute top right class="btn-edit" :direction="'bottom'" :hover="true" :transition="'slide-y-reverse-transition'">
             <v-btn slot="activator" color="teal darken-2" dark fab hover>
                 <v-icon>edit_location</v-icon>
-                <v-icon>close</v-icon>
+                <v-icon>{{ $t('message.close') }}</v-icon>
             </v-btn>
             <v-btn :href="wppath+'edit/'+locationdata.id" fab dark small color="teal">
                 <v-icon>edit</v-icon>
@@ -111,14 +133,14 @@
         </v-speed-dial>
         <v-dialog v-if="locationdata" v-model="dialog" persistent max-width="380">
             <v-card>
-                <v-card-title v-if="!deleting" class="headline">You sure want to delete location {{ locationdata.title.rendered }} ?</v-card-title>
+                <v-card-title v-if="!deleting" class="headline">{{ $t('message.locationDeleteHint') }} <br> {{ locationdata.title.rendered }}</v-card-title>
                 <v-flex xs12 v-if="deleting">
                     <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
                 </v-flex>
                 <v-card-actions>
-                    <v-btn color="teal darken-1" v-if="!deleting" @click.stop="dialog=false">Abort</v-btn>
+                    <v-btn color="teal darken-1" v-if="!deleting" @click.stop="dialog=false">{{ $t('message.abort') }}</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn color="red darken-1" v-if="!deleting" @click="deleteLocation">Delete</v-btn>
+                    <v-btn color="red darken-1" v-if="!deleting" @click="deleteLocation">{{ $t('message.delete') }}</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

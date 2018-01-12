@@ -22,7 +22,7 @@
                                     <div class="imageWrapper">
                                         <div v-if="selectedMarker.images.length > 0" v-for="image in selectedMarker.images.slice(0,1)" :key="image.id">
                                             <img :src="image.large" :key="image.large" class="leaderimg">
-                                            <div class="overlay"><span>Show Location</span></div>
+                                            <div class="overlay"><span>{{ $t('message.showLocation') }}</span></div>
                                         </div>
                                         <div v-if="selectedMarker.images.length < 1">
                                             <img :src="placeholderImage">
@@ -30,7 +30,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <a class="nav-link" target="blank" :href="'http://maps.google.com/?daddr=' + selectedMarker.lat + ',' + selectedMarker.lng.lng ">openInMaps</a>
+                            <a class="nav-link" target="blank" :href="'http://maps.google.com/?daddr=' + selectedMarker.lat + ',' + selectedMarker.lng.lng ">{{ $t('message.openInMaps') }}</a>
                         </div>
                     </div>
                 </gmap-info-window>

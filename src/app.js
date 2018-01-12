@@ -12,6 +12,7 @@ window.SETTINGS.AJAXNONCE = document.getElementsByClassName('wpnonce-rest')[0].v
 window.SETTINGS.LOGOUT = document.getElementsByClassName('logout-link')[0].value;
 window.SETTINGS.THEMEURL = document.getElementsByClassName('theme-url')[0].value;
 window.SETTINGS.LOGO = document.getElementsByClassName('logo-url')[0].value;
+window.SETTINGS.LOCALE = document.getElementsByClassName('locale')[0].value;
 window.SETTINGS.MAPCENTER = {
     lat: parseFloat(document.getElementsByClassName('default_lat')[0].value),
     lng: parseFloat(document.getElementsByClassName('default_lng')[0].value)
@@ -145,6 +146,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueLazyload from 'vue-lazyload'
 import VeeValidate from 'vee-validate';
+import VueI18n from 'vue-i18n'
+
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -167,6 +170,7 @@ Vue.use(VeeValidate);
 Vue.use(MdField);
 Vue.use(Vuetify);
 Vue.use(VueLazyload);
+Vue.use(VueI18n);
 Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyA4ALxZp1Ourvckn_07_BahbGq7KI4u8Dg',
@@ -183,9 +187,18 @@ router.afterEach((to, from) => {
     $("body").addClass("vue--page--" + _.toLower(to.name))
 })
 
+const messages = require('./translations/translation.json');
+
+// Create VueI18n instance with options
+const i18n = new VueI18n({
+    locale: window.SETTINGS.LOCALE, // set locale
+    messages, // set locale messages
+})
+
 
 new Vue({
     el: '#app',
+    i18n,
     store,
     router,
     render: h => h(App),

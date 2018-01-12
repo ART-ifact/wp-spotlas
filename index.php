@@ -21,6 +21,7 @@
             $logo = $defaultLogo;
         } ?>
         <input type="hidden" class="wpnonce-rest" value="<?php echo $my_api_nonce; ?>">
+        <input type="hidden" class="locale" value="<?php echo of_get_option('language'); ?>">
         <input type="hidden" class="logout-link" value="<?php echo wp_logout_url(home_url()); ?>">
         <input type="hidden" class="theme-url" value="<?php echo esc_url(get_template_directory_uri()); ?>">
         <input type="hidden" class="logo-url" value="<?php echo $logo?>">

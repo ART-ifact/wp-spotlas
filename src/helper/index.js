@@ -65,5 +65,109 @@ export default {
             thumb: imageData.sizes.thumbnail.url
         };
         return tmp_obj;
+    },
+
+    getCurrentLocation(cb) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                cb(position.coords.longitude,position.coords.latitude);
+            });
+        } else {
+            console.log('Geolocation is not supported by this browser.');
+        }
+    },
+
+    createTranslatedTypeObject(industry, outdoor, architecture, monument) {
+
+        var type =  [{
+                text: "",
+                value: "Industry"
+            },
+            {
+                text: "",
+                value: "Outdoor"
+            },
+            {
+                text: "",
+                value: "Architecture"
+            },
+            {
+                text: "",
+                value: "Monument"
+            }
+        ];
+
+        for (var index = 0; index < type.length; index++) {
+            var element = type[index];
+
+            if (element.value === 'Industry') {
+                element.text = industry;
+            }
+
+            if (element.value === 'Outdoor') {
+                element.text = outdoor;
+            }
+
+            if (element.value === 'Architecture') {
+                element.text = architecture;
+            }
+
+            if (element.value === 'Monument') {
+                element.text = monument;
+            }
+
+
+        }
+
+        return type;
+
+    },
+
+    createTranslatedCategoryObject(building, landscape, urban, water) {
+
+        var category = [{
+                text: "",
+                value: "building"
+            },
+            {
+                text: "",
+                value: "landscape"
+            },
+            {
+                text: "",
+                value: "urban"
+            },
+            {
+                text: "",
+                value: "water"
+            }
+        ]
+
+        for (var index = 0; index < category.length; index++) {
+            var element = category[index];
+
+
+            if (element.value === 'building') {
+                element.text = building;
+            }
+
+            if (element.value === 'landscape') {
+                element.text = landscape;
+            }
+
+            if (element.value === 'urban') {
+                element.text = urban;
+            }
+
+            if (element.value === 'water') {
+                element.text = water;
+            }
+
+
+        }
+
+        return category;
+
     }
+
 }
