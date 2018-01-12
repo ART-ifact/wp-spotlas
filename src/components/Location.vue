@@ -199,7 +199,6 @@
                 this.locationdata = data;
                 this.locationdata.content.rendered = this.locationdata.content.rendered.replace(/<\/?p[^>]*>/g, "")
                 this.loading = false
-                console.log(this.locationdata.type)
             },
 
             deleteLocation() {
@@ -257,6 +256,7 @@
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
             _this.getIconPaths();
             api.getPost(this.id, this.handleData);
+            this.$root.$children[0]._data.showBackButton = true;
         },
         computed: {
             wppath() {
