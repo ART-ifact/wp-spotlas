@@ -15,8 +15,8 @@
                             <li :key="index" v-for="(image, index) in form.images">
                                 <img v-bind:src="image.thumb" alt="" />
                                 <span type="button" v-on:click="deleteImage(image.id)">
-                                        <v-icon dark>delete</v-icon>
-                                    </span>
+                                    <v-icon dark>delete</v-icon>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -26,25 +26,33 @@
                         <gmap-marker :position="marker" :clickable="true" :icon="marker_icon" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
                     <v-flex x12>
-                        <v-btn
-                        :loading="gettingLocation"
-                        @click.native="getCurrentLocation();gettingLocation = true"
-                        color="teal"
-                        class="white--text full-width"
-                        >
+                        <v-btn :loading="gettingLocation" @click.native="getCurrentLocation();gettingLocation = true" color="teal" class="white--text full-width">
                             <v-icon left dark>my_location</v-icon>
                             {{ $t('message.getCurrentLocation') }}
                         </v-btn>
                     </v-flex>
-                    <v-text-field dark color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description" :rules="descriptionRules" :disabled="sending" required></v-text-field>
+                    <v-text-field dark color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description" :rules="descriptionRules"
+                        :disabled="sending" required></v-text-field>
                 </v-flex>
                 <v-flex md6 xs12 class="pa-3">
-                    <v-text-field dark color="teal" :class="errors.has('title') ? error : valid" v-bind:label="$t('message.locationName')" v-model="form.title" :rules="titleRules" :disabled="sending" required>
+                    <v-text-field dark color="teal" :class="errors.has('title') ? error : valid" v-bind:label="$t('message.locationName')" v-model="form.title"
+                        :rules="titleRules" :disabled="sending" required>
                     </v-text-field>
                     <h4>{{ $t('message.accesibillity') }}</h4>
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" :disabled="sending" v-model="form.accessibility"></v-slider>
-                    <v-select v-bind:items="type" v-model="form.type" v-bind:label="$t('message.type')" color="teal" dark item-value="value" item-text="text" :disabled="sending" required :rules="typeRules"></v-select>
-                    <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" color="teal" dark item-value="value" item-text="text" :disabled="sending" required :rules="categoryRules"></v-select>
+
+                    <v-select v-model="form.type" v-bind:label="$t('message.type')" chips color="teal" dark :items="type" multiple :disabled="sending" required :rules="categoryRules">
+                        <template slot="selection" slot-scope="data">
+                            <v-chip @input="data.parent.selectItem(data.item)" class="chip--select-multi" text-color="white" color="blue-grey darken-2"
+                                :key="JSON.stringify(data.item)" dark close>
+                                {{ data.item.text }}
+                            </v-chip>
+                        </template>
+                    </v-select>
+
+                    <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" color="teal" dark item-value="value"
+                        item-text="text" :disabled="sending" required :rules="typeRules"></v-select>
+
                     <h4>{{ $t('message.wheather') }}</h4>
                     <v-container fluid>
                         <v-layout wrap>
@@ -134,23 +142,7 @@
                 winter: false,
                 description: ""
             },
-            type: [{
-                    text: "Industry",
-                    value: "Industry",
-                },
-                {
-                    text: "Outdoor",
-                    value: "Outdoor"
-                },
-                {
-                    text: "Architecture",
-                    value: "Architecture"
-                },
-                {
-                    text: "Monument",
-                    value: "Monument"
-                }
-            ],
+            type: [],
             category: [{
                     text: "building",
                     value: "building"
@@ -293,7 +285,7 @@
             this.form.latitude = this.marker.lat;
             this.styles = window.SETTINGS.mapStyles;
             this.marker_icon.url = helper.getIconPaths();
-            this.type = helper.createTranslatedTypeObject(this.$t('message.industry'),this.$t('message.outdoor'), this.$t('message.architecture'), this.$t('message.monument'));
+            this.type = helper.createTranslatedTypeObject(this.$t('message.industry'), this.$t('message.historic'), this.$t('message.panorama'), this.$t('message.sunrise'), this.$t('message.sunset'), this.$t('message.outdoor'), this.$t('message.architecture'), this.$t('message.monument'));
             this.category = helper.createTranslatedCategoryObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'));
             this.loading = false;
 

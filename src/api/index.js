@@ -13,6 +13,8 @@ export default {
                     lng: parseFloat(response.data.lng)
                 };
                 response.data.lng = positionArray;
+                var typeObject = JSON.stringify(response.data.type);
+                response.data.type = response.data.type.split(',');
                 cb(response.data)
             })
             .catch(e => {

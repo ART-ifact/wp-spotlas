@@ -16,11 +16,11 @@
                 <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>
             </v-carousel>
             <gmap-map v-if="locationdata" :center="locationdata.lng" :options="{styles: styles}" :zoom="14" style="width: 100%; min-height: 300px">
-                <gmap-marker v-if="locationdata.type == 'Industry'" :icon="marker_industry" :position="locationdata.lng"></gmap-marker>
-                <gmap-marker v-if="locationdata.type == 'Outdoor'" :icon="marker_outdoor" :position="locationdata.lng"></gmap-marker>
-                <gmap-marker v-if="locationdata.type == 'Architecture'" :icon="marker_architecture" :position="locationdata.lng"></gmap-marker>
-                <gmap-marker v-if="locationdata.type == 'Monument'" :icon="marker_monument" :position="locationdata.lng"></gmap-marker>
-                <gmap-marker v-if="locationdata.type != 'Monument' && locationdata.type != 'Architecture' && locationdata.type != 'Outdoor' && locationdata.type != 'Industry'" :icon="marker_icon" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category == 'Industry'" :icon="marker_industry" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category == 'building'" :icon="marker_outdoor" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category == 'Architecture'" :icon="marker_architecture" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category == 'Monument'" :icon="marker_monument" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category != 'Monument' && locationdata.category != 'Architecture' && locationdata.category != 'Outdoor' && locationdata.category != 'Industry'" :icon="marker_icon" :position="locationdata.lng"></gmap-marker>
             </gmap-map>
         </v-flex>
         <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
@@ -45,24 +45,19 @@
                             </span>
                         </span>
                     </v-flex>
-                    <v-flex xs6>
+                    <v-flex sm6 xs12>
                         <h4>{{ $t('message.type') }}</h4>
-                        <span v-if="locationdata.type == 'Industry'">
-                            <v-icon>build</v-icon>
-                            {{ $t('message.industry') }}
+                        <span v-for="type in locationdata.type">
+                            <v-chip v-if="type == 'industry'" text-color="white" color="blue-grey darken-2">{{ $t('message.industry') }}</v-chip>
+                            <v-chip v-if="type == 'panorama'" text-color="white" color="blue-grey darken-2">{{ $t('message.panorama') }}</v-chip>
+                            <v-chip v-if="type == 'historic'" text-color="white" color="blue-grey darken-2">{{ $t('message.historic') }}</v-chip>
+                            <v-chip v-if="type == 'sunrise'" text-color="white" color="blue-grey darken-2">{{ $t('message.sunrise') }}</v-chip>
+                            <v-chip v-if="type == 'sunset'" text-color="white" color="blue-grey darken-2">{{ $t('message.sunset') }}</v-chip>
+                            <v-chip v-if="type == 'outdoor'" text-color="white" color="blue-grey darken-2">{{ $t('message.outdoor') }}</v-chip>
+                            <v-chip v-if="type == 'architecture'" text-color="white" color="blue-grey darken-2">{{ $t('message.architecture') }}</v-chip>
+                            <v-chip v-if="type == 'monument'" text-color="white" color="blue-grey darken-2"></v-chip>
                         </span>
-                        <span v-if="locationdata.type == 'Outdoor'">
-                            <v-icon>terrain</v-icon>
-                            {{ $t('message.outdoor') }}
-                        </span>
-                        <span v-if="locationdata.type == 'Architecture'">
-                            <v-icon>domain</v-icon>
-                            {{ $t('message.architecture') }}
-                        </span>
-                        <span v-if="locationdata.type == 'Monument'">
-                            <v-icon>whats_hot</v-icon>
-                            {{ $t('message.monument') }}
-                        </span>
+                        <span v-if="locationdata.type.length === 0">{{ $t('message.noTags') }}</span>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -204,6 +199,7 @@
                 this.locationdata = data;
                 this.locationdata.content.rendered = this.locationdata.content.rendered.replace(/<\/?p[^>]*>/g, "")
                 this.loading = false
+                console.log(this.locationdata.type)
             },
 
             deleteLocation() {
@@ -261,7 +257,6 @@
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
             _this.getIconPaths();
             api.getPost(this.id, this.handleData);
-
         },
         computed: {
             wppath() {

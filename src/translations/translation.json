@@ -11,7 +11,7 @@
             "save": "Save",
             "note": "Note",
             "locationName": "Location Name",
-            "type": "Type",
+            "type": "Tags",
             "category": "Category",
             "locationDeleteHint": "You sure want to delete location?",
             "delete": "Delete",
@@ -21,14 +21,19 @@
             "username": "Username",
             "password": "Enter your password",
             "login": "Login",
-            "industry": "Industry",
-            "outdoor": "Outdoor",
-            "architecture": "Architecture",
-            "monument": "Monument",
+            "industry": "industrial",
+            "historic": "historic",
+            "panorama": "panorama",
+            "sunrise": "sunrise",
+            "sunset": "sunset",
+            "outdoor": "outdoor",
+            "architecture": "architecture",
+            "monument": "monument",
             "building": "Building",
             "landscape": "Landscape",
             "urban": "Urban",
-            "water": "Water"
+            "water": "Water",
+            "noTags": "No Tags set"
         }
     },
     "de": {
@@ -43,7 +48,7 @@
             "save": "Speichern",
             "note": "Notiz",
             "locationName": "Name der Location",
-            "type": "Typ",
+            "type": "Stichwörter",
             "category": "Kategorie",
             "locationDeleteHint": "Möchtest du die folgende Location wirklich löschen?",
             "delete": "Löschen",
@@ -53,14 +58,19 @@
             "username": "Benutzername",
             "password": "Passwort eingeben",
             "login": "Einloggen",
-            "industry": "Industrie",
+            "industry": "industrieel",
+            "historic": "historisch",
+            "panorama": "Panorama",
+            "sunrise": "Sonnenaufgang",
+            "sunset": "Sonnenuntergang",
             "outdoor": "Outdoor",
             "architecture": "Architektur",
             "monument": "Sehenswürdigkeit",
             "building": "Gebäude",
             "landscape": "Landschaft",
             "urban": "Urban",
-            "water": "Wasser"
+            "water": "Wasser",
+            "noTags": "Keine Tags gesetzt"
         }
     }
 }

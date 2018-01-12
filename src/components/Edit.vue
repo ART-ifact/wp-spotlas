@@ -47,7 +47,14 @@
 
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" v-model="form.accessibility" :disabled="sending"></v-slider>
 
-                    <v-select v-bind:items="type" v-model="form.type" v-bind:label="$t('message.type')" dark color="teal" item-value="value" item-text="text" :disabled="sending" required :rules="typeRules"></v-select>
+                    <v-select v-model="form.type" v-bind:label="$t('message.type')" chips color="teal" dark :items="type" multiple :disabled="sending" required :rules="categoryRules">
+                        <template slot="selection" slot-scope="data">
+                            <v-chip @input="data.parent.selectItem(data.item)" class="chip--select-multi" text-color="white" color="blue-grey darken-2"
+                                :key="JSON.stringify(data.item)" dark close>
+                                {{ data.item.text }}
+                            </v-chip>
+                        </template>
+                    </v-select>
 
                     <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" dark color="teal" item-value="value" item-text="text" :disabled="sending" required :rules="categoryRules"></v-select>
 
@@ -357,7 +364,7 @@
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
             console.log(this.id)
             this.marker_icon.url = helper.getIconPaths();
-            this.type = helper.createTranslatedTypeObject(this.$t('message.industry'),this.$t('message.outdoor'), this.$t('message.architecture'), this.$t('message.monument'));
+            this.type = helper.createTranslatedTypeObject(this.$t('message.industry'), this.$t('message.historic'), this.$t('message.panorama'), this.$t('message.sunrise'), this.$t('message.sunset'), this.$t('message.outdoor'), this.$t('message.architecture'), this.$t('message.monument'));
             this.category = helper.createTranslatedCategoryObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'));
             api.getPost(this.id, this.handleData);
 

@@ -36,7 +36,7 @@
                 </gmap-info-window>
                 <gmap-marker v-if="m.type == 'Industry'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_industry" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
                 <gmap-marker v-if="m.type == 'Outdoor'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_outdoor" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.type == 'Architecture'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_architecture" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.type == 'building'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_architecture" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
                 <gmap-marker v-if="m.type == 'Monument'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_monument" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
                 <gmap-marker v-if="m.type != 'Monument' && m.type != 'Architecture' && m.type != 'Outdoor' && m.type != 'Industry'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_icon" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
 

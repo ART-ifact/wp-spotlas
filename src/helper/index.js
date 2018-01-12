@@ -77,42 +77,73 @@ export default {
         }
     },
 
-    createTranslatedTypeObject(industry, outdoor, architecture, monument) {
+    createTranslatedTypeObject(industry, historic, panorama, sunrise, sunset, outdoor, architecture, monument) {
 
         var type =  [{
-                text: "",
-                value: "Industry"
-            },
-            {
-                text: "",
-                value: "Outdoor"
-            },
-            {
-                text: "",
-                value: "Architecture"
-            },
-            {
-                text: "",
-                value: "Monument"
-            }
-        ];
+            text: "Industry",
+            value: "industry",
+        },
+        {
+            text: "Historic",
+            value: "historic"
+        },
+        {
+            text: "Panorama",
+            value: "panorama"
+        },
+        {
+            text: "Sunrise",
+            value: "sunrise"
+        },
+        {
+            text: "Sunset",
+            value: "sunset"
+        },
+        {
+            text: "Outdoor",
+            value: "outdoor"
+        },
+        {
+            text: "Architecture",
+            value: "architecture"
+        },
+        {
+            text: "Monument",
+            value: "monument"
+        }
+    ];
 
         for (var index = 0; index < type.length; index++) {
             var element = type[index];
-
-            if (element.value === 'Industry') {
+            if (element.value === 'industry') {
                 element.text = industry;
             }
 
-            if (element.value === 'Outdoor') {
+            if (element.value === 'historic') {
+                element.text = historic;
+            }
+
+            if (element.value === 'panorama') {
+                element.text = panorama;
+            }
+
+            if (element.value === 'sunrise') {
+                element.text = sunrise;
+            }
+
+            if (element.value === 'sunset') {
+                element.text = sunset;
+            }
+
+            if (element.value === 'outdoor') {
                 element.text = outdoor;
             }
 
-            if (element.value === 'Architecture') {
+            if (element.value === 'architecture') {
                 element.text = architecture;
             }
 
-            if (element.value === 'Monument') {
+            if (element.value === 'monument') {
                 element.text = monument;
             }
 
