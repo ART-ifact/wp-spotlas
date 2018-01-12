@@ -303,7 +303,11 @@ function login($request)
     $user = wp_signon($creds, false);
 
     if (is_wp_error($user)) {
-        echo $user->get_error_message();
+        $error = new WP_Error('not-logged-in', $user->get_error_messages(), array(
+            'status' => 401,
+            'message' => $user->get_error_messages()
+        ));
+        return  $error;
     }
 
     return $user;
@@ -314,10 +318,13 @@ add_action('after_setup_theme', 'custom_login');
 add_filter('rest_pre_dispatch', function ($request) {
     $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
     $path = $uri_parts[0];
-    if (!is_user_logged_in() && $path !== '/wp-json/custom-plugin/login') {
-        return new WP_Error('not-logged-in', 'API Requests are only supported for authenticated requests', array(
-            'status' => 401,
+    $validPath = of_get_option('basepath') + 'wp-json/custom-plugin/login';
+
+    if (!is_user_logged_in() && $path !== $validPath) {
+        $error = new WP_Error('not-logged-in', 'You are not logged in', array(
+            'status' => 403,
         ));
+        return  $error;
     }
 });
 

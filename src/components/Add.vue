@@ -175,9 +175,8 @@
             valid: false,
             gettingLocation: false,
             titleRules: [v => !!v || "Title is required"],
-            descriptionRules: [v => !!v || "Title is required"],
-            typeRules: [v => !!v || "Type is required"],
-            categoryRules: [v => !!v || "Category is required"]
+            descriptionRules: [v => !!v || "Description is required"],
+            typeRules: [v => !!v || "Type is required"]
         }),
         methods: {
             saveForm() {
