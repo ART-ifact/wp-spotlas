@@ -100,6 +100,10 @@
             let _this = this;
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
             this.$store.dispatch('getPosts')
+        },
+
+        created() {
+            this.$root.$children[0]._data.showBackButton = false;
         }
     }
 </script>

@@ -123,6 +123,7 @@
         created() {
             this.mapCenter = window.SETTINGS.MAPCENTER
             this.getIconPaths();
+            this.$root.$children[0]._data.showBackButton = false;
         }
     }
 </script>
