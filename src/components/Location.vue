@@ -42,12 +42,12 @@
                         </span>
                         <span v-if="locationdata.category == 'water'">
                             <v-icon>directions_boat</v-icon>
-                           {{ $t('message.water') }}
+                            {{ $t('message.water') }}
                         </span>
                     </v-flex>
                     <v-flex sm6 xs12>
                         <h4>{{ $t('message.type') }}</h4>
-                        <span v-for="type in locationdata.type">
+                        <span v-for="type in locationdata.type" :key="type">
                             <v-chip v-if="type == 'industry'" text-color="white" color="blue-grey darken-2">{{ $t('message.industry') }}</v-chip>
                             <v-chip v-if="type == 'panorama'" text-color="white" color="blue-grey darken-2">{{ $t('message.panorama') }}</v-chip>
                             <v-chip v-if="type == 'historic'" text-color="white" color="blue-grey darken-2">{{ $t('message.historic') }}</v-chip>
@@ -172,7 +172,7 @@
                 marker_icon: {
                     url: ''
                 },
-               marker_landscape: {
+                marker_landscape: {
                     url: ''
                 },
                 marker_building: {
