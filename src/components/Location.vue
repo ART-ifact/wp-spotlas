@@ -16,18 +16,18 @@
                 <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>
             </v-carousel>
             <gmap-map v-if="locationdata" :center="locationdata.lng" :options="{styles: styles}" :zoom="14" style="width: 100%; min-height: 300px">
-                <gmap-marker v-if="locationdata.category == 'Industry'" :icon="marker_industry" :position="locationdata.lng"></gmap-marker>
-                <gmap-marker v-if="locationdata.category == 'building'" :icon="marker_outdoor" :position="locationdata.lng"></gmap-marker>
-                <gmap-marker v-if="locationdata.category == 'Architecture'" :icon="marker_architecture" :position="locationdata.lng"></gmap-marker>
-                <gmap-marker v-if="locationdata.category == 'Monument'" :icon="marker_monument" :position="locationdata.lng"></gmap-marker>
-                <gmap-marker v-if="locationdata.category != 'Monument' && locationdata.category != 'Architecture' && locationdata.category != 'Outdoor' && locationdata.category != 'Industry'" :icon="marker_icon" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category == 'landscape'" :icon="marker_landscape" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category == 'building'" :icon="marker_building" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category == 'urban'" :icon="marker_urban" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category == 'water'" :icon="marker_water" :position="locationdata.lng"></gmap-marker>
+                <gmap-marker v-if="locationdata.category != 'landscape' && locationdata.category != 'building' && locationdata.category != 'urban' && locationdata.category != 'water'" :icon="marker_icon" :position="locationdata.lng"></gmap-marker>
             </gmap-map>
         </v-flex>
         <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
             <v-container fluid>
                 <v-layout wrap>
                     <v-flex xs6>
-                        <h4>{{ $t('message.category') }}</h4>
+                        <h4 class="mb-2">{{ $t('message.category') }}</h4>
                         <span v-if="locationdata.category == 'landscape'">
                             <v-icon>local_florist</v-icon>
                             {{ $t('message.landscape') }}
@@ -42,7 +42,7 @@
                         </span>
                         <span v-if="locationdata.category == 'water'">
                             <v-icon>directions_boat</v-icon>
-                            </span>
+                           {{ $t('message.water') }}
                         </span>
                     </v-flex>
                     <v-flex sm6 xs12>
@@ -172,16 +172,16 @@
                 marker_icon: {
                     url: ''
                 },
-                marker_industry: {
+               marker_landscape: {
                     url: ''
                 },
-                marker_outdoor: {
+                marker_building: {
                     url: ''
                 },
-                marker_architecture: {
+                marker_urban: {
                     url: ''
                 },
-                marker_monument: {
+                marker_water: {
                     url: ''
                 },
             }
@@ -190,10 +190,10 @@
         methods: {
             getIconPaths() {
                 this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
-                this.marker_industry.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_industry.svg'
-                this.marker_outdoor.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_outdoor.svg'
-                this.marker_architecture.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_architecture.svg'
-                this.marker_monument.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_monument.svg'
+                this.marker_landscape.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_landscape.svg'
+                this.marker_building.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_building.svg'
+                this.marker_urban.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_urban.svg'
+                this.marker_water.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_water.svg'
             },
             handleData(data) {;
                 this.locationdata = data;
@@ -227,7 +227,7 @@
                 var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/posts/' + id + '?force=true';
 
                 this.deleting = true;
-                
+
                 for (let index = 0; index < this.locationdata.images.length; index++) {
                     this.deleteImage(this.locationdata.images[index].id)
                 }

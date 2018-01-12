@@ -34,11 +34,11 @@
                         </div>
                     </div>
                 </gmap-info-window>
-                <gmap-marker v-if="m.type == 'Industry'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_industry" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.type == 'Outdoor'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_outdoor" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.type == 'building'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_architecture" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.type == 'Monument'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_monument" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.type != 'Monument' && m.type != 'Architecture' && m.type != 'Outdoor' && m.type != 'Industry'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_icon" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category == 'landscape'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_landscape" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category == 'building'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_building" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category == 'urban'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_urban" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category == 'water'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_water" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category != 'landscape' && m.category != 'building' && m.category != 'urban' && m.category != 'water'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_icon" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
 
             </google-cluster>
         </gmap-map>
@@ -76,16 +76,16 @@
                 marker_icon: {
                     url: ''
                 },
-                marker_industry: {
+                marker_landscape: {
                     url: ''
                 },
-                marker_outdoor: {
+                marker_building: {
                     url: ''
                 },
-                marker_architecture: {
+                marker_urban: {
                     url: ''
                 },
-                marker_monument: {
+                marker_water: {
                     url: ''
                 },
                 selectedMarker: null,
@@ -104,10 +104,10 @@
             getIconPaths() {
                 this.cluster_styles[0].url = window.SETTINGS.THEMEURL + '/dist/assets/img/clustericon.svg'
                 this.marker_icon.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg'
-                this.marker_industry.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_industry.svg'
-                this.marker_outdoor.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_outdoor.svg'
-                this.marker_architecture.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_architecture.svg'
-                this.marker_monument.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_monument.svg'
+                this.marker_landscape.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_landscape.svg'
+                this.marker_building.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_building.svg'
+                this.marker_urban.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_urban.svg'
+                this.marker_water.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_water.svg'
             }
         },
 
