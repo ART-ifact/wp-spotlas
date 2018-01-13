@@ -7,3 +7,12 @@
 .md-app-content {
     height: calc(100vh - 64px);
 }
+
+.vue--page--login {
+    main {
+        &.content {
+            background-image: url('../assets/img/map.gif');
+            background-size: cover;
+        }
+    }
+}
