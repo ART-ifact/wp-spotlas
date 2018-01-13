@@ -13,7 +13,7 @@
         <input type="hidden" class="wpnonce" value="<?php echo $my_nonce; ?>">
         <?php $my_api_nonce = wp_create_nonce('wp_rest'); ?>
         <?php 
-        $defaultLogo = esc_url( get_template_directory_uri() ) . "/dist/assets/img/logo.png";
+        $defaultLogo = esc_url( get_template_directory_uri() ) . "/dist/assets/img/logo.svg";
 
         if (of_get_option('logo')) {
             $logo = of_get_option('logo');

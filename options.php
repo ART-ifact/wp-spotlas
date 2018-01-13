@@ -57,7 +57,7 @@ function optionsframework_options() {
 	// If using image radio buttons, define a directory path
 	$imagepath =  get_template_directory_uri() . '/images/';
     $templatePath = esc_url( get_template_directory_uri() );
-    $default_logo = $templatePath . "/assets/img/logo.png";
+    $default_logo = $templatePath . "/assets/img/logo.svg";
 
     $logo_defaults = array(
 		'image' => $default_logo
