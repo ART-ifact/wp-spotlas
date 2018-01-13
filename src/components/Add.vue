@@ -41,7 +41,7 @@
                     <h4>{{ $t('message.accesibillity') }}</h4>
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" :disabled="sending" v-model="form.accessibility"></v-slider>
 
-                    <v-select v-model="form.type" v-bind:label="$t('message.type')" chips color="teal" dark :items="type" multiple :disabled="sending" required :rules="categoryRules">
+                    <v-select v-model="form.type" v-bind:label="$t('message.type')" chips color="teal" dark :items="type" multiple :disabled="sending">
                         <template slot="selection" slot-scope="data">
                             <v-chip @input="data.parent.selectItem(data.item)" class="chip--select-multi" text-color="white" color="blue-grey darken-2"
                                 :key="JSON.stringify(data.item)" dark close>
@@ -51,7 +51,7 @@
                     </v-select>
 
                     <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" color="teal" dark item-value="value"
-                        item-text="text" :disabled="sending" required :rules="typeRules"></v-select>
+                        item-text="text" :disabled="sending" required :rules="categoryRules"></v-select>
 
                     <h4>{{ $t('message.wheather') }}</h4>
                     <v-container fluid>
@@ -96,13 +96,20 @@
                         </v-layout>
                     </v-container>
                 </v-flex>
-                <v-snackbar :timeout="2500" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
+                <v-snackbar color="success" :timeout="2500" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
                     {{ $t('message.deletedImageSucess') }}
                     <v-btn dark flat @click.native="showSnackbar = false">{{ $t('message.close') }}</v-btn>
                 </v-snackbar>
-                <v-flex x1 offset-xs10>
-                    <v-btn color="teal" dark name="wp-submit" type="submit">{{ $t('message.save') }}</v-btn>
-                </v-flex>
+                <v-container fluid>
+                    <v-layout>
+                        <v-flex xs12 sm3 md2 class="text-xs-left">
+                            <v-btn dark color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
+                        </v-flex>
+                        <v-flex xs12 sm3 md2 offset-xs0 offset-sm6 offset-md8 class="text-xs-right">
+                            <v-btn color="teal" dark name="wp-submit" :disabled="sending" type="submit">{{ $t('message.save') }}</v-btn>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
             </v-layout>
         </v-form>
     </v-layout>
@@ -176,7 +183,8 @@
             gettingLocation: false,
             titleRules: [v => !!v || "Title is required"],
             descriptionRules: [v => !!v || "Description is required"],
-            typeRules: [v => !!v || "Type is required"]
+            typeRules: [v => !!v || "Type is required"],
+            categoryRules: [v => !!v || "Category is required"]
         }),
         methods: {
             saveForm() {
@@ -267,6 +275,17 @@
                     }
                 }
                 _this.showSnackbar = true;
+            },
+            cancel() {
+                if (this.form.images.length > 0) {
+                    for (let index = 0; index < this.form.images.length; index++) {
+                        const imageID = this.form.images[index].id;
+                        this.deleteImage(imageID);
+                    }
+                    router.go(-1);
+                } else {
+                    router.go(-1);
+                }
             }
         },
 

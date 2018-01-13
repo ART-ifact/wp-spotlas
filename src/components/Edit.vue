@@ -105,13 +105,20 @@
                     </v-container>
 
                 </v-flex>
-                <v-snackbar :timeout="2500" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
+                <v-snackbar color="success" :timeout="2500" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
                     {{ $t('message.deletedImageSucess') }}
                     <v-btn dark flat @click.native="showSnackbar = false">{{ $t('message.close') }}</v-btn>
                 </v-snackbar>
-                <v-flex x1 offset-xs10>
-                    <v-btn color="teal" dark name="wp-submit" type="submit">{{ $t('message.save') }}</v-btn>
-                </v-flex>
+                <v-container fluid>
+                    <v-layout>
+                        <v-flex xs12 sm3 md2 class="text-xs-left">
+                            <v-btn dark color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
+                        </v-flex>
+                        <v-flex xs12 sm3 md2 offset-xs0 offset-sm6 offset-md8 class="text-xs-right">
+                            <v-btn color="teal" dark name="wp-submit" :disabled="sending" type="submit">{{ $t('message.save') }}</v-btn>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
             </v-layout>
         </v-form>
     </v-layout>
@@ -211,6 +218,7 @@
             styles: null,
             valid: true,
             gettingLocation: false,
+            tempImg: [],
             marker_icon: {
                 url: ''
             },
@@ -331,6 +339,9 @@
                 var tmp_obj = helper.buildImageObject(api_response.data);
 
                 this.form.images.push(tmp_obj);
+                this.tempImg.push(tmp_obj);
+
+                console.log(this.tempImg);
 
                 this.fileinput = null;
                 this.sending = false;
@@ -347,6 +358,18 @@
                     }
                 }
                 _this.showSnackbar = true;
+            },
+            cancel() {
+                if (this.form.images.length > 0) {
+                    for (let index = 0; index < this.tempImg.length; index++) {
+                        const imageID = this.tempImg[index].id;
+                        this.deleteImage(imageID);
+                    }
+                    this.tempImg = [];
+                    router.go(-1);
+                } else {
+                    router.go(-1);
+                }
             }
 
         },
