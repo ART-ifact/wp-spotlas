@@ -24,6 +24,9 @@
                     <input type="hidden" name="latitude" :value="form.longitude" id="latitude">
                     <input type="hidden" name="longitude" :value="form.latitude" id="longitude">
 
+                    <div class="map-search-input">
+                        <gmap-autocomplete class="grey darken-3" @place_changed="setPlace"></gmap-autocomplete>
+                    </div>
                     <gmap-map :zoom="12" v-if="form.lng" :center="form.lng" :options="{styles: styles}" style="width: 100%; min-height: 300px; margin-bottom: 1rem;">
                         <gmap-marker :position="form.lng" :clickable="true" :icon="marker_icon" :draggable="true" @dragend="getMarkerPosition($event.latLng)"></gmap-marker>
                     </gmap-map>
@@ -297,6 +300,9 @@
                 _this.form.latitude = JSON.stringify(markerObject.lat);
                 _this.form.longitude = JSON.stringify(markerObject.lng);
 
+            },
+            setPlace(place) {
+                this.updateMap(place.geometry.location.lng(),place.geometry.location.lat());
             },
             updateMap(longitude, latitude) {
                 let _this = this
