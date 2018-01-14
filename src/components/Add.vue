@@ -200,9 +200,11 @@
             },
             afterSave(response) {
                 if (response.status === 200) {
-                    router.push("/grid/")
+                    helper.createSuccessMessage(this.$root,this.$t('message.locationSaved'), 2500)
+                    console.log(response)
+                    router.push('/location/'+response.data)
                 } else {
-                    console.error(response);
+                    helper.createErrorMessage(this.$root,response.data, 20000)
                 }
             },
             getCurrentLocation() {
@@ -282,7 +284,7 @@
                         break;
                     }
                 }
-                this.$root.$children[0]._data.imageDeleted = true;
+                helper.createSuccessMessage(this.$root,this.$t('message.deletedImageSucess'), 2500)
             },
             cancel() {
                 if (this.form.images.length > 0) {

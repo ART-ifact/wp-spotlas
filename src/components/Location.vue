@@ -144,6 +144,7 @@
 
 <script>
     import router from '../router';
+    import helper from '../helper'
     import {
         mapGetters
     } from 'vuex'
@@ -213,10 +214,10 @@
                 api.deleteLocation(_this.locationdata.id,this.deletedLocation);
             },
             deletedImages() {
-                this.$root.$children[0]._data.imageDeleted = true;
+                helper.createSuccessMessage(this.$root,this.$t('message.deletedImageSucess'), 2500)
             },
             deletedLocation() {
-                this.$root.$children[0]._data.locationDeleted = true;
+                helper.createSuccessMessage(this.$root,this.$t('message.deletedLocationSucess'), 2500)
                 router.go(-1)
             },
         },

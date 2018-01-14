@@ -30,6 +30,11 @@
         text-overflow: ellipsis;
         font-size: 18px !important;
         line-height: 22px !important;
+
+        .icon {
+            font-size: 1.5rem;
+            color:silver;
+        }
     }
 }
 
@@ -45,7 +50,7 @@
         position: absolute;
 
         width: 100%;
-        height: calc(100% - 60px);
+        height: calc(100% - 56px);
 
         padding: 12px 0;
 
@@ -74,10 +79,14 @@
     }
 }
 
-.md-theme-default a:not(.md-button) {
+.md-theme-default .card a:not(.md-button) {
     color: rgb(192, 192, 192) !important;
 
     &:hover {
         color: teal !important;
+
+        i {
+            color: teal;
+        }
     }
 }

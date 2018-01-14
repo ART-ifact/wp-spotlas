@@ -15,11 +15,6 @@ if (isset ($_POST['description'])) {
     echo 'Please enter the content';
 }
 
-echo($_POST['title']);
-echo($_POST['description']);
-echo($_POST['rainy']);
-echo($_POST['cloudy']);
-
 // Add the content of the form to $post as an array
 $post = array(
     'post_title'    => $title,

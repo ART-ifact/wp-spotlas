@@ -7,20 +7,6 @@
             <v-card color="dark darken-2" class="white--text">
                 <router-link v-bind:to="'/location/'+post.id">
                     <div class="meta-data">
-                        <v-layout row wrap>
-                            <v-flex sm6 class="pa-3">
-                                <v-icon v-if="post.category == 'landscape'">local_florist</v-icon>
-                                <v-icon v-if="post.category == 'building'">home</v-icon>
-                                <v-icon v-if="post.category == 'urban'">location_city</v-icon>
-                                <v-icon v-if="post.category == 'water'">directions_boat</v-icon>
-                            </v-flex>
-                            <v-flex sm6 class="pa-3">
-                                <v-icon v-if="post.type == 'Industry'">build</v-icon>
-                                <v-icon v-if="post.type == 'Outdoor'">terrain</v-icon>
-                                <v-icon v-if="post.type == 'Architecture'">domain</v-icon>
-                                <v-icon v-if="post.type == 'Monument'">whats_hot</v-icon>
-                            </v-flex>
-                        </v-layout>
                         <v-container fluid>
                             <v-layout wrap>
                                 <v-flex xs3>
@@ -71,7 +57,13 @@
                     </v-card-media>
                     <v-card-title primary-title>
                         <div>
-                            <h3 class="headline mb-0">{{ post.title.rendered }}</h3>
+                            <h3 class="headline mb-0">
+                                <v-icon v-if="post.category == 'landscape'">local_florist</v-icon>
+                                <v-icon v-if="post.category == 'building'">home</v-icon>
+                                <v-icon v-if="post.category == 'urban'">location_city</v-icon>
+                                <v-icon v-if="post.category == 'water'">directions_boat</v-icon>
+                                {{ post.title.rendered }}
+                            </h3>
                         </div>
                     </v-card-title>
                 </router-link>

@@ -108,10 +108,6 @@
                     </v-container>
 
                 </v-flex>
-                <v-snackbar color="success" :timeout="2500" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
-                    {{ $t('message.deletedImageSucess') }}
-                    <v-btn dark flat @click.native="showSnackbar = false">{{ $t('message.close') }}</v-btn>
-                </v-snackbar>
                 <v-container fluid>
                     <v-layout>
                         <v-flex xs12 sm3 md2 class="text-xs-left">
@@ -283,9 +279,11 @@
             },
             afterSave(response) {
                 if (response.status === 200) {
+                    helper.createSuccessMessage(this.$root,this.$t('message.locationSaved'), 2500)
                     router.push('/location/' + this.form.id);
                 } else {
                     console.error(response);
+                    helper.createErrorMessage(this.$root,response.data, 20000)
                 }
             },
             getCurrentLocation() {
@@ -363,7 +361,7 @@
                         break;
                     }
                 }
-                _this.showSnackbar = true;
+                helper.createSuccessMessage(this.$root,this.$t('message.deletedImageSucess'), 2500)
             },
             cancel() {
                 if (this.form.images.length > 0) {

@@ -199,6 +199,18 @@ export default {
 
         return category;
 
+    },
+
+    createSuccessMessage(elementRoot,messageText, timeout) {
+        elementRoot.$children[0]._data.successTimeout = timeout;
+        elementRoot.$children[0]._data.successMessageText = messageText;
+        elementRoot.$children[0]._data.successMessage = true;
+    },
+
+    createErrorMessage(elementRoot,messageText, timeout) {
+        elementRoot.$children[0]._data.errorTimeout = timeout;
+        elementRoot.$children[0]._data.errorMessageText = messageText;
+        elementRoot.$children[0]._data.errorMessage = true;
     }
 
 }

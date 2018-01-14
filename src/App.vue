@@ -31,13 +31,13 @@
             <v-container fluid fill-height>
                 <router-view></router-view>
             </v-container>
-            <v-snackbar color="success" :timeout="2500" v-model="imageDeleted">
-                {{ $t('message.deletedImageSucess') }}
-                <v-btn dark flat @click.native="imageDeleted = false">{{ $t('message.close') }}</v-btn>
+            <v-snackbar color="success" :timeout="successTimeout" v-model="successMessage">
+                {{ successMessageText }}
+                <v-btn dark flat @click.native="successMessage = false">{{ $t('message.close') }}</v-btn>
             </v-snackbar>
-            <v-snackbar color="success" :timeout="2500" v-model="locationDeleted">
-                {{ $t('message.deletedLocationSucess') }}
-                <v-btn dark flat @click.native="locationDeleted = false">{{ $t('message.close') }}</v-btn>
+            <v-snackbar color="error" :timeout="errorTimeout" v-model="errorMessage">
+                {{ errorMessageText }}
+                <v-btn dark flat @click.native="errorMessage = false">{{ $t('message.close') }}</v-btn>
             </v-snackbar>
         </v-content>
     </v-app>
@@ -65,7 +65,13 @@
             logo_path: '',
             showBackButton: false,
             imageDeleted: false,
-            locationDeleted: false
+            locationDeleted: false,
+            successMessage: false,
+            successMessageText: '',
+            successTimeout: 2500,
+            errorMessage: false,
+            errorMessageText: '',
+            errorTimeout: 2500
         }),
         computed: {
             ...mapGetters({

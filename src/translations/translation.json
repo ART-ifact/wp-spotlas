@@ -35,7 +35,8 @@
             "urban": "Urban",
             "water": "Water",
             "noTags": "No Tags set",
-            "deletedLocationSucess": "Location was deleted"
+            "deletedLocationSucess": "Location was deleted",
+            "locationSaved": "Location was saved successfull"
         }
     },
     "de": {
@@ -74,7 +75,8 @@
             "urban": "Urban",
             "water": "Wasser",
             "noTags": "Keine Tags gesetzt",
-            "deletedLocationSucess": "Location wurde gelöscht"
+            "deletedLocationSucess": "Location wurde gelöscht",
+            "locationSaved": "Die Location wurde erfolgreich gespeichert"
         }
     }
 }
