@@ -54,8 +54,6 @@
         mapMutations
     } from 'vuex'
     import router from './router';
-    import Header from './components/partials/Header'
-    import Footer from './components/partials/Footer'
     export default {
         name: 'Reveal',
         data: () => ({
@@ -84,10 +82,6 @@
             getLogoPath() {
                 return window.SETTINGS.LOGO;
             }
-        },
-        components: {
-            appHeader: Header,
-            appFooter: Footer
         },
 
         methods: {
