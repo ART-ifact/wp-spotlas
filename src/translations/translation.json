@@ -34,7 +34,8 @@
             "landscape": "Landscape",
             "urban": "Urban",
             "water": "Water",
-            "noTags": "No Tags set"
+            "noTags": "No Tags set",
+            "deletedLocationSucess": "Location was deleted"
         }
     },
     "de": {
@@ -72,7 +73,8 @@
             "landscape": "Landschaft",
             "urban": "Urban",
             "water": "Wasser",
-            "noTags": "Keine Tags gesetzt"
+            "noTags": "Keine Tags gesetzt",
+            "deletedLocationSucess": "Location wurde gelöscht"
         }
     }
 }

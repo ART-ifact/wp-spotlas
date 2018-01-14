@@ -31,6 +31,14 @@
             <v-container fluid fill-height>
                 <router-view></router-view>
             </v-container>
+            <v-snackbar color="success" :timeout="2500" v-model="imageDeleted">
+                {{ $t('message.deletedImageSucess') }}
+                <v-btn dark flat @click.native="imageDeleted = false">{{ $t('message.close') }}</v-btn>
+            </v-snackbar>
+            <v-snackbar color="success" :timeout="2500" v-model="locationDeleted">
+                {{ $t('message.deletedLocationSucess') }}
+                <v-btn dark flat @click.native="locationDeleted = false">{{ $t('message.close') }}</v-btn>
+            </v-snackbar>
         </v-content>
     </v-app>
 </template>
@@ -55,7 +63,9 @@
             showLoader: true,
             logoutLink: window.SETTINGS.LOGOUT,
             logo_path: '',
-            showBackButton: false
+            showBackButton: false,
+            imageDeleted: false,
+            locationDeleted: false
         }),
         computed: {
             ...mapGetters({

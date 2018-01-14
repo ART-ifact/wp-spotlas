@@ -84,4 +84,15 @@ export default {
                 cb(e);
             });
     },
+
+    deleteLocation(id, cb) {
+        axios.delete(window.SETTINGS.WPPATH + 'wp-json/wp/v2/posts/' + id + '?force=true', {
+            force: true
+        }).then(function (response) {
+            console.log("deleted successfully");
+            cb(id);
+        }).catch(e => {
+            cb(e)
+        });
+    },
 }

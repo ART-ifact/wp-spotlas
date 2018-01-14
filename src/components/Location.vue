@@ -206,39 +206,18 @@
                 if (_this.locationdata.images.length > 0) {
                     for (let index = 0; index < _this.locationdata.images.length; index++) {
                         const elementID = _this.locationdata.images[index].id;
-                        _this.deleteImage(elementID);
+                        api.deleteMedia(elementID,this.deletedImages);
                     }
                 }
 
-                _this.deletePost(_this.locationdata.id);
+                api.deleteLocation(_this.locationdata.id,this.deletedLocation);
             },
-            deleteImage(imageID) {
-                let _this = this;
-                var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/' + imageID + '?force=true';
-                axios.delete(path, {
-                        force: true
-                    })
-                    .then(function(response) {
-                        console.log('deleted successfully')
-                    });
+            deletedImages() {
+                this.$root.$children[0]._data.imageDeleted = true;
             },
-            deletePost(id) {
-                let _this = this;
-                var path = window.SETTINGS.WPPATH + 'wp-json/wp/v2/posts/' + id + '?force=true';
-
-                this.deleting = true;
-
-                for (let index = 0; index < this.locationdata.images.length; index++) {
-                    this.deleteImage(this.locationdata.images[index].id)
-                }
-
-                axios.delete(path, {
-                        force: true
-                    })
-                    .then(function(response) {
-                        console.log('deleted post successfully')
-                        router.push('/')
-                    });
+            deletedLocation() {
+                this.$root.$children[0]._data.locationDeleted = true;
+                router.go(-1)
             },
         },
 

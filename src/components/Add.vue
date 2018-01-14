@@ -18,6 +18,9 @@
                                     <v-icon dark>delete</v-icon>
                                 </span>
                             </li>
+                            <li v-if="imageUploading">
+                                <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+                            </li>
                         </ul>
                     </div>
                     <input type="hidden" name="latitude" :value="form.latitude" id="latitude">
@@ -100,10 +103,6 @@
                         </v-layout>
                     </v-container>
                 </v-flex>
-                <v-snackbar color="success" :timeout="2500" :multi-line="mode === 'multi-line'" :vertical="mode === 'vertical'" v-model="showSnackbar">
-                    {{ $t('message.deletedImageSucess') }}
-                    <v-btn dark flat @click.native="showSnackbar = false">{{ $t('message.close') }}</v-btn>
-                </v-snackbar>
                 <v-container fluid>
                     <v-layout>
                         <v-flex xs12 sm3 md2 class="text-xs-left">
@@ -180,8 +179,8 @@
             marker: null,
             locationSaved: false,
             sending: false,
+            imageUploading: false,
             fileinput: null,
-            showSnackbar: false,
             styles: null,
             valid: false,
             gettingLocation: false,
@@ -259,6 +258,7 @@
             upload(fileInput) {
                 let _this = this;
                 _this.sending = true;
+                _this.imageUploading = true;
                 var mediaForm = helper.buildMediaData(fileInput);
                 api.uploadMedia(mediaForm,this.updateImageArray)
             },
@@ -269,6 +269,7 @@
 
                 this.fileinput = null;
                 this.sending = false;
+                this.imageUploading = false;
             },
             deleteImage(imageID) {
                 api.deleteMedia(imageID,this.deleteImageFromArray);
@@ -281,7 +282,7 @@
                         break;
                     }
                 }
-                _this.showSnackbar = true;
+                this.$root.$children[0]._data.imageDeleted = true;
             },
             cancel() {
                 if (this.form.images.length > 0) {
