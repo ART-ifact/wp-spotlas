@@ -15,7 +15,7 @@
                     You are not logged in
                     <v-btn dark flat @click.native="showForbidden = false">{{ $t('message.close') }}</v-btn>
                 </v-snackbar>
-                <v-snackbar timeout="20000" multi-line bottom v-model="loginError" color="error">
+                <v-snackbar :timeout="20000" multi-line bottom v-model="loginError" color="error">
                     <span v-html="loginErrorMessage"></span>
                     <v-btn dark flat @click.native="loginError = false">{{ $t('message.close') }}</v-btn>
                 </v-snackbar>
@@ -55,7 +55,7 @@
                         window.isSigned = true;
                         router.push('/')
                     }, function(error) {
-                        _this.loginErrorMessage = error.response.data.message[0];
+                        _this.loginErrorMessage = error.response.data.message;
                         _this.loginError = true;
                     });
                 }

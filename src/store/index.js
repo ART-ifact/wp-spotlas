@@ -23,9 +23,7 @@ export default new Vuex.Store({
   modules: {
     hub,
     user,
-    post,
-    page,
-    categories
+    post
   },
   strict: debug,
   plugins: []
