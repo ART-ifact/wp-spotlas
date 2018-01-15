@@ -10,6 +10,10 @@
                     <span class="accessibility" v-bind:style="{ width: locationdata.accesibility + '0%' }"></span>
             </span>
         </v-flex>
+        <v-flex xs12 class="mt-2" v-if="locationdata && locationdata.shared">
+            <v-text-field dark color="teal" v-bind:label="'This Location is shared with the following Link:'" v-model="locationdata.shareURL" readonly></v-text-field>
+        </v-flex>
+
         <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
             <v-carousel dark>
                 <v-carousel-item v-if="locationdata.images.length > 0" v-for="(image,i) in locationdata.images" v-bind:src="image.large" :key="i"></v-carousel-item>
@@ -114,7 +118,7 @@
             </v-container>
 
         </v-flex>
-        <v-speed-dial v-if="locationdata" fab small large dark absolute top right class="btn-edit" :direction="'bottom'" :hover="true" :transition="'slide-y-reverse-transition'">
+        <v-speed-dial v-if="locationdata && !hash" fab small large dark absolute top right class="btn-edit" :direction="'bottom'" :hover="true" :transition="'slide-y-reverse-transition'">
             <v-btn slot="activator" color="teal darken-2" dark fab hover>
                 <v-icon>edit_location</v-icon>
                 <v-icon>{{ $t('message.close') }}</v-icon>
@@ -155,7 +159,7 @@
     } from 'vue-carousel';
 
     export default {
-        props: ['id'],
+        props: ['id','hash'],
         components: {
             Carousel,
             Slide
@@ -199,6 +203,14 @@
             handleData(data) {;
                 this.locationdata = data;
                 this.locationdata.content.rendered = this.locationdata.content.rendered.replace(/<\/?p[^>]*>/g, "")
+
+                    console.log(this.hash)
+                if (this.hash !== undefined) {
+                    this.$root.$children[0]._data.showBackButton = false;
+                    this.locationdata.shared = false;
+
+                }
+
                 this.loading = false
             },
 
@@ -235,8 +247,13 @@
             let _this = this;
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
             _this.getIconPaths();
-            api.getPost(this.id, this.handleData);
+            if (this.hash) {
+                api.getSharedPost(this.id,this.hash, this.handleData);
+            } else {
+                api.getPost(this.id, this.handleData);
+            }
             this.$root.$children[0]._data.showBackButton = true;
+
         },
         computed: {
             wppath() {

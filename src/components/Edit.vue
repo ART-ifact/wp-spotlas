@@ -110,6 +110,14 @@
                 </v-flex>
                 <v-container fluid>
                     <v-layout>
+                        <v-flex xs12 sm6>
+                            <v-switch color="teal" v-bind:label="'Share the Location'" @change="handleShare()" v-model="form.shared"></v-switch>
+                        </v-flex>
+                        <v-flex xs12 sm6>
+                            <v-text-field v-if="this.form.shared" dark color="teal" v-bind:label="'Shared URL'" v-model="shareURL" :disabled="sending" readonly></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout>
                         <v-flex xs12 sm3 md2 class="text-xs-left">
                             <v-btn dark color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
                         </v-flex>
@@ -170,7 +178,9 @@
                 summer: false,
                 autumn: false,
                 winter: false,
-                description: ''
+                description: '',
+                hash: '',
+                shared: false
             },
             type: [{
                     text: "Industry",
@@ -218,6 +228,7 @@
             valid: true,
             gettingLocation: false,
             tempImg: [],
+            shareURL: '',
             marker_icon: {
                 url: ''
             },
@@ -267,6 +278,12 @@
                 this.form.winter = JSON.parse(this.form.winter);
                 this.form.autumn = JSON.parse(this.form.autumn);
                 this.form.spring = JSON.parse(this.form.spring);
+                this.form.hash = this.form.hash;
+                this.form.shared = JSON.parse(this.form.shared);
+
+                if (this.form.shared === true) {
+                    this.shareURL = data.shareURL;
+                }
 
                 this.loading = false
             },
@@ -284,6 +301,16 @@
                 } else {
                     console.error(response);
                     helper.createErrorMessage(this.$root,response.data, 20000)
+                }
+            },
+            handleShare() {
+                if(this.form.shared === false) {
+                    this.shareURL = '';
+                    this.form.hash = '';
+                } else {
+                    var hash = helper.generateHash();
+                    this.form.hash = hash;
+                    this.shareURL = helper.getShareURL(this.form.id, hash);
                 }
             },
             getCurrentLocation() {

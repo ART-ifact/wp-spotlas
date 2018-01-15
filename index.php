@@ -31,12 +31,12 @@
         <?php if (!is_user_logged_in()) {
     ?>
             <script>
-            var loginPath = "authenticate";
+             var loginPath = "authenticate";
              var locationIndex = window.location.pathname.indexOf(loginPath);
-              if ( locationIndex ===  0 || locationIndex === -1) {
+             /* if ( locationIndex ===  0 || locationIndex === -1) {
                 var loginpath = window.location.pathname + loginPath;
                 window.location.href = loginpath;
-              } 
+              } */
             </script>
             
             <?php

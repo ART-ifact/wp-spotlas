@@ -104,6 +104,11 @@
                     </v-container>
                 </v-flex>
                 <v-container fluid>
+                     <v-layout>
+                        <v-flex xs12 sm6>
+                            <v-switch color="teal" v-bind:label="'Share the Location'" @change="handleShare()" v-model="form.shared"></v-switch>
+                        </v-flex>
+                    </v-layout>
                     <v-layout>
                         <v-flex xs12 sm3 md2 class="text-xs-left">
                             <v-btn dark color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
@@ -150,7 +155,9 @@
                 summer: false,
                 autumn: false,
                 winter: false,
-                description: ""
+                description: "",
+                hash: '',
+                shared: false
             },
             type: [],
             category: [{
@@ -205,6 +212,14 @@
                     router.push('/location/'+response.data)
                 } else {
                     helper.createErrorMessage(this.$root,response.data, 20000)
+                }
+            },
+            handleShare() {
+                if(this.form.shared === false) {
+                    this.form.hash = '';
+                } else {
+                    var hash = helper.generateHash();
+                    this.form.hash = hash;
                 }
             },
             getCurrentLocation() {

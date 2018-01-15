@@ -24,6 +24,7 @@ export default {
     buildFormData(form,widthID) {
         var formData = new FormData();
 
+        console.log(form);
         if(widthID) {
             formData.append("id",form.id);
         }
@@ -43,6 +44,8 @@ export default {
         formData.append("autumn", form.autumn);
         formData.append("winter", form.winter);
         formData.append("description", form.description);
+        formData.append("shared", form.shared);
+        formData.append("hash", form.hash);
 
         return formData;
     },
@@ -211,6 +214,21 @@ export default {
         elementRoot.$children[0]._data.errorTimeout = timeout;
         elementRoot.$children[0]._data.errorMessageText = messageText;
         elementRoot.$children[0]._data.errorMessage = true;
+    },
+
+    generateHash() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < 7; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+    },
+
+    getShareURL(id, hash) {
+        var url = window.location.host + '/share/'+id+'/'+hash;
+        return url;
     }
 
 }

@@ -123,9 +123,29 @@ add_action('rest_api_init', 'slug_register_spring');
 add_action('rest_api_init', 'slug_register_summer');
 add_action('rest_api_init', 'slug_register_autumn');
 add_action('rest_api_init', 'slug_register_winter');
+add_action('rest_api_init', 'slug_register_hash');
+add_action('rest_api_init', 'slug_register_shared');
 
 add_action('rest_api_init', 'register_api_hooks');
 
+
+function slug_register_hash()
+{
+    register_rest_field('post', 'hash', array(
+        'get_callback' => 'slug_get_custom_field',
+        'update_callback' => null,
+        'schema' => null,
+    ));
+}
+
+function slug_register_shared()
+{
+    register_rest_field('post', 'shared', array(
+        'get_callback' => 'slug_get_custom_field',
+        'update_callback' => null,
+        'schema' => null,
+    ));
+}
 function slug_register_longitude()
 {
     register_rest_field('post', 'lng', array(
@@ -319,8 +339,21 @@ add_filter('rest_pre_dispatch', function ($request) {
     $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
     $path = $uri_parts[0];
     $validPath = of_get_option('basepath') . 'wp-json/custom-plugin/login';
+    $isValidRequest = false;
 
-    if (!is_user_logged_in() && $path !== $validPath) {
+    if (isset($_GET['id']) && isset($_GET['hash'])) {
+        $post_ID = $_GET['id'];
+        $post_HASH = $_GET['hash'];
+
+        $postIsHash = get_post_meta($post_ID, 'hash');
+
+
+        if ($post_HASH === (string)$postIsHash[0]) {
+            $isValidRequest = true;
+        }
+    }
+
+    if (!is_user_logged_in() && $path !== $validPath && $isValidRequest === false) {
         $error = new WP_Error('not-logged-in', 'You are not logged in', array(
             'status' => 403,
         ));

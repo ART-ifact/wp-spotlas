@@ -50,6 +50,17 @@ const router = new Router({
             }
         },
         {
+            path: '/share/:id/:hash',
+            name: 'Location',
+            component: Location,
+            components: {
+                default: Location
+            },
+            props: {
+                default: true
+            }
+        },
+        {
             path: '/edit/:id',
             name: 'Edit',
             component: Edit,

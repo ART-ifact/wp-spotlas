@@ -15,6 +15,32 @@ export default {
                 response.data.lng = positionArray;
                 var typeObject = JSON.stringify(response.data.type);
                 response.data.type = response.data.type.split(',');
+                if (response.data.shared = true) {
+                    response.data.shareURL = window.location.host + '/share/'+response.data.id+'/'+response.data.hash;
+                }
+                cb(response.data)
+            })
+            .catch(e => {
+                cb(e)
+            })
+    },
+
+    getSharedPost(id,hash, cb) {
+        //if (_.isNull(id) || !_.isNumber(id)) return false
+        axios.get(window.SETTINGS.API_BASE_PATH + 'posts/' + id+'?id='+id+'&hash='+hash)
+            .then(response => {
+
+                if (response.data.images !== '') {
+                    var imageStringToJson = JSON.stringify(eval('(' + response.data.images + ')'));
+                    response.data.images = JSON.parse(imageStringToJson);
+                }
+                var positionArray = {
+                    lat: parseFloat(response.data.lat),
+                    lng: parseFloat(response.data.lng)
+                };
+                response.data.lng = positionArray;
+                var typeObject = JSON.stringify(response.data.type);
+                response.data.type = response.data.type.split(',');
                 cb(response.data)
             })
             .catch(e => {

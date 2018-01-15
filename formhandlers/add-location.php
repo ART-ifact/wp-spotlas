@@ -44,6 +44,8 @@ update_post_meta($pid,'spring',$_POST['spring']);
 update_post_meta($pid,'summer',$_POST['summer']);
 update_post_meta($pid,'autumn',$_POST['autumn']);
 update_post_meta($pid,'winter',$_POST['winter']);
+update_post_meta($pid,'shared', $_POST['shared']);
+update_post_meta($pid,'hash', $_POST['hash']);
 
 return $pid;
 ?>

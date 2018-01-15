@@ -47,6 +47,8 @@ update_post_meta($id,'spring', $_POST['spring']);
 update_post_meta($id,'summer', $_POST['summer']);
 update_post_meta($id,'autumn', $_POST['autumn']);
 update_post_meta($id,'winter', $_POST['winter']);
+update_post_meta($id,'shared', $_POST['shared']);
+update_post_meta($id,'hash', $_POST['hash']);
 
 
 ?>
