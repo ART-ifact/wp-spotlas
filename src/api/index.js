@@ -1,3 +1,5 @@
+import router from '../router'
+
 export default {
     getPost(id, cb) {
         //if (_.isNull(id) || !_.isNumber(id)) return false
@@ -21,7 +23,11 @@ export default {
                 cb(response.data)
             })
             .catch(e => {
-                cb(e)
+                if (e.response.status === 403) {
+                    router.push('/authenticate');
+                } else {
+                    cb(e)
+                }
             })
     },
 
@@ -44,7 +50,11 @@ export default {
                 cb(response.data)
             })
             .catch(e => {
-                cb(e)
+                if (e.response.status === 403) {
+                    router.push('/authenticate');
+                } else {
+                    cb(e)
+                }
             })
     },
 
@@ -67,7 +77,11 @@ export default {
                 cb(response.data)
             })
             .catch(e => {
-                cb(e)
+                if (e.response.status === 403) {
+                    router.push('/authenticate');
+                } else {
+                    cb(e)
+                }
             })
     },
 

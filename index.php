@@ -28,19 +28,6 @@
         <input type="hidden" name="default_latitude" class="default_lat" value="<?php echo of_get_option('latitude'); ?>">
         <input type="hidden" name="default_longitude" class="default_lng" value="<?php echo of_get_option('longitude'); ?>">
         <input type="hidden" name="app-base" class="app-base" value="<?php echo of_get_option('basepath'); ?>">
-        <?php if (!is_user_logged_in()) {
-    ?>
-            <script>
-             var loginPath = "authenticate";
-             var locationIndex = window.location.pathname.indexOf(loginPath);
-             /* if ( locationIndex ===  0 || locationIndex === -1) {
-                var loginpath = window.location.pathname + loginPath;
-                window.location.href = loginpath;
-              } */
-            </script>
-            
-            <?php
-}?>
   <div id="app"></div>
   <?php wp_footer(); ?>
 </body>
