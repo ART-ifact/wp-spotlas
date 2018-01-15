@@ -51,7 +51,7 @@ const router = new Router({
         },
         {
             path: '/share/:id/:hash',
-            name: 'Location',
+            name: 'Location Shared',
             component: Location,
             components: {
                 default: Location

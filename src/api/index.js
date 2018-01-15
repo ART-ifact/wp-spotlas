@@ -17,9 +17,7 @@ export default {
                 response.data.lng = positionArray;
                 var typeObject = JSON.stringify(response.data.type);
                 response.data.type = response.data.type.split(',');
-                if (response.data.shared = true) {
-                    response.data.shareURL = window.location.host + '/share/'+response.data.id+'/'+response.data.hash;
-                }
+                response.data.shareURL = window.location.host + '/share/'+response.data.id+'/'+response.data.hash;
                 cb(response.data)
             })
             .catch(e => {

@@ -10,8 +10,8 @@
                     <span class="accessibility" v-bind:style="{ width: locationdata.accesibility + '0%' }"></span>
             </span>
         </v-flex>
-        <v-flex xs12 class="mt-2" v-if="locationdata && locationdata.shared">
-            <v-text-field dark color="teal" v-bind:label="'This Location is shared with the following Link:'" v-model="locationdata.shareURL" readonly></v-text-field>
+        <v-flex xs12 class="mt-2" v-if="locationdata.shared">
+                <v-text-field dark color="teal" v-bind:label="'This Location is shared with the following Link:'" v-model="locationdata.shareURL" readonly></v-text-field>
         </v-flex>
 
         <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
@@ -168,7 +168,7 @@
             return {
                 loading: false,
                 deleting: false,
-                locationdata: null,
+                locationdata: false,
                 error: null,
                 infoWinOpen: false,
                 placeholderImage: '',
@@ -200,16 +200,16 @@
                 this.marker_urban.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_urban.svg'
                 this.marker_water.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_water.svg'
             },
-            handleData(data) {;
+            handleData(data) {
                 this.locationdata = data;
                 this.locationdata.content.rendered = this.locationdata.content.rendered.replace(/<\/?p[^>]*>/g, "")
 
-                    console.log(this.hash)
-                if (this.hash !== undefined) {
+                this.locationdata.shared = JSON.parse(this.locationdata.shared);
+                if (typeof this.hash !== "undefined") {
                     this.$root.$children[0]._data.showBackButton = false;
                     this.locationdata.shared = false;
-
                 }
+
 
                 this.loading = false
             },
