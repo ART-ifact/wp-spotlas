@@ -209,7 +209,8 @@
                     this.$root.$children[0]._data.showBackButton = false;
                     this.locationdata.shared = false;
                 }
-
+                
+                this.$root.$children[0]._data.showBackButton = true;
 
                 this.loading = false
             },
@@ -252,7 +253,6 @@
             } else {
                 api.getPost(this.id, this.handleData);
             }
-            this.$root.$children[0]._data.showBackButton = true;
 
         },
         computed: {

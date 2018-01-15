@@ -5,7 +5,7 @@
             <v-toolbar-title>
                 <img :src="getLogoPath" alt="Logo">
             </v-toolbar-title>
-            <v-btn v-if="showBackButton" dark small depressed color="blue-grey darken-3" @click="back()">back</v-btn>
+            <v-btn v-if="showBackButton" dark small depressed color="blue-grey darken-3" class="btn-back" @click="back()">back</v-btn>
 
             <v-speed-dial fab small large dark absolute top right class="btn-add" :direction="'bottom'" :hover="true" :transition="'slide-y-reverse-transition'">
                 <v-btn slot="activator" color="teal darken-2" dark fab hover>

@@ -65,7 +65,4 @@
 </script>
 
 <style lang="scss">
-    .jumbotron {
-        margin-top: 5%;
-    }
 </style>
