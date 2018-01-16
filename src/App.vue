@@ -13,14 +13,14 @@
                         </v-list-tile-action>
                     </v-list-tile>
                 </router-link>
-                <v-list-tile :href="logoutLink"> 
-                    <v-list-tile-action> 
-                        <v-icon>exit_to_app</v-icon> 
-                    </v-list-tile-action> 
-                    <v-list-tile-content> 
-                        <v-list-tile-title>{{ $t('message.logout') }}</v-list-tile-title> 
-                    </v-list-tile-content> 
-                </v-list-tile> 
+                <v-list-tile :href="logoutLink">
+                    <v-list-tile-action>
+                        <v-icon>exit_to_app</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ $t('message.logout') }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
             </v-list>
             <v-divider dark></v-divider>
             <v-list dense>

@@ -158,5 +158,13 @@ export default {
         }).catch(error => {
             cb(error);
         })
+    },
+
+    getUsers(cb) {
+        axios.get(window.SETTINGS.WPPATH + 'wp-json/wp/v2/users').then(function (response) {
+            cb(response.data);
+        }).catch(error => {
+            cb(error);
+        })
     }
 }
