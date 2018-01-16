@@ -2,13 +2,13 @@
     <v-app id="app" dark>
         <v-navigation-drawer fixed v-model="drawer" dark right app>
             <v-list dense>
-                <v-subheader>Application Menu</v-subheader>
+                <v-subheader>{{ $t('message.application-menu') }}</v-subheader>
                 <v-list-tile :href="wppath+'add/'">
                     <v-list-tile-action>
                         <v-icon>add_location</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Add Lcoation</v-list-tile-title>
+                        <v-list-tile-title>{{ $t('message.add-location') }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile :href="wppath+'grid/'">
@@ -16,7 +16,7 @@
                         <v-icon>grid_on</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Grid View</v-list-tile-title>
+                        <v-list-tile-title>{{ $t('message.grid-view') }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile :href="wppath">
@@ -24,7 +24,7 @@
                         <v-icon>map</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Map View</v-list-tile-title>
+                        <v-list-tile-title>{{ $t('message.map-view') }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile :href="logoutLink">
@@ -32,7 +32,7 @@
                         <v-icon>exit_to_app</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Logout</v-list-tile-title>
+                        <v-list-tile-title>{{ $t('message.logout') }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
