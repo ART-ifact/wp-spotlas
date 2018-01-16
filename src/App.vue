@@ -27,6 +27,32 @@
                         <v-list-tile-title>{{ $t('message.map-view') }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+            </v-list>
+            <v-divider dark></v-divider>
+            <v-list dense v-if="currentUser">
+                <v-subheader>{{ $t('message.user-menu') }}</v-subheader>
+                <v-list-tile>
+                    <v-list-tile-avatar>
+                        <img :src="currentUser.avatar">
+                    </v-list-tile-avatar>
+                    <v-list-tile-title>{{currentUser.name}}</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile :href="wppath+'user/edit/'+currentUser.id">
+                    <v-list-tile-action>
+                        <v-icon>account_circle</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Benutzer Bearbeiten</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile v-if="currentUserAdmin" :href="wppath+'user/add/'">
+                    <v-list-tile-action>
+                        <v-icon>account_circle</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Benutzer hinzufügen</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
                 <v-list-tile :href="logoutLink">
                     <v-list-tile-action>
                         <v-icon>exit_to_app</v-icon>
@@ -36,7 +62,6 @@
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
-            <v-divider dark></v-divider>
         </v-navigation-drawer>
         <v-toolbar fixed app>
             <v-toolbar-title>
@@ -72,6 +97,7 @@
         mapMutations
     } from 'vuex'
     import router from './router';
+    import api from './api';
     export default {
         name: 'Reveal',
         data: () => ({
@@ -90,7 +116,9 @@
             errorTimeout: 2500,
             drawer: false,
             showDrawer: true,
-            filter: []
+            filter: [],
+            currentUser: [],
+            currentUserAdmin: false
         }),
         computed: {
             ...mapGetters({
@@ -105,9 +133,30 @@
             }
         },
 
+        created() {
+            this.getUser();
+        },
+
         methods: {
             back() {
                 router.go(-1);
+            },
+            getUser() {
+                api.getCurrentUser(window.SETTINGS.AJAXNONCE, this.setUserData);
+                api.getAdmin(this.isAdmin);
+            },
+            setUserData(data) {
+                this.currentUser = data;
+                var _this = this;
+                this.currentUser.avatar = _this.getUserGravatar(this.currentUser.avatar_urls);
+                console.log(this.currentUser.avatar);
+            },
+            isAdmin(isAdmin) {
+                this.currentUserAdmin = isAdmin;
+            },
+            getUserGravatar(avatars) {
+                var biggestItem = Object.keys(avatars).sort()[2];
+                return avatars[biggestItem];
             }
         },
 

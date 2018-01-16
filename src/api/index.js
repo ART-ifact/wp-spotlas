@@ -133,4 +133,21 @@ export default {
             cb(e)
         });
     },
+
+    getCurrentUser(nonce, cb) {
+        axios.get(window.SETTINGS.WPPATH + 'wp-json/wp/v2/users/me?_wpnonce='+nonce).then(function (response) {
+            console.log(response)
+            cb(response.data);
+        }).catch(error => {
+            cb(error);
+        })
+    },
+    getAdmin(cb) {
+        axios.get(window.SETTINGS.WPPATH + 'wp-json/spottr/admin').then(function (response) {
+            console.log(response)
+            cb(response.data);
+        }).catch(error => {
+            cb(error);
+        })
+    }
 }
