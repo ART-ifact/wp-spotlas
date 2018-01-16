@@ -108,6 +108,12 @@
                 this.marker_building.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_building.svg'
                 this.marker_urban.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_urban.svg'
                 this.marker_water.url = window.SETTINGS.THEMEURL + '/dist/assets/img/marker_water.svg'
+            },
+            /**
+             * Prepared Filter Watcher
+             */
+            filter() {
+                this.$root.$children[0].$watch("filter");
             }
         },
 

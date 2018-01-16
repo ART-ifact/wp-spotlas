@@ -4,6 +4,11 @@
             <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
         </v-flex>
         <v-form class="xs12 flex" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
+            <v-toolbar card color="grey darken-3" class="location-toolbar">
+                <v-btn dark color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn color="teal" dark name="wp-submit" :disabled="sending" type="submit">{{ $t('message.save') }}</v-btn>
+            </v-toolbar>
             <v-layout row wrap>
                 <v-flex md6 xs12 class="pa-3">
                     <md-field>
@@ -115,14 +120,6 @@
                         </v-flex>
                         <v-flex xs12 sm6>
                             <v-text-field v-if="this.form.shared" dark color="teal" v-bind:label="'Shared URL'" v-model="shareURL" :disabled="sending" readonly></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                    <v-layout>
-                        <v-flex xs12 sm3 md2 class="text-xs-left">
-                            <v-btn dark color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
-                        </v-flex>
-                        <v-flex xs12 sm3 md2 offset-xs0 offset-sm6 offset-md8 class="text-xs-right">
-                            <v-btn color="teal" dark name="wp-submit" :disabled="sending" type="submit">{{ $t('message.save') }}</v-btn>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -297,6 +294,7 @@
             afterSave(response) {
                 if (response.status === 200) {
                     helper.createSuccessMessage(this.$root,this.$t('message.locationSaved'), 2500)
+                    this.$root.$children[0]._data.showDrawer = true;
                     router.push('/location/' + this.form.id);
                 } else {
                     console.error(response);
@@ -421,7 +419,7 @@
             this.type = helper.createTranslatedTypeObject(this.$t('message.industry'), this.$t('message.historic'), this.$t('message.panorama'), this.$t('message.sunrise'), this.$t('message.sunset'), this.$t('message.outdoor'), this.$t('message.architecture'), this.$t('message.monument'));
             this.category = helper.createTranslatedCategoryObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'));
             api.getPost(this.id, this.handleData);
-            this.$root.$children[0]._data.showBackButton = false;
+            this.$root.$children[0]._data.showDrawer = false;
 
         }
     }

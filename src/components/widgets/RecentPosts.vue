@@ -88,6 +88,15 @@
             placeholderImage: ''
         },
 
+        methods: {
+            /**
+             * Prepared Filter Watcher
+             */
+            filter() {
+                this.$root.$children[0].$watch("filter");
+            }
+        },
+
         mounted() {
             let _this = this;
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';

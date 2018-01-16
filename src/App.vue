@@ -1,34 +1,52 @@
-
 <template>
-    <v-app id="inspire" dark>
-        <v-toolbar app fixed clipped-left>
+    <v-app id="app" dark>
+        <v-navigation-drawer fixed v-model="drawer" dark right app>
+            <v-list dense>
+                <v-subheader>Application Menu</v-subheader>
+                <v-list-tile :href="wppath+'add/'">
+                    <v-list-tile-action>
+                        <v-icon>add_location</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Add Lcoation</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile :href="wppath+'grid/'">
+                    <v-list-tile-action>
+                        <v-icon>grid_on</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Grid View</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile :href="wppath">
+                    <v-list-tile-action>
+                        <v-icon>map</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Map View</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile :href="logoutLink">
+                    <v-list-tile-action>
+                        <v-icon>exit_to_app</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Logout</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>
+            <v-divider dark></v-divider>
+        </v-navigation-drawer>
+        <v-toolbar fixed app>
             <v-toolbar-title>
                 <img :src="getLogoPath" alt="Logo">
             </v-toolbar-title>
-            <v-btn v-if="showBackButton" dark small depressed color="blue-grey darken-3" class="btn-back" @click="back()">back</v-btn>
-
-            <v-speed-dial fab small large dark absolute top right class="btn-add" :direction="'bottom'" :hover="true" :transition="'slide-y-reverse-transition'">
-                <v-btn slot="activator" color="teal darken-2" dark fab hover>
-                    <v-icon>menu</v-icon>
-                    <v-icon>close</v-icon>
-                </v-btn>
-                <v-btn :href="wppath+'add/'" fab dark small color="teal">
-                    <v-icon>add_location</v-icon>
-                </v-btn>
-                <v-btn :href="wppath+'grid/'" fab dark small color="teal">
-                    <v-icon>grid_on</v-icon>
-                </v-btn>
-                <v-btn :href="wppath" fab dark small color="teal">
-                    <v-icon>map</v-icon>
-                </v-btn>
-                <v-btn :href="logoutLink" fab dark small color="teal">
-                    <v-icon>exit_to_app</v-icon>
-                </v-btn>
-
-            </v-speed-dial>
+            <v-spacer></v-spacer>
+            <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="showDrawer"></v-toolbar-side-icon>
         </v-toolbar>
-        <v-content>
-            <v-container fluid fill-height>
+        <v-content dark>
+            <v-container dark fluid fill-height>
                 <router-view></router-view>
             </v-container>
             <v-snackbar color="success" :timeout="successTimeout" v-model="successMessage">
@@ -69,7 +87,10 @@
             successTimeout: 2500,
             errorMessage: false,
             errorMessageText: '',
-            errorTimeout: 2500
+            errorTimeout: 2500,
+            drawer: false,
+            showDrawer: true,
+            filter: []
         }),
         computed: {
             ...mapGetters({

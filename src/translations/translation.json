@@ -36,7 +36,13 @@
             "water": "Water",
             "noTags": "No Tags set",
             "deletedLocationSucess": "Location was deleted",
-            "locationSaved": "Location was saved successfull"
+            "locationSaved": "Location was saved successfull",
+            "application-menu": "Application Menu",
+            "grid-view": "Grid View",
+            "map-view": "Map View",
+            "add-location": "Add Location",
+            "logout": "Logout",
+            "edit": "Edit"
         }
     },
     "de": {
@@ -76,7 +82,13 @@
             "water": "Wasser",
             "noTags": "Keine Tags gesetzt",
             "deletedLocationSucess": "Location wurde gelöscht",
-            "locationSaved": "Die Location wurde erfolgreich gespeichert"
+            "locationSaved": "Die Location wurde erfolgreich gespeichert",
+            "application-menu": "Anwendungsmenü",
+            "grid-view": "Rasteransicht",
+            "map-view": "Kartenansicht",
+            "add-location": "Location hinzufügen",
+            "logout": "Ausloggen",
+            "edit": "Bearbeiten"
         }
     }
 }

@@ -3,7 +3,16 @@
         <v-flex xs12 v-if="loading">
             <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
         </v-flex>
-
+        <v-toolbar v-if="locationdata && !hash" card color="grey darken-3" class="location-toolbar">
+            <v-btn v-if="showBackButton" dark color="blue-grey darken-3" class="btn-back" @click="back()">back</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn :href="wppath+'edit/'+locationdata.id" dark  color="teal">
+                {{ $t('message.edit') }}
+            </v-btn>
+            <v-btn @click.native="dialog = true" dark  color="red darken-4">
+                {{ $t('message.delete') }}
+            </v-btn>
+        </v-toolbar>
         <v-flex xs12 v-if="locationdata">
             <h1 class="location-title">{{ locationdata.title.rendered }}</h1>
             <span class="location-access " v-bind:class="'_'+locationdata.accesibility">
@@ -118,18 +127,6 @@
             </v-container>
 
         </v-flex>
-        <v-speed-dial v-if="locationdata && !hash" fab small large dark absolute top right class="btn-edit" :direction="'bottom'" :hover="true" :transition="'slide-y-reverse-transition'">
-            <v-btn slot="activator" color="teal darken-2" dark fab hover>
-                <v-icon>edit_location</v-icon>
-                <v-icon>{{ $t('message.close') }}</v-icon>
-            </v-btn>
-            <v-btn :href="wppath+'edit/'+locationdata.id" fab dark small color="teal">
-                <v-icon>edit</v-icon>
-            </v-btn>
-            <v-btn @click.native="dialog = true" fab dark small color="red">
-                <v-icon>delete</v-icon>
-            </v-btn>
-        </v-speed-dial>
         <v-dialog v-if="locationdata" v-model="dialog" persistent max-width="380">
             <v-card>
                 <v-card-title v-if="!deleting" class="headline">{{ $t('message.locationDeleteHint') }} <br> {{ locationdata.title.rendered }}</v-card-title>
@@ -168,6 +165,7 @@
             return {
                 loading: false,
                 deleting: false,
+                showBackButton: true,
                 locationdata: false,
                 error: null,
                 infoWinOpen: false,
@@ -206,11 +204,8 @@
 
                 this.locationdata.shared = JSON.parse(this.locationdata.shared);
                 if (typeof this.hash !== "undefined") {
-                    this.$root.$children[0]._data.showBackButton = false;
                     this.locationdata.shared = false;
                 }
-                
-                this.$root.$children[0]._data.showBackButton = true;
 
                 this.loading = false
             },
@@ -233,6 +228,9 @@
                 helper.createSuccessMessage(this.$root,this.$t('message.deletedLocationSucess'), 2500)
                 router.go(-1)
             },
+            back() {
+                router.go(-1);
+            }
         },
 
 
@@ -249,6 +247,8 @@
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
             _this.getIconPaths();
             if (this.hash) {
+                this.$root.$children[0]._data.drawer = false;
+                this.$root.$children[0]._data.showDrawer = false;
                 api.getSharedPost(this.id,this.hash, this.handleData);
             } else {
                 api.getPost(this.id, this.handleData);
