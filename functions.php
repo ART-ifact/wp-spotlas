@@ -333,7 +333,7 @@ function login($request)
     return $user;
 }
 
-add_action('after_setup_theme', 'custom_login');
+//add_action('after_setup_theme', 'login');
 
 add_filter('rest_pre_dispatch', function ($request) {
     $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);

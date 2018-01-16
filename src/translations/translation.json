@@ -43,7 +43,9 @@
             "map-view": "Map View",
             "add-location": "Add Location",
             "logout": "Logout",
-            "edit": "Edit"
+            "edit": "Edit",
+            "email": "E-Mail",
+            "userSaved": "User added"
         }
     },
     "de": {
@@ -90,7 +92,9 @@
             "map-view": "Kartenansicht",
             "add-location": "Location hinzufügen",
             "logout": "Ausloggen",
-            "edit": "Bearbeiten"
+            "edit": "Bearbeiten",
+            "email": "E-Mail",
+            "userSaved": "Benutzer hinzugefügt"
         }
     }
 }

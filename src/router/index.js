@@ -9,6 +9,7 @@ import Location from '../components/Location'
 import Map from '../components/Map'
 import Add from '../components/Add'
 import Edit from '../components/Edit'
+import addUser from '../components/user/UserAdd'
 
 Vue.use(Router)
 
@@ -55,6 +56,17 @@ const router = new Router({
             component: Location,
             components: {
                 default: Location
+            },
+            props: {
+                default: true
+            }
+        },
+        {
+            path: '/user/add',
+            name: 'Add User',
+            component: addUser,
+            components: {
+                default: addUser
             },
             props: {
                 default: true

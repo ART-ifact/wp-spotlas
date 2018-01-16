@@ -19,7 +19,8 @@
             $logo = of_get_option('logo');
         } else {
             $logo = $defaultLogo;
-        } ?>
+        } 
+        ?>
         <input type="hidden" class="wpnonce-rest" value="<?php echo $my_api_nonce; ?>">
         <input type="hidden" class="locale" value="<?php echo of_get_option('language'); ?>">
         <input type="hidden" class="logout-link" value="<?php echo wp_logout_url(home_url()); ?>">

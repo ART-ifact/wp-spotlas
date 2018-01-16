@@ -50,6 +50,18 @@ export default {
         return formData;
     },
 
+    buildFormDataUser(form) {
+        var formData = new FormData();
+
+        formData.append("username", form.username);
+        formData.append("name", form.username);
+        formData.append("first_name", form.first_name);
+        formData.append("last_name", form.last_name);
+        formData.append("email", form.email);
+        formData.append("nickname", form.first_name);
+        return formData;
+    },
+
     buildMediaData(fileInput) {
         var formData = new FormData();
         formData.append("action", "upload-attachment");

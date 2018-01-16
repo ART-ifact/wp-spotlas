@@ -142,10 +142,19 @@ export default {
             cb(error);
         })
     },
+
     getAdmin(cb) {
         axios.get(window.SETTINGS.WPPATH + 'wp-json/spottr/admin').then(function (response) {
             console.log(response)
             cb(response.data);
+        }).catch(error => {
+            cb(error);
+        })
+    },
+
+    addUser(formData,cb) {
+        axios.post(window.SETTINGS.THEMEURL + '/formhandlers/add-user.php',formData).then(function (response) {
+            cb(response);
         }).catch(error => {
             cb(error);
         })
