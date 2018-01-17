@@ -11,7 +11,7 @@ $userdata = array(
     'display_name'=> $_Post['first_name'],
     'first_name'  => $_Post['first_name'],
     'last_name'   => $_Post['last_name'],
-    'role'        => 'contributor'
+    'role'        => 'author'
 );
 
 $user_id = wp_insert_user( $userdata ) ;

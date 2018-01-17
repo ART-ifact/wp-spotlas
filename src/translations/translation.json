@@ -15,6 +15,7 @@
             "type": "Tags",
             "category": "Category",
             "locationDeleteHint": "You sure want to delete location?",
+            "userdeleteHint": "You really want to delete the following user?",
             "delete": "Delete",
             "abort": "Abort",
             "showLocation": "Show Location",
@@ -45,7 +46,8 @@
             "logout": "Logout",
             "edit": "Edit",
             "email": "E-Mail",
-            "userSaved": "User added"
+            "userSaved": "User added",
+            "deletedUserSuccess": "User was deleted"
         }
     },
     "de": {
@@ -64,6 +66,7 @@
             "type": "Stichwörter",
             "category": "Kategorie",
             "locationDeleteHint": "Möchtest du die folgende Location wirklich löschen?",
+            "userdeleteHint": "Möchtest du den folgenden Benutzer wirklich löschen?",
             "delete": "Löschen",
             "abort": "Abbrechen",
             "showLocation": "Location ansehen",
@@ -94,7 +97,8 @@
             "logout": "Ausloggen",
             "edit": "Bearbeiten",
             "email": "E-Mail",
-            "userSaved": "Benutzer hinzugefügt"
+            "userSaved": "Benutzer hinzugefügt",
+            "deletedUserSuccess": "Benutzer erfolgreich gelöscht"
         }
     }
 }

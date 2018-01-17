@@ -166,5 +166,16 @@ export default {
         }).catch(error => {
             cb(error);
         })
-    }
+    },
+
+    deleteUser(id, currentUserID, cb) {
+        axios.delete(window.SETTINGS.WPPATH + 'wp-json/wp/v2/users/'+id+'?force=true&reassign='+currentUserID , {
+            force: true,
+        }).then(function (response) {
+            console.log("deleted successfully");
+            cb(cb);
+        }).catch(e => {
+            cb(e)
+        });
+    },
 }

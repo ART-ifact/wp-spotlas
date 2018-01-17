@@ -43,6 +43,8 @@
         },
         created() {
             this.wppath = window.SETTINGS.WPPATH
+            this.$root.$children[0]._data.drawer = false;
+            this.$root.$children[0]._data.showDrawer = false;
 
         },
 
@@ -53,6 +55,7 @@
                 if (this.$refs.form.validate()) {
                     axios.get(url).then(function(response) {
                         window.isSigned = true;
+                        this.$root.$children[0]._data.drawer = true;
                         router.push('/')
                     }, function(error) {
                         _this.loginErrorMessage = error.response.data.message;
