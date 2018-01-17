@@ -47,7 +47,10 @@
             "edit": "Edit",
             "email": "E-Mail",
             "userSaved": "User added",
-            "deletedUserSuccess": "User was deleted"
+            "deletedUserSuccess": "User was deleted",
+            "newPassword": "New Password",
+            "newPasswordValidate": "Retype new Password",
+            "passwordMismatch": "The passwords do not match"
         }
     },
     "de": {
@@ -98,7 +101,10 @@
             "edit": "Bearbeiten",
             "email": "E-Mail",
             "userSaved": "Benutzer hinzugefügt",
-            "deletedUserSuccess": "Benutzer erfolgreich gelöscht"
+            "deletedUserSuccess": "Benutzer erfolgreich gelöscht",
+            "newPassword": "Neues Passwort",
+            "newPasswordValidate": "Neues Passwort erneut eingeben",
+            "passwordMismatch": "Die Passwortfelder sind nicht gleich"
         }
     }
 }

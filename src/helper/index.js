@@ -50,13 +50,21 @@ export default {
         return formData;
     },
 
-    buildFormDataUser(form) {
+    buildFormDataUser(form, update) {
         var formData = new FormData();
 
-        formData.append("username", form.username);
-        formData.append("name", form.username);
-        formData.append("first_name", form.first_name);
-        formData.append("last_name", form.last_name);
+        if (form.id) {
+            formData.append("id", form.id);
+        }
+        if (!update) {
+            formData.append("username", form.username);
+            formData.append("name", form.username);
+            formData.append("first_name", form.first_name);
+            formData.append("last_name", form.last_name);
+        } else {
+            formData.append("password", form.password);
+        }
+        
         formData.append("email", form.email);
         formData.append("nickname", form.first_name);
         return formData;

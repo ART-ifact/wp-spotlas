@@ -178,4 +178,24 @@ export default {
             cb(e)
         });
     },
+
+    getUser(id, cb) {
+        axios.get(window.SETTINGS.WPPATH + 'wp-json/wp/v2/users/'+id+'?force=true' , {
+            force: true,
+        }).then(function (response) {
+            console.log("got user successfully");
+            cb(response.data);
+        }).catch(e => {
+            cb(e)
+        });
+    },
+
+    editUser(id, form, cb) {
+        axios.post(window.SETTINGS.WPPATH + 'wp-json/wp/v2/users/'+id+'?force=true' , form).then(function (response) {
+            console.log("updated successfully");
+            cb(response);
+        }).catch(e => {
+            cb(e)
+        });
+    },
 }

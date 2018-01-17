@@ -2,7 +2,7 @@
     <v-app id="app" dark>
         <v-navigation-drawer fixed v-model="drawer" dark right app>
             <v-list dense v-if="currentUser">
-                <router-link v-bind:to="'user/edit/'+currentUser.id">
+                <router-link v-bind:to="'/user/edit/'+currentUser.id">
                     <v-list-tile class="mt-1 mb-2">
                         <v-list-tile-avatar>
                             <img :src="currentUser.avatar">

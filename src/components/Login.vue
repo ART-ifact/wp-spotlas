@@ -50,12 +50,16 @@
 
         methods: {
             login: function() {
-                var url = this.wppath + 'wp-json/custom-plugin/login?username=' + this.username + '&password=' + this.password;
                 var _this = this;
+                var url = _this.wppath + 'wp-json/custom-plugin/login?username=' + _this.username + '&password=' + _this.password;
                 if (this.$refs.form.validate()) {
                     axios.get(url).then(function(response) {
                         window.isSigned = true;
-                        this.$root.$children[0]._data.drawer = true;
+                        _this.$root.$children[0]._data.drawer = true;
+                         window.axios.defaults.headers.common = {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-WP-Nonce': response,
+                        };
                         router.push('/')
                     }, function(error) {
                         _this.loginErrorMessage = error.response.data.message;

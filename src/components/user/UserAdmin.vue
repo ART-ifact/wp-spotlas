@@ -11,8 +11,10 @@
                         <v-list-tile-content>
                             <v-list-tile-title v-html="user.name"></v-list-tile-title>
                         </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-btn v-if="user.id !== currentUser" color="red darken-4" dark small @click="preDeleteUser(user.id, user.name)">{{ $t('message.delete') }}</v-btn>
+                                <router-link v-bind:to="'/user/edit/'+user.id" tag="span">
+                                    <v-btn v-if="user.id !== currentUser" color="teal darken-4" dark small>{{ $t('message.edit') }}</v-btn>
+                                </router-link>
+                                <v-btn v-if="user.id !== currentUser" color="red darken-4" dark small @click="preDeleteUser(user.id, user.name)">{{ $t('message.delete') }}</v-btn>
                         </v-list-tile-action>
                     </v-list-tile>
                 </template>

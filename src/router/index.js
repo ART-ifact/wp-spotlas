@@ -11,6 +11,7 @@ import Add from '../components/Add'
 import Edit from '../components/Edit'
 import addUser from '../components/user/UserAdd'
 import userAdmin from '../components/user/UserAdmin'
+import userEdit from '../components/user/UserEdit'
 
 Vue.use(Router)
 
@@ -79,6 +80,17 @@ const router = new Router({
             component: userAdmin,
             components: {
                 default: userAdmin
+            },
+            props: {
+                default: true
+            }
+        },
+        {
+            path: '/user/edit/:id',
+            name: 'Edit User',
+            component: userEdit,
+            components: {
+                default: userEdit
             },
             props: {
                 default: true

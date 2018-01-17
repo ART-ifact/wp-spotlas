@@ -330,7 +330,9 @@ function login($request)
         return  $error;
     }
 
-    return $user;
+    $nonce = wp_create_nonce('wp_rest');
+
+    return $nonce;
 }
 
 //add_action('after_setup_theme', 'login');
@@ -377,5 +379,16 @@ add_action( 'rest_api_init', function () {
         'callback' => 'get_user_info',
     ) );
 } );
+
+
+register_rest_field( 'user', 'userEmail',
+    array(
+        'get_callback'    => function ( $user ) {
+            return $user['email'];
+        },
+        'update_callback' => null,
+        'schema'          => null,
+    )
+);
 
 ?>
