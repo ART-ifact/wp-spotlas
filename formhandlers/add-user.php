@@ -18,7 +18,7 @@ $user_id = wp_insert_user( $userdata ) ;
 
 //On success
 if ( ! is_wp_error( $user_id ) ) {
-    return $user_id;
+    echo $user_id;
     wp_new_user_notification( $user_id, null, 'user');
 } else {
     echo "Oh Oh something failed";
