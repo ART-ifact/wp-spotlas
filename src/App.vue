@@ -2,17 +2,15 @@
     <v-app id="app" dark>
         <v-navigation-drawer fixed v-model="drawer" dark right app>
             <v-list dense v-if="currentUser">
-                <router-link v-bind:to="'/user/edit/'+currentUser.id">
-                    <v-list-tile class="mt-1 mb-2">
-                        <v-list-tile-avatar>
-                            <img :src="currentUser.avatar">
-                        </v-list-tile-avatar>
-                        <v-list-tile-title>{{currentUser.name}}</v-list-tile-title>
-                        <v-list-tile-action>
-                            <v-icon>edit</v-icon>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                </router-link>
+                <v-list-tile class="mt-1 mb-2" @click="goTo('/user/edit/'+currentUser.id)">
+                    <v-list-tile-avatar>
+                        <img :src="currentUser.avatar">
+                    </v-list-tile-avatar>
+                    <v-list-tile-title>{{currentUser.name}}</v-list-tile-title>
+                    <v-list-tile-action>
+                        <v-icon>edit</v-icon>
+                    </v-list-tile-action>
+                </v-list-tile>
                 <v-list-tile :href="logoutLink">
                     <v-list-tile-action>
                         <v-icon>exit_to_app</v-icon>
@@ -25,60 +23,52 @@
             <v-divider dark></v-divider>
             <v-list dense>
                 <v-subheader>{{ $t('message.application-menu') }}</v-subheader>
-                <router-link to="/add/">
-                    <v-list-tile>
-                        <v-list-tile-action>
-                            <v-icon>add_location</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ $t('message.add-location') }}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </router-link>
-                <router-link to="/grid/">
-                    <v-list-tile>
-                        <v-list-tile-action>
-                            <v-icon>grid_on</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ $t('message.grid-view') }}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </router-link>
-                <router-link to="/">
-                    <v-list-tile>
-                        <v-list-tile-action>
-                            <v-icon>map</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{ $t('message.map-view') }}</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </router-link>
+                <v-list-tile @click="goTo('/add/')">
+                    <v-list-tile-action>
+                        <v-icon>add_location</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ $t('message.add-location') }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile @click="goTo('/grid/')">
+                    <v-list-tile-action>
+                        <v-icon>grid_on</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ $t('message.grid-view') }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile @click="goTo('/')">
+                    <v-list-tile-action>
+                        <v-icon>map</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ $t('message.map-view') }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
             </v-list>
             <v-divider dark></v-divider>
             <v-list dense v-if="currentUserAdmin">
                 <v-subheader>Benutzerverwaltung</v-subheader>
-                <router-link to="/user/add/">
-                    <v-list-tile>
-                        <v-list-tile-action>
-                            <v-icon>add_circle_outline</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Benutzer hinzufügen</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </router-link>
-                <router-link to="/user/admin/">
-                    <v-list-tile>
-                        <v-list-tile-action>
-                            <v-icon>supervisor_account</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>Benutzerliste anzeigen</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </router-link>
+
+                <v-list-tile @click="goTo('/user/add/')">
+                    <v-list-tile-action>
+                        <v-icon>add_circle_outline</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Benutzer hinzufügen</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile @click="goTo('/user/admin/')">
+                    <v-list-tile-action>
+                        <v-icon>supervisor_account</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Benutzerliste anzeigen</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+
             </v-list>
         </v-navigation-drawer>
         <v-toolbar fixed app>
@@ -176,6 +166,9 @@
                 var biggestItem = Object.keys(avatars).sort()[2];
                 return avatars[biggestItem];
             },
+            goTo(path) {
+                router.push(path);
+            }
         },
 
         watch: {
