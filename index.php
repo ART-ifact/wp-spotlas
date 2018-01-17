@@ -4,6 +4,7 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#212121" />
   <link rel="profile" href="http://gmpg.org/xfn/11">
   <?php wp_head(); ?>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
