@@ -122,7 +122,6 @@
 
 <script>
     import router from "../router";
-    import RangeSlider from "vue-range-slider";
     import EXIF from "exif-js";
     import {
         mapGetters
@@ -132,7 +131,7 @@
 
     export default {
         components: {
-            RangeSlider
+            
         },
         data: () => ({
             form: {

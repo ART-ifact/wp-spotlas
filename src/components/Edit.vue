@@ -130,7 +130,6 @@
 
 <script>
     import router from '../router';
-    import RangeSlider from 'vue-range-slider'
     import EXIF from 'exif-js'
     import {
         validationMixin
@@ -153,7 +152,7 @@
         name: 'FormValidation',
         mixins: [validationMixin],
         components: {
-            RangeSlider
+
         },
         data: () => ({
             form: {
