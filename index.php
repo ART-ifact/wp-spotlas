@@ -21,6 +21,12 @@
     <link rel="manifest" href="<?php echo esc_url(get_template_directory_uri()); ?>/manifest.json">
     <meta name="msapplication-TileColor" content="#212121">
     <meta name="msapplication-TileImage" content="<?php echo esc_url(get_template_directory_uri()); ?>/appicons/ms-icon-144x144.png">
+    <meta name="description" content="">
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="null">
+    <meta itemprop="description" content="<?php echo $description; ?>">
+    <meta itemprop="image" content="<?php echo esc_url(get_template_directory_uri()); ?>/appicons/ms-icon-144x144.png">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
