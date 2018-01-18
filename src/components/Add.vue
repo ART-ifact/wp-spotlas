@@ -250,7 +250,6 @@
             },
 
             uploadImage(event) {
-                console.log(event.target.parentElement.children[1]);
                 if (event !== undefined) {
                     const firstFile = event.target.files[0];
                     let _this = this;
@@ -272,6 +271,8 @@
                     }
                     var uploadInput = event.target.parentElement.children[1];
                     uploadInput.blur()
+                    this.sending = false;
+                    this.imageUploading = false;
                 }
             },
             upload(fileInput) {
@@ -287,8 +288,6 @@
                 this.form.images.push(tmp_obj);
 
                 this.fileinput = null;
-                this.sending = false;
-                this.imageUploading = false;
             },
             deleteImage(imageID) {
                 api.deleteMedia(imageID,this.deleteImageFromArray);
