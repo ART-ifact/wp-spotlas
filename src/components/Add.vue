@@ -13,7 +13,7 @@
                 <v-flex md6 xs12 class="pa-3">
                     <md-field>
                         <label>{{ $t('message.selectPicture') }}</label>
-                        <md-file single v-model="fileinput" accept="image/*" @change="uploadImage($event)" />
+                        <md-file multiple v-model="fileinput" accept="image/*" @change="uploadImage($event)" />
                     </md-field>
                     <div class="imagebox">
                         <ul>
@@ -250,12 +250,12 @@
             },
 
             uploadImage(event) {
-                console.log(event.target.files);
+                console.log(event.target.parentElement.children[1]);
                 if (event !== undefined) {
-                    const file = event.target.files[0];
+                    const firstFile = event.target.files[0];
                     let _this = this;
 
-                    EXIF.getData(file, function() {
+                    EXIF.getData(firstFile, function() {
                         if (
                             EXIF.getTag(this, "GPSLatitude") &&
                             EXIF.getTag(this, "GPSLongitude")
@@ -266,7 +266,12 @@
                         }
                     });
 
-                    _this.upload(file);
+                    for (let index = 0; index < event.target.files.length; index++) {
+                        const file = event.target.files[index];
+                        _this.upload(file);
+                    }
+                    var uploadInput = event.target.parentElement.children[1];
+                    uploadInput.blur()
                 }
             },
             upload(fileInput) {
