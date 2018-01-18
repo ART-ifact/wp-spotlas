@@ -13,7 +13,7 @@
                 <v-flex md6 xs12 class="pa-3">
                     <md-field>
                         <label>{{ $t('message.selectPicture') }}</label>
-                        <md-file single v-model="fileinput" accept="image/*" @change="uploadImage($event)" />
+                        <md-file multiple v-model="fileinput" accept="image/*" @change="uploadImage($event)" />
                     </md-field>
                     <div class="imagebox">
                         <ul>
@@ -130,7 +130,6 @@
 
 <script>
     import router from '../router';
-    import RangeSlider from 'vue-range-slider'
     import EXIF from 'exif-js'
     import {
         validationMixin
@@ -153,7 +152,7 @@
         name: 'FormValidation',
         mixins: [validationMixin],
         components: {
-            RangeSlider
+
         },
         data: () => ({
             form: {
@@ -344,22 +343,35 @@
             },
 
             uploadImage(event) {
-                var file = event.target.files[0];
-                let _this = this;
+                if (event !== undefined) {
+                    const firstFile = event.target.files[0];
+                    let _this = this;
 
-                EXIF.getData(file, function() {
-                    if (EXIF.getTag(this, 'GPSLatitude') && EXIF.getTag(this, 'GPSLongitude')) {
-                        var latitude = helper.toDecimal(EXIF.getTag(this, 'GPSLatitude'));
-                        var longitude = helper.toDecimal(EXIF.getTag(this, 'GPSLongitude'));
-                        _this.updateMap(longitude, latitude);
+                    EXIF.getData(firstFile, function() {
+                        if (
+                            EXIF.getTag(this, "GPSLatitude") &&
+                            EXIF.getTag(this, "GPSLongitude")
+                        ) {
+                            var latitude = helper.toDecimal(EXIF.getTag(this, "GPSLatitude"));
+                            var longitude = helper.toDecimal(EXIF.getTag(this, "GPSLongitude"));
+                            _this.updateMap(longitude, latitude);
+                        }
+                    });
+
+                    for (let index = 0; index < event.target.files.length; index++) {
+                        const file = event.target.files[index];
+                        _this.upload(file);
                     }
-                });
-
-                _this.upload(file);
+                    var uploadInput = event.target.parentElement.children[1];
+                    uploadInput.blur()
+                    this.sending = false;
+                    this.imageUploading = false;
+                }
             },
             upload(fileInput) {
                 let _this = this;
                 _this.sending = true;
+                _this.imageUploading = true;
                 var mediaForm = helper.buildMediaData(fileInput);
 
                 api.uploadMedia(mediaForm,this.updateImageArray)
@@ -373,7 +385,7 @@
                 console.log(this.tempImg);
 
                 this.fileinput = null;
-                this.sending = false;
+                
             },
             deleteImage(imageID) {
                 api.deleteMedia(imageID,this.deleteImageFromArray);
