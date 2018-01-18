@@ -20,6 +20,11 @@ function mytheme_require_plugins()
             'slug' => 'options-framework',
             'required' => true, // this plugin is recommended
         ),
+        array(
+            'name' => 'Imsanity',
+            'slug' => 'imsanity',
+            'required' => true, // this plugin is recommended
+        )
     );
 
     $config = array(
