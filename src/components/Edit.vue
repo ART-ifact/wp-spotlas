@@ -23,6 +23,9 @@
                                     <v-icon dark>delete</v-icon>
                                 </span>
                             </li>
+                            <li v-if="imageUploading">
+                                <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
+                            </li>
                         </ul>
                     </div>
 
@@ -349,29 +352,28 @@
 
                     EXIF.getData(firstFile, function() {
                         if (
-                            EXIF.getTag(this, "GPSLatitude") &&
-                            EXIF.getTag(this, "GPSLongitude")
+                            EXIF.getTag(firstFile, "GPSLatitude") &&
+                            EXIF.getTag(firstFile, "GPSLongitude")
                         ) {
-                            var latitude = helper.toDecimal(EXIF.getTag(this, "GPSLatitude"));
-                            var longitude = helper.toDecimal(EXIF.getTag(this, "GPSLongitude"));
+                            var latitude = helper.toDecimal(EXIF.getTag(firstFile, "GPSLatitude"));
+                            var longitude = helper.toDecimal(EXIF.getTag(firstFile, "GPSLongitude"));
                             _this.updateMap(longitude, latitude);
                         }
                     });
 
                     for (let index = 0; index < event.target.files.length; index++) {
                         const file = event.target.files[index];
+                        this.imageUploading = true;
                         _this.upload(file);
                     }
                     var uploadInput = event.target.parentElement.children[1];
                     uploadInput.blur()
                     this.sending = false;
-                    this.imageUploading = false;
                 }
             },
             upload(fileInput) {
                 let _this = this;
                 _this.sending = true;
-                _this.imageUploading = true;
                 var mediaForm = helper.buildMediaData(fileInput);
 
                 api.uploadMedia(mediaForm,fileInput,this.updateImageArray)
@@ -383,8 +385,8 @@
                 this.tempImg.push(tmp_obj);
 
                 console.log(this.tempImg);
-
                 this.fileinput = null;
+                this.imageUploading = false;
             },
             deleteImage(imageID) {
                 api.deleteMedia(imageID,this.deleteImageFromArray);
