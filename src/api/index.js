@@ -83,13 +83,14 @@ export default {
             })
     },
 
-    uploadMedia(formData, cb) {
+    uploadMedia(formData,file, cb) {
+        console.log(file)
 
-        axios.post(window.SETTINGS.WPPATH + 'wp-admin/async-upload.php', formData)
-            .then(function (response) {
-                console.log(response.data)
+        axios.post(window.SETTINGS.WPPATH + 'wp-json/wp/v2/media/', formData).then(function (response) {
+                console.log(response.data);
                 cb(response.data);
             }).catch(function (e) {
+                console.log(e);
                 cb(e);
             });
     },

@@ -374,10 +374,10 @@
                 _this.imageUploading = true;
                 var mediaForm = helper.buildMediaData(fileInput);
 
-                api.uploadMedia(mediaForm,this.updateImageArray)
+                api.uploadMedia(mediaForm,fileInput,this.updateImageArray)
             },
             updateImageArray(api_response) {
-                var tmp_obj = helper.buildImageObject(api_response.data);
+                var tmp_obj = helper.buildImageObject(api_response);
 
                 this.form.images.push(tmp_obj);
                 this.tempImg.push(tmp_obj);
@@ -385,7 +385,6 @@
                 console.log(this.tempImg);
 
                 this.fileinput = null;
-                
             },
             deleteImage(imageID) {
                 api.deleteMedia(imageID,this.deleteImageFromArray);

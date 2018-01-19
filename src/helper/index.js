@@ -73,10 +73,10 @@ export default {
     buildMediaData(fileInput) {
         var formData = new FormData();
         formData.append("action", "upload-attachment");
-        formData.append("async-upload", fileInput);
+        formData.append("file", fileInput);
         formData.append("name", fileInput.name);
 
-        formData.append("_wpnonce", window.SETTINGS.NONCE);
+        formData.append("_wpnonce", window.SETTINGS.AJAXNONCE);
 
         return formData;
     },
@@ -84,8 +84,8 @@ export default {
     buildImageObject(imageData) {
         var tmp_obj = {
             id: imageData.id,
-            large: imageData.sizes.full.url,
-            thumb: imageData.sizes.thumbnail.url
+            large: imageData.source_url,
+            thumb: imageData.media_details.sizes.thumbnail.source_url
         };
         return tmp_obj;
     },
