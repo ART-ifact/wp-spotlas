@@ -91,14 +91,34 @@
                 var vm = this;
                 var category = this.filter.category;
                 var title = this.filter.title;
+                var accessibility = this.filter.accessibility;
+                var cloudy = this.filter.cloudy;
+                var foggy = this.filter.foggy;
+                var rainy = this.filter.rainy;
+                var sunny = this.filter.sunny;
+                var spring = this.filter.spring;
+                var summer = this.filter.summer;
+                var autumn = this.filter.autumn;
+                var winter = this.filter.winter;
 
-                if(category === "" && title === "") {
+                if(category === "" && title === "" && cloudy === "" && accessibility === "" && foggy === "" && rainy === "" && sunny === "" && spring === "" && summer === "" && autumn === "" && winter === "") {
                     //save performance, juste return the default array:
                     return vm.recentPosts;
                 } else {
                     return vm.recentPosts.filter(function(post) {
                         //return the array after passimng it through the filter function:
-                        return  (category === '' || post.category === category) && (title === ''  || post.title.rendered.includes(title) === true );
+                        return  (
+                            category === '' || post.category === category) && 
+                            (title === ''  || post.title.rendered.includes(title) === true) && 
+                            (accessibility = '' || post.accessibility === accessibility) &&
+                            (cloudy = '' || post.cloudy === cloudy) && 
+                            (foggy = '' || post.foggy === foggy) &&
+                            (rainy = '' || post.rainy === rainy) &&
+                            (sunny = '' || post.sunny === sunny) &&
+                            (spring = '' || post.spring === spring) &&
+                            (summer = '' || post.summer === summer) &&
+                            (autumn = '' || post.autumn === autumn) &&
+                            (winter = '' || post.winter === winter);
 
                     });
                 }

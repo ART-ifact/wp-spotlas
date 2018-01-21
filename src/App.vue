@@ -142,7 +142,16 @@
             currentUserAdmin: false,
             filter: {
                 category: '',
-                title: ''
+                title: '',
+                accessibility: '',
+                cloudy: '',
+                foggy : '',
+                rainy : '',
+                sunny : '',
+                spring: '',
+                summer: '',
+                autumn: '',
+                winter: '',
             },
             category: [{
                     text: "building",
