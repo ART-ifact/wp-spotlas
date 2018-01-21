@@ -1,6 +1,6 @@
 <template>
     <v-app id="app" dark>
-        <v-navigation-drawer fixed v-model="drawer" dark right app>
+        <v-navigation-drawer fixed v-model="drawer" right app>
             <v-list dense v-if="currentUser">
                 <v-list-tile class="mt-1 mb-2" @click="goTo('/user/edit/'+currentUser.id)">
                     <v-list-tile-avatar>
@@ -20,7 +20,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
-            <v-divider dark></v-divider>
+            <v-divider></v-divider>
             <v-list dense>
                 <v-subheader>{{ $t('message.application-menu') }}</v-subheader>
                 <v-list-tile @click="goTo('/add/')">
@@ -48,7 +48,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
-            <v-divider dark></v-divider>
+            <v-divider></v-divider>
             <v-list dense v-if="currentUserAdmin">
                 <v-subheader>Benutzerverwaltung</v-subheader>
 
@@ -78,17 +78,17 @@
             <v-spacer></v-spacer>
             <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="showDrawer"></v-toolbar-side-icon>
         </v-toolbar>
-        <v-content dark>
-            <v-container dark fluid fill-height>
+        <v-content>
+            <v-container fluid fill-height>
                 <router-view></router-view>
             </v-container>
             <v-snackbar color="success" :timeout="successTimeout" v-model="successMessage">
                 {{ successMessageText }}
-                <v-btn dark flat @click.native="successMessage = false">{{ $t('message.close') }}</v-btn>
+                <v-btn flat @click.native="successMessage = false">{{ $t('message.close') }}</v-btn>
             </v-snackbar>
             <v-snackbar color="error" :timeout="errorTimeout" v-model="errorMessage">
                 {{ errorMessageText }}
-                <v-btn dark flat @click.native="errorMessage = false">{{ $t('message.close') }}</v-btn>
+                <v-btn flat @click.native="errorMessage = false">{{ $t('message.close') }}</v-btn>
             </v-snackbar>
         </v-content>
     </v-app>

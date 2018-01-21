@@ -4,12 +4,12 @@
             <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
         </v-flex>
         <v-toolbar v-if="locationdata && !hash" card color="grey darken-3" class="location-toolbar">
-            <v-btn v-if="showBackButton" dark color="blue-grey darken-3" class="btn-back" @click="back()">back</v-btn>
+            <v-btn v-if="showBackButton"  color="blue-grey darken-3" class="btn-back" @click="back()">back</v-btn>
             <v-spacer></v-spacer>
-            <v-btn :href="wppath+'edit/'+locationdata.id" dark  color="teal">
+            <v-btn :href="wppath+'edit/'+locationdata.id"   color="teal">
                 {{ $t('message.edit') }}
             </v-btn>
-            <v-btn @click.native="dialog = true" dark  color="red darken-4">
+            <v-btn @click.native="dialog = true"   color="red darken-4">
                 {{ $t('message.delete') }}
             </v-btn>
         </v-toolbar>
@@ -20,11 +20,11 @@
             </span>
         </v-flex>
         <v-flex xs12 class="mt-2" v-if="locationdata.shared">
-                <v-text-field dark color="teal" v-bind:label="'This Location is shared with the following Link:'" v-model="locationdata.shareURL" readonly></v-text-field>
+                <v-text-field  color="teal" v-bind:label="'This Location is shared with the following Link:'" v-model="locationdata.shareURL" readonly></v-text-field>
         </v-flex>
 
         <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
-            <v-carousel dark>
+            <v-carousel >
                 <v-carousel-item v-if="locationdata.images.length > 0" v-for="(image,i) in locationdata.images" v-bind:src="image.large" :key="i"></v-carousel-item>
                 <v-carousel-item v-if="locationdata.images.length < 1" v-bind:src="placeholderImage"></v-carousel-item>
             </v-carousel>

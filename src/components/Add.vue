@@ -5,9 +5,9 @@
         </v-flex>
         <v-form class="xs12 flex" @submit.prevent="saveForm" v-model="valid" ref="form" lazy-validation>
             <v-toolbar card color="grey darken-3" class="location-toolbar">
-                <v-btn dark color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
+                <v-btn  color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
                 <v-spacer></v-spacer>
-                <v-btn color="teal" dark name="wp-submit" :disabled="sending" type="submit">{{ $t('message.save') }}</v-btn>
+                <v-btn color="teal"  name="wp-submit" :disabled="sending" type="submit">{{ $t('message.save') }}</v-btn>
             </v-toolbar>
             <v-layout row wrap>
                 <v-flex md6 xs12 class="pa-3">
@@ -20,7 +20,7 @@
                             <li :key="index" v-for="(image, index) in form.images">
                                 <img v-bind:src="image.thumb" alt="" />
                                 <span type="button" v-on:click="deleteImage(image.id)">
-                                    <v-icon dark>delete</v-icon>
+                                    <v-icon >delete</v-icon>
                                 </span>
                             </li>
                             <li v-if="imageUploading">
@@ -39,30 +39,30 @@
                     </gmap-map>
                     <v-flex x12>
                         <v-btn :loading="gettingLocation" @click.native="getCurrentLocation();gettingLocation = true" color="teal" class="white--text full-width">
-                            <v-icon left dark>my_location</v-icon>
+                            <v-icon left >my_location</v-icon>
                             {{ $t('message.getCurrentLocation') }}
                         </v-btn>
                     </v-flex>
-                    <v-text-field dark color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description" :rules="descriptionRules"
+                    <v-text-field  color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description" :rules="descriptionRules"
                         :disabled="sending" required></v-text-field>
                 </v-flex>
                 <v-flex md6 xs12 class="pa-3">
-                    <v-text-field dark color="teal" :class="errors.has('title') ? error : valid" v-bind:label="$t('message.locationName')" v-model="form.title"
+                    <v-text-field  color="teal" :class="errors.has('title') ? error : valid" v-bind:label="$t('message.locationName')" v-model="form.title"
                         :rules="titleRules" :disabled="sending" required>
                     </v-text-field>
                     <h4>{{ $t('message.accesibillity') }}</h4>
                     <v-slider color="teal" min="1" max="10" thumb-label ticks="ticks" :disabled="sending" v-model="form.accessibility"></v-slider>
 
-                    <v-select v-model="form.type" v-bind:label="$t('message.type')" chips color="teal" dark :items="type" multiple :disabled="sending">
+                    <v-select v-model="form.type" v-bind:label="$t('message.type')" chips color="teal"  :items="type" multiple :disabled="sending">
                         <template slot="selection" slot-scope="data">
                             <v-chip @input="data.parent.selectItem(data.item)" class="chip--select-multi" text-color="white" color="blue-grey darken-2"
-                                :key="JSON.stringify(data.item)" dark close>
+                                :key="JSON.stringify(data.item)"  close>
                                 {{ data.item.text }}
                             </v-chip>
                         </template>
                     </v-select>
 
-                    <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" color="teal" dark item-value="value"
+                    <v-select v-bind:items="category" v-model="form.category" v-bind:label="$t('message.category')" color="teal"  item-value="value"
                         item-text="text" :disabled="sending" required :rules="categoryRules"></v-select>
 
                     <h4>{{ $t('message.wheather') }}</h4>

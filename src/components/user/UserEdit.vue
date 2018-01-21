@@ -2,14 +2,14 @@
     <v-layout wrap>
         <v-form class="xs12 flex" @submit.prevent="saveUser" v-model="valid" ref="form" lazy-validation>
             <v-toolbar card color="grey darken-3" class="location-toolbar">
-                <v-btn dark color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
+                <v-btn color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
                 <v-spacer></v-spacer>
-                <v-btn color="teal" dark name="wp-submit" :disabled="sending" type="submit">{{ $t('message.save') }}</v-btn>
+                <v-btn color="teal" name="wp-submit" :disabled="sending" type="submit">{{ $t('message.save') }}</v-btn>
             </v-toolbar>
             <v-layout row wrap>
                 <v-flex xs12>
-                <v-text-field dark color="teal" v-bind:label="$t('message.username')" required :rules="usernameRules" v-model="form.name" disabled></v-text-field>
-                <v-text-field dark color="teal" v-bind:label="$t('message.email')" required :rules="emailRules" v-model="form.email" :disabled="sending" required></v-text-field>
+                <v-text-field color="teal" v-bind:label="$t('message.username')" required :rules="usernameRules" v-model="form.name" disabled></v-text-field>
+                <v-text-field color="teal" v-bind:label="$t('message.email')" required :rules="emailRules" v-model="form.email" :disabled="sending" required></v-text-field>
                 <v-text-field v-bind:label="$t('message.newPassword')" v-model="password" color="teal" :append-icon="passwordfield ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (passwordfield = !passwordfield)" :type="passwordfield ? 'password' : 'text'"></v-text-field>
                 <v-text-field v-bind:label="$t('message.newPasswordValidate')" v-model="passwordRetype" color="teal" :append-icon="passwordfield ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (passwordfield = !passwordfield)" :type="passwordfield ? 'password' : 'text'"></v-text-field>
                 </v-flex>

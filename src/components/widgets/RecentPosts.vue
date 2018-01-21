@@ -4,7 +4,7 @@
             <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
         </v-flex>
         <v-flex class="pa-2" md3 sm6 xs12 v-for="post in recentPosts" :key="post.id">
-            <v-card color="dark darken-2" class="white--text">
+            <v-card color="darken-2">
                 <router-link v-bind:to="'/location/'+post.id">
                     <div class="meta-data">
                         <v-container fluid>
