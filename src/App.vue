@@ -1,5 +1,13 @@
 <template>
     <v-app id="app" dark>
+        <v-navigation-drawer fixed v-model="filterDrawer" right app>
+            <v-layout row>
+                <v-text-field color="teal" v-bind:label="'Titel'" required v-model="filter.title"></v-text-field>
+            </v-layout>
+            <v-layout row>
+                <v-select v-bind:items="category" v-model="filter.category" v-bind:label="$t('message.category')" color="teal" item-value="value" @change="showCategory(filter.category)" item-text="text"></v-select>
+            </v-layout>
+        </v-navigation-drawer>
         <v-navigation-drawer fixed v-model="drawer" right app>
             <v-list dense v-if="currentUser">
                 <v-list-tile class="mt-1 mb-2" @click="goTo('/user/edit/'+currentUser.id)">
@@ -76,6 +84,9 @@
                 <img :src="getLogoPath" alt="Logo">
             </v-toolbar-title>
             <v-spacer></v-spacer>
+            <v-toolbar-side-icon @click.stop="filterDrawer = !filterDrawer" v-if="showDrawer">
+                <v-icon>search</v-icon>
+            </v-toolbar-side-icon>
             <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="showDrawer"></v-toolbar-side-icon>
         </v-toolbar>
         <v-content>
@@ -105,6 +116,7 @@
         mapMutations
     } from 'vuex'
     import router from './router';
+    import helper from './helper';
     import api from './api';
     export default {
         name: 'Reveal',
@@ -123,10 +135,32 @@
             errorMessageText: '',
             errorTimeout: 2500,
             drawer: false,
+            filterDrawer: false,
             showDrawer: true,
             filter: [],
             currentUser: [],
-            currentUserAdmin: false
+            currentUserAdmin: false,
+            filter: {
+                category: '',
+                title: ''
+            },
+            category: [{
+                    text: "building",
+                    value: "building"
+                },
+                {
+                    text: "landscape",
+                    value: "landscape"
+                },
+                {
+                    text: "urban",
+                    value: "urban"
+                },
+                {
+                    text: "water",
+                    value: "water"
+                }
+            ],
         }),
         computed: {
             ...mapGetters({
@@ -143,11 +177,15 @@
 
         created() {
             this.getUser();
+            this.category = helper.createTranslatedCategoryObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'));
         },
 
         methods: {
             back() {
                 router.go(-1);
+            },
+            showCategory(text) {
+                console.log(text)
             },
             getUser() {
                 api.getCurrentUser(window.SETTINGS.AJAXNONCE, this.setUserData);

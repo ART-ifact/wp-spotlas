@@ -3,8 +3,9 @@
         <v-flex xs12 v-if="!recentPosts">
             <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
         </v-flex>
-        <v-flex class="pa-2" md3 sm6 xs12 v-for="post in recentPosts" :key="post.id">
+        <v-flex class="pa-2" md3 sm6 xs12 v-for="post in filteredLocations" :key="post.id">
             <v-card color="darken-2">
+                {{post.category}}
                 <router-link v-bind:to="'/location/'+post.id">
                     <div class="meta-data">
                         <v-container fluid>
@@ -82,18 +83,37 @@
             ...mapGetters({
                 recentPosts: 'recentPosts',
                 recentPostsLoaded: 'recentPostsLoaded'
-            })
+            }),
+            computedLocations() {
+                this.filteredLocations = recentPosts;
+            },
+            filteredLocations: function() {
+                var vm = this;
+                var category = this.filter.category;
+                var title = this.filter.title;
+
+                if(category === "" && title === "") {
+                    //save performance, juste return the default array:
+                    return vm.recentPosts;
+                } else {
+                    return vm.recentPosts.filter(function(post) {
+                        //return the array after passimng it through the filter function:
+                        return  (category === '' || post.category === category) && (title === ''  || post.title.rendered.includes(title) === true );
+
+                    });
+                }
+            }
         },
-        data: {
+        data: () => ({
             placeholderImage: ''
-        },
+        }),
 
         methods: {
             /**
              * Prepared Filter Watcher
              */
             filter() {
-                this.$root.$children[0].$watch("filter");
+                this.$root.$children[0]._data.$watch("filter");
             }
         },
 
@@ -101,6 +121,7 @@
             let _this = this;
             _this.placeholderImage = window.SETTINGS.THEMEURL + '/dist/assets/img/location-standard.jpg';
             this.$store.dispatch('getPosts')
+            this.filter = this.$root.$children[0]._data.filter;
         },
 
         created() {

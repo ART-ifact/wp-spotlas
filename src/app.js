@@ -155,6 +155,7 @@ import 'vuetify/dist/vuetify.min.css'
 // import { auth, database } from './firebase.config.js' - Uncomment if you need firebase
 import router from './router';
 import App from './App.vue';
+import Vue2Filters from 'vue2-filters';
 import store from './store';
 import * as types from './store/mutation-types';
 import * as VueGoogleMaps from 'vue2-google-maps';
@@ -171,6 +172,7 @@ Vue.use(MdField);
 Vue.use(Vuetify);
 Vue.use(VueLazyload);
 Vue.use(VueI18n);
+Vue.use(Vue2Filters);
 Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyA4ALxZp1Ourvckn_07_BahbGq7KI4u8Dg',

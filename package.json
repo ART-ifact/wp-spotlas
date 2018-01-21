@@ -55,6 +55,7 @@
     "vue-i18n": "^7.4.0",
     "vue-material": "1.0.0-beta-7",
     "vue-range-slider": "^0.2.4",
+    "vue2-filters": "^0.2.2",
     "vue2-google-maps": "^0.8.4",
     "vuelidate": "^0.6.1",
     "vuetify": "^0.17.6"
