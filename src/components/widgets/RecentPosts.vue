@@ -5,7 +5,6 @@
         </v-flex>
         <v-flex class="pa-2" md3 sm6 xs12 v-for="post in filteredLocations" :key="post.id">
             <v-card color="darken-2">
-                {{post.category}}
                 <router-link v-bind:to="'/location/'+post.id">
                     <div class="meta-data">
                         <v-container fluid>
@@ -101,24 +100,24 @@
                 var autumn = this.filter.autumn;
                 var winter = this.filter.winter;
 
-                if(category === "" && title === "" && cloudy === "" && accessibility === "" && foggy === "" && rainy === "" && sunny === "" && spring === "" && summer === "" && autumn === "" && winter === "") {
+                if(category === "" && title === "" && cloudy === false && accessibility === 0 && foggy === false && rainy === false && sunny === false && spring === false && summer === false && autumn === false && winter === false) {
                     //save performance, juste return the default array:
                     return vm.recentPosts;
                 } else {
                     return vm.recentPosts.filter(function(post) {
                         //return the array after passimng it through the filter function:
-                        return  (
-                            category === '' || post.category === category) && 
-                            (title === ''  || post.title.rendered.includes(title) === true) && 
-                            (accessibility = '' || post.accessibility === accessibility) &&
-                            (cloudy = '' || post.cloudy === cloudy) && 
-                            (foggy = '' || post.foggy === foggy) &&
-                            (rainy = '' || post.rainy === rainy) &&
-                            (sunny = '' || post.sunny === sunny) &&
-                            (spring = '' || post.spring === spring) &&
-                            (summer = '' || post.summer === summer) &&
-                            (autumn = '' || post.autumn === autumn) &&
-                            (winter = '' || post.winter === winter);
+                        console.log(post.cloudy, cloudy)
+                        return  (category === ''        || post.category === category) && 
+                                (title === ''           || post.title.rendered.includes(title) === true) &&
+                                (accessibility === 0    || post.accesibility >= accessibility) &&
+                                (cloudy === false       || JSON.parse(post.cloudy) === cloudy) &&
+                                (foggy === false          || JSON.parse(post.foggy) === foggy) &&
+                                (rainy === false          || JSON.parse(post.rainy) === rainy) &&
+                                (sunny === false          || JSON.parse(post.sunny) === sunny) &&
+                                (spring === false         || JSON.parse(post.spring) === spring) &&
+                                (summer === false         || JSON.parse(post.summer) === summer) &&
+                                (autumn === false         || JSON.parse(post.autumn) === autumn) &&
+                                (winter === false         || JSON.parse(post.winter) === winter);
 
                     });
                 }

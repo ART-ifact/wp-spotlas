@@ -1,12 +1,54 @@
 <template>
     <v-app id="app" dark>
-        <v-navigation-drawer fixed v-model="filterDrawer" right app>
-            <v-layout row>
-                <v-text-field color="teal" v-bind:label="'Titel'" required v-model="filter.title"></v-text-field>
-            </v-layout>
-            <v-layout row>
-                <v-select v-bind:items="category" v-model="filter.category" v-bind:label="$t('message.category')" color="teal" item-value="value" item-text="text"></v-select>
-            </v-layout>
+        <v-navigation-drawer fixed v-model="filterDrawer" class="pa-2" right app>
+            <v-text-field color="teal" v-bind:label="'Titel'" required v-model="filter.title"></v-text-field>
+
+            <v-select v-bind:items="category" v-model="filter.category" v-bind:label="$t('message.category')" color="teal" item-value="value" item-text="text"></v-select>
+            {{filter.accessibility}}
+            <v-slider color="teal" min="0" max="10" thumb-label ticks="ticks" v-model="filter.accessibility"></v-slider>
+
+            <h4>{{ $t('message.wheather') }}</h4>
+                    <v-container fluid>
+                        <v-layout wrap>
+                            <v-flex xs3>
+                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="filter.cloudy" id="cloudy" >
+                                <label class="weather-label" for="cloudy"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="filter.foggy" id="foggy" >
+                                <label class="weather-label" for="foggy"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="filter.rainy" id="rainy" >
+                                <label class="weather-label" for="rainy"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="filter.sunny" id="sunny" >
+                                <label class="weather-label" for="sunny"></label>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                    <h4>{{ $t('message.seasons') }}</h4>
+                    <v-container fluid>
+                        <v-layout wrap>
+                            <v-flex xs3>
+                                <input type="checkbox" name="spring" class="season-icon spring" v-model="filter.spring" id="spring" >
+                                <label class="season-label" for="spring"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="summer" class="season-icon summer" v-model="filter.summer" id="summer" >
+                                <label class="season-label" for="summer"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="autumn" class="season-icon autumn" v-model="filter.autumn" id="autumn" >
+                                <label class="season-label" for="autumn"></label>
+                            </v-flex>
+                            <v-flex xs3>
+                                <input type="checkbox" name="winter" class="season-icon winter" v-model="filter.winter" id="winter" >
+                                <label class="season-label" for="winter"></label>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
         </v-navigation-drawer>
         <v-navigation-drawer fixed v-model="drawer" right app>
             <v-list dense v-if="currentUser">
@@ -143,15 +185,15 @@
             filter: {
                 category: '',
                 title: '',
-                accessibility: '',
-                cloudy: '',
-                foggy : '',
-                rainy : '',
-                sunny : '',
-                spring: '',
-                summer: '',
-                autumn: '',
-                winter: '',
+                accessibility: 0,
+                cloudy: false,
+                foggy : false,
+                rainy : false,
+                sunny : false,
+                spring: false,
+                summer: false,
+                autumn: false,
+                winter: false,
             },
             category: [{
                     text: "building",
