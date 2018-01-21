@@ -34,11 +34,11 @@
                         </div>
                     </div>
                 </gmap-info-window>
-                <gmap-marker v-if="m.category == 'landscape'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_landscape" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.category == 'building'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_building" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.category == 'urban'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_urban" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.category == 'water'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_water" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
-                <gmap-marker v-if="m.category != 'landscape' && m.category != 'building' && m.category != 'urban' && m.category != 'water'" :key="index" v-for="(m, index) in recentPosts" :icon="marker_icon" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category == 'landscape'" :key="index" v-for="(m, index) in filteredLocations" :icon="marker_landscape" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category == 'building'" :key="index" v-for="(m, index) in filteredLocations" :icon="marker_building" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category == 'urban'" :key="index" v-for="(m, index) in filteredLocations" :icon="marker_urban" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category == 'water'" :key="index" v-for="(m, index) in filteredLocations" :icon="marker_water" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
+                <gmap-marker v-if="m.category != 'landscape' && m.category != 'building' && m.category != 'urban' && m.category != 'water'" :key="index" v-for="(m, index) in filteredLocations" :icon="marker_icon" :position="m.lng" :clickable="true" @click="center=m.lng;selectedMarker = m;"></gmap-marker>
 
             </google-cluster>
         </gmap-map>
@@ -57,6 +57,25 @@
                 recentPosts: 'recentPosts',
                 recentPostsLoaded: 'recentPostsLoaded'
             }),
+            computedLocations() {
+                this.filteredLocations = recentPosts;
+            },
+            filteredLocations: function() {
+                var vm = this;
+                var category = this.filter.category;
+                var title = this.filter.title;
+
+                if(category === "" && title === "") {
+                    //save performance, juste return the default array:
+                    return vm.recentPosts;
+                } else {
+                    return vm.recentPosts.filter(function(post) {
+                        //return the array after passimng it through the filter function:
+                        return  (category === '' || post.category === category) && (title === ''  || post.title.rendered.includes(title) === true );
+
+                    });
+                }
+            },
             wppath() {
                 return window.SETTINGS.WPPATH;
             }
@@ -130,6 +149,7 @@
             this.mapCenter = window.SETTINGS.MAPCENTER
             this.getIconPaths();
             this.$root.$children[0]._data.showBackButton = false;
+            this.filter = this.$root.$children[0]._data.filter;
         }
     }
 </script>

@@ -5,7 +5,7 @@
                 <v-text-field color="teal" v-bind:label="'Titel'" required v-model="filter.title"></v-text-field>
             </v-layout>
             <v-layout row>
-                <v-select v-bind:items="category" v-model="filter.category" v-bind:label="$t('message.category')" color="teal" item-value="value" @change="showCategory(filter.category)" item-text="text"></v-select>
+                <v-select v-bind:items="category" v-model="filter.category" v-bind:label="$t('message.category')" color="teal" item-value="value" item-text="text"></v-select>
             </v-layout>
         </v-navigation-drawer>
         <v-navigation-drawer fixed v-model="drawer" right app>
@@ -177,7 +177,7 @@
 
         created() {
             this.getUser();
-            this.category = helper.createTranslatedCategoryObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'));
+            this.category = helper.createTranslatedCategoryFilterObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'),this.$t('message.nothingSelected'));
         },
 
         methods: {

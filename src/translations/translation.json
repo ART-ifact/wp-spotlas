@@ -50,7 +50,8 @@
             "deletedUserSuccess": "User was deleted",
             "newPassword": "New Password",
             "newPasswordValidate": "Retype new Password",
-            "passwordMismatch": "The passwords do not match"
+            "passwordMismatch": "The passwords do not match",
+            "nothingSelected": "Nothing Selected"
         }
     },
     "de": {
@@ -104,7 +105,8 @@
             "deletedUserSuccess": "Benutzer erfolgreich gelöscht",
             "newPassword": "Neues Passwort",
             "newPasswordValidate": "Neues Passwort erneut eingeben",
-            "passwordMismatch": "Die Passwortfelder sind nicht gleich"
+            "passwordMismatch": "Die Passwortfelder sind nicht gleich",
+            "nothingSelected": "Nichts ausgewählt"
         }
     }
 }

@@ -224,6 +224,59 @@ export default {
 
     },
 
+    createTranslatedCategoryFilterObject(building, landscape, urban, water,empty) {
+
+        var category = [{
+                text: "",
+                value: ""
+            },{
+                text: "",
+                value: "building"
+            },
+            {
+                text: "",
+                value: "landscape"
+            },
+            {
+                text: "",
+                value: "urban"
+            },
+            {
+                text: "",
+                value: "water"
+            }
+        ]
+
+        for (var index = 0; index < category.length; index++) {
+            var element = category[index];
+
+            if (element.value === '') {
+                element.text = empty;
+            }
+
+            if (element.value === 'building') {
+                element.text = building;
+            }
+
+            if (element.value === 'landscape') {
+                element.text = landscape;
+            }
+
+            if (element.value === 'urban') {
+                element.text = urban;
+            }
+
+            if (element.value === 'water') {
+                element.text = water;
+            }
+
+
+        }
+
+        return category;
+
+    },
+
     createSuccessMessage(elementRoot,messageText, timeout) {
         elementRoot.$children[0]._data.successTimeout = timeout;
         elementRoot.$children[0]._data.successMessageText = messageText;
