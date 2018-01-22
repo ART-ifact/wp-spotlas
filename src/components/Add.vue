@@ -43,8 +43,8 @@
                             {{ $t('message.getCurrentLocation') }}
                         </v-btn>
                     </v-flex>
-                    <v-text-field  color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description" :rules="descriptionRules"
-                        :disabled="sending" required></v-text-field>
+                    <v-text-field  color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description"
+                        :disabled="sending"></v-text-field>
                 </v-flex>
                 <v-flex md6 xs12 class="pa-3">
                     <v-text-field  color="teal" :class="errors.has('title') ? error : valid" v-bind:label="$t('message.locationName')" v-model="form.title"
@@ -111,7 +111,7 @@
                 <v-container fluid>
                     <v-layout>
                         <v-flex xs12 sm6>
-                            <v-switch color="teal" v-bind:label="$t('message.shareLcoation')" @change="handleShare()" v-model="form.shared"></v-switch>
+                            <v-switch color="teal" v-bind:label="$t('message.shareLocation')" @change="handleShare()" v-model="form.shared"></v-switch>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -188,7 +188,6 @@
             valid: false,
             gettingLocation: false,
             titleRules: [v => !!v || "Title is required"],
-            descriptionRules: [v => !!v || "Description is required"],
             typeRules: [v => !!v || "Type is required"],
             categoryRules: [v => !!v || "Category is required"]
         }),

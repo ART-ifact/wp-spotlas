@@ -12,7 +12,7 @@ if (isset ($_POST['title'])) {
 if (isset ($_POST['description'])) {
     $description = $_POST['description'];
 } else {
-    echo 'Please enter the content';
+    $description = '';
 }
 
 // Add the content of the form to $post as an array

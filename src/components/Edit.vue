@@ -49,7 +49,7 @@
                             {{ $t('message.getCurrentLocation') }}
                         </v-btn>
                     </v-flex>
-                    <v-text-field  color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description" required :rules="descriptionRules"></v-text-field>
+                    <v-text-field  color="teal" multi-line v-bind:label="$t('message.note')" v-model="form.description"></v-text-field>
                 </v-flex>
                 <v-flex md6 xs12 class="pa-3">
                     <v-text-field  color="teal" v-bind:label="$t('message.locationName')" v-model="form.title" :rules="titleRules" :disabled="sending"></v-text-field>
@@ -232,9 +232,6 @@
                 url: ''
             },
             titleRules: [
-                (v) => !!v || 'Title is required'
-            ],
-            descriptionRules: [
                 (v) => !!v || 'Title is required'
             ],
             typeRules: [
