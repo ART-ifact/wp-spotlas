@@ -24,20 +24,20 @@
                 <v-container fluid>
                     <v-layout wrap>
                         <v-flex xs3>
-                            <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="filter.cloudy" id="cloudy">
-                            <label class="weather-label" for="cloudy"></label>
+                            <input type="checkbox" name="cloudy_filter" class="weather-icon cloudy" v-model="filter.cloudy" id="cloudy_filter">
+                            <label class="weather-label" for="cloudy_filter"></label>
                         </v-flex>
                         <v-flex xs3>
-                            <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="filter.foggy" id="foggy">
-                            <label class="weather-label" for="foggy"></label>
+                            <input type="checkbox" name="foggy_filter" class="weather-icon foggy" v-model="filter.foggy" id="foggy_filter">
+                            <label class="weather-label" for="foggy_filter"></label>
                         </v-flex>
                         <v-flex xs3>
-                            <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="filter.rainy" id="rainy">
-                            <label class="weather-label" for="rainy"></label>
+                            <input type="checkbox" name="rainy_filter" class="weather-icon rainy" v-model="filter.rainy" id="rainy_filter">
+                            <label class="weather-label" for="rainy_filter"></label>
                         </v-flex>
                         <v-flex xs3>
-                            <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="filter.sunny" id="sunny">
-                            <label class="weather-label" for="sunny"></label>
+                            <input type="checkbox" name="sunny_filter" class="weather-icon sunny" v-model="filter.sunny" id="sunny_filter">
+                            <label class="weather-label" for="sunny_filter"></label>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -45,20 +45,20 @@
                 <v-container fluid>
                     <v-layout wrap>
                         <v-flex xs3>
-                            <input type="checkbox" name="spring" class="season-icon spring" v-model="filter.spring" id="spring">
-                            <label class="season-label" for="spring"></label>
+                            <input type="checkbox" name="spring_filter" class="season-icon spring" v-model="filter.spring" id="spring_filter">
+                            <label class="season-label" for="spring_filter"></label>
                         </v-flex>
                         <v-flex xs3>
-                            <input type="checkbox" name="summer" class="season-icon summer" v-model="filter.summer" id="summer">
-                            <label class="season-label" for="summer"></label>
+                            <input type="checkbox" name="summer_filter" class="season-icon summer" v-model="filter.summer" id="summer_filter">
+                            <label class="season-label" for="summer_filter"></label>
                         </v-flex>
                         <v-flex xs3>
-                            <input type="checkbox" name="autumn" class="season-icon autumn" v-model="filter.autumn" id="autumn">
-                            <label class="season-label" for="autumn"></label>
+                            <input type="checkbox" name="autumn_filter" class="season-icon autumn" v-model="filter.autumn" id="autumn_filter">
+                            <label class="season-label" for="autumn_filter"></label>
                         </v-flex>
                         <v-flex xs3>
-                            <input type="checkbox" name="winter" class="season-icon winter" v-model="filter.winter" id="winter">
-                            <label class="season-label" for="winter"></label>
+                            <input type="checkbox" name="winter_filter" class="season-icon winter_filter" v-model="filter.winter" id="winter_filter">
+                            <label class="season-label" for="winter_filter"></label>
                         </v-flex>
                     </v-layout>
                 </v-container>
