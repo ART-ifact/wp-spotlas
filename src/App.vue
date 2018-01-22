@@ -1,11 +1,22 @@
 <template>
     <v-app id="app" dark>
         <v-navigation-drawer fixed v-model="filterDrawer" class="pa-2" right app>
+            <h2>{{$t('message.locationSearch')}}</h2>
             <v-text-field color="teal" v-bind:label="'Titel'" required v-model="filter.title"></v-text-field>
 
             <v-select v-bind:items="category" v-model="filter.category" v-bind:label="$t('message.category')" color="teal" item-value="value" item-text="text"></v-select>
-            {{filter.accessibility}}
-            <v-slider color="teal" min="0" max="10" thumb-label ticks="ticks" v-model="filter.accessibility"></v-slider>
+
+            <v-select v-model="filter.type" v-if="type" v-bind:label="$t('message.type')" chips color="teal" :items="type" multiple>
+                <template slot="selection" slot-scope="data">
+                    <v-chip @input="data.parent.selectItem(data.item)" class="chip--select-multi" text-color="white" color="blue-grey darken-2"
+                        :key="JSON.stringify(data.item)"  close>
+                        {{ data.item.text }}
+                    </v-chip>
+                </template>
+            </v-select>
+
+            <label for="accessibility">{{$t('message.minAccessibility')}}</label>
+            <v-slider name="accessibility" color="teal" min="0" max="10" thumb-label ticks="ticks" v-model="filter.accessibility"></v-slider>
 
             <h4>{{ $t('message.wheather') }}</h4>
                     <v-container fluid>
@@ -49,6 +60,7 @@
                             </v-flex>
                         </v-layout>
                     </v-container>
+                    <v-switch color="teal" v-bind:label="$t('message.showShared')" v-model="filter.shared"></v-switch>
         </v-navigation-drawer>
         <v-navigation-drawer fixed v-model="drawer" right app>
             <v-list dense v-if="currentUser">
@@ -126,10 +138,10 @@
                 <img :src="getLogoPath" alt="Logo">
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-toolbar-side-icon @click.stop="filterDrawer = !filterDrawer" v-if="showDrawer">
+            <v-toolbar-side-icon @click.stop="drawerSwitch('search')" v-if="showDrawer">
                 <v-icon>search</v-icon>
             </v-toolbar-side-icon>
-            <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="showDrawer"></v-toolbar-side-icon>
+            <v-toolbar-side-icon @click.stop="drawerSwitch('menu')" v-if="showDrawer"></v-toolbar-side-icon>
         </v-toolbar>
         <v-content>
             <v-container fluid fill-height>
@@ -194,7 +206,10 @@
                 summer: false,
                 autumn: false,
                 winter: false,
+                type: '',
+                shared: false
             },
+            type: [],
             category: [{
                     text: "building",
                     value: "building"
@@ -228,6 +243,7 @@
 
         created() {
             this.getUser();
+            this.type = helper.createTranslatedTypeObject(this.$t('message.industry'), this.$t('message.historic'), this.$t('message.panorama'), this.$t('message.sunrise'), this.$t('message.sunset'), this.$t('message.outdoor'), this.$t('message.architecture'), this.$t('message.monument'));
             this.category = helper.createTranslatedCategoryFilterObject(this.$t('message.building'),this.$t('message.landscape'), this.$t('message.urban'), this.$t('message.water'),this.$t('message.nothingSelected'));
         },
 
@@ -257,6 +273,33 @@
             },
             goTo(path) {
                 router.push(path);
+            },
+            drawerSwitch(drawerClicked) {
+                if (drawerClicked === 'search') {
+                    if (this.drawer) {
+                        this.drawer = false;
+                    }
+                    if (this.filterDrawer) {
+                        this.filterDrawer = false;
+                    } else {
+                        setTimeout(() => {
+                            this.filterDrawer = true;
+                        }, 50);
+
+                    }
+                }
+                if (drawerClicked === 'menu') {
+                    if (this.filterDrawer) {
+                        this.filterDrawer = false;
+                    }
+                    if (this.drawer) {
+                        this.drawer = false;
+                    } else {
+                        setTimeout(() => {
+                            this.drawer = true;
+                        }, 50);
+                    }
+                }
             }
         },
 

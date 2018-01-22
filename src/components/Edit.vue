@@ -119,10 +119,10 @@
                 <v-container fluid>
                     <v-layout>
                         <v-flex xs12 sm6>
-                            <v-switch color="teal" v-bind:label="'Share the Location'" @change="handleShare()" v-model="form.shared"></v-switch>
+                            <v-switch color="teal" v-bind:label="$t('message.shareLocation')" @change="handleShare()" v-model="form.shared"></v-switch>
                         </v-flex>
                         <v-flex xs12 sm6>
-                            <v-text-field v-if="this.form.shared" color="teal" v-bind:label="'Shared URL'" v-model="shareURL" :disabled="sending" readonly></v-text-field>
+                            <v-text-field v-if="this.form.shared" color="teal" v-bind:label="$t('message.sharedURL')" v-model="shareURL" :disabled="sending" readonly></v-text-field>
                         </v-flex>
                     </v-layout>
                 </v-container>

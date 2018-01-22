@@ -51,7 +51,12 @@
             "newPassword": "New Password",
             "newPasswordValidate": "Retype new Password",
             "passwordMismatch": "The passwords do not match",
-            "nothingSelected": "Nothing Selected"
+            "nothingSelected": "Nothing Selected",
+            "locationSearch": "Search Location",
+            "minAccessibility": "Minimum Accessibility",
+            "shareLocation": "Share Location",
+            "sharedURL": "Shared Link",
+            "showShared": "Show shared Locations"
         }
     },
     "de": {
@@ -106,7 +111,12 @@
             "newPassword": "Neues Passwort",
             "newPasswordValidate": "Neues Passwort erneut eingeben",
             "passwordMismatch": "Die Passwortfelder sind nicht gleich",
-            "nothingSelected": "Nichts ausgewählt"
+            "nothingSelected": "Nichts ausgewählt",
+            "locationSearch": "Locationsuche",
+            "minAccessibility": "Minimum Zugänglichkeit",
+            "shareLocation": "Location teilen",
+            "sharedURL": "geteilter Link",
+            "showShared": "Zeige geteilte Locations"
         }
     }
 }

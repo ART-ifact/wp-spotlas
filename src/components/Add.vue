@@ -111,7 +111,7 @@
                 <v-container fluid>
                     <v-layout>
                         <v-flex xs12 sm6>
-                            <v-switch color="teal" v-bind:label="'Share the Location'" @change="handleShare()" v-model="form.shared"></v-switch>
+                            <v-switch color="teal" v-bind:label="$t('message.shareLcoation')" @change="handleShare()" v-model="form.shared"></v-switch>
                         </v-flex>
                     </v-layout>
                 </v-container>

@@ -306,6 +306,7 @@ export default {
 
     locationFilter(vm, filter, recentPosts) {
         var category = filter.category;
+        var type = filter.type;
         var title = filter.title;
         var accessibility = filter.accessibility;
         var cloudy = filter.cloudy;
@@ -316,16 +317,18 @@ export default {
         var summer = filter.summer;
         var autumn = filter.autumn;
         var winter = filter.winter;
+        var shared = filter.shared;
 
-        if (category === "" && title === "" && cloudy === false && accessibility === 0 && foggy === false && rainy === false && sunny === false && spring === false && summer === false && autumn === false && winter === false) {
+        if (category === "" && title === "" && type === "" && shared === false && cloudy === false && accessibility === 0 && foggy === false && rainy === false && sunny === false && spring === false && summer === false && autumn === false && winter === false) {
             //save performance, juste return the default array:
             return vm.recentPosts;
         } else {
             return vm.recentPosts.filter(function (post) {
                 //return the array after passimng it through the filter function:
-                console.log(post.cloudy, cloudy)
                 return (category === '' || post.category === category) &&
+                    (type === '' || post.type.includes(type) === true) &&
                     (title === '' || post.title.rendered.includes(title) === true) &&
+                    (shared === false || post.shared === 'true') &&
                     (accessibility === 0 || post.accesibility >= accessibility) &&
                     (cloudy === false || JSON.parse(post.cloudy) === cloudy) &&
                     (foggy === false || JSON.parse(post.foggy) === foggy) &&
