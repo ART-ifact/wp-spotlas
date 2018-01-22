@@ -39,7 +39,7 @@
         <v-flex xs12 sm6 class="pa-3" v-if="locationdata">
             <v-container fluid>
                 <v-layout wrap>
-                    <v-flex xs6>
+                    <v-flex xs6 class="mb-2">
                         <h4 class="mb-2">{{ $t('message.category') }}</h4>
                         <span v-if="locationdata.category == 'landscape'">
                             <v-icon>local_florist</v-icon>
