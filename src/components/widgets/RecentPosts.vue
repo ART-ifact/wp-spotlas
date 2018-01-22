@@ -55,6 +55,9 @@
                         </div>
                         <img v-if="post.images.length < 1" :src="placeholderImage">
                     </v-card-media>
+                    <span class="location-access " v-bind:class="'_'+post.accesibility">
+                        <span class="accessibility" v-bind:style="{ width: post.accesibility + '0%' }"></span>
+                    </span>
                     <v-card-title primary-title>
                         <div>
                             <h3 class="headline mb-0">

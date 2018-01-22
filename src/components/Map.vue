@@ -30,6 +30,9 @@
                                     </div>
                                 </a>
                             </div>
+                            <span class="location-access " v-bind:class="'_'+selectedMarker.accesibility">
+                                <span class="accessibility" v-bind:style="{ width: selectedMarker.accesibility + '0%' }"></span>
+                            </span>
                             <a class="nav-link" target="blank" :href="'http://maps.google.com/?daddr=' + selectedMarker.lat + ',' + selectedMarker.lng.lng ">{{ $t('message.openInMaps') }}</a>
                         </div>
                     </div>

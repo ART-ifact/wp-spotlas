@@ -38,3 +38,13 @@
         }
     }
 }
+
+.card,
+.infobox {
+    .location-access {
+        height: 3px;
+        >span {
+            height: 3px;
+        }
+    }
+}
