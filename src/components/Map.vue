@@ -49,7 +49,7 @@
     import {
         mapGetters
     } from 'vuex'
-
+    import helper from '../helper'
 
     export default {
         computed: {
@@ -61,40 +61,7 @@
                 this.filteredLocations = recentPosts;
             },
             filteredLocations: function() {
-                var vm = this;
-                var category = this.filter.category;
-                var title = this.filter.title;
-                var accessibility = this.filter.accessibility;
-                var cloudy = this.filter.cloudy;
-                var foggy = this.filter.foggy;
-                var rainy = this.filter.rainy;
-                var sunny = this.filter.sunny;
-                var spring = this.filter.spring;
-                var summer = this.filter.summer;
-                var autumn = this.filter.autumn;
-                var winter = this.filter.winter;
-
-                if(category === "" && title === "" && cloudy === false && accessibility === 0 && foggy === false && rainy === false && sunny === false && spring === false && summer === false && autumn === false && winter === false) {
-                    //save performance, juste return the default array:
-                    return vm.recentPosts;
-                } else {
-                    return vm.recentPosts.filter(function(post) {
-                        //return the array after passimng it through the filter function:
-                        console.log(post.cloudy, cloudy)
-                        return  (category === ''        || post.category === category) && 
-                                (title === ''           || post.title.rendered.includes(title) === true) &&
-                                (accessibility === 0    || post.accesibility >= accessibility) &&
-                                (cloudy === false       || JSON.parse(post.cloudy) === cloudy) &&
-                                (foggy === false          || JSON.parse(post.foggy) === foggy) &&
-                                (rainy === false          || JSON.parse(post.rainy) === rainy) &&
-                                (sunny === false          || JSON.parse(post.sunny) === sunny) &&
-                                (spring === false         || JSON.parse(post.spring) === spring) &&
-                                (summer === false         || JSON.parse(post.summer) === summer) &&
-                                (autumn === false         || JSON.parse(post.autumn) === autumn) &&
-                                (winter === false         || JSON.parse(post.winter) === winter);
-
-                    });
-                }
+                return helper.locationFilter(this, this.filter, this.recentPosts);
             },
             wppath() {
                 return window.SETTINGS.WPPATH;

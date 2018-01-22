@@ -21,12 +21,12 @@ export default {
         return window.SETTINGS.THEMEURL + '/dist/assets/img/marker.svg';
     },
 
-    buildFormData(form,widthID) {
+    buildFormData(form, widthID) {
         var formData = new FormData();
 
         console.log(form);
-        if(widthID) {
-            formData.append("id",form.id);
+        if (widthID) {
+            formData.append("id", form.id);
         }
         formData.append("title", form.title);
         formData.append("type", form.type);
@@ -64,7 +64,7 @@ export default {
         } else {
             formData.append("password", form.password);
         }
-        
+
         formData.append("email", form.email);
         formData.append("nickname", form.first_name);
         return formData;
@@ -92,8 +92,8 @@ export default {
 
     getCurrentLocation(cb) {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                cb(position.coords.longitude,position.coords.latitude);
+            navigator.geolocation.getCurrentPosition(function (position) {
+                cb(position.coords.longitude, position.coords.latitude);
             });
         } else {
             console.log('Geolocation is not supported by this browser.');
@@ -102,39 +102,39 @@ export default {
 
     createTranslatedTypeObject(industry, historic, panorama, sunrise, sunset, outdoor, architecture, monument) {
 
-        var type =  [{
-            text: "Industry",
-            value: "industry",
-        },
-        {
-            text: "Historic",
-            value: "historic"
-        },
-        {
-            text: "Panorama",
-            value: "panorama"
-        },
-        {
-            text: "Sunrise",
-            value: "sunrise"
-        },
-        {
-            text: "Sunset",
-            value: "sunset"
-        },
-        {
-            text: "Outdoor",
-            value: "outdoor"
-        },
-        {
-            text: "Architecture",
-            value: "architecture"
-        },
-        {
-            text: "Monument",
-            value: "monument"
-        }
-    ];
+        var type = [{
+                text: "Industry",
+                value: "industry",
+            },
+            {
+                text: "Historic",
+                value: "historic"
+            },
+            {
+                text: "Panorama",
+                value: "panorama"
+            },
+            {
+                text: "Sunrise",
+                value: "sunrise"
+            },
+            {
+                text: "Sunset",
+                value: "sunset"
+            },
+            {
+                text: "Outdoor",
+                value: "outdoor"
+            },
+            {
+                text: "Architecture",
+                value: "architecture"
+            },
+            {
+                text: "Monument",
+                value: "monument"
+            }
+        ];
 
         for (var index = 0; index < type.length; index++) {
             var element = type[index];
@@ -224,12 +224,12 @@ export default {
 
     },
 
-    createTranslatedCategoryFilterObject(building, landscape, urban, water,empty) {
+    createTranslatedCategoryFilterObject(building, landscape, urban, water, empty) {
 
         var category = [{
                 text: "",
                 value: ""
-            },{
+            }, {
                 text: "",
                 value: "building"
             },
@@ -277,13 +277,13 @@ export default {
 
     },
 
-    createSuccessMessage(elementRoot,messageText, timeout) {
+    createSuccessMessage(elementRoot, messageText, timeout) {
         elementRoot.$children[0]._data.successTimeout = timeout;
         elementRoot.$children[0]._data.successMessageText = messageText;
         elementRoot.$children[0]._data.successMessage = true;
     },
 
-    createErrorMessage(elementRoot,messageText, timeout) {
+    createErrorMessage(elementRoot, messageText, timeout) {
         elementRoot.$children[0]._data.errorTimeout = timeout;
         elementRoot.$children[0]._data.errorMessageText = messageText;
         elementRoot.$children[0]._data.errorMessage = true;
@@ -294,14 +294,50 @@ export default {
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
         for (var i = 0; i < 7; i++)
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         return text;
     },
 
     getShareURL(id, hash) {
-        var url = window.location.host + '/share/'+id+'/'+hash;
+        var url = window.location.host + '/share/' + id + '/' + hash;
         return url;
+    },
+
+    locationFilter(vm, filter, recentPosts) {
+        var category = filter.category;
+        var title = filter.title;
+        var accessibility = filter.accessibility;
+        var cloudy = filter.cloudy;
+        var foggy = filter.foggy;
+        var rainy = filter.rainy;
+        var sunny = filter.sunny;
+        var spring = filter.spring;
+        var summer = filter.summer;
+        var autumn = filter.autumn;
+        var winter = filter.winter;
+
+        if (category === "" && title === "" && cloudy === false && accessibility === 0 && foggy === false && rainy === false && sunny === false && spring === false && summer === false && autumn === false && winter === false) {
+            //save performance, juste return the default array:
+            return vm.recentPosts;
+        } else {
+            return vm.recentPosts.filter(function (post) {
+                //return the array after passimng it through the filter function:
+                console.log(post.cloudy, cloudy)
+                return (category === '' || post.category === category) &&
+                    (title === '' || post.title.rendered.includes(title) === true) &&
+                    (accessibility === 0 || post.accesibility >= accessibility) &&
+                    (cloudy === false || JSON.parse(post.cloudy) === cloudy) &&
+                    (foggy === false || JSON.parse(post.foggy) === foggy) &&
+                    (rainy === false || JSON.parse(post.rainy) === rainy) &&
+                    (sunny === false || JSON.parse(post.sunny) === sunny) &&
+                    (spring === false || JSON.parse(post.spring) === spring) &&
+                    (summer === false || JSON.parse(post.summer) === summer) &&
+                    (autumn === false || JSON.parse(post.autumn) === autumn) &&
+                    (winter === false || JSON.parse(post.winter) === winter);
+
+            });
+        }
     }
 
 }
