@@ -2,65 +2,70 @@
     <v-app id="app" dark>
         <v-navigation-drawer fixed v-model="filterDrawer" class="pa-2" right app>
             <h2>{{$t('message.locationSearch')}}</h2>
-            <v-text-field color="teal" v-bind:label="'Titel'" required v-model="filter.title"></v-text-field>
+            <v-form ref="filter">
+                <v-text-field color="teal" v-bind:label="'Titel'" required v-model="filter.title"></v-text-field>
 
-            <v-select v-bind:items="category" v-model="filter.category" v-bind:label="$t('message.category')" color="teal" item-value="value" item-text="text"></v-select>
+                <v-select v-bind:items="category" v-model="filter.category" v-bind:label="$t('message.category')" color="teal" item-value="value"
+                    item-text="text"></v-select>
 
-            <v-select v-model="filter.type" v-if="type" v-bind:label="$t('message.type')" chips color="teal" :items="type" multiple>
-                <template slot="selection" slot-scope="data">
-                    <v-chip @input="data.parent.selectItem(data.item)" class="chip--select-multi" text-color="white" color="blue-grey darken-2"
-                        :key="JSON.stringify(data.item)"  close>
-                        {{ data.item.text }}
-                    </v-chip>
-                </template>
-            </v-select>
+                <v-select v-model="filter.type" v-if="type" v-bind:label="$t('message.type')" chips color="teal" :items="type" multiple>
+                    <template slot="selection" slot-scope="data">
+                        <v-chip @input="data.parent.selectItem(data.item)" class="chip--select-multi" text-color="white" color="blue-grey darken-2"
+                            :key="JSON.stringify(data.item)" close>
+                            {{ data.item.text }}
+                        </v-chip>
+                    </template>
+                </v-select>
 
-            <label for="accessibility">{{$t('message.minAccessibility')}}</label>
-            <v-slider name="accessibility" color="teal" min="0" max="10" thumb-label ticks="ticks" v-model="filter.accessibility"></v-slider>
+                <label for="accessibility">{{$t('message.minAccessibility')}}</label>
+                <v-slider name="accessibility" color="teal" min="0" max="10" thumb-label ticks="ticks" v-model="filter.accessibility"></v-slider>
 
-            <h4>{{ $t('message.wheather') }}</h4>
-                    <v-container fluid>
-                        <v-layout wrap>
-                            <v-flex xs3>
-                                <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="filter.cloudy" id="cloudy" >
-                                <label class="weather-label" for="cloudy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="filter.foggy" id="foggy" >
-                                <label class="weather-label" for="foggy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="filter.rainy" id="rainy" >
-                                <label class="weather-label" for="rainy"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="filter.sunny" id="sunny" >
-                                <label class="weather-label" for="sunny"></label>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                    <h4>{{ $t('message.seasons') }}</h4>
-                    <v-container fluid>
-                        <v-layout wrap>
-                            <v-flex xs3>
-                                <input type="checkbox" name="spring" class="season-icon spring" v-model="filter.spring" id="spring" >
-                                <label class="season-label" for="spring"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="summer" class="season-icon summer" v-model="filter.summer" id="summer" >
-                                <label class="season-label" for="summer"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="autumn" class="season-icon autumn" v-model="filter.autumn" id="autumn" >
-                                <label class="season-label" for="autumn"></label>
-                            </v-flex>
-                            <v-flex xs3>
-                                <input type="checkbox" name="winter" class="season-icon winter" v-model="filter.winter" id="winter" >
-                                <label class="season-label" for="winter"></label>
-                            </v-flex>
-                        </v-layout>
-                    </v-container>
-                    <v-switch color="teal" v-bind:label="$t('message.showShared')" v-model="filter.shared"></v-switch>
+                <h4>{{ $t('message.wheather') }}</h4>
+                <v-container fluid>
+                    <v-layout wrap>
+                        <v-flex xs3>
+                            <input type="checkbox" name="cloudy" class="weather-icon cloudy" v-model="filter.cloudy" id="cloudy">
+                            <label class="weather-label" for="cloudy"></label>
+                        </v-flex>
+                        <v-flex xs3>
+                            <input type="checkbox" name="foggy" class="weather-icon foggy" v-model="filter.foggy" id="foggy">
+                            <label class="weather-label" for="foggy"></label>
+                        </v-flex>
+                        <v-flex xs3>
+                            <input type="checkbox" name="rainy" class="weather-icon rainy" v-model="filter.rainy" id="rainy">
+                            <label class="weather-label" for="rainy"></label>
+                        </v-flex>
+                        <v-flex xs3>
+                            <input type="checkbox" name="sunny" class="weather-icon sunny" v-model="filter.sunny" id="sunny">
+                            <label class="weather-label" for="sunny"></label>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+                <h4>{{ $t('message.seasons') }}</h4>
+                <v-container fluid>
+                    <v-layout wrap>
+                        <v-flex xs3>
+                            <input type="checkbox" name="spring" class="season-icon spring" v-model="filter.spring" id="spring">
+                            <label class="season-label" for="spring"></label>
+                        </v-flex>
+                        <v-flex xs3>
+                            <input type="checkbox" name="summer" class="season-icon summer" v-model="filter.summer" id="summer">
+                            <label class="season-label" for="summer"></label>
+                        </v-flex>
+                        <v-flex xs3>
+                            <input type="checkbox" name="autumn" class="season-icon autumn" v-model="filter.autumn" id="autumn">
+                            <label class="season-label" for="autumn"></label>
+                        </v-flex>
+                        <v-flex xs3>
+                            <input type="checkbox" name="winter" class="season-icon winter" v-model="filter.winter" id="winter">
+                            <label class="season-label" for="winter"></label>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+                <v-switch color="teal" v-bind:label="$t('message.showShared')" v-model="filter.shared"></v-switch>
+
+                <v-btn color="blue-grey darken-3" class="full-width" @click="clearFilter()">reset Search</v-btn>
+            </v-form>
         </v-navigation-drawer>
         <v-navigation-drawer fixed v-model="drawer" right app>
             <v-list dense v-if="currentUser">
@@ -173,6 +178,7 @@
     import helper from './helper';
     import api from './api';
     export default {
+        props: ['selected'],
         name: 'Reveal',
         data: () => ({
             menuVisible: false,
@@ -273,6 +279,21 @@
             },
             goTo(path) {
                 router.push(path);
+            },
+            clearFilter() {
+                this.$refs.filter.reset()
+                this.filter.category = '';
+                this.filter.title = '';
+                this.filter.accessibility = 0;
+                this.filter.cloudy = false;
+                this.filter.foggy  = false;
+                this.filter.rainy  = false;
+                this.filter.sunny  = false;
+                this.filter.spring = false;
+                this.filter.summer = false;
+                this.filter.autumn = false;
+                this.filter.winter = false;
+                this.filter.shared = false;
             },
             drawerSwitch(drawerClicked) {
                 if (drawerClicked === 'search') {
