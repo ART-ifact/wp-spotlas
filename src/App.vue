@@ -1,6 +1,6 @@
 <template>
     <v-app id="app" dark>
-        <v-navigation-drawer fixed v-model="filterDrawer" class="pa-2" right app>
+        <v-navigation-drawer fixed v-model="filterDrawer" v-if="showDrawer" class="pa-2" right app>
             <h2>{{$t('message.locationSearch')}}</h2>
             <v-form ref="filter">
                 <v-text-field color="teal" v-bind:label="'Titel'" required v-model="filter.title"></v-text-field>
@@ -67,7 +67,7 @@
                 <v-btn color="blue-grey darken-3" class="full-width" @click="clearFilter()">reset Search</v-btn>
             </v-form>
         </v-navigation-drawer>
-        <v-navigation-drawer fixed v-model="drawer" right app>
+        <v-navigation-drawer fixed v-model="drawer" v-if="showDrawer" right app>
             <v-list dense v-if="currentUser">
                 <v-list-tile class="mt-1 mb-2" @click="goTo('/user/edit/'+currentUser.id)">
                     <v-list-tile-avatar>
