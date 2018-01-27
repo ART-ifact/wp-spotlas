@@ -11,6 +11,9 @@ let mix = require('laravel-mix');
  |
  */
 
+
+//mix.webpackConfig({ node: { fs: 'empty' }});
+
 mix.setPublicPath('dist')
   .options({
     processCssUrls: false,

@@ -98,6 +98,14 @@
                         <v-list-tile-title>{{ $t('message.add-location') }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+                <v-list-tile @click="goTo('/import')">
+                    <v-list-tile-action>
+                        <v-icon>add_location</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ $t('message.importLocations') }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
                 <v-list-tile @click="goTo('/grid/')">
                     <v-list-tile-action>
                         <v-icon>grid_on</v-icon>

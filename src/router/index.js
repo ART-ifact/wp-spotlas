@@ -12,6 +12,7 @@ import Edit from '../components/Edit'
 import addUser from '../components/user/UserAdd'
 import userAdmin from '../components/user/UserAdmin'
 import userEdit from '../components/user/UserEdit'
+import importLocations from '../components/Import'
 
 Vue.use(Router)
 
@@ -102,6 +103,17 @@ const router = new Router({
             component: Edit,
             components: {
                 default: Edit
+            },
+            props: {
+                default: true
+            }
+        },
+        {
+            path: '/import',
+            name: 'Import',
+            component: importLocations,
+            components: {
+                default: importLocations
             },
             props: {
                 default: true
