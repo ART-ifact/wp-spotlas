@@ -12,7 +12,7 @@
                 </v-alert>
                 <md-field>
                     <label>{{ $t('message.selectImportFile') }}</label>
-                    <md-file v-model="inputFile" accept=".kml,.kmz,.geojson" @change="fileHandling($event)" />
+                    <md-file v-model="inputFile" accept=".kml,.gpx,.geojson" @change="fileHandling($event)" />
                 </md-field>
             </v-flex>
         </v-form>
@@ -87,11 +87,11 @@
                         console.log('kml')
                         this.kmlToGeoJSON(fileData);
                         break;
-                    case 'kmz':
-                        console.log('kmz')
+                    case 'gpx':
+                        console.log('gpx')
                         break;
                     case 'geojson':
-                        console.log('geojson')
+                        this.handlegeoJson(fileData);
                         break;
                 }
             },
@@ -107,6 +107,20 @@
                     var dom = (new DOMParser()).parseFromString(response.data, 'text/xml');
 
                     _this.handleJSON(togeojson.kml(dom));
+                }).catch(function (e) {
+                    console.log(e);
+                });
+            },
+            handlegeoJson(file) {
+                var formData = new FormData();
+                var _this = this;
+
+                formData.append("enctype", "multipart/form-data")
+                formData.append("file", file);
+
+                axios.post(window.SETTINGS.THEMEURL + '/formhandlers/converter/returnstring.php', formData).then(function (response) {
+
+                    _this.handleJSON(response.data);
                 }).catch(function (e) {
                     console.log(e);
                 });
