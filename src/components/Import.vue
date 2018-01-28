@@ -1,44 +1,75 @@
 <template>
     <v-layout row wrap>
-        <v-flex xs12>
-            <v-alert type="info" color="teal" :value="true">
-                {{ $t('message.importHint') }}
-            </v-alert>
-            <md-field>
-                <label>{{ $t('message.selectImportFile') }}</label>
-                <md-file v-model="inputFile" accept=".kml,.kmz,.geojson" @change="fileHandling($event)" />
-            </md-field>
-        </v-flex>
-        <v-flex xs3 class="pa-3"  v-if="locationsToImport.length > 0" :key="location.properties.name" v-for="location in locationsToImport">
-                <v-card color="darken-2">
-                    <v-card-media height="200px">
-                        <div>
-                            <img :src="location.properties.gx_media_links" class="leaderimg">
+        <v-form class="xs12 flex" @submit.prevent="importLocations" ref="form">
+            <v-toolbar card color="grey darken-3" class="location-toolbar">
+                <v-btn color="blue-grey darken-3" :disabled="sending" @click="cancel()">{{ $t('message.cancel') }}</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn color="teal" name="wp-submit" :disabled="sending" type="submit">{{ $t('message.startImport') }}</v-btn>
+            </v-toolbar>
+            <v-flex xs12>
+                <v-alert type="info" color="teal" :value="true">
+                    {{ $t('message.importHint') }}
+                </v-alert>
+                <md-field>
+                    <label>{{ $t('message.selectImportFile') }}</label>
+                    <md-file v-model="inputFile" accept=".kml,.kmz,.geojson" @change="fileHandling($event)" />
+                </md-field>
+            </v-flex>
+        </v-form>
+        <v-flex md3 sm6 xs12 class="pa-3" v-if="locationsToImport.length > 0" :key="location.properties.name" v-for="location in locationsToImport">
+                    <v-card color="darken-2">
+                        <v-card-media height="200px">
+                            <div>
+                                <img :src="location.properties.gx_media_links" class="leaderimg">
 
-                        </div>
-                    </v-card-media>
-                    <v-card-title primary-title>
-                        <div>
-                            <h3 class="headline mb-0">
-                                <v-checkbox v-model="location.properties.extrude" color="teal" v-bind:label="location.properties.name"></v-checkbox>
-                            </h3>
-                        </div>
-                    </v-card-title>
+                            </div>
+                        </v-card-media>
+                        <v-card-title primary-title>
+                            <div>
+                                <h3 class="headline mb-0">
+                                    <v-checkbox v-model="location.properties.extrude" color="teal" v-bind:label="location.properties.name"></v-checkbox>
+                                </h3>
+                            </div>
+                        </v-card-title>
 
-            </v-card>
-        </v-flex>
+                    </v-card>
+                </v-flex>
     </v-layout>
 </template>
 
 <script>
     import router from '../router';
+    import helper from '../helper';
+    import api from '../api';
     import togeojson from '../libs/togeojson.js'
     import domParser from 'xmldom'
     export default {
         data() {
             return {
                 inputFile: null,
-                locationsToImport: []
+                locationsToImport: [],
+                form: {
+                    title: "",
+                    type: null,
+                    category: null,
+                    accessibility: 0,
+                    email: null,
+                    latitude: 0,
+                    longitude: 0,
+                    images: [],
+                    sunny: false,
+                    cloudy: false,
+                    foggy: false,
+                    rainy: false,
+                    spring: false,
+                    summer: false,
+                    autumn: false,
+                    winter: false,
+                    description: "",
+                    hash: '',
+                    shared: false
+                },
+                sending: false,
             }
         },
         created() {
@@ -99,6 +130,80 @@
                     this.locationsToImport.push(location);
                 }
                 console.log(this.locationsToImport)
+            },
+            importLocations() {
+                for (let index = 0; index < this.locationsToImport.length; index++) {
+                    const location = this.locationsToImport[index];
+
+                    if (location.properties.extrude) {
+                        console.log(location.properties.name);
+                        this.form.title = location.properties.name;
+                        this.form.longitude = location.geometry.coordinates[0];
+                        this.form.latitude = location.geometry.coordinates[1];
+
+                        if (typeof location.properties.description !== "undefined") {
+                            this.form.description = this.removeHTML(location.properties.description);
+                        }
+
+
+                        if (typeof location.properties.gx_media_links !== "undefined") {
+                            var fileInput = this.getImageBlob(location.properties.gx_media_links,this.buildMediaData);
+                        } else {
+                            this.addLocation();
+                        }
+
+                    }
+
+                    
+                }
+            },
+            removeHTML(string) {
+                var regex = /(<([^>]+)>)/ig;
+                return string.replace(regex, "");
+            },
+
+            updateImageArray(api_response) {
+                if (typeof api_response.source_url !== "undefined") {
+                    var tmp_obj = helper.buildImageObject(api_response);
+                    console.log('tmp:'+tmp_obj)
+                    this.form.images.push(tmp_obj);
+                }
+
+               this.addLocation();
+                
+            },
+            addLocation() {
+                 var formData = helper.buildFormData(this.form,false);
+
+                api.addLocation(formData,this.afterSave)
+            },
+            getImageBlob(imageURL, cb) {
+                var oReq = new XMLHttpRequest();
+                oReq.open("GET", imageURL, true);
+                oReq.responseType = "blob";
+
+                oReq.onreadystatechange = function() {
+                    if (oReq.readyState === 4) {
+                        console.log(oReq.response); 
+                        var file = new File([oReq.response], 'test.png');
+                        cb(file);
+                    }
+                }
+                oReq.send(null);
+            },
+            afterSave(response) {
+                console.log(response);
+            },
+            buildMediaData(fileInput) {
+                var formData = new FormData();
+
+                formData.append("action", "upload-attachment");
+                formData.append("file", fileInput);
+                formData.append("name", fileInput.name);
+
+                formData.append("_wpnonce", window.SETTINGS.AJAXNONCE);
+
+                api.uploadMedia(formData,fileInput,this.updateImageArray);
             }
         }
     }

@@ -82,10 +82,18 @@ export default {
     },
 
     buildImageObject(imageData) {
+        var imageID = imageData.id;
+        var sourceURL = imageData.source_url;
+        var thumbSource;
+        if (imageData.media_details.sizes.length > 0) {
+            thumbSource = imageData.media_details.sizes.thumbnail.source_url;
+        } else {
+            thumbSource = sourceURL;
+        }
         var tmp_obj = {
-            id: imageData.id,
-            large: imageData.source_url,
-            thumb: imageData.media_details.sizes.thumbnail.source_url
+            id: imageID,
+            large: sourceURL,
+            thumb: thumbSource
         };
         return tmp_obj;
     },
