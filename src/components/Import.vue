@@ -40,6 +40,7 @@
 <script>
     import router from '../router';
     import helper from '../helper';
+    import importhelper from '../helper/import.js';
     import api from '../api';
     import togeojson from '../libs/togeojson.js'
     import domParser from 'xmldom'
@@ -72,8 +73,7 @@
                 sending: false,
             }
         },
-        created() {
-        },
+        created() {},
 
         methods: {
             fileHandling(file) {
@@ -82,28 +82,27 @@
                 console.log(file);
                 console.log(file.target.files[0]);
 
-                switch(fileExtension)
-                    {
-                        case 'kml':
-                            console.log('kml')
-                            this.kmlToGeoJSON(fileData);
-                            break;
-                        case 'kmz':
-                            console.log('kmz')
-                            break;
-                        case 'geojson':
-                            console.log('geojson')
-                            break;
-                    }
+                switch (fileExtension) {
+                    case 'kml':
+                        console.log('kml')
+                        this.kmlToGeoJSON(fileData);
+                        break;
+                    case 'kmz':
+                        console.log('kmz')
+                        break;
+                    case 'geojson':
+                        console.log('geojson')
+                        break;
+                }
             },
             kmlToGeoJSON(file) {
                 var formData = new FormData();
                 var _this = this;
 
-                formData.append("enctype","multipart/form-data")
+                formData.append("enctype", "multipart/form-data")
                 formData.append("file", file);
 
-                axios.post(window.SETTINGS.THEMEURL + '/formhandlers/converter/returnstring.php',formData).then(function (response) {
+                axios.post(window.SETTINGS.THEMEURL + '/formhandlers/converter/returnstring.php', formData).then(function (response) {
 
                     var dom = (new DOMParser()).parseFromString(response.data, 'text/xml');
 
@@ -119,7 +118,6 @@
                     const element = this.locationsToImport[index];
                     element.properties.extrude = true;
                 }
-                console.log(this.locationsToImport)
             },
             onCheckboxChange(value) {
                 console.log(value);
@@ -129,70 +127,53 @@
                     const location = locations[index];
                     this.locationsToImport.push(location);
                 }
-                console.log(this.locationsToImport)
             },
             importLocations() {
                 for (let index = 0; index < this.locationsToImport.length; index++) {
                     const location = this.locationsToImport[index];
 
                     if (location.properties.extrude) {
-                        console.log(location.properties.name);
                         this.form.title = location.properties.name;
                         this.form.longitude = location.geometry.coordinates[0];
                         this.form.latitude = location.geometry.coordinates[1];
 
                         if (typeof location.properties.description !== "undefined") {
-                            this.form.description = this.removeHTML(location.properties.description);
+                            this.form.description = importhelper.removeHTML(location.properties.description);
                         }
 
 
                         if (typeof location.properties.gx_media_links !== "undefined") {
-                            var fileInput = this.getImageBlob(location.properties.gx_media_links,this.buildMediaData);
+                            var fileInput = importhelper.getImageBlob(location.properties.gx_media_links, this.buildMediaData);
                         } else {
                             this.addLocation();
                         }
 
                     }
 
-                    
+
                 }
+
+                helper.createSuccessMessage(this.$root,this.$t('message.locationsImported'), 2500)
+                router.push('/grid')
             },
-            removeHTML(string) {
-                var regex = /(<([^>]+)>)/ig;
-                return string.replace(regex, "");
-            },
+
 
             updateImageArray(api_response) {
                 if (typeof api_response.source_url !== "undefined") {
                     var tmp_obj = helper.buildImageObject(api_response);
-                    console.log('tmp:'+tmp_obj)
                     this.form.images.push(tmp_obj);
                 }
 
-               this.addLocation();
-                
+                this.addLocation();
+
             },
             addLocation() {
-                 var formData = helper.buildFormData(this.form,false);
+                var formData = helper.buildFormData(this.form, false);
 
-                api.addLocation(formData,this.afterSave)
-            },
-            getImageBlob(imageURL, cb) {
-                var oReq = new XMLHttpRequest();
-                oReq.open("GET", imageURL, true);
-                oReq.responseType = "blob";
-
-                oReq.onreadystatechange = function() {
-                    if (oReq.readyState === 4) {
-                        console.log(oReq.response); 
-                        var file = new File([oReq.response], 'test.png');
-                        cb(file);
-                    }
-                }
-                oReq.send(null);
+                api.addLocation(formData, this.afterSave)
             },
             afterSave(response) {
-                console.log(response);
+               
             },
             buildMediaData(fileInput) {
                 var formData = new FormData();
@@ -203,7 +184,7 @@
 
                 formData.append("_wpnonce", window.SETTINGS.AJAXNONCE);
 
-                api.uploadMedia(formData,fileInput,this.updateImageArray);
+                api.uploadMedia(formData, fileInput, this.updateImageArray);
             }
         }
     }

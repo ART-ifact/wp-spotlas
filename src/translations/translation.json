@@ -60,7 +60,8 @@
             "selectImportFile": "Select file",
             "importLocations": "Import Locations",
             "importHint": "You can import locations from KML, KMZ and GEOJSON",
-            "startImport": "Start import"
+            "startImport": "Start import",
+            "locationsImported": "Imported all locations"
         }
     },
     "de": {
@@ -124,7 +125,8 @@
             "selectImportFile": "Datei auswählen",
             "importLocations": "Locations importieren",
             "importHint": "Du kannst von KML, KMZ und GEOJSON Locations importieren",
-            "startImport": "Starte Import"
+            "startImport": "Starte Import",
+            "locationsImported": "Alle Locations importiert"
         }
     }
 }

@@ -396,4 +396,14 @@ register_rest_field( 'user', 'userEmail',
     )
 );
 
+add_filter( 'rest_post_collection_params', 'my_prefix_change_post_per_page', 10, 1 );
+
+function my_prefix_change_post_per_page( $params ) {
+    if ( isset( $params['per_page'] ) ) {
+        $params['per_page']['maximum'] = 10000000;
+    }
+
+    return $params;
+}
+
 ?>

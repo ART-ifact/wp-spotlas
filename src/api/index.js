@@ -57,7 +57,7 @@ export default {
     },
 
     getPosts(cb) {
-        axios.get(window.SETTINGS.API_BASE_PATH + 'posts?filter[posts_per_page]=-1')
+        axios.get(window.SETTINGS.API_BASE_PATH + 'posts?per_page=10000000')
             .then(response => {
                 for (let i = 0; i < response.data.length; i++) {
                     if (response.data[i].images !== '') {
