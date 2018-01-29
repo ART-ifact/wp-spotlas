@@ -88,7 +88,7 @@
                         this.kmlToGeoJSON(fileData);
                         break;
                     case 'gpx':
-                        console.log('gpx')
+                        this.gpxToGeoJSON(fileData);
                         break;
                     case 'geojson':
                         this.handlegeoJson(fileData);
@@ -124,8 +124,25 @@
                     console.log(e);
                 });
             },
+            gpxToGeoJSON(file) {
+                var formData = new FormData();
+                var _this = this;
+
+                formData.append("enctype", "multipart/form-data")
+                formData.append("file", file);
+
+                axios.post(window.SETTINGS.THEMEURL + '/formhandlers/converter/returnstring.php', formData).then(function (response) {
+                    var dom = (new DOMParser()).parseFromString(response.data, 'text/xml');
+                    console.log(dom)
+                    _this.handleJSON(togeojson.gpx(dom));
+                }).catch(function (e) {
+                    console.log(e);
+                });
+            },
             handleJSON(markers) {
                 this.locationsToImport = markers['features'];
+
+                console.log(this.locationsToImport)
 
                 for (let index = 0; index < this.locationsToImport.length; index++) {
                     const element = this.locationsToImport[index];
@@ -133,11 +150,17 @@
                     if (element.properties.Name) {
                         element.properties.name = element.properties.Name
                     }
-                    console.log(element.properties)
+                    if(!element.properties.description) {
+                        element.properties.description = element.properties.desc;
+                    }
                     if(!element.properties.gx_media_links) {
                         var regex = /src=\\"(.*?)\\"/;
                         var string = JSON.stringify(element.properties.description);
-                        var src = string.match(regex);
+                        var src = null;
+                        if (typeof string !== 'undefined') {
+                            src = string.match(regex);
+                        }
+                        
                         if (src !== null) {
                             console.log(src[1]);
                             element.properties.gx_media_links = src[1];
