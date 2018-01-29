@@ -119,7 +119,6 @@
                 formData.append("file", file);
 
                 axios.post(window.SETTINGS.THEMEURL + '/formhandlers/converter/returnstring.php', formData).then(function (response) {
-
                     _this.handleJSON(response.data);
                 }).catch(function (e) {
                     console.log(e);
@@ -131,6 +130,19 @@
                 for (let index = 0; index < this.locationsToImport.length; index++) {
                     const element = this.locationsToImport[index];
                     element.properties.extrude = true;
+                    if (element.properties.Name) {
+                        element.properties.name = element.properties.Name
+                    }
+                    console.log(element.properties)
+                    if(!element.properties.gx_media_links) {
+                        var regex = /src=\\"(.*?)\\"/;
+                        var string = JSON.stringify(element.properties.description);
+                        var src = string.match(regex);
+                        if (src !== null) {
+                            console.log(src[1]);
+                            element.properties.gx_media_links = src[1];
+                        }
+                    }
                 }
             },
             onCheckboxChange(value) {
