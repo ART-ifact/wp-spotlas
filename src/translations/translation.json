@@ -59,7 +59,7 @@
             "showShared": "Show shared Locations",
             "selectImportFile": "Select file",
             "importLocations": "Import Locations",
-            "importHint": "You can import locations from KML, KMZ and GEOJSON",
+            "importHint": "You can import locations from KML, GPX and GEOJSON",
             "startImport": "Start import",
             "locationsImported": "Imported all locations"
         }
@@ -124,7 +124,7 @@
             "showShared": "Zeige geteilte Locations",
             "selectImportFile": "Datei auswählen",
             "importLocations": "Locations importieren",
-            "importHint": "Du kannst von KML, KMZ und GEOJSON Locations importieren",
+            "importHint": "Du kannst von KML, GPX und GEOJSON Locations importieren",
             "startImport": "Starte Import",
             "locationsImported": "Alle Locations importiert"
         }

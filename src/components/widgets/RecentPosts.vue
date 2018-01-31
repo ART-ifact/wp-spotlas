@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-        <v-flex xs12 v-if="!recentPosts">
+        <v-flex xs12 v-if="!filteredLocations">
             <v-progress-circular indeterminate v-bind:size="50" color="teal"></v-progress-circular>
         </v-flex>
         <v-flex class="pa-2" md3 sm6 xs12 v-for="post in filteredLocations" :key="post.id">

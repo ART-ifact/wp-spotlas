@@ -7,5 +7,6 @@ try {
         'X-Requested-With': 'XMLHttpRequest',
         'X-WP-Nonce': window.nonce,
     };
+    window.axios.defaults.timeout = 100000;
     window.axios.defaults.headers.common['X-WP-Nonce'] = window.nonce;
 } catch (e) {}
