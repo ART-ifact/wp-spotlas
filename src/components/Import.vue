@@ -145,8 +145,9 @@
                 console.log(this.locationsToImport)
 
                 for (let index = 0; index < this.locationsToImport.length; index++) {
-                    const element = this.locationsToImport[index];
+                    const element              = this.locationsToImport[index];
                     element.properties.extrude = true;
+
                     if (element.properties.Name) {
                         element.properties.name = element.properties.Name
                     }
@@ -154,9 +155,9 @@
                         element.properties.description = element.properties.desc;
                     }
                     if(!element.properties.gx_media_links) {
-                        var regex = /src=\\"(.*?)\\"/;
+                        var regex  = /src = \\"(.*?)\\"/;
                         var string = JSON.stringify(element.properties.description);
-                        var src = null;
+                        var src    = null;
                         if (typeof string !== 'undefined') {
                             src = string.match(regex);
                         }
@@ -182,24 +183,21 @@
                     const location = this.locationsToImport[index];
 
                     if (location.properties.extrude) {
-                        this.form.title = location.properties.name;
+                        this.form.title     = location.properties.name;
                         this.form.longitude = location.geometry.coordinates[0];
-                        this.form.latitude = location.geometry.coordinates[1];
+                        this.form.latitude  = location.geometry.coordinates[1];
 
                         if (typeof location.properties.description !== "undefined") {
                             this.form.description = importhelper.removeHTML(location.properties.description);
                         }
 
-
                         if (typeof location.properties.gx_media_links !== "undefined") {
                             var fileInput = importhelper.getImageBlob(location.properties.gx_media_links, this.buildMediaData);
                         } else {
-                            this.addLocation();
+                            this.form.images = null;
+                            this.updateImageArray();
                         }
-
                     }
-
-
                 }
 
                 helper.createSuccessMessage(this.$root,this.$t('message.locationsImported'), 2500)
@@ -208,9 +206,11 @@
 
 
             updateImageArray(api_response) {
-                if (typeof api_response.source_url !== "undefined") {
-                    var tmp_obj = helper.buildImageObject(api_response);
-                    this.form.images.push(tmp_obj);
+                if (typeof api_response !== "undefined") {
+                    if (typeof api_response.source_url !== "undefined") {
+                        var tmp_obj = helper.buildImageObject(api_response);
+                        this.form.images.push(tmp_obj);
+                    }
                 }
 
                 this.addLocation();
