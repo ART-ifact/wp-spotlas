@@ -37,7 +37,7 @@
                 <v-dialog v-model="sending" max-width="500px" :persistent="true">
                     <v-card>
                     <v-card-text class="text-xs-center">
-                        <div class="text-xs-center mb-4">Uploading Location {{index}} of {{locationToImportLength}}</div>
+                        <div class="text-xs-center mb-4">{{$t('message.importLocation')}} {{index}} {{$t('message.of')}} {{locationToImportLength}}</div>
                         <v-progress-circular :size="70" indeterminate color="teal"></v-progress-circular>
                     </v-card-text>
                     </v-card>

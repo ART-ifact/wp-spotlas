@@ -61,7 +61,9 @@
             "importLocations": "Import Locations",
             "importHint": "You can import locations from KML, GPX and GEOJSON",
             "startImport": "Start import",
-            "locationsImported": "Imported all locations"
+            "locationsImported": "Imported all locations",
+            "importLocation": "Import Location",
+            "of": "of"
         }
     },
     "de": {
@@ -126,7 +128,9 @@
             "importLocations": "Locations importieren",
             "importHint": "Du kannst von KML, GPX und GEOJSON Locations importieren",
             "startImport": "Starte Import",
-            "locationsImported": "Alle Locations importiert"
+            "locationsImported": "Alle Locations importiert",
+            "importLocation": "Importiere Location",
+            "of": "von"
         }
     }
 }
