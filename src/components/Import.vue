@@ -34,6 +34,14 @@
 
                     </v-card>
                 </v-flex>
+                <v-dialog v-model="sending" max-width="500px" :persistent="true">
+                    <v-card>
+                    <v-card-text class="text-xs-center">
+                        <div class="text-xs-center mb-4">Uploading Location {{index}} of {{locationToImportLength}}</div>
+                        <v-progress-circular :size="70" indeterminate color="teal"></v-progress-circular>
+                    </v-card-text>
+                    </v-card>
+                </v-dialog>
     </v-layout>
 </template>
 
@@ -71,6 +79,9 @@
                     shared: false
                 },
                 sending: false,
+                index: 0,
+                locationToImportLength: 0,
+                uploadingLocation: ""
             }
         },
         created() {},
@@ -178,12 +189,15 @@
                     this.locationsToImport.push(location);
                 }
             },
-            importLocations() {
-                for (let index = 0; index < this.locationsToImport.length; index++) {
-                    const location = this.locationsToImport[index];
+            importLocations(newIndex) {
+                this.sending = true;
+                this.locationToImportLength = this.locationsToImport.length;
+                if (this.index <= this.locationToImportLength) {
+                    const location = this.locationsToImport[this.index];
 
                     if (location.properties.extrude) {
                         this.form.title     = location.properties.name;
+                        this.uploadingLocation = location.properties.name
                         this.form.longitude = location.geometry.coordinates[0];
                         this.form.latitude  = location.geometry.coordinates[1];
 
@@ -194,14 +208,14 @@
                         if (typeof location.properties.gx_media_links !== "undefined") {
                             var fileInput = importhelper.getImageBlob(location.properties.gx_media_links, this.buildMediaData);
                         } else {
-                            this.form.images = null;
+                            this.form.images = [];
                             this.updateImageArray();
                         }
                     }
+                } else {
+                    helper.createSuccessMessage(this.$root,this.$t('message.locationsImported'), 2500)
+                    router.push('/grid')
                 }
-
-                helper.createSuccessMessage(this.$root,this.$t('message.locationsImported'), 2500)
-                router.push('/grid')
             },
 
 
@@ -222,7 +236,7 @@
                 api.addLocation(formData, this.afterSave)
             },
             afterSave(response) {
-               
+                this.importLocations(this.index++);
             },
             buildMediaData(fileInput) {
                 var formData = new FormData();
