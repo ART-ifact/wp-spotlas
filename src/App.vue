@@ -57,7 +57,7 @@
                             <label class="season-label" for="autumn_filter"></label>
                         </v-flex>
                         <v-flex xs3>
-                            <input type="checkbox" name="winter_filter" class="season-icon winter_filter" v-model="filter.winter" id="winter_filter">
+                            <input type="checkbox" name="winter_filter" class="season-icon winter" v-model="filter.winter" id="winter_filter">
                             <label class="season-label" for="winter_filter"></label>
                         </v-flex>
                     </v-layout>

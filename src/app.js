@@ -175,7 +175,7 @@ Vue.use(VueI18n);
 Vue.use(Vue2Filters);
 Vue.use(VueGoogleMaps, {
     load: {
-        key: 'AIzaSyA4ALxZp1Ourvckn_07_BahbGq7KI4u8Dg',
+        key: window.mapskey,
         libraries: 'places', // This is required if you use the Autocomplete plugin
     },
 })

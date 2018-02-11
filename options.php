@@ -71,6 +71,13 @@ function optionsframework_options() {
 		"std" => "de",
 		"type" => "select",
 		"options" => $language_array
+    );
+
+    $options[] = array(
+        "name" => "GoogleMaps API Key",
+        'desc' => __('The GMAPS API Key get yours here: <a href="https://developers.google.com/maps/documentation/javascript/get-api-key?hl=de#key">Get your API-KEY </a>', 'options_check'),
+		"id" => "api-key",
+		"type" => "text"
 	);
 
 	$options[] = array(
@@ -91,7 +98,7 @@ function optionsframework_options() {
             		'id' => 'longitude',
         		'std' => '13.737262099999953',
 				'type' => 'text');
-		
+
 	$options[] = array(
 				'name' => __('The Location Basepath', 'options_check'),
 				'desc' => __('When your Wordpress is in a subdirectory of your domain', 'options_check'),
