@@ -1,0 +1,75 @@
+<template>
+    <v-container grid-list-xl text-xs-center>
+        <v-layout row wrap>
+            <v-flex xs12 sm8 offset-xs0 offset-sm2>
+                <v-card class="pa-3">
+                    <v-form v-on:submit.prevent="login" v-model="valid" ref="form" lazy-validation>
+
+                        <v-text-field v-bind:label="$t('message.username')" color="teal" id="user_login" v-model="username" required :rules="usernameRules"></v-text-field>
+
+                        <v-text-field v-bind:label="$t('message.password')" v-model="password" color="teal" :append-icon="passwordfield ? 'visibility' : 'visibility_off'" :append-icon-cb="() => (passwordfield = !passwordfield)" :type="passwordfield ? 'password' : 'text'" :rules="passwordRules"></v-text-field>
+                        <v-btn color="teal" class="full-width" type="submit">{{ $t('message.login') }}</v-btn>
+                    </v-form>
+                </v-card>
+                <v-snackbar multi-line bottom v-model="showForbidden">
+                    You are not logged in
+                    <v-btn flat @click.native="showForbidden = false">{{ $t('message.close') }}</v-btn>
+                </v-snackbar>
+                <v-snackbar :timeout="20000" multi-line bottom v-model="loginError" color="error">
+                    <span v-html="loginErrorMessage"></span>
+                    <v-btn flat @click.native="loginError = false">{{ $t('message.close') }}</v-btn>
+                </v-snackbar>
+            </v-flex>
+        </v-layout>
+    </v-container>
+</template>
+
+<script>
+    import router from '../router';
+    export default {
+        data() {
+            return {
+                username: null,
+                password: null,
+                passwordfield: true,
+                wppath: null,
+                valid: false,
+                loginError: false,
+                loginErrorMessage: null,
+                showForbidden: false,
+                usernameRules: [v => !!v || "Username is required"],
+                passwordRules: [v => !!v || "Password is required"]
+            }
+        },
+        created() {
+            this.wppath = window.SETTINGS.WPPATH
+            this.$root.$children[0]._data.drawer = false;
+            this.$root.$children[0]._data.showDrawer = false;
+
+        },
+
+        methods: {
+            login: function() {
+                var _this = this;
+                var url = _this.wppath + 'wp-json/custom-plugin/login?username=' + _this.username + '&password=' + _this.password;
+                if (this.$refs.form.validate()) {
+                    axios.get(url).then(function(response) {
+                        window.isSigned = true;
+                        _this.$root.$children[0]._data.drawer = true;
+                         window.axios.defaults.headers.common = {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-WP-Nonce': response,
+                        };
+                        router.push('/')
+                    }, function(error) {
+                        _this.loginErrorMessage = error.response.data.message;
+                        _this.loginError = true;
+                    });
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+</style>

@@ -1,0 +1,13 @@
+.speed-dial--top.speed-dial--absolute.btn-add,
+.btn-edit {
+    position: fixed !important;
+    z-index: 1000;
+    top: 61px !important;
+}
+
+.btn {
+    &.full-width {
+        width: 100%;
+        margin: 0;
+    }
+}
