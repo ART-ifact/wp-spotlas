@@ -8,8 +8,14 @@
 body,
 html {
     overflow-y: auto !important;
+    color:white;
 }
 
 a:hover {
     text-decoration: none !important;
+}
+
+.v-list__tile__title,
+.md-theme-default a:not(.md-button) {
+    color: white !important;
 }

@@ -125,19 +125,27 @@
         height: 480px;
     }
 
-    .md-card {
+    .v-card {
         width: 320px;
         margin: 4px;
         display: inline-block;
         vertical-align: top;
-        .md-card-media {
+
+        .meta-data {
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+        }
+        .v-image {
             height: 200px;
             overflow: hidden;
+            v-responsive__content {
+                position: relative;
+            }
             img {
                 position: absolute;
-                top: 0;
-                bottom: 0;
                 margin: auto;
+                left: 0;
             }
         }
     }

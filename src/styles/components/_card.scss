@@ -1,4 +1,4 @@
-.card__media__content {
+.v-image {
     position: relative;
 
     background-color: #1b1b1b;
@@ -14,8 +14,15 @@
     }
 }
 
-.card__title {
+.v-card {
+    .meta-data {
+        display: none;
+    }
+}
+
+.v-card__title {
     padding: 16px !important;
+    color: white;
 
     >div {
         width: 100%;
@@ -38,7 +45,7 @@
     }
 }
 
-.card {
+.v-card {
     &:hover {
         .meta-data {
             display: table;
@@ -50,7 +57,7 @@
         position: absolute;
 
         width: 100%;
-        height: calc(100% - 56px);
+        height: calc(100% - 63px);
 
         padding: 12px 0;
 
