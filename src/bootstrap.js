@@ -1,9 +1,8 @@
 try {
     window._ = require('lodash');
-    window.$ = window.jQuery = require('jquery');
     window.axios = require('axios');
-    window.nonce = window.$('input.wpnonce-rest').val();
-    window.mapskey = window.$('input.maps-api').val();
+    window.nonce = document.getElementsByClassName('wpnonce-rest')[0].value;
+    window.mapskey = document.getElementsByClassName('maps-api')[0].value;
     window.axios.defaults.headers.common = {
         'X-Requested-With': 'XMLHttpRequest',
         'X-WP-Nonce': window.nonce,

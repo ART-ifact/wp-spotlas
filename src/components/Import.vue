@@ -50,8 +50,8 @@
     import helper from '../helper';
     import importhelper from '../helper/import.js';
     import api from '../api';
-    import togeojson from '../libs/togeojson.js'
-    import domParser from 'xmldom'
+    import togeojson from '../libs/togeojson.js';
+    import domParser from 'xmldom';
     export default {
         data() {
             return {
@@ -172,7 +172,7 @@
                         if (typeof string !== 'undefined') {
                             src = string.match(regex);
                         }
-                        
+
                         if (src !== null) {
                             console.log(src[1]);
                             element.properties.gx_media_links = src[1];

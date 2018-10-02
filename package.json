@@ -14,8 +14,6 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-stage-2": "^6.24.1",
-    "bootstrap": "^4.0.0-beta",
-    "bootstrap-vue": "^1.0.0-beta.9",
     "browser-sync": "^2.18.13",
     "browser-sync-webpack-plugin": "^1.2.0",
     "cross-env": "^3.2.4",
@@ -51,6 +49,7 @@
     "marker-clusterer-plus": "^2.1.4",
     "vee-validate": "^2.0.0",
     "vue": "^2.5.2",
+    "vue-body-class": "^2.0.0-beta.2",
     "vue-carousel": "^0.6.5",
     "vue-i18n": "^7.4.0",
     "vue-material": "1.0.0-beta-7",
@@ -58,6 +57,7 @@
     "vue2-filters": "^0.2.2",
     "vue2-google-maps": "^0.8.4",
     "vuelidate": "^0.6.1",
-    "vuetify": "^0.17.6"
+    "vuetify": "^0.17.6",
+    "xmldom": "^0.1.27"
   }
 }

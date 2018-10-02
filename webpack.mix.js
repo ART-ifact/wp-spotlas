@@ -28,11 +28,11 @@ mix.setPublicPath('dist')
           comments: false
         }
       }
-    }, 
+    },
   })
    .js('src/app.js', 'scripts/')
    .extract([
-      'jquery',
+      'xmldom',
       'axios',
       'babel-polyfill',
       'lodash',

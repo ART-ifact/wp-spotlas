@@ -23,24 +23,28 @@ const router = new Router({
             name: 'Map',
             component: Map,
             // props: { pageContentID: 383 }
+            meta: { bodyClass: 'vue--page--map' },
         },
         {
             path: '/grid',
             name: 'Home',
             component: Home,
             // props: { pageContentID: 383 }
+            meta: { bodyClass: 'vue--page--grid' },
         },
         {
             path: '/add',
             name: 'Add',
             component: Add,
             // props: { pageContentID: 383 }
+            meta: { bodyClass: 'vue--page--add' },
         },
         {
             path: '/authenticate',
             name: 'Login',
             component: Login,
             // props: { pageContentID: 383 }
+            meta: { bodyClass: 'vue--page--login' },
         },
         {
             path: '/location/:id',
@@ -51,7 +55,8 @@ const router = new Router({
             },
             props: {
                 default: true
-            }
+            },
+            meta: { bodyClass: 'vue--page--location' },
         },
         {
             path: '/share/:id/:hash',
@@ -62,7 +67,8 @@ const router = new Router({
             },
             props: {
                 default: true
-            }
+            },
+            meta: { bodyClass: 'vue--page--location' },
         },
         {
             path: '/user/add',
@@ -73,7 +79,8 @@ const router = new Router({
             },
             props: {
                 default: true
-            }
+            },
+            meta: { bodyClass: 'vue--page--add' },
         },
         {
             path: '/user/admin',
@@ -84,7 +91,8 @@ const router = new Router({
             },
             props: {
                 default: true
-            }
+            },
+            meta: { bodyClass: 'vue--page--user-admin' },
         },
         {
             path: '/user/edit/:id',
@@ -95,7 +103,8 @@ const router = new Router({
             },
             props: {
                 default: true
-            }
+            },
+            meta: { bodyClass: 'vue--page--user-edit' },
         },
         {
             path: '/edit/:id',
@@ -106,7 +115,8 @@ const router = new Router({
             },
             props: {
                 default: true
-            }
+            },
+            meta: { bodyClass: 'vue--page--edit' },
         },
         {
             path: '/import',
@@ -117,7 +127,8 @@ const router = new Router({
             },
             props: {
                 default: true
-            }
+            },
+            meta: { bodyClass: 'vue--page--import' },
         }
     ],
     mode: 'history',

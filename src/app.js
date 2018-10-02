@@ -154,6 +154,7 @@ import 'vuetify/dist/vuetify.min.css'
 
 // import { auth, database } from './firebase.config.js' - Uncomment if you need firebase
 import router from './router';
+import vbclass from 'vue-body-class';
 import App from './App.vue';
 import Vue2Filters from 'vue2-filters';
 import store from './store';
@@ -173,6 +174,7 @@ Vue.use(Vuetify);
 Vue.use(VueLazyload);
 Vue.use(VueI18n);
 Vue.use(Vue2Filters);
+Vue.use( vbclass, router );
 Vue.use(VueGoogleMaps, {
     load: {
         key: window.mapskey,
@@ -180,14 +182,6 @@ Vue.use(VueGoogleMaps, {
     },
 })
 Vue.component('google-cluster', VueGoogleMaps.Cluster);
-
-router.afterEach((to, from) => {
-    // Add a body class specific to the route we're viewing
-    $("body").removeClass(function (index, className) {
-        return (className.match(/(^|\s)vue--page--\S+/g) || []).join(' ');
-    });
-    $("body").addClass("vue--page--" + _.toLower(to.name))
-})
 
 const messages = require('./translations/translation.json');
 
