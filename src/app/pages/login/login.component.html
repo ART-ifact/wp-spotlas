@@ -1,0 +1,17 @@
+<div class="login-wrapper">
+  <mat-card class="login-card">
+    <div class="login-form">
+      <mat-form-field>
+        <input matInput placeholder="Username">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-flat-button color="primary">Login</button>
+    </div>
+  </mat-card>
+
+</div>
