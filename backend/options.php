@@ -91,4 +91,18 @@ if (!function_exists('of_get_option')) {
         }
     }
 }
+
+function getOptions() {
+  $optionsArray = (object) [
+    'language' => of_get_option('language'),
+    'apiKey' => of_get_option('api-key'),
+    'logoutLink' => wp_logout_url(home_url()),
+    'logo' => of_get_option('logo'),
+    'geoLocation' => (object) [
+      'lat' => of_get_option('latitude'),
+      'lng' => of_get_option('longitude')
+    ]
+    ];
+    return $optionsArray;
+}
 ?>

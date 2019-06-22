@@ -5,6 +5,11 @@ function register_api_hooks()
         'methods' => 'POST',
         'callback' => 'login',
     ));
+
+    register_rest_route('spotlas', '/options/', array(
+      'methods' => 'GET',
+      'callback' => 'getOptions',
+    ));
 }
 
 add_action('rest_api_init', 'register_api_hooks');

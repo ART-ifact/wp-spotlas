@@ -33,4 +33,16 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  getUser() {
+    this.baseService.get('spotlas/user').subscribe((res) => {
+      console.log(res)
+    })
+  }
+
+  getOptions() {
+    this.baseService.get('spotlas/options').subscribe((res) => {
+      console.log(res)
+    })
+  }
+
 }

@@ -15,14 +15,14 @@ function get_admin_info(){
 };
 
 add_action( 'rest_api_init', function () {
-    register_rest_route( 'spottr', '/admin', array(
+    register_rest_route( 'spotlas', '/admin', array(
         'methods' => 'GET',
         'callback' => 'get_admin_info',
     ) );
 } );
 
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'spottr', '/user', array(
+  register_rest_route( 'spotlas', '/user', array(
       'methods' => 'GET',
       'callback' => 'get_user_info',
   ) );
