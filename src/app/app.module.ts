@@ -40,6 +40,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NonceInterceptor } from './services/nonce-interceptor';
 
 
 @NgModule({
@@ -53,6 +56,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
     MatCheckboxModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -88,7 +93,14 @@ import {MatPaginatorModule} from '@angular/material/paginator';
       apiKey: 'YOUR_KEY'
     })
     ],
-  providers: [],
+  providers: [
+    NonceInterceptor,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: NonceInterceptor,
+        multi: true
+      }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
