@@ -18,8 +18,6 @@ add_action('rest_api_init', 'slug_register_winter');
 add_action('rest_api_init', 'slug_register_hash');
 add_action('rest_api_init', 'slug_register_shared');
 
-add_action('rest_api_init', 'register_api_hooks');
-
 
 function slug_register_hash()
 {

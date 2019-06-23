@@ -1,0 +1,30 @@
+<ng-container *ngIf="locationService.locations">
+  <div class="grid-view">
+      <ng-container *ngFor="let location of locationService.locations">
+        <a [routerLink]="['/location/'+location.id]">
+          <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>{{location.title}}</mat-card-title>
+              </mat-card-header>
+              <div class="image-wrapper">
+                <div>
+                    <ng-container *ngIf="location.properties.images.length > 0">
+                        <img mat-card-image [src]="location.properties.images[0].thumb" >
+                      </ng-container>
+                      <ng-container *ngIf="location.properties.images.length === 0">
+                        <img mat-card-image src="./assets/img/location-standard.jpg" >
+                      </ng-container>
+                </div>
+              </div>
+              <app-accessibility [accessibility]="location.properties.accesibility"></app-accessibility>
+              <mat-card-content>
+                infos here
+              </mat-card-content>
+            </mat-card>
+        </a>
+
+      </ng-container>
+  </div>
+
+
+</ng-container>

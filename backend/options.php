@@ -98,6 +98,7 @@ function getOptions() {
     'apiKey' => of_get_option('api-key'),
     'logoutLink' => wp_logout_url(home_url()),
     'logo' => of_get_option('logo'),
+    'basePath' => get_template_directory_uri(),
     'geoLocation' => (object) [
       'lat' => of_get_option('latitude'),
       'lng' => of_get_option('longitude')

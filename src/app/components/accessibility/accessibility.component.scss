@@ -1,0 +1,22 @@
+.location-access {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #555454;
+  > span {
+    display: block;
+    height: 3px;
+
+    &.green {
+      background: green;
+    }
+
+    &.orange {
+      background: orange;
+    }
+
+    &.green {
+      background: green;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { BasicRestService } from './basic-rest.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AuthService {
   public nonce : string = null;
 
   constructor(
@@ -13,5 +13,9 @@ export class LoginService {
 
   login(data) {
     return this.baseService.post('spotlas/login', data);
+  }
+
+  getUser() {
+    return this.baseService.get('spotlas/user')
   }
 }

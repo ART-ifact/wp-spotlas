@@ -97,8 +97,8 @@ export class BasicRestService {
           //this.router.navigate(['/not-found']);
           break;
         case 403:
+          this.router.navigate(['/loginpage']);
           return Observable.throw(error.error.text);
-          //this.router.navigate(['/api-error']);
           break;
         default:
           //this.errorMessageService.errors.emit(new Error(`Fehler ${error.status} ${error.message}`));

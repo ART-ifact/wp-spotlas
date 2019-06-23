@@ -9,6 +9,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { MapComponent } from './pages/map/map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { AgmJsMarkerClustererModule   } from '@agm/js-marker-clusterer';
 //Angular Material Components
 import {MatCheckboxModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
@@ -44,12 +46,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NonceInterceptor } from './services/nonce-interceptor';
 
+import { PubSubModule } from 'angular7-pubsub';
+import { GridComponent } from './pages/grid/grid.component';
+import { AccessibilityComponent } from './components/accessibility/accessibility.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    MapComponent
+    MapComponent,
+    GridComponent,
+    AccessibilityComponent
   ],
   imports: [
     BrowserModule,
@@ -90,8 +98,14 @@ import { NonceInterceptor } from './services/nonce-interceptor';
     MatSortModule,
     MatPaginatorModule,
     AgmCoreModule.forRoot({
-      apiKey: 'YOUR_KEY'
-    })
+      apiKey: 'AIzaSyBRd9iWBMIeeSdR4FDxO4nYtnBLq7rQRyM'
+    }),
+    PubSubModule.forRoot(),
+    AgmSnazzyInfoWindowModule,
+    AgmJsMarkerClustererModule
+    ],
+    exports: [
+      AccessibilityComponent
     ],
   providers: [
     NonceInterceptor,

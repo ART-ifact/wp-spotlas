@@ -1,0 +1,55 @@
+@import '~@angular/material/theming';
+
+agm-map {
+  height: 100%;
+
+  ::ng-deep {
+    .si-content-wrapper {
+      background: mat-color($mat-blue-grey, 900);
+      color: #fff;
+      padding: 8px 0 0 0;
+      width: 320px;
+
+      .si-content {
+        max-width: 100% !important;
+        max-height: none !important;
+        width: 100%;
+      }
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        padding: 0 12px;
+      }
+
+      .image-wrapper {
+        position: relative;
+        overflow: hidden;
+        height: 194px;
+        display: block;
+
+        img {
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+      .nav-link {
+        background: teal;
+        color: white;
+        width: 100%;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        padding: 8px;
+      }
+    }
+
+    .si-pointer-top {
+      border-top-color: teal
+    }
+  }
+}
+
