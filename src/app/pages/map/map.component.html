@@ -6,14 +6,12 @@
             <ng-template #locationInfoWindow>
                 <div class="meta">
                   <h2>{{marker.title}}</h2>
-                  <a class="image-wrapper" [routerLink]="['location/'+marker.id]">
+                  <a class="image-wrapper" [routerLink]="['/location/'+marker.id]">
                     <div>
                       <img [src]="marker.properties.images[0].thumb" alt="">
                     </div>
                   </a>
-                  <span class="location-access" [ngClass]="marker.properties.accesibility">
-                    <span class="accessibility" [class.red]="marker.properties.accesibility < 3" [class.orange]="marker.properties.accesibility < 8 && marker.properties.accesibility > 2" [class.green]="marker.properties.accesibility > 7" [style.width.%]="marker.properties.accesibility + '0'"></span>
-                  </span>
+                  <app-accessibility [accessibility]="marker.properties.accesibility"></app-accessibility>
                   <a target="blank" [href]="'http://maps.google.com/?daddr='+marker.geoLocation.lat+','+marker.geoLocation.lng" class="nav-link">In GoogleMaps öffnen</a>
                 </div>
             </ng-template>

@@ -1,0 +1,41 @@
+<mat-toolbar color="secondary">
+  <mat-toolbar-row>
+    buttons here
+  </mat-toolbar-row>
+</mat-toolbar>
+<ng-container *ngIf="location">
+  <h1 class="location-title">{{location.title}}</h1>
+  <app-accessibility [accessibility]="location.properties.accesibility"></app-accessibility>
+  <div class="grid">
+    <div class="grid-item">
+        <mat-carousel
+        [autoplay]="false"
+        color="accent"
+        maxWidth="auto"
+        [slides]="location.properties.images.length"
+        [loop]="true"
+        [hideArrows]="false"
+        [hideIndicators]="false"
+        [useKeyboard]="true"
+        [useMouseWheel]="false"
+        orientation="ltr"
+      >
+        <mat-carousel-slide
+          #matCarouselSlide
+          *ngFor="let image of location.properties.images; let i = index"
+          overlayColor="#00000040"
+          [hideOverlay]="true"
+        >
+      <img [src]="image.large" alt=""></mat-carousel-slide>
+      </mat-carousel>
+      <agm-map  [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [styles]="mapStyle">
+          <agm-marker  [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker_'+location.properties.category+'.svg'">
+          </agm-marker>
+        </agm-map>
+    </div>
+    <div class="grid-item">
+        column 2
+    </div>
+  </div>
+</ng-container>
+

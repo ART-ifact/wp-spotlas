@@ -1,0 +1,55 @@
+.location-title {
+  width: 100%;
+  padding: 0 24px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.grid {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .grid-item {
+    width: 50%;
+    padding: 0 12px;
+    box-sizing: border-box
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .grid {
+    .grid-item {
+      width: 100%;
+    }
+  }
+}
+
+::ng-deep {
+  agm-map {
+    width: 100%;
+    height: 300px;
+  }
+   .carousel-slide {
+     padding-bottom: 100% !important;
+   }
+   .carousel > button {
+    background: rgba(255,255,255,0.2);
+    &:hover {
+      background: rgba(255,255,255,0.8);
+    }
+   }
+   .carousel-indicators {
+    background: rgba(255,255,255,0.2);
+    border-radius:10px;
+   }
+  .carousel-slide-content {
+    height: auto;
+    background: #484848;
+    img {
+      width: 100%;
+      margin-top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}

@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { AgmJsMarkerClustererModule   } from '@agm/js-marker-clusterer';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 //Angular Material Components
 import {MatCheckboxModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
@@ -49,6 +50,7 @@ import { NonceInterceptor } from './services/nonce-interceptor';
 import { PubSubModule } from 'angular7-pubsub';
 import { GridComponent } from './pages/grid/grid.component';
 import { AccessibilityComponent } from './components/accessibility/accessibility.component';
+import { LocationComponent } from './pages/location/location.component';
 
 
 @NgModule({
@@ -57,7 +59,8 @@ import { AccessibilityComponent } from './components/accessibility/accessibility
     LoginComponent,
     MapComponent,
     GridComponent,
-    AccessibilityComponent
+    AccessibilityComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +105,8 @@ import { AccessibilityComponent } from './components/accessibility/accessibility
     }),
     PubSubModule.forRoot(),
     AgmSnazzyInfoWindowModule,
-    AgmJsMarkerClustererModule
+    AgmJsMarkerClustererModule,
+    MatCarouselModule
     ],
     exports: [
       AccessibilityComponent

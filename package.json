@@ -27,6 +27,7 @@
     "@angular/pwa": "^0.800.3",
     "@angular/router": "~8.0.1",
     "@angular/service-worker": "~8.0.1",
+    "@ngmodule/material-carousel": "^0.4.0",
     "angular7-pubsub": "^2.1.1",
     "js-marker-clusterer": "^1.0.0",
     "rxjs": "~6.4.0",
