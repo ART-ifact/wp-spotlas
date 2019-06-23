@@ -5,7 +5,7 @@
 </mat-toolbar>
 <ng-container *ngIf="location">
   <h1 class="location-title">{{location.title}}</h1>
-  <app-accessibility [accessibility]="location.properties.accesibility"></app-accessibility>
+  <app-accessibility [accessibility]="location.properties.accesibility" [big]="true"></app-accessibility>
   <div class="grid">
     <div class="grid-item">
         <mat-carousel

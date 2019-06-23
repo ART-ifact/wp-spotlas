@@ -3,6 +3,13 @@
   width: 100%;
   height: 3px;
   background: #555454;
+
+  &.big {
+    height: 8px;
+    > span {
+      height: 8px;
+    }
+  }
   > span {
     display: block;
     height: 3px;

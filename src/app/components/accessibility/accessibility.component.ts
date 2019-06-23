@@ -10,6 +10,7 @@ export class AccessibilityComponent implements OnInit {
   constructor() { }
 
   @Input() accessibility : number = 0;
+  @Input() big : boolean = false;
   ngOnInit() {
   }
 
