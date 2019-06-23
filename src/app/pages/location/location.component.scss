@@ -13,7 +13,20 @@
   .grid-item {
     width: 50%;
     padding: 0 12px;
-    box-sizing: border-box
+    box-sizing: border-box;
+
+    .four-items {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+
+      > * {
+        flex: 1 0 21%; /* explanation below */
+        margin: 5px;
+        justify-content: center;
+        display: flex;
+      }
+    }
   }
 }
 

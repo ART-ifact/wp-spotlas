@@ -30,13 +30,12 @@ export class LocationsService {
               adress: item.adress,
               type: item.type,
               wheater: {
-                autumn: item.autumn,
                 cloudy: item.cloudy,
                 foggy: item.foggy,
                 rainy: item.rainy,
                 sunny: item.sunny
               },
-              seasony: {
+              seasons: {
                 autumn: item.autumn,
                 spring: item.spring,
                 summer: item.summer,
@@ -73,18 +72,16 @@ export class LocationsService {
               adress: item.adress,
               type: item.type,
               wheater: {
-                autumn: item.autumn,
-                cloudy: item.cloudy,
-                foggy: item.foggy,
-                rainy: item.rainy,
-                sunny: item.sunny
+                cloudy: (item.cloudy == 'true'),
+                foggy: (item.foggy == 'true'),
+                rainy: (item.rainy == 'true'),
+                sunny: (item.sunny == 'true')
               },
-              seasony: {
-                autumn: item.autumn,
-                spring: item.spring,
-                summer: item.summer,
-                winter: item.winter
-              },
+              seasons: {
+                autumn: (item.autumn == 'true'),
+                spring: (item.spring == 'true'),
+                summer: (item.summer == 'true'),
+                winter: (item.winter == 'true')},
               images: JSON.parse(item.images)
             },
             geoLocation: {

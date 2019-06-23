@@ -1,0 +1,4 @@
+<input type="checkbox" name="{{name}}" [attr.checked]="checked ? true : null" [attr.readonly]="readonly ? true : null">
+<label for="{{name}}" class="weather-label" (click)="toggleCheckedState()">
+    <mat-icon matSuffix svgIcon="{{iconName}}"></mat-icon>
+</label>

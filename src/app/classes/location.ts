@@ -9,17 +9,16 @@ export interface LocationItem {
     adress: string,
     type: string,
     wheater: {
-      autumn: string,
-      cloudy: string,
-      foggy: string,
-      rainy: string,
-      sunny: string
+      cloudy: boolean,
+      foggy: boolean,
+      rainy: boolean,
+      sunny: boolean
     },
-    seasony: {
-      autumn: string,
-      spring: string,
-      summer: string,
-      winter: string
+    seasons: {
+      autumn: boolean,
+      spring: boolean,
+      summer: boolean,
+      winter: boolean
     },
     images: any[]
   },

@@ -51,6 +51,7 @@ import { PubSubModule } from 'angular7-pubsub';
 import { GridComponent } from './pages/grid/grid.component';
 import { AccessibilityComponent } from './components/accessibility/accessibility.component';
 import { LocationComponent } from './pages/location/location.component';
+import { CustomCheckboxComponent } from './components/custom-checkbox/custom-checkbox.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { LocationComponent } from './pages/location/location.component';
     MapComponent,
     GridComponent,
     AccessibilityComponent,
-    LocationComponent
+    LocationComponent,
+    CustomCheckboxComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,8 @@ import { LocationComponent } from './pages/location/location.component';
     MatCarouselModule
     ],
     exports: [
-      AccessibilityComponent
+      AccessibilityComponent,
+      CustomCheckboxComponent
     ],
   providers: [
     NonceInterceptor,

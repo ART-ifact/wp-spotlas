@@ -1,0 +1,27 @@
+label {
+  color: green;
+}
+
+input {
+  display: none;
+}
+:host {
+  input+label {
+    display: inline-block;
+
+    color: #fff;
+
+  }
+
+  label > mat-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  input:checked+label {
+
+    color: teal;
+
+  }
+}
+
