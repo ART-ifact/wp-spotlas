@@ -18,7 +18,7 @@ export class MapComponent implements OnInit {
         textSize: 11,
         backgroundPosition: "center center"
   }
-  public mapStyle = environment.mapStyle;
+  public mapStyle = this.optionService.mapStyle;
 
   constructor(public optionService : OptionsService, public locationsService : LocationsService) { }
 

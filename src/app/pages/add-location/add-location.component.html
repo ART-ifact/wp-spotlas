@@ -1,0 +1,45 @@
+<mat-toolbar color="secondary">
+  <mat-toolbar-row>
+    buttons here
+  </mat-toolbar-row>
+</mat-toolbar>
+<ng-container>
+  <div class="grid">
+    <div class="grid-item">
+      <input type="text" id="pac-input">
+      <app-file-input (imageObject)="setImageArray($event)"></app-file-input>
+      <agm-map  *ngIf="optionService.options" [latitude]="parseInt(optionService.options.geoLocation.lat)" [longitude]="parseInt(optionService.options.geoLocation.lng)" [styles]="mapStyle">
+          <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="optionService.options.geoLocation.lat" [longitude]="optionService.options.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker.svg'">
+          </agm-marker>
+        </agm-map>
+    </div>
+    <div class="grid-item">
+    <div class="grid">
+      <div class="grid-item">
+        <h3>Category</h3>
+
+      </div>
+      <div class="grid-item">
+        <h3>Stichwörter</h3>
+
+      </div>
+    </div>
+      <h3>Wheather</h3>
+        <div class="four-items">
+            <app-custom-checkbox name="sunny" iconName="sunny"></app-custom-checkbox>
+            <app-custom-checkbox name="foggy" iconName="foggy"></app-custom-checkbox>
+            <app-custom-checkbox name="cloudy" iconName="cloudy"></app-custom-checkbox>
+            <app-custom-checkbox name="rainy" iconName="rainy"></app-custom-checkbox>
+        </div>
+        <h3>Seasons</h3>
+        <div class="four-items">
+            <app-custom-checkbox name="spring" iconName="spring"></app-custom-checkbox>
+            <app-custom-checkbox name="summer" iconName="summer"></app-custom-checkbox>
+            <app-custom-checkbox name="autumn" iconName="autumn"></app-custom-checkbox>
+            <app-custom-checkbox name="winter" iconName="winter"></app-custom-checkbox>
+        </div>
+      <h3>Note</h3>
+    </div>
+  </div>
+</ng-container>
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { PubSubService } from 'angular7-pubsub';
 import { UserService } from './services/user.service';
@@ -7,6 +7,9 @@ import { Events } from './classes/enum/events.enum';
 import { LocationsService } from './services/locations.service';
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from '@angular/platform-browser';
+import { LocalStorageService } from './services/local-storage.service';
+import { DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
@@ -24,6 +27,9 @@ export class AppComponent {
     private locationsService : LocationsService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
+    private storage : LocalStorageService,
+    private _renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document: Document,
     ) {
       this.matIconRegistry.addSvgIcon(
         "rainy",
@@ -77,11 +83,14 @@ export class AppComponent {
         this.router.navigate(['/loginpage'])
       } else {
         this.userService.userData = res;
+        this.userService.getMediaNonce().subscribe(res => {
+          this.storage.setItem('MEDIANONCE', res);
+        })
       }
     })
     this.optionService.getOptions().subscribe(response => {
       this.optionService.options = response;
-      this.eventService.$pub(Events.OPTIONSLOADED);
+      this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
     });
     this.locationsService.getLocations().subscribe(response => {
       this.locationsService.locations = response;

@@ -6,6 +6,7 @@ import { BasicRestService } from './basic-rest.service';
 })
 export class AuthService {
   public nonce : string = null;
+  public mediaNonce : string = null;
 
   constructor(
     private baseService : BasicRestService

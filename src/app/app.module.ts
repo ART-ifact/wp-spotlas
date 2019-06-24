@@ -53,6 +53,8 @@ import { AccessibilityComponent } from './components/accessibility/accessibility
 import { LocationComponent } from './pages/location/location.component';
 import { CustomCheckboxComponent } from './components/custom-checkbox/custom-checkbox.component';
 import { CustomLazyAPIKeyLoader } from './classes/map-api-loader';
+import { AddLocationComponent } from './pages/add-location/add-location.component';
+import { FileInputComponent } from './components/file-input/file-input.component';
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import { CustomLazyAPIKeyLoader } from './classes/map-api-loader';
     GridComponent,
     AccessibilityComponent,
     LocationComponent,
-    CustomCheckboxComponent
+    CustomCheckboxComponent,
+    AddLocationComponent,
+    FileInputComponent
   ],
   imports: [
     BrowserModule,
@@ -107,11 +111,13 @@ import { CustomLazyAPIKeyLoader } from './classes/map-api-loader';
     PubSubModule.forRoot(),
     AgmSnazzyInfoWindowModule,
     AgmJsMarkerClustererModule,
-    MatCarouselModule
+    MatCarouselModule,
+    FormsModule
     ],
     exports: [
       AccessibilityComponent,
-      CustomCheckboxComponent
+      CustomCheckboxComponent,
+      FileInputComponent
     ],
   providers: [
     { provide: MapsAPILoader, useClass: CustomLazyAPIKeyLoader },

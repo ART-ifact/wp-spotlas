@@ -10,9 +10,19 @@ function register_api_hooks()
       'methods' => 'GET',
       'callback' => 'getOptions',
     ));
+
+    register_rest_route('spotlas', '/medianonce/', array(
+      'methods' => 'GET',
+      'callback' => 'getMediaNonce'
+    ));
 }
 
 add_action('rest_api_init', 'register_api_hooks');
+
+function getMediaNonce() {
+  $mediaNonce = wp_create_nonce('media-form');
+  return $mediaNonce;
+}
 
 function login($request)
 {
@@ -32,10 +42,12 @@ function login($request)
     }
 
     $nonce = wp_create_nonce('wp_rest');
+    $mediaNonce = wp_create_nonce('media-form');
 
     if ( wp_verify_nonce( $nonce, 'wp_rest' ) ) {
       return [
         'nonce' => $nonce,
+        'mediaNonce' => $mediaNonce,
         'user' => $userID,
       ];
     }

@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MapComponent } from './pages/map/map.component';
 import { GridComponent } from './pages/grid/grid.component';
 import { LocationComponent } from './pages/location/location.component';
+import { AddLocationComponent } from './pages/add-location/add-location.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'location/:id',
     component: LocationComponent
+  },
+  {
+    path: 'add-location',
+    component: AddLocationComponent
   }
 ];
 

@@ -12,4 +12,8 @@ export class UserService {
   getUser() {
     return this.baseService.get('spotlas/user')
   }
+
+  getMediaNonce() {
+    return this.baseService.get('spotlas/medianonce');
+  }
 }

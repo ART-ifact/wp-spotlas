@@ -27,6 +27,8 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
             return this._scriptLoadingPromise;
         }
 
+
+
         const script = this._documentRef.getNativeDocument().createElement('script');
         script.type = 'text/javascript';
         script.async = true;
@@ -81,7 +83,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
             key: this._config.apiKey,
             client: this._config.clientId,
             channel: this._config.channel,
-            libraries: this._config.libraries,
+            libraries: ["places","marker"],
             region: this._config.region,
             language: this._config.language
         };

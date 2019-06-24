@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
     loginForm.append('user_login', this.username);
     this.authService.login(loginForm).subscribe((response : any) => {
       this.authService.nonce = response.nonce;
+      this.authService.mediaNonce = response.mediaNonce;
       this.storage.setItem('NONCE', response.nonce);
+      this.storage.setItem('MEDIANONCE', response.mediaNonce);
       this.eventService.$pub(Events.LOGGEDIN);
       this.router.navigate(['/'])
     })

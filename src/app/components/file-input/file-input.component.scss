@@ -1,0 +1,49 @@
+.file-input {
+  display: flex;
+  flex-wrap: wrap;
+
+  > mat-form-field {
+    flex: 1 1 102px;
+  }
+
+  button {
+    max-height: 48px;
+    margin-left: 12px;
+  }
+}
+
+.image-list {
+  list-style: none;
+  width: 100%;
+
+  li {
+    float: left;
+    width: calc(33.333333333% - 16px);
+    max-height: 100px;
+    overflow: hidden;
+    padding: 0 8px;
+    position: relative;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+
+    img {
+      width: 100%;
+      margin-top: 50%;
+      transform: translateY(-50%);
+    }
+
+    button {
+      border: 0;
+      background: darkred;
+      color: white;
+      position: absolute;
+      right: 8px;
+      bottom: 0;
+      width: 38px;
+      border-radius: 8px 0 0 0;
+      height: 32px;
+      padding-top: 5px;
+    }
+
+  }
+}
