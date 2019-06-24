@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './pages/login/login.component';
 import { MapComponent } from './pages/map/map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { AgmJsMarkerClustererModule   } from '@agm/js-marker-clusterer';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
@@ -52,6 +52,7 @@ import { GridComponent } from './pages/grid/grid.component';
 import { AccessibilityComponent } from './components/accessibility/accessibility.component';
 import { LocationComponent } from './pages/location/location.component';
 import { CustomCheckboxComponent } from './components/custom-checkbox/custom-checkbox.component';
+import { CustomLazyAPIKeyLoader } from './classes/map-api-loader';
 
 
 @NgModule({
@@ -102,9 +103,7 @@ import { CustomCheckboxComponent } from './components/custom-checkbox/custom-che
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBRd9iWBMIeeSdR4FDxO4nYtnBLq7rQRyM'
-    }),
+    AgmCoreModule.forRoot(),
     PubSubModule.forRoot(),
     AgmSnazzyInfoWindowModule,
     AgmJsMarkerClustererModule,
@@ -115,6 +114,7 @@ import { CustomCheckboxComponent } from './components/custom-checkbox/custom-che
       CustomCheckboxComponent
     ],
   providers: [
+    { provide: MapsAPILoader, useClass: CustomLazyAPIKeyLoader },
     NonceInterceptor,
       {
         provide: HTTP_INTERCEPTORS,

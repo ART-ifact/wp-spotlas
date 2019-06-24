@@ -23,7 +23,7 @@ export class AppComponent {
     private optionService : OptionsService,
     private locationsService : LocationsService,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
     ) {
       this.matIconRegistry.addSvgIcon(
         "rainy",
