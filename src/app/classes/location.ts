@@ -3,6 +3,7 @@ export interface LocationItem {
   shared: string,
   hash: string,
   title: string,
+  note: string,
   properties: {
     accesibility : string,
     category: string,

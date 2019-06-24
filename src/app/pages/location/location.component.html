@@ -34,6 +34,24 @@
         </agm-map>
     </div>
     <div class="grid-item">
+    <div class="grid">
+      <div class="grid-item">
+        <h3>Category</h3>
+        <mat-icon *ngIf="location.properties.category == 'urban'">location_city</mat-icon>
+        <mat-icon *ngIf="location.properties.category == 'building'">home</mat-icon>
+        <mat-icon *ngIf="location.properties.category == 'landscape'">local_florist</mat-icon>
+        <mat-icon *ngIf="location.properties.category == 'water'">directions_boat</mat-icon>
+        {{location.properties.category}}
+      </div>
+      <div class="grid-item">
+        <h3>Stichwörter</h3>
+        <mat-chip-list>
+        <ng-container *ngFor="let type of location.properties.type">
+          <mat-chip color="primary" selected>{{type}}</mat-chip>
+        </ng-container>
+        </mat-chip-list>
+      </div>
+    </div>
       <h3>Wheather</h3>
         <div class="four-items">
             <app-custom-checkbox name="sunny" iconName="sunny" [readonly]="true" [checked]="location.properties.wheater.sunny"></app-custom-checkbox>
@@ -48,7 +66,8 @@
             <app-custom-checkbox name="autumn" iconName="autumn" [readonly]="true" [checked]="location.properties.seasons.autumn"></app-custom-checkbox>
             <app-custom-checkbox name="winter" iconName="winter" [readonly]="true" [checked]="location.properties.seasons.winter"></app-custom-checkbox>
         </div>
-
+      <h3>Note</h3>
+      {{location.note}}
     </div>
   </div>
 </ng-container>

@@ -24,6 +24,7 @@ export class LocationsService {
             shared: item.shared,
             hash: item.hash,
             title: item.title.rendered,
+            note: item.content.rendered.replace(/(<([^>]+)>)/ig,""),
             properties: {
               accesibility : item.accesibility,
               category: item.category,
@@ -66,11 +67,12 @@ export class LocationsService {
             shared: item.shared,
             hash: item.hash,
             title: item.title.rendered,
+            note: item.content.rendered.replace(/(<([^>]+)>)/ig,""),
             properties: {
               accesibility : item.accesibility,
               category: item.category,
               adress: item.adress,
-              type: item.type,
+              type: item.type.split(','),
               wheater: {
                 cloudy: (item.cloudy == 'true'),
                 foggy: (item.foggy == 'true'),
