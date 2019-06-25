@@ -20,49 +20,10 @@ export class AddLocationComponent implements OnInit {
   constructor(public optionService : OptionsService, private eventService : PubSubService) { }
 
   ngOnInit() {
-
-    if(window.google !== undefined) {
-      this.loadAutocomplete();
-
-    } else {
-      this.mapsListener = this.eventService.$sub(Events.MAPSLOADED,() => {
-        this.loadAutocomplete();
-      })
-    }
-
-
   }
 
   loadAutocomplete() {
-    var input = document.getElementById('pac-input');
-    var searchBox = new google.maps.places.SearchBox(input);
-    searchBox.addListener('places_changed', function() {
-      var places = searchBox.getPlaces();
 
-      console.log(places);
-      if (places.length == 0) {
-        return;
-      }
-
-
-      // For each place, get the icon, name and location.
-      var bounds = new google.maps.LatLngBounds();
-      places.forEach(function(place) {
-        if (!place.geometry) {
-          console.log("Returned place contains no geometry");
-          return;
-        }
-
-
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-          console.log('Dresden',bounds.union(place.geometry.viewport),bounds.extend(place.geometry.location))
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-    });
   }
 
   setImageArray(imageArray) {
@@ -79,8 +40,5 @@ export class AddLocationComponent implements OnInit {
     this.locationObject.longitude = position.coords.lng;
   }
 
-  autoCompleteCallback1(position) {
-    console.log(position)
-  }
 
 }
