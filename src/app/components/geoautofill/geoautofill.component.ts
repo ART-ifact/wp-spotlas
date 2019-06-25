@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, EventEmitter, Output, ChangeDetectorRef, NgZone, ViewChild } from '@angular/core';
 import { PubSubService } from 'angular7-pubsub';
 import { Events } from 'src/app/classes/enum/events.enum';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-geoautofill',
@@ -9,57 +10,58 @@ import { Events } from 'src/app/classes/enum/events.enum';
 })
 export class GeoautofillComponent implements OnInit {
   private mapsListener;
-  constructor(private eventService : PubSubService) { }
+  public latitude: number;
+  public longitude: number;
+  public autocomplete;
+  @Output() position = new EventEmitter();
 
+  constructor(private eventService : PubSubService, private element: ElementRef, private ngZone: NgZone) { }
   ngOnInit() {
-    if(window.google !== undefined) {
+    if('google' in window) {
       this.initAutocomplete();
-
     } else {
       this.mapsListener = this.eventService.$sub(Events.MAPSLOADED,() => {
         this.initAutocomplete();
       })
     }
-  }
-
-  autoCompleteCallback1(position) {
-    console.log(position)
+    window.addEventListener('geoposition', (data : any) => {
+      console.log(data)
+      this.getLocation(data.detail)
+    })
   }
 
   initAutocomplete() {
-    var input = document.getElementById('autocomplete-input');
-    var searchBox = new google.maps.places.SearchBox(input);
-    searchBox.addListener('places_changed', function() {
-      var places = searchBox.getPlaces();
+    let input = this.element.nativeElement.querySelectorAll('input')[0];
+    this.autocomplete = new google.maps.places.SearchBox(input)
+    this.autocomplete.addListener("places_changed", () => {
+      console.log(event)
+      let places = this.autocomplete.getPlaces();
 
-      console.log(places);
       if (places.length == 0) {
         return;
       }
 
-
       // For each place, get the icon, name and location.
-      var bounds = new google.maps.LatLngBounds();
       places.forEach(function(place) {
         if (!place.geometry) {
           console.log("Returned place contains no geometry");
           return;
         }
 
-
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-          console.log('Dresden',bounds.union(place.geometry.viewport),bounds.extend(place.geometry.location))
-        } else {
-          bounds.extend(place.geometry.location);
-        }
+        let geoPosition = {"lat": place.geometry.location.lat(), "lng": place.geometry.location.lng()};
+        console.log(geoPosition)
+        var event = new CustomEvent('geoposition', { detail : geoPosition});
+        window.dispatchEvent(event)
       });
     });
   }
 
   ngOnDestroy(): void {
     this.mapsListener.unsubscribe();
+  }
+
+  getLocation(geoLocation) {
+    this.position.emit(geoLocation)
   }
 
 }

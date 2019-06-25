@@ -7,11 +7,12 @@
   <div class="grid">
     <div class="grid-item">
       <app-file-input (imageObject)="setImageArray($event)"></app-file-input>
-      <app-geoautofill></app-geoautofill>
-      <agm-map  *ngIf="optionService.options" [latitude]="parseInt(optionService.options.geoLocation.lat)" [longitude]="parseInt(optionService.options.geoLocation.lng)" [styles]="mapStyle">
-          <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="optionService.options.geoLocation.lat" [longitude]="optionService.options.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker.svg'">
+      <app-geoautofill (position)="updateLocation($event)"></app-geoautofill>
+      {{locationObject.latitude.length }}
+      <agm-map  *ngIf="optionService.options" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : parseInt(optionService.options.geoLocation.lat)" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  parseInt(optionService.options.geoLocation.lng)" [styles]="mapStyle">
+          <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : optionService.options.geoLocation.lat" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  optionService.options.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker.svg'">
           </agm-marker>
-        </agm-map>
+      </agm-map>
     </div>
     <div class="grid-item">
     <div class="grid">

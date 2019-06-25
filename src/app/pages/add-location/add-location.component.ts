@@ -13,8 +13,8 @@ export class AddLocationComponent implements OnInit {
   public imageArray : string = '';
   public mapStyle = this.optionService.mapStyle;
   public locationObject = {
-    "latitude" : '',
-    "longitude": ''
+    latitude : 0,
+    longitude: 0
   }
   private mapsListener;
   constructor(public optionService : OptionsService, private eventService : PubSubService) { }
@@ -24,6 +24,12 @@ export class AddLocationComponent implements OnInit {
 
   loadAutocomplete() {
 
+  }
+
+  updateLocation(position) {
+    this.locationObject.latitude = position.lat;
+    this.locationObject.longitude = position.lng;
+    console.log(this.locationObject)
   }
 
   setImageArray(imageArray) {

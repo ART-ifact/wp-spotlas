@@ -119,7 +119,8 @@ import { GeoautofillComponent } from './components/geoautofill/geoautofill.compo
     exports: [
       AccessibilityComponent,
       CustomCheckboxComponent,
-      FileInputComponent
+      FileInputComponent,
+      FormsModule
     ],
   providers: [
     { provide: MapsAPILoader, useClass: CustomLazyAPIKeyLoader },
