@@ -50,7 +50,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
 
 
         this._scriptLoadingPromise = new Promise<void>((resolve: Function, reject: Function) => {
-            (<any>this._windowRef.getNativeWindow())[callbackName] = () => { console.log("loaded"); resolve(); };
+            (<any>this._windowRef.getNativeWindow())[callbackName] = () => { this.eventService.$pub(Events.MAPSLOADED); resolve(); };
 
             script.onerror = (error: Event) => { reject(error); };
         });

@@ -2,6 +2,7 @@ import { Renderer2,Component, OnInit, Inject } from '@angular/core';
 import { OptionsService } from 'src/app/services/options.service';
 import { DOCUMENT } from '@angular/common';
 import { PubSubService } from 'angular7-pubsub';
+import { Events } from 'src/app/classes/enum/events.enum';
 
 @Component({
   selector: 'app-add-location',
@@ -15,13 +16,26 @@ export class AddLocationComponent implements OnInit {
     "latitude" : '',
     "longitude": ''
   }
-
-  constructor(public optionService : OptionsService) { }
+  private mapsListener;
+  constructor(public optionService : OptionsService, private eventService : PubSubService) { }
 
   ngOnInit() {
+
+    if(window.google !== undefined) {
+      this.loadAutocomplete();
+
+    } else {
+      this.mapsListener = this.eventService.$sub(Events.MAPSLOADED,() => {
+        this.loadAutocomplete();
+      })
+    }
+
+
+  }
+
+  loadAutocomplete() {
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
-
     searchBox.addListener('places_changed', function() {
       var places = searchBox.getPlaces();
 
