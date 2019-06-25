@@ -1,11 +1,11 @@
 export interface LocationItem {
   id: number,
-  shared: string,
+  shared: boolean,
   hash: string,
   title: string,
   note: string,
   properties: {
-    accesibility : string,
+    accesibility : number,
     category: string,
     adress: string,
     type: string,

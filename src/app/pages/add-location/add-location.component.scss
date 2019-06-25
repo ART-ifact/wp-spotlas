@@ -24,6 +24,22 @@
   }
 }
 
+.button-row {
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+.btn-current-location {
+  width: 100%;
+  border-radius: 0;
+}
+
+.mat-form-field,
+mat-slider {
+  width: 100%;
+}
+
 agm-map {
   width: 100%;
   height: 300px;
