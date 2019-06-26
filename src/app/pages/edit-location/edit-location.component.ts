@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationsService } from 'src/app/services/locations.service';
 import { OptionsService } from 'src/app/services/options.service';
+import { LocationService } from 'src/app/services/location.service';
 
 @Component({
   selector: 'app-edit-location',
@@ -31,7 +32,7 @@ export class EditLocationComponent implements OnInit {
 
   constructor(
     private route : ActivatedRoute,
-    private locationService: LocationsService,
+    private locationService: LocationService,
     public optionService : OptionsService,
     private locationsService : LocationsService,
     private router : Router
@@ -46,11 +47,22 @@ export class EditLocationComponent implements OnInit {
   }
 
   getLocation() {
-    this.locationService.loadLocation(this.id).subscribe(response => {
+    this.locationsService.loadLocation(this.id).subscribe(response => {
       this.location = response;
       console.log(this.location)
     })
     console.log(this.location)
+  }
+
+  getCurrentLocation() {
+    this.locationService.getPosition().then(pos => {
+      this.updateLocation(pos);
+    })
+  }
+
+  updateLocation(position) {
+    this.location.geoLocation.lat = position.lat;
+    this.location.geoLocation.lng = position.lng;
   }
 
   setPosition(position) {
