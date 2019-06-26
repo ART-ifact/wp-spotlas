@@ -15,13 +15,29 @@ function register_api_hooks()
       'methods' => 'GET',
       'callback' => 'getMediaNonce'
     ));
+
+    register_rest_route('spotlas', '/nonces/', array(
+      'methods' => 'GET',
+      'callback' => 'getNonces'
+    ));
 }
 
 add_action('rest_api_init', 'register_api_hooks');
 
 function getMediaNonce() {
+  return;
+  //$mediaNonce = wp_create_nonce('media-form');
+  //return $mediaNonce;
+}
+
+function getNonces() {
   $mediaNonce = wp_create_nonce('media-form');
-  return $mediaNonce;
+  $nonce = wp_create_nonce('wp_rest');
+  $returnObject = [
+    'nonce' => $nonce,
+    'mediaNonce' => $mediaNonce
+  ];
+  return $returnObject;
 }
 
 function login($request)
@@ -55,7 +71,7 @@ function login($request)
 }
 
 add_filter( 'rest_post_dispatch', function( WP_REST_Response $response, WP_REST_Server $rest, WP_REST_Request $request) {
-    $response->header('X-WP-Nonce', wp_create_nonce( 'wp_rest' ));
+    //$response->header('X-WP-Nonce', wp_create_nonce( 'wp_rest' ));
     return $response;
 }, PHP_INT_MAX, 3);
 // wp_create_nonce relies on user-id from global user object, and authentication cookie.

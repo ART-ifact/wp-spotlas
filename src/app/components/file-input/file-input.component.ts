@@ -5,6 +5,8 @@ import { BasicRestService } from 'src/app/services/basic-rest.service';
 import { UserService } from 'src/app/services/user.service';
 import { ApiEndpoints } from 'src/app/classes/enum/api-endpoints.enum';
 import { Helper } from 'src/app/helper/helper';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { StorageItems } from 'src/app/classes/enum/storage-items.enum';
 
 @Component({
   selector: 'app-file-input',
@@ -19,7 +21,7 @@ export class FileInputComponent implements OnInit {
 
   @Output() geoLocation = new EventEmitter();
   @Output() imageObject = new EventEmitter();
-  constructor(private authService : AuthService, private baseService : BasicRestService, private userService : UserService) { }
+  constructor(private authService : AuthService, private baseService : BasicRestService, private userService : UserService, private storage : LocalStorageService) { }
 
 
   ngOnInit() {
@@ -69,10 +71,8 @@ export class FileInputComponent implements OnInit {
     this.sending = true;
     var mediaForm = this.buildMediaData(file);
 
-    this.userService.getNonce().subscribe(nonce => {
-      this.baseService.postMedia(ApiEndpoints.media, mediaForm, nonce).subscribe(response => {
-        this.updateImageArray(response)
-      })
+    this.baseService.postMedia(ApiEndpoints.media, mediaForm).subscribe(response => {
+      this.updateImageArray(response)
     })
 
   }
@@ -83,7 +83,7 @@ export class FileInputComponent implements OnInit {
     formData.append("file", fileInput);
     formData.append("name", fileInput.name);
 
-    formData.append("_wpnonce", this.authService.nonce);
+    formData.append("_wpnonce", this.storage.getItem(StorageItems.wpNonce));
 
     return formData;
   }

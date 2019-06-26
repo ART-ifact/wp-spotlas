@@ -17,6 +17,10 @@ export class AuthService {
     return this.baseService.post(environment.api+'spotlas/login', data);
   }
 
+  updateNonces() {
+    return this.baseService.get(environment.api+'spotlas/nonces');
+  }
+
   getUser() {
     return this.baseService.get(environment.api+'spotlas/user')
   }

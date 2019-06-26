@@ -9,6 +9,8 @@ import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from '@angular/platform-browser';
 import { LocalStorageService } from './services/local-storage.service';
 import { DOCUMENT } from '@angular/common';
+import { AuthService } from './services/auth.service';
+import { StorageItems } from './classes/enum/storage-items.enum';
 
 
 @Component({
@@ -29,6 +31,7 @@ export class AppComponent {
     private domSanitizer: DomSanitizer,
     private storage : LocalStorageService,
     private _renderer2: Renderer2,
+    private authService : AuthService,
     @Inject(DOCUMENT) private _document: Document,
     ) {
       this.matIconRegistry.addSvgIcon(
@@ -83,15 +86,16 @@ export class AppComponent {
         this.router.navigate(['/loginpage'])
       } else {
         this.userService.userData = res;
-        this.userService.getNonce().subscribe(res => {
-          this.storage.setItem('MEDIANONCE', res);
+        this.authService.updateNonces().subscribe((res : any) => {
+          this.storage.setItem(StorageItems.mediaNonce, res.mediaNonce)
+          this.storage.setItem(StorageItems.wpNonce, res.nonce)
         })
+        this.optionService.getOptions().subscribe(response => {
+          this.optionService.options = response;
+          this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
+        });
       }
     })
-    this.optionService.getOptions().subscribe(response => {
-      this.optionService.options = response;
-      this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
-    });
   }
 
   ngOnDestroy() {

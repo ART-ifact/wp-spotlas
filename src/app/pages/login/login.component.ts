@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PubSubService } from 'angular7-pubsub';
 import { Events } from 'src/app/classes/enum/events.enum';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { StorageItems } from 'src/app/classes/enum/storage-items.enum';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.storage.deleteItem(StorageItems.wpNonce);
+    this.storage.deleteItem(StorageItems.mediaNonce);
   }
 
   doLogin() {
@@ -35,8 +38,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginForm).subscribe((response : any) => {
       this.authService.nonce = response.nonce;
       this.authService.mediaNonce = response.mediaNonce;
-      this.storage.setItem('NONCE', response.nonce);
-      this.storage.setItem('MEDIANONCE', response.mediaNonce);
+      this.storage.setItem(StorageItems.wpNonce, response.nonce);
+      this.storage.setItem(StorageItems.mediaNonce, response.mediaNonce);
       this.eventService.$pub(Events.LOGGEDIN);
       this.router.navigate(['/'])
     })

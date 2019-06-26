@@ -6,6 +6,7 @@ import { tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LocalStorageService } from './local-storage.service';
 import { UserService } from './user.service';
+import { StorageItems } from '../classes/enum/storage-items.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -46,10 +47,10 @@ export class BasicRestService {
   }
 
 
-  public postMedia<T>(path: string, data: any, nonce : any): Observable<T> {
+  public postMedia<T>(path: string, data: any): Observable<T> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'X-WP-NONCE': `${nonce}`
+        'X-WP-NONCE': `${this.storage.getItem(StorageItems.mediaNonce)}`
       })
     };
     return this.httpClient.post<T>(path, data, httpOptions).pipe(
@@ -94,7 +95,7 @@ export class BasicRestService {
   public deleteMedia<T>(path: string): Observable<T> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'X-WP-NONCE': `${this.storage.getItem('MEDIANONCE')}`
+        'X-WP-NONCE': `${this.storage.getItem(StorageItems.mediaNonce)}`
       })
     };
     return this.httpClient.delete<T>(path, httpOptions).pipe(

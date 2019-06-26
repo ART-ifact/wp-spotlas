@@ -7,7 +7,10 @@ add_filter('rest_pre_dispatch', function ($request) {
   $validPaths = array(
     of_get_option('basepath') . 'wp-json/nonce/v1/get',
     of_get_option('basepath') . 'wp-json/nonce/v1/verify',
-    of_get_option('basepath') . 'wp-json/spotlas/login'
+    of_get_option('basepath') . 'wp-json/spotlas/login',
+    '/wp-json/nonce/v1/get',
+    '/wp-json/nonce/v1/verify',
+    '/wp-json/spotlas/login'
   );
   $isValidRequest = false;
 
@@ -26,6 +29,9 @@ add_filter('rest_pre_dispatch', function ($request) {
   if (!is_user_logged_in()  && !in_array($path, $validPaths) && $isValidRequest === false) {
       $error = new WP_Error('not-logged-in', 'You are not logged in', array(
           'status' => 403,
+          'inarray' => in_array($path, $validPaths),
+          '$path' => $path,
+          '$validPaths' => $validPaths
       ));
       return  $error;
   }
