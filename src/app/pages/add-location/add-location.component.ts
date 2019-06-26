@@ -108,44 +108,55 @@ export class AddLocationComponent implements OnInit {
   }
 
   setAccessibility(access) {
+    console.log(access)
     this.locationArray.properties.accesibility = access.target.value;
   }
 
   setCategory(category) {
+    console.log(category)
     this.locationArray.properties.category = category.target.value;
   }
 
   setTags(tags) {
+    console.log(tags)
     this.locationArray.properties.type = tags.target.value;
   }
 
   setWeatherSunny(value) {
+    console.log(value)
     this.locationArray.properties.wheater.sunny = value.target.value;
   }
 
   setWeatherCloudy(value) {
+    console.log(value)
     this.locationArray.properties.wheater.cloudy = value.target.value;
   }
   setWeatherRainy(value) {
+    console.log(value)
     this.locationArray.properties.wheater.rainy = value.target.value;
   }
   setWeatherFoggy(value) {
+    console.log(value)
     this.locationArray.properties.wheater.foggy = value.target.value;
   }
 
   setSeasonSpring(value) {
+    console.log(value)
     this.locationArray.properties.seasons.spring = value.target.value;
   }
 
   setSeasonSummer(value) {
+    console.log(value)
     this.locationArray.properties.seasons.summer = value.target.value;
   }
 
   setSeasonAutumn(value) {
+    console.log(value)
     this.locationArray.properties.seasons.autumn = value.target.value;
   }
 
   setSeasonWinter(value) {
+    console.log(value)
     this.locationArray.properties.seasons.winter = value.target.value;
   }
 
