@@ -3,6 +3,8 @@ import * as EXIF from "exif-js";
 import { AuthService } from 'src/app/services/auth.service';
 import { BasicRestService } from 'src/app/services/basic-rest.service';
 import { UserService } from 'src/app/services/user.service';
+import { ApiEndpoints } from 'src/app/classes/enum/api-endpoints.enum';
+import { Helper } from 'src/app/helper/helper';
 
 @Component({
   selector: 'app-file-input',
@@ -48,8 +50,8 @@ export class FileInputComponent implements OnInit {
               EXIF.getTag(firstFile, "GPSLatitude") &&
               EXIF.getTag(firstFile, "GPSLongitude")
           ) {
-              let latitude = this.toDecimal(EXIF.getTag(firstFile, "GPSLatitude"));
-              let longitude = this.toDecimal(EXIF.getTag(firstFile, "GPSLongitude"));
+              let latitude = Helper.toDecimal(EXIF.getTag(firstFile, "GPSLatitude"));
+              let longitude = Helper.toDecimal(EXIF.getTag(firstFile, "GPSLongitude"));
               this.geoLocation.emit({'lat': latitude,'lng':longitude})
           }
       });
@@ -63,20 +65,12 @@ export class FileInputComponent implements OnInit {
     }
   }
 
-  toDecimal(number) {
-      return (
-          number[0].numerator +
-          number[1].numerator / (60 * number[1].denominator) +
-          number[2].numerator / (3600 * number[2].denominator)
-      );
-  }
-
   upload(file) {
     this.sending = true;
     var mediaForm = this.buildMediaData(file);
 
     this.userService.getNonce().subscribe(nonce => {
-      this.baseService.postMedia('wp/v2/media/', mediaForm, nonce).subscribe(response => {
+      this.baseService.postMedia(ApiEndpoints.media, mediaForm, nonce).subscribe(response => {
         this.updateImageArray(response)
       })
     })
@@ -95,7 +89,7 @@ export class FileInputComponent implements OnInit {
   }
 
   updateImageArray(api_response) {
-    let tmp_obj = this.buildImageObject(api_response);
+    let tmp_obj = Helper.buildImageObject(api_response);
     this.imageArray.push(tmp_obj);
     this.fileName = '';
     console.log(this.imageArray)
@@ -103,25 +97,10 @@ export class FileInputComponent implements OnInit {
     this.imageObject.emit(this.imageArray)
   }
 
-  buildImageObject(imageData) {
-    var imageID = imageData.id;
-    var sourceURL = imageData.source_url;
-    var thumbSource;
-    if (imageData.media_details.sizes.length > 0) {
-        thumbSource = imageData.media_details.sizes.thumbnail.source_url;
-    } else {
-        thumbSource = sourceURL;
-    }
-    var tmp_obj = {
-        id: imageID,
-        large: sourceURL,
-        thumb: thumbSource
-    };
-    return tmp_obj;
-  }
+
 
   deleteImage(imageID) {
-      this.baseService.deleteMedia('wp/v2/media/'+imageID+'?force=true').subscribe(res => {
+      this.baseService.deleteMedia(ApiEndpoints.media+imageID+'?force=true').subscribe(res => {
         this.deleteImageFromArray(imageID);
       });
   }

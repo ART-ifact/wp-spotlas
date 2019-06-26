@@ -52,7 +52,7 @@ export class BasicRestService {
         'X-WP-NONCE': `${nonce}`
       })
     };
-    return this.httpClient.post<T>(environment.api + path, data, httpOptions).pipe(
+    return this.httpClient.post<T>(path, data, httpOptions).pipe(
       tap(
         success => {
           if (isDevMode()) {
@@ -97,7 +97,7 @@ export class BasicRestService {
         'X-WP-NONCE': `${this.storage.getItem('MEDIANONCE')}`
       })
     };
-    return this.httpClient.delete<T>(environment.api + path, httpOptions).pipe(
+    return this.httpClient.delete<T>(path, httpOptions).pipe(
       tap(
         success => {
           if (isDevMode()) {

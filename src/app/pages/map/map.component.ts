@@ -23,6 +23,9 @@ export class MapComponent implements OnInit {
   constructor(public optionService : OptionsService, public locationsService : LocationsService) { }
 
   ngOnInit() {
+    this.locationsService.getLocations().subscribe(response => {
+      this.locationsService.locations = response;
+    })
   }
 
 }

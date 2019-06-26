@@ -92,9 +92,6 @@ export class AppComponent {
       this.optionService.options = response;
       this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
     });
-    this.locationsService.getLocations().subscribe(response => {
-      this.locationsService.locations = response;
-    })
   }
 
   ngOnDestroy() {

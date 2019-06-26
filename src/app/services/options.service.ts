@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BasicRestService } from './basic-rest.service';
 import { environment } from 'src/environments/environment';
+import { ApiEndpoints } from '../classes/enum/api-endpoints.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,6 @@ export class OptionsService {
   constructor(private baseService : BasicRestService) { }
 
   getOptions() {
-    return this.baseService.get(environment.api+'spotlas/options');
+    return this.baseService.get(ApiEndpoints.getOptions);
   }
 }

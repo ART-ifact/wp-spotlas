@@ -3,6 +3,8 @@ import { BasicRestService } from './basic-rest.service';
 import { LocationItem } from '../classes/location';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Helper } from '../helper/helper';
+import { ApiEndpoints } from '../classes/enum/api-endpoints.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class LocationsService {
   constructor(private baseService : BasicRestService) { }
 
   getLocations() {
-    return this.baseService.get(environment.api+'wp/v2/posts?per_page=10000000').pipe(
+    return this.baseService.get(ApiEndpoints.getLocations).pipe(
       map((result: any) => {
         let locations : LocationItem[] = [];
 
@@ -58,7 +60,7 @@ export class LocationsService {
   }
 
   loadLocation(id) {
-    return this.baseService.get(environment.api+'wp/v2/posts/' + id).pipe(
+    return this.baseService.get(ApiEndpoints.getLocation + id).pipe(
       map((result: any) => {
 
         let item = result;
@@ -98,50 +100,18 @@ export class LocationsService {
   }
 
   getLocation(id) {
-    if (this.locations) {
+    this.getLocations().subscribe(result => {
+      this.locations = result;
       return this.filterLocation(id);
-    } else {
-      this.getLocations().subscribe(result => {
-        this.locations = result;
-        return this.filterLocation(id);
-      })
-    }
+    })
   }
 
   saveLocation(locationObject) {
-    let formData = this.buildFormData(locationObject, false);
-    return this.baseService.post('../formhandlers/add-location.php', formData);
+    let formData = Helper.buildFormData(locationObject, false);
+    return this.baseService.post(ApiEndpoints.saveLocation, formData);
   }
 
   filterLocation(id) {
     return this.locations.filter(x => x.id == id)[0];
-  }
-
-  buildFormData(form, widthID) {
-    var formData = new FormData();
-
-    if (widthID) {
-        formData.append("id", form.id);
-    }
-    formData.append("title", form.title);
-    formData.append("type", form.properties.type);
-    formData.append("category", form.properties.category);
-    formData.append("accesibility", form.properties.accesibility);
-    formData.append("lat", form.geoLocation.lat);
-    formData.append("lng", form.geoLocation.lng);
-    formData.append("images", form.properties.images);
-    formData.append("sunny", form.properties.wheater.sunny);
-    formData.append("cloudy", form.properties.wheater.cloudy);
-    formData.append("foggy", form.properties.wheater.foggy);
-    formData.append("rainy", form.properties.wheater.rainy);
-    formData.append("spring", form.properties.seasons.spring);
-    formData.append("summer", form.properties.seasons.summer);
-    formData.append("autumn", form.properties.seasons.autumn);
-    formData.append("winter", form.properties.seasons.winter);
-    formData.append("description", form.note);
-    formData.append("shared", form.shared);
-    formData.append("hash", form.hash);
-
-    return formData;
   }
 }

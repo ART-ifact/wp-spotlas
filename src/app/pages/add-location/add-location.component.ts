@@ -7,6 +7,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { LocationItem } from 'src/app/classes/location';
 import { LocationsService } from 'src/app/services/locations.service';
 import { Router } from '@angular/router';
+import { Helper } from 'src/app/helper/helper';
 
 @Component({
   selector: 'app-add-location',
@@ -37,35 +38,7 @@ export class AddLocationComponent implements OnInit {
     {value: 'water', viewValue: 'Sehenswürdigkeit'}
   ];
   private mapsListener;
-  private locationArray = {
-    shared: false,
-    hash: '',
-    title: '',
-    note: '',
-    properties: {
-      accesibility : 0,
-      category: '',
-      adress: '',
-      type: '',
-      wheater: {
-        cloudy: false,
-        foggy: false,
-        rainy: false,
-        sunny: false
-      },
-      seasons: {
-        autumn: false,
-        spring: false,
-        summer: false,
-        winter: false
-      },
-      images: JSON.stringify([])
-    },
-    geoLocation: {
-      lat: 0,
-      lng: 0
-    }
-  };
+  private locationArray = Helper.getLocationArray();
   constructor(private router: Router,public optionService : OptionsService, private eventService : PubSubService, private location : LocationService, private locationsService : LocationsService) { }
 
   ngOnInit() {
