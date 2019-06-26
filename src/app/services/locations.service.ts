@@ -117,6 +117,10 @@ export class LocationsService {
     return this.baseService.post(this.options.options.basePath + ApiEndpoints.editLocation, formData);
   }
 
+  deleteLocation(id) {
+    return this.baseService.delete(ApiEndpoints.deleteLocation + id + '?force=true');
+  }
+
   filterLocation(id) {
     return this.locations.filter(x => x.id == id)[0];
   }

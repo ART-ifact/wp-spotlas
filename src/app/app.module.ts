@@ -57,6 +57,7 @@ import { AddLocationComponent } from './pages/add-location/add-location.componen
 import { FileInputComponent } from './components/file-input/file-input.component';
 import { GeoautofillComponent } from './components/geoautofill/geoautofill.component';
 import { EditLocationComponent } from './pages/edit-location/edit-location.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { EditLocationComponent } from './pages/edit-location/edit-location.compo
     AddLocationComponent,
     FileInputComponent,
     GeoautofillComponent,
-    EditLocationComponent
+    EditLocationComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -132,6 +134,9 @@ import { EditLocationComponent } from './pages/edit-location/edit-location.compo
         useClass: NonceInterceptor,
         multi: true
       }
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ],
   bootstrap: [AppComponent]
 })

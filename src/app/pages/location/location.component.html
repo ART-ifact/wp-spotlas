@@ -1,5 +1,7 @@
-<mat-toolbar color="secondary">
+<mat-toolbar class="button-row" color="secondary">
   <mat-toolbar-row *ngIf="location">
+    <span class="spacer"></span>
+    <button mat-raised-button class="mr-1" color="warn" (click)="openDialog(location.id)">Delete</button>
     <button mat-raised-button color="accent" [routerLink]="['/edit/'+location.id]">Edit</button>
   </mat-toolbar-row>
 </mat-toolbar>

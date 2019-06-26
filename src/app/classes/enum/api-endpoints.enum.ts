@@ -6,5 +6,6 @@ export enum ApiEndpoints {
   getLocations = '/wp-json/wp/v2/posts?per_page=10000000',
   saveLocation = '../formhandlers/add-location.php',
   editLocation = '/formhandlers/edit-location.php',
+  deleteLocation = '/wp-json/wp/v2/posts/',
   media = '/wp-json/wp/v2/media/'
 }
