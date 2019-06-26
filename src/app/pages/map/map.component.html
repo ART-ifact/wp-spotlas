@@ -8,7 +8,12 @@
                   <h2>{{marker.title}}</h2>
                   <a class="image-wrapper" [routerLink]="['/location/'+marker.id]">
                     <div>
-                      <img [src]="marker.properties.images[0].thumb" alt="">
+                      <ng-container *ngIf="marker.properties.images.length > 0">
+                        <img mat-card-image [src]="marker.properties.images[0].thumb" >
+                      </ng-container>
+                      <ng-container *ngIf="marker.properties.images.length === 0">
+                        <img mat-card-image src="./assets/img/location-standard.jpg" >
+                      </ng-container>
                     </div>
                   </a>
                   <app-accessibility [accessibility]="marker.properties.accesibility"></app-accessibility>
