@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import * as EXIF from "exif-js";
 import { AuthService } from 'src/app/services/auth.service';
 import { BasicRestService } from 'src/app/services/basic-rest.service';
@@ -17,7 +17,7 @@ export class FileInputComponent implements OnInit {
   public fileName :string = '';
   public imageUploading : boolean = false;
   public sending : boolean = false;
-  public imageArray : any[] = [];
+  @Input() imageArray : any[] = [];
 
   @Output() geoLocation = new EventEmitter();
   @Output() imageObject = new EventEmitter();

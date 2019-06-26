@@ -85,15 +85,15 @@ export class AppComponent {
       if (res.data.status === 403) {
         this.router.navigate(['/loginpage'])
       } else {
+        this.optionService.getOptions().subscribe(response => {
+          this.optionService.options = response;
+          this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
+        });
         this.userService.userData = res;
         this.authService.updateNonces().subscribe((res : any) => {
           this.storage.setItem(StorageItems.mediaNonce, res.mediaNonce)
           this.storage.setItem(StorageItems.wpNonce, res.nonce)
         })
-        this.optionService.getOptions().subscribe(response => {
-          this.optionService.options = response;
-          this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
-        });
       }
     })
   }

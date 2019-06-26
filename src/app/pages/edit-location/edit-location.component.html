@@ -1,0 +1,81 @@
+<mat-toolbar class="button-row" color="secondary">
+  <mat-toolbar-row>
+    <button mat-raised-button color="accent" (click)="goBack()">Cancel</button>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary" (click)="saveLocation()">Save</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<ng-container>
+  <div class="grid" *ngIf="location">
+    <div class="grid-item">
+      <app-file-input [imageArray]="location.properties.images" (imageObject)="setImageArray($event)"></app-file-input>
+      <app-geoautofill (position)="updateLocation($event)"></app-geoautofill>
+      <agm-map *ngIf="optionService.options" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [styles]="mapStyle">
+          <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker.svg'">
+          </agm-marker>
+      </agm-map>
+      <button class="btn-current-location" mat-flat-button color="primary" (click)="getCurrentLocation()">Get Current Location</button>
+      <h3>Note</h3>
+      <mat-form-field>
+          <textarea matInput [value]="location.note" placeholder="Note" (change)="setNote($event)"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="grid-item">
+    <div class="grid">
+      <h3>Locationname</h3>
+      <mat-form-field>
+          <input matInput [value]="location.title" placeholder="Locationname" (change)="setTitle($event)">
+      </mat-form-field>
+      <mat-slider
+        class="example-margin"
+        [disabled]="false"
+        [invert]="invert"
+        [max]="10"
+        [min]="0"
+        [step]="1"
+        [value]="location.properties.accesibility"
+        [thumbLabel]="test"
+        [tickInterval]="1"
+        (change)="setAccessibility($event)"
+        ></mat-slider>
+      <div class="grid-item">
+        <h3>Category</h3>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <mat-select (selectionChange)="setCategory($event)">
+            <mat-option *ngFor="let category of categories" [value]="category.value">
+              {{category.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="grid-item">
+        <h3>Stichwörter</h3>
+        <mat-form-field>
+            <mat-label>Tags</mat-label>
+            <mat-select multiple (selectionChange)="setTags($event)">
+              <mat-option *ngFor="let tag of tags" [value]="tag.value">
+                {{tag.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+    </div>
+      <h3>Wheather</h3>
+        <div class="four-items">
+            <app-custom-checkbox name="sunny" [checked]="location.properties.wheater.sunny" iconName="sunny" (change)="setWeatherSunny($event)"></app-custom-checkbox>
+            <app-custom-checkbox name="foggy" [checked]="location.properties.wheater.foggy" iconName="foggy" (change)="setWeatherFoggy($event)"></app-custom-checkbox>
+            <app-custom-checkbox name="cloudy" [checked]="location.properties.wheater.cloudy" iconName="cloudy" (change)="setWeatherCloudy($event)"></app-custom-checkbox>
+            <app-custom-checkbox name="rainy" [checked]="location.properties.wheater.rainy" iconName="rainy" (change)="setWeatherRainy($event)"></app-custom-checkbox>
+        </div>
+        <h3>Seasons</h3>
+        <div class="four-items">
+            <app-custom-checkbox name="spring" [checked]="location.properties.seasons.spring" iconName="spring" (change)="setSeasonSpring($event)"></app-custom-checkbox>
+            <app-custom-checkbox name="summer" [checked]="location.properties.seasons.summer" iconName="summer"  (change)="setSeasonSummer($event)"></app-custom-checkbox>
+            <app-custom-checkbox name="autumn" [checked]="location.properties.seasons.autumn" iconName="autumn"  (change)="setSeasonAutumn($event)"></app-custom-checkbox>
+            <app-custom-checkbox name="winter" [checked]="location.properties.seasons.winter" iconName="winter"  (change)="setSeasonWinter($event)"></app-custom-checkbox>
+        </div>
+    </div>
+  </div>
+</ng-container>
+

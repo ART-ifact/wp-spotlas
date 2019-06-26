@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Helper } from '../helper/helper';
 import { ApiEndpoints } from '../classes/enum/api-endpoints.enum';
+import { OptionsService } from './options.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { ApiEndpoints } from '../classes/enum/api-endpoints.enum';
 export class LocationsService {
   public locations;
 
-  constructor(private baseService : BasicRestService) { }
+  constructor(private baseService : BasicRestService, private options : OptionsService) { }
 
   getLocations() {
     return this.baseService.get(ApiEndpoints.getLocations).pipe(
@@ -109,6 +110,11 @@ export class LocationsService {
   saveLocation(locationObject) {
     let formData = Helper.buildFormData(locationObject, false);
     return this.baseService.post(ApiEndpoints.saveLocation, formData);
+  }
+
+  editLocation(locationObject) {
+    let formData = Helper.buildFormData(locationObject, true);
+    return this.baseService.post(this.options.options.basePath + ApiEndpoints.editLocation, formData);
   }
 
   filterLocation(id) {

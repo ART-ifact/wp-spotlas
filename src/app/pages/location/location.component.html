@@ -1,6 +1,6 @@
 <mat-toolbar color="secondary">
-  <mat-toolbar-row>
-    buttons here
+  <mat-toolbar-row *ngIf="location">
+    <button mat-raised-button color="accent" [routerLink]="['/edit/'+location.id]">Edit</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <ng-container *ngIf="location">

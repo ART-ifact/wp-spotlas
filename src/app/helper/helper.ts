@@ -44,7 +44,11 @@ export module Helper {
     formData.append("accesibility", form.properties.accesibility);
     formData.append("lat", form.geoLocation.lat);
     formData.append("lng", form.geoLocation.lng);
-    formData.append("images", form.properties.images);
+    if (widthID) {
+      formData.append("images", JSON.stringify(form.properties.images));
+    } else {
+      formData.append("images", form.properties.images);
+    }
     formData.append("sunny", form.properties.wheater.sunny);
     formData.append("cloudy", form.properties.wheater.cloudy);
     formData.append("foggy", form.properties.wheater.foggy);

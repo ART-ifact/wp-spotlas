@@ -56,6 +56,7 @@ import { CustomLazyAPIKeyLoader } from './classes/map-api-loader';
 import { AddLocationComponent } from './pages/add-location/add-location.component';
 import { FileInputComponent } from './components/file-input/file-input.component';
 import { GeoautofillComponent } from './components/geoautofill/geoautofill.component';
+import { EditLocationComponent } from './pages/edit-location/edit-location.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { GeoautofillComponent } from './components/geoautofill/geoautofill.compo
     CustomCheckboxComponent,
     AddLocationComponent,
     FileInputComponent,
-    GeoautofillComponent
+    GeoautofillComponent,
+    EditLocationComponent
   ],
   imports: [
     BrowserModule,
