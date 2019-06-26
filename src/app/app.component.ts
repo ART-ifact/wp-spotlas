@@ -83,7 +83,7 @@ export class AppComponent {
         this.router.navigate(['/loginpage'])
       } else {
         this.userService.userData = res;
-        this.userService.getMediaNonce().subscribe(res => {
+        this.userService.getNonce().subscribe(res => {
           this.storage.setItem('MEDIANONCE', res);
         })
       }

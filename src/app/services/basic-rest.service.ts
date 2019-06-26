@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LocalStorageService } from './local-storage.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class BasicRestService {
   ) { }
 
   public get<T>(path: string): Observable<T> {
-    return this.httpClient.get<T>(environment.api + path).pipe(
+    return this.httpClient.get<T>(path).pipe(
       tap(
         success => {
           if (isDevMode()) {
@@ -32,7 +33,7 @@ export class BasicRestService {
   }
 
   public post<T>(path: string, data: any): Observable<T> {
-    return this.httpClient.post<T>(environment.api + path, data).pipe(
+    return this.httpClient.post<T>(path, data).pipe(
       tap(
         success => {
           if (isDevMode()) {
@@ -45,10 +46,10 @@ export class BasicRestService {
   }
 
 
-  public postMedia<T>(path: string, data: any): Observable<T> {
+  public postMedia<T>(path: string, data: any, nonce : any): Observable<T> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'X-WP-NONCE': `${this.storage.getItem('MEDIANONCE')}`
+        'X-WP-NONCE': `${nonce}`
       })
     };
     return this.httpClient.post<T>(environment.api + path, data, httpOptions).pipe(
@@ -61,10 +62,11 @@ export class BasicRestService {
         error => this.handleError(error)
       )
     );
+
   }
 
   public put<T>(path: string, data: any): Observable<T> {
-    return this.httpClient.put<T>(environment.api + path, data).pipe(
+    return this.httpClient.put<T>(path, data).pipe(
       tap(
         success => {
           if (isDevMode()) {
@@ -77,7 +79,7 @@ export class BasicRestService {
   }
 
   public delete<T>(path: string): Observable<T> {
-    return this.httpClient.delete<T>(environment.api + path).pipe(
+    return this.httpClient.delete<T>(path).pipe(
       tap(
         success => {
           if (isDevMode()) {

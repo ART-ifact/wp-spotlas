@@ -13,6 +13,6 @@ export class OptionsService {
   constructor(private baseService : BasicRestService) { }
 
   getOptions() {
-    return this.baseService.get('spotlas/options');
+    return this.baseService.get(environment.api+'spotlas/options');
   }
 }

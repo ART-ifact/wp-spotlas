@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-custom-checkbox',
@@ -12,6 +12,8 @@ export class CustomCheckboxComponent implements OnInit {
   @Input() readonly : boolean = false;
   @Input() name : string;
 
+  @Output() change : EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +24,7 @@ export class CustomCheckboxComponent implements OnInit {
       return
     }
     this.checked = !this.checked;
+    this.change.emit({value : this.checked});
   }
 
 }

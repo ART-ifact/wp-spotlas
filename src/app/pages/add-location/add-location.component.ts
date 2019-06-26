@@ -5,6 +5,8 @@ import { PubSubService } from 'angular7-pubsub';
 import { Events } from 'src/app/classes/enum/events.enum';
 import { LocationService } from 'src/app/services/location.service';
 import { LocationItem } from 'src/app/classes/location';
+import { LocationsService } from 'src/app/services/locations.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-location',
@@ -41,7 +43,7 @@ export class AddLocationComponent implements OnInit {
     title: '',
     note: '',
     properties: {
-      accesibility : 1,
+      accesibility : 0,
       category: '',
       adress: '',
       type: '',
@@ -57,14 +59,14 @@ export class AddLocationComponent implements OnInit {
         summer: false,
         winter: false
       },
-      images: ''
+      images: JSON.stringify([])
     },
     geoLocation: {
       lat: 0,
       lng: 0
     }
   };
-  constructor(public optionService : OptionsService, private eventService : PubSubService, private location : LocationService) { }
+  constructor(private router: Router,public optionService : OptionsService, private eventService : PubSubService, private location : LocationService, private locationsService : LocationsService) { }
 
   ngOnInit() {
   }
@@ -79,6 +81,8 @@ export class AddLocationComponent implements OnInit {
   updateLocation(position) {
     this.locationObject.latitude = position.lat;
     this.locationObject.longitude = position.lng;
+    this.locationArray.geoLocation.lat = this.locationObject.latitude;
+    this.locationArray.geoLocation.lng = this.locationObject.longitude;
     console.log(this.locationObject)
   }
 
@@ -100,59 +104,61 @@ export class AddLocationComponent implements OnInit {
   }
 
   setTitle(title) {
+    console.log(title)
     this.locationArray.title = title.target.value
   }
 
   setNote(note) {
+    console.log(note)
     this.locationArray.note = note.target.value
   }
 
-  setAccessibility(access) {
-    console.log(access)
-    this.locationArray.properties.accesibility = access.target.value;
+  setAccessibility(value) {
+    console.log(value.value)
+    this.locationArray.properties.accesibility = value.value;
   }
 
   setCategory(category) {
     console.log(category)
-    this.locationArray.properties.category = category.target.value;
+    this.locationArray.properties.category = category.value;
   }
 
   setTags(tags) {
     console.log(tags)
-    this.locationArray.properties.type = tags.target.value;
+    this.locationArray.properties.type = tags.value;
   }
 
   setWeatherSunny(value) {
     console.log(value)
-    this.locationArray.properties.wheater.sunny = value.target.value;
+    this.locationArray.properties.wheater.sunny = value.value;
   }
 
   setWeatherCloudy(value) {
     console.log(value)
-    this.locationArray.properties.wheater.cloudy = value.target.value;
+    this.locationArray.properties.wheater.cloudy = value.value;
   }
   setWeatherRainy(value) {
     console.log(value)
-    this.locationArray.properties.wheater.rainy = value.target.value;
+    this.locationArray.properties.wheater.rainy = value.value;
   }
   setWeatherFoggy(value) {
     console.log(value)
-    this.locationArray.properties.wheater.foggy = value.target.value;
+    this.locationArray.properties.wheater.foggy = value.value;
   }
 
   setSeasonSpring(value) {
     console.log(value)
-    this.locationArray.properties.seasons.spring = value.target.value;
+    this.locationArray.properties.seasons.spring = value.value;
   }
 
   setSeasonSummer(value) {
     console.log(value)
-    this.locationArray.properties.seasons.summer = value.target.value;
+    this.locationArray.properties.seasons.summer = value.value;
   }
 
   setSeasonAutumn(value) {
     console.log(value)
-    this.locationArray.properties.seasons.autumn = value.target.value;
+    this.locationArray.properties.seasons.autumn = value.value;
   }
 
   setSeasonWinter(value) {
@@ -162,6 +168,10 @@ export class AddLocationComponent implements OnInit {
 
     saveLocation() {
       console.log(this.locationArray)
+      this.locationsService.saveLocation(this.locationArray).subscribe(res => {
+        console.log(res)
+        this.router.navigate(['location/' + res])
+      })
     }
 
 }

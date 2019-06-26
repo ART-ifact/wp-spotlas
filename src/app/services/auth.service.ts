@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BasicRestService } from './basic-rest.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,10 @@ export class AuthService {
   ) { }
 
   login(data) {
-    return this.baseService.post('spotlas/login', data);
+    return this.baseService.post(environment.api+'spotlas/login', data);
   }
 
   getUser() {
-    return this.baseService.get('spotlas/user')
+    return this.baseService.get(environment.api+'spotlas/user')
   }
 }

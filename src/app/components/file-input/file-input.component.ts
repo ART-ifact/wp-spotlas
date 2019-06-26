@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import * as EXIF from "exif-js";
 import { AuthService } from 'src/app/services/auth.service';
 import { BasicRestService } from 'src/app/services/basic-rest.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-file-input',
@@ -16,7 +17,7 @@ export class FileInputComponent implements OnInit {
 
   @Output() geoLocation = new EventEmitter();
   @Output() imageObject = new EventEmitter();
-  constructor(private authService : AuthService, private baseService : BasicRestService) { }
+  constructor(private authService : AuthService, private baseService : BasicRestService, private userService : UserService) { }
 
 
   ngOnInit() {
@@ -74,9 +75,12 @@ export class FileInputComponent implements OnInit {
     this.sending = true;
     var mediaForm = this.buildMediaData(file);
 
-    this.baseService.post('wp/v2/media/', mediaForm).subscribe(response => {
-      this.updateImageArray(response)
+    this.userService.getNonce().subscribe(nonce => {
+      this.baseService.postMedia('wp/v2/media/', mediaForm, nonce).subscribe(response => {
+        this.updateImageArray(response)
+      })
     })
+
   }
 
   buildMediaData(fileInput) {

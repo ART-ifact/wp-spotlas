@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BasicRestService } from './basic-rest.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class UserService {
   constructor(private baseService : BasicRestService) { }
 
   getUser() {
-    return this.baseService.get('spotlas/user')
+    return this.baseService.get(environment.api+'spotlas/user')
   }
 
-  getMediaNonce() {
-    return this.baseService.get('spotlas/medianonce');
+  getNonce() {
+    return this.baseService.get(environment.api+'spotlas/medianonce');
   }
 }

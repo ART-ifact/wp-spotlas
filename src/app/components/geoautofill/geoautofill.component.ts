@@ -57,7 +57,9 @@ export class GeoautofillComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.mapsListener.unsubscribe();
+    if(this.mapsListener) {
+      this.mapsListener.unsubscribe();
+    }
   }
 
   getLocation(geoLocation) {
