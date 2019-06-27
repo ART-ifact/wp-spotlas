@@ -22,7 +22,7 @@ export class AppComponent {
   title = 'spotlas-wp';
   public loginListener;
   constructor (
-    private userService : UserService,
+    public userService : UserService,
     private router: Router,
     private eventService : PubSubService,
     private optionService : OptionsService,
@@ -82,9 +82,10 @@ export class AppComponent {
 
   prepareApplicationdata() {
     this.userService.getUser().subscribe((res : any) => {
-      if (res.data.status === 403) {
-        this.router.navigate(['/loginpage'])
-      } else {
+      console.log(res);
+      //if (res.data.status === 403) {
+      //  this.router.navigate(['/loginpage'])
+      //} else {
         this.optionService.getOptions().subscribe(response => {
           this.optionService.options = response;
           this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
@@ -94,7 +95,7 @@ export class AppComponent {
           this.storage.setItem(StorageItems.mediaNonce, res.mediaNonce)
           this.storage.setItem(StorageItems.wpNonce, res.nonce)
         })
-      }
+     // }
     })
   }
 

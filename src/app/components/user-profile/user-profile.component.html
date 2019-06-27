@@ -1,0 +1,9 @@
+<div class="user-profile">
+  <img class="avatar" [src]="userImage[48]" alt="">
+  <div class="user-name">
+    <a [routerLink]="['/user/edit/'+userId]">{{userName}}  <mat-icon>edit</mat-icon></a>
+  </div>
+  <div class="user-action">
+    <a mat-flat-button color="accent" [href]="storage.getItem('LOGOUTLINK')">Logout</a>
+  </div>
+</div>

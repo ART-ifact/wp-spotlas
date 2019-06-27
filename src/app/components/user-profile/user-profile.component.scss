@@ -1,0 +1,47 @@
+.user-profile {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding-top: 40px;
+  position: relative;
+
+  .user-name {
+    padding: 52px 12px 12px;
+
+    a {
+      color: white;
+      text-decoration: none;
+      width: 100%;
+      display: block;
+      text-align: center;
+      font-size: 24px;
+      text-transform: capitalize;
+    }
+  }
+
+  .avatar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    top: 7px;
+    border: 6px solid #474c58;
+  }
+
+  .user-name,
+  .user-action {
+    background: #474c58;
+  }
+
+  .user-action {
+    padding: 0 12px 12px;
+
+    > a {
+      width: 100%;
+    }
+  }
+}

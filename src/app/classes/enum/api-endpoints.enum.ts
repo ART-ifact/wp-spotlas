@@ -1,5 +1,5 @@
 export enum ApiEndpoints {
-  getUser = '/wp-json/spotlas/user',
+  getUser = '/wp-json/wp/v2/users/me',
   getMediaNonce = '/wp-json/spotlas/medianonce',
   getOptions = '/wp-json/spotlas/options',
   getLocation = '/wp-json/wp/v2/posts/',
