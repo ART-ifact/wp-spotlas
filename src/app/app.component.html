@@ -6,20 +6,32 @@
     <mat-icon class="example-icon" aria-hidden="false" (click)="drawer.toggle()" aria-label="Example delete icon">menu</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-drawer-container class="example-container" [hasBackdrop]="false">
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
   <mat-drawer #drawer mode="side" position="end">
       <app-user-profile *ngIf="userService.userData" [userName]="userService.userData.name" [userId]="userService.userData.id" [userImage]="userService.userData"></app-user-profile>
+      <h4 class="sidenav-header">Anwendungsmenü</h4>
       <mat-nav-list>
         <mat-list-item>
-           <a matLine [routerLink]="['grid']"><mat-icon>info</mat-icon> Rasteransicht</a>
+            <a matLine [routerLink]="['/add-location']"><mat-icon>add_location</mat-icon> Location hinzufügen</a>
+        </mat-list-item>
+        <mat-list-item>
+           <a matLine [routerLink]="['grid']"><mat-icon>grid_on</mat-icon> Rasteransicht</a>
         </mat-list-item>
         <mat-list-item>
              <a matLine [routerLink]="['/']"><mat-icon>map</mat-icon> Mapansicht</a>
         </mat-list-item>
-        <mat-list-item>
-            <a matLine [routerLink]="['/add-location']"><mat-icon>add</mat-icon> Location hinzufügen</a>
-        </mat-list-item>
       </mat-nav-list>
+      <ng-container>
+        <h4 class="sidenav-header">Useradministration</h4>
+        <mat-nav-list>
+          <mat-list-item>
+            <a matLine [routerLink]="['add-user']"><mat-icon>add_circle_outline</mat-icon> Benutzer hinzufügen</a>
+          </mat-list-item>
+          <mat-list-item>
+              <a matLine [routerLink]="['userlist']"><mat-icon>supervisor_account</mat-icon> Benutzerliste anzeigen</a>
+          </mat-list-item>
+        </mat-nav-list>
+      </ng-container>
   </mat-drawer>
   <router-outlet></router-outlet>
 </mat-drawer-container>
