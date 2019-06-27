@@ -8,7 +8,7 @@
 </mat-toolbar>
 <mat-drawer-container class="example-container" [hasBackdrop]="false">
   <mat-drawer #drawer mode="side" position="end">
-      <app-user-profile *ngIf="userService.userData" [userName]="userService.userData.name" [userId]="userService.userData.id" [userImage]="userService.userData.avatar_urls"></app-user-profile>
+      <app-user-profile *ngIf="userService.userData" [userName]="userService.userData.name" [userId]="userService.userData.id" [userImage]="userService.userData"></app-user-profile>
       <mat-nav-list>
         <mat-list-item>
            <a matLine [routerLink]="['grid']"><mat-icon>info</mat-icon> Rasteransicht</a>
