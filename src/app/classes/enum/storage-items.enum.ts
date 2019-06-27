@@ -1,4 +1,5 @@
 export enum StorageItems {
   wpNonce = 'NONCE',
-  mediaNonce = 'MEDIANONCE'
+  mediaNonce = 'MEDIANONCE',
+  logoutLink = 'LOGOUTLINK'
 }

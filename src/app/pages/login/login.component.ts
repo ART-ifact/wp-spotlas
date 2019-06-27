@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.storage.deleteItem(StorageItems.wpNonce);
     this.storage.deleteItem(StorageItems.mediaNonce);
+    this.storage.deleteItem(StorageItems.logoutLink);
   }
 
   doLogin() {
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginForm).subscribe((response : any) => {
       this.authService.nonce = response.nonce;
       this.authService.mediaNonce = response.mediaNonce;
+      this.storage.setItem(StorageItems.logoutLink, response.logoutlink);
       this.storage.setItem(StorageItems.wpNonce, response.nonce);
       this.storage.setItem(StorageItems.mediaNonce, response.mediaNonce);
       this.eventService.$pub(Events.LOGGEDIN);
