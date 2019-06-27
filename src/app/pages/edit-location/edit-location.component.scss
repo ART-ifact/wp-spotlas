@@ -52,3 +52,60 @@ agm-map {
     }
   }
 }
+
+::ng-deep .mat-accent .mat-slider-thumb {
+  background-color: teal;
+  border: 2px solid white;
+}
+::ng-deep .mat-accent .mat-slider-thumb-label {
+  background-color: teal;
+}
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: teal;
+}
+
+::ng-deep {
+  mat-slider {
+    &.green {
+      .mat-slider-track-fill {
+        background: teal;
+      }
+    }
+
+    &.orange {
+      .mat-slider-thumb {
+        background-color: orange;
+      }
+      .mat-slider-track-fill {
+        background: orange;
+      }
+    }
+
+    &.red {
+      .mat-slider-thumb {
+        background-color: darkred;
+      }
+      .mat-slider-track-fill {
+        background: darkred;
+      }
+    }
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+    top: 14px;
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper,
+  .mat-slider .mat-slider-horizontal .mat-slider-ticks-container {
+    height: 8px !important;
+  }
+  .mat-slider.mat-slider-horizontal .mat-slider-track-background,
+  .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+    height: 100%;
+  }
+
+  .mat-accent .mat-slider-thumb {
+    height: 30px;
+    width: 30px;
+    bottom: -18px;
+    right: -18px;
+  }
+}

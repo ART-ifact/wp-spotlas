@@ -26,15 +26,18 @@
       <mat-form-field>
           <input matInput [value]="location.title" placeholder="Locationname" (change)="setTitle($event)">
       </mat-form-field>
+      <h3>Accessibility</h3>
       <mat-slider
-        class="example-margin"
+        [class.red]="location.properties.accesibility < 3"
+        [class.orange]="location.properties.accesibility < 8 && location.properties.accesibility > 2"
+        [class.green]="location.properties.accesibility > 7"
         [disabled]="false"
         [invert]="invert"
         [max]="10"
         [min]="0"
         [step]="1"
         [value]="location.properties.accesibility"
-        [thumbLabel]="test"
+        [thumbLabel]="location.properties.accesibility"
         [tickInterval]="1"
         (change)="setAccessibility($event)"
         ></mat-slider>

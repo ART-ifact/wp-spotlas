@@ -3,9 +3,20 @@
       <ng-container *ngFor="let location of locationService.locations">
         <a [routerLink]="['/location/'+location.id]">
           <mat-card class="example-card">
-              <mat-card-header>
-                <mat-card-title>{{location.title}}</mat-card-title>
-              </mat-card-header>
+              <div class="card-overlay">
+                <div class="four-items">
+                    <app-custom-checkbox name="sunny" iconName="sunny" [readonly]="true" [checked]="location.properties.wheater.sunny"></app-custom-checkbox>
+                    <app-custom-checkbox name="foggy" iconName="foggy" [readonly]="true" [checked]="location.properties.wheater.foggy"></app-custom-checkbox>
+                    <app-custom-checkbox name="cloudy" iconName="cloudy" [readonly]="true" [checked]="location.properties.wheater.cloudy"></app-custom-checkbox>
+                    <app-custom-checkbox name="rainy" iconName="rainy" [readonly]="true" [checked]="location.properties.wheater.rainy"></app-custom-checkbox>
+                </div>
+                <div class="four-items">
+                    <app-custom-checkbox name="spring" iconName="spring" [readonly]="true" [checked]="location.properties.seasons.spring"></app-custom-checkbox>
+                    <app-custom-checkbox name="summer" iconName="summer" [readonly]="true" [checked]="location.properties.seasons.summer"></app-custom-checkbox>
+                    <app-custom-checkbox name="autumn" iconName="autumn" [readonly]="true" [checked]="location.properties.seasons.autumn"></app-custom-checkbox>
+                    <app-custom-checkbox name="winter" iconName="winter" [readonly]="true" [checked]="location.properties.seasons.winter"></app-custom-checkbox>
+                </div>
+              </div>
               <div class="image-wrapper">
                 <div>
                     <ng-container *ngIf="location.properties.images.length > 0">
@@ -18,7 +29,11 @@
               </div>
               <app-accessibility [accessibility]="location.properties.accesibility"></app-accessibility>
               <mat-card-content>
-                infos here
+                <mat-icon *ngIf="location.properties.category == 'urban'">location_city</mat-icon>
+                <mat-icon *ngIf="location.properties.category == 'building'">home</mat-icon>
+                <mat-icon *ngIf="location.properties.category == 'landscape'">local_florist</mat-icon>
+                <mat-icon *ngIf="location.properties.category == 'water'">directions_boat</mat-icon>
+                <span class="title">{{location.title}}</span>
               </mat-card-content>
             </mat-card>
         </a>
