@@ -42,7 +42,7 @@
         <h3>Category</h3>
         <mat-form-field>
           <mat-label>Category</mat-label>
-          <mat-select (selectionChange)="setCategory($event)">
+          <mat-select (selectionChange)="setCategory($event)" [ngModel]="location.properties.category">
             <mat-option *ngFor="let category of categories" [value]="category.value">
               {{category.viewValue}}
             </mat-option>
@@ -53,7 +53,7 @@
         <h3>Stichwörter</h3>
         <mat-form-field>
             <mat-label>Tags</mat-label>
-            <mat-select multiple (selectionChange)="setTags($event)">
+            <mat-select multiple (selectionChange)="setTags($event)" [ngModel]="location.properties.type">
               <mat-option *ngFor="let tag of tags" [value]="tag.value">
                 {{tag.viewValue}}
               </mat-option>
