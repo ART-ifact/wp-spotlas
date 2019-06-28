@@ -6,6 +6,7 @@ import { GridComponent } from './pages/grid/grid.component';
 import { LocationComponent } from './pages/location/location.component';
 import { AddLocationComponent } from './pages/add-location/add-location.component';
 import { EditLocationComponent } from './pages/edit-location/edit-location.component';
+import { UserEditComponent } from './pages/user-edit/user-edit.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditLocationComponent
+  },
+  {
+    path: 'user/edit/:id',
+    component: UserEditComponent
   }
 ];
 

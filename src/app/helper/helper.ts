@@ -64,6 +64,26 @@ export module Helper {
     return formData;
   }
 
+  export const buildUserForm = function(form, update) {
+    var formData = new FormData();
+
+    if (form.id) {
+        formData.append("id", form.id);
+    }
+    if (!update) {
+        formData.append("username", form.username);
+        formData.append("name", form.username);
+        formData.append("first_name", form.first_name);
+        formData.append("last_name", form.last_name);
+    } else {
+        formData.append("password", form.password);
+    }
+
+    formData.append("email", form.email);
+    formData.append("nickname", form.first_name);
+    return formData;
+  };
+
   export const buildImageObject = function(imageData) {
     var imageID = imageData.id;
     var sourceURL = imageData.source_url;

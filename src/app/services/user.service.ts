@@ -18,4 +18,8 @@ export class UserService {
   getNonce() {
     return this.baseService.get(ApiEndpoints.getMediaNonce);
   }
+
+  editUser(id, form) {
+    return this.baseService.post(ApiEndpoints.editUser + id + '?force=true', form);
+  }
 }

@@ -59,6 +59,7 @@ import { GeoautofillComponent } from './components/geoautofill/geoautofill.compo
 import { EditLocationComponent } from './pages/edit-location/edit-location.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { UserEditComponent } from './pages/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     GeoautofillComponent,
     EditLocationComponent,
     ConfirmationDialogComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
