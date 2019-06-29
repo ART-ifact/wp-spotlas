@@ -60,6 +60,7 @@ import { EditLocationComponent } from './pages/edit-location/edit-location.compo
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
+import { AddUserComponent } from './pages/add-user/add-user.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { UserEditComponent } from './pages/user-edit/user-edit.component';
     EditLocationComponent,
     ConfirmationDialogComponent,
     UserProfileComponent,
-    UserEditComponent
+    UserEditComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

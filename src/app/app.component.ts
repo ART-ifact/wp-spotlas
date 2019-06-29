@@ -102,8 +102,8 @@ export class AppComponent {
           this.storage.setItem(StorageItems.mediaNonce, res.mediaNonce)
           this.storage.setItem(StorageItems.wpNonce, res.nonce)
         })
-        this.userService.isAdmin(res.id).subscribe(res => {
-          console.log(res)
+        this.userService.isAdmin(res.id).subscribe((res : boolean) => {
+          this.isAdmin = res;
         })
     })
   }

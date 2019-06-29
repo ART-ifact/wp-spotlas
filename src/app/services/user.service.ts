@@ -16,7 +16,7 @@ export class UserService {
   }
 
   isAdmin(id) {
-    return this.baseService.get(ApiEndpoints.isAdmin + id);
+    return this.baseService.get(ApiEndpoints.isAdmin);
   }
 
   getNonce() {
@@ -25,5 +25,9 @@ export class UserService {
 
   editUser(id, form) {
     return this.baseService.post(ApiEndpoints.editUser + id + '?force=true', form);
+  }
+
+  addUser(form) {
+    return this.baseService.post(ApiEndpoints.addUser, form);
   }
 }

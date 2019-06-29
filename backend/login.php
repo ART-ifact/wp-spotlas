@@ -20,6 +20,7 @@ function register_api_hooks()
       'methods' => 'GET',
       'callback' => 'getNonces'
     ));
+
 }
 
 add_action('rest_api_init', 'register_api_hooks');

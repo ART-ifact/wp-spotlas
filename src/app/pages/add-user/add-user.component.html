@@ -1,0 +1,15 @@
+<mat-toolbar class="button-row" color="secondary">
+  <mat-toolbar-row>
+    <button mat-raised-button color="accent" (click)="goBack()">Cancel</button>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary" (click)="saveUser()">Save</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<form class="user-form">
+  <mat-form-field class="userfield-full-width">
+    <input matInput placeholder="Username" name="username" required [(ngModel)]="username">
+  </mat-form-field>
+  <mat-form-field class="userfield-full-width">
+    <input matInput placeholder="E-Mail" name="mail" required [(ngModel)]="mail">
+  </mat-form-field>
+</form>

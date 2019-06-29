@@ -15,7 +15,7 @@ function get_admin_info(){
 };
 
 add_action( 'rest_api_init', function () {
-    register_rest_route( 'spotlas', '/admin', array(
+    register_rest_route( 'spotlas', '/admin/', array(
         'methods' => 'GET',
         'callback' => 'get_admin_info',
     ) );
