@@ -50,9 +50,9 @@
         </mat-form-field>
       </div>
       <div class="grid-item">
-        <h3>{{language.getString('tags')}}</h3>
+        <h3>{{language.getString('type')}}</h3>
         <mat-form-field>
-            <mat-label>{{language.getString('tags')}}</mat-label>
+            <mat-label>{{language.getString('type')}}</mat-label>
             <mat-select multiple (selectionChange)="setTags($event)">
               <mat-option *ngFor="let tag of tags" [value]="tag.value">
                 {{tag.viewValue}}

@@ -8,6 +8,7 @@ import { LocationItem } from 'src/app/classes/location';
 import { LocationsService } from 'src/app/services/locations.service';
 import { Router } from '@angular/router';
 import { Helper } from 'src/app/helper/helper';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-add-location',
@@ -39,7 +40,15 @@ export class AddLocationComponent implements OnInit {
   ];
   private mapsListener;
   private locationArray = Helper.getLocationArray();
-  constructor(private _location: Location,private router: Router,public optionService : OptionsService, private eventService : PubSubService, private location : LocationService, private locationsService : LocationsService) { }
+  constructor(
+    private _location: Location,
+    private router: Router,
+    public optionService : OptionsService,
+    private eventService : PubSubService,
+    private location : LocationService,
+    private locationsService : LocationsService,
+    public language : LanguageService
+  ) { }
 
   ngOnInit() {
   }

@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Helper } from 'src/app/helper/helper';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-add-user',
@@ -22,7 +23,12 @@ export class AddUserComponent implements OnInit {
     password: ""
   }
 
-  constructor(private userService : UserService, private _snackBar: MatSnackBar, private router : Router) { }
+  constructor(
+    private userService : UserService,
+    private _snackBar: MatSnackBar,
+    private router : Router,
+    public language : LanguageService
+  ) { }
 
   ngOnInit() {
   }

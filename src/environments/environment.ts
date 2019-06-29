@@ -125,7 +125,12 @@ export const environment = {
     }, {
         visibility: 'off'
     }]
-}]
+}],
+defaultStrings : {
+  username : 'Username',
+  password : 'Password',
+  login: 'Login'
+}
 };
 
 /*

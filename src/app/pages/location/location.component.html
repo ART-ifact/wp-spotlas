@@ -2,7 +2,7 @@
   <mat-toolbar-row *ngIf="location">
     <span class="spacer"></span>
     <button mat-raised-button class="mr-1" color="warn" (click)="openDialog(location.id)">{{language.getString('delete')}}</button>
-    <button mat-raised-button color="accent" [routerLink]="['/edit/'+location.id]">{{language.getString('save')}}</button>
+    <button mat-raised-button color="accent" [routerLink]="['/edit/'+location.id]">{{language.getString('edit')}}</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <ng-container *ngIf="location">

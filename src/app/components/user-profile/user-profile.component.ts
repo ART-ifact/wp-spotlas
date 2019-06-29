@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { flatten } from '@angular/compiler';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,7 +14,7 @@ export class UserProfileComponent implements OnInit {
   @Input() logoutLink : string = '';
   @Input() userImage : any = '';
   public avatar :any = '';
-  constructor(public storage : LocalStorageService) { }
+  constructor(public storage : LocalStorageService, public language : LanguageService) { }
 
   ngOnInit() {
     this.avatar = this.userImage.avatar_urls[48];

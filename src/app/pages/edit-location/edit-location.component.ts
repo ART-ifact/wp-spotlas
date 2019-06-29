@@ -4,6 +4,7 @@ import { LocationsService } from 'src/app/services/locations.service';
 import { OptionsService } from 'src/app/services/options.service';
 import { LocationService } from 'src/app/services/location.service';
 import { Helper } from 'src/app/helper/helper';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-edit-location',
@@ -37,7 +38,8 @@ export class EditLocationComponent implements OnInit {
     private locationService: LocationService,
     public optionService : OptionsService,
     private locationsService : LocationsService,
-    private router : Router
+    private router : Router,
+    public language : LanguageService
   ) { }
 
   ngOnInit() {

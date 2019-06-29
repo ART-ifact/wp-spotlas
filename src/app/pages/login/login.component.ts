@@ -6,6 +6,7 @@ import { PubSubService } from 'angular7-pubsub';
 import { Events } from 'src/app/classes/enum/events.enum';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { StorageItems } from 'src/app/classes/enum/storage-items.enum';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private baseService : BasicRestService,
     private router : Router,
     private eventService : PubSubService,
-    private storage : LocalStorageService
+    private storage : LocalStorageService,
+    public language : LanguageService
   ) { }
 
   ngOnInit() {

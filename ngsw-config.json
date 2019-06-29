@@ -24,5 +24,29 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-performance",
+      "urls": [
+        "/wp-json/"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 0,
+        "maxAge": "1d"
+      }
+    },
+    {
+      "name": "images",
+      "urls": [
+        "/wp-content/uploads/**/*"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 0,
+        "maxAge": "1d"
+      }
+    }
   ]
 }

@@ -77,6 +77,7 @@ export class AppComponent {
           //this.sidenav.close()
         }
       });
+      this.getOptions();
     }
 
   ngOnInit() {
@@ -95,9 +96,6 @@ export class AppComponent {
     this.optionService.getOptions().subscribe(response => {
       this.optionService.options = response;
       this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
-      this.language.loadTranslation(this.optionService.options.language).subscribe(languageStrings => {
-        this.language.strings = languageStrings;
-      });
     });
   }
 
