@@ -15,6 +15,10 @@ export class UserService {
     return this.baseService.get(ApiEndpoints.getUser)
   }
 
+  isAdmin(id) {
+    return this.baseService.get(ApiEndpoints.isAdmin + id);
+  }
+
   getNonce() {
     return this.baseService.get(ApiEndpoints.getMediaNonce);
   }

@@ -8,5 +8,6 @@ export enum ApiEndpoints {
   editLocation = '/formhandlers/edit-location.php',
   deleteLocation = '/wp-json/wp/v2/posts/',
   media = '/wp-json/wp/v2/media/',
-  editUser = '/wp-json/wp/v2/users/'
+  editUser = '/wp-json/wp/v2/users/',
+  isAdmin = '/wp-json/wp/v2/users/'
 }

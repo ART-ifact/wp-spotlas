@@ -1,5 +1,5 @@
-import { Component, Renderer2, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Renderer2, Inject, ViewChild } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { PubSubService } from 'angular7-pubsub';
 import { UserService } from './services/user.service';
 import { OptionsService } from './services/options.service';
@@ -11,6 +11,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { DOCUMENT } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { StorageItems } from './classes/enum/storage-items.enum';
+import { MatSidenav, MatDrawer } from '@angular/material';
 
 
 @Component({
@@ -19,8 +20,11 @@ import { StorageItems } from './classes/enum/storage-items.enum';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  @ViewChild('sidenav', {static: false}) sidenav: MatDrawer ;
   title = 'spotlas-wp';
   public loginListener;
+  public isAdmin : boolean = false;
+
   constructor (
     public userService : UserService,
     private router: Router,
@@ -66,6 +70,12 @@ export class AppComponent {
         "autumn",
         this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/svg-icons/autumn.svg")
       );
+      console.log(this.sidenav)
+      router.events.subscribe((val) => {
+        if (val instanceof NavigationEnd)  {
+          this.sidenav.close()
+        }
+      });
     }
 
   ngOnInit() {
@@ -83,9 +93,6 @@ export class AppComponent {
   prepareApplicationdata() {
     this.userService.getUser().subscribe((res : any) => {
       console.log(res);
-      //if (res.data.status === 403) {
-      //  this.router.navigate(['/loginpage'])
-      //} else {
         this.optionService.getOptions().subscribe(response => {
           this.optionService.options = response;
           this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
@@ -95,7 +102,9 @@ export class AppComponent {
           this.storage.setItem(StorageItems.mediaNonce, res.mediaNonce)
           this.storage.setItem(StorageItems.wpNonce, res.nonce)
         })
-     // }
+        this.userService.isAdmin(res.id).subscribe(res => {
+          console.log(res)
+        })
     })
   }
 

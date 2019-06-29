@@ -21,7 +21,7 @@
              <a matLine [routerLink]="['/']"><mat-icon>map</mat-icon> Mapansicht</a>
         </mat-list-item>
       </mat-nav-list>
-      <ng-container>
+      <ng-container *ngIf="isAdmin">
         <h4 class="sidenav-header">Useradministration</h4>
         <mat-nav-list>
           <mat-list-item>
