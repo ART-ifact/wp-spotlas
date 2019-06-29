@@ -15,8 +15,10 @@ import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dia
 })
 export class LocationComponent implements OnInit {
   public id : string;
+  public hash: string;
   public location : LocationItem;
   public mapStyle = environment.mapStyle;
+  public showButtonBar = true;
   constructor(
     private route : ActivatedRoute,
     private locationService: LocationsService,
@@ -28,7 +30,21 @@ export class LocationComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id")
-      this.getLocation();
+      this.hash = params.get("hash")
+      if (this.hash) {
+        this.showButtonBar = false;
+        this.getSharedLocation();
+      } else {
+        this.getLocation();
+      }
+    })
+  }
+
+  getSharedLocation() {
+    console.log('get shared location')
+    this.locationService.getSharedLocation(this.id, this.hash).subscribe(response => {
+      this.location = response;
+      console.log(this.location)
     })
   }
 

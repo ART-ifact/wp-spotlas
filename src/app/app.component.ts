@@ -24,6 +24,7 @@ export class AppComponent {
   title = 'spotlas-wp';
   public loginListener;
   public isAdmin : boolean = false;
+  public hideMenu : boolean = false;
 
   constructor (
     public userService : UserService,
@@ -70,33 +71,36 @@ export class AppComponent {
         "autumn",
         this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/svg-icons/autumn.svg")
       );
-      console.log(this.sidenav)
       router.events.subscribe((val) => {
         if (val instanceof NavigationEnd)  {
-          this.sidenav.close()
+          //this.sidenav.close()
         }
       });
     }
 
   ngOnInit() {
-    this.prepareIcons();
-    this.prepareApplicationdata();
+    if (window.location.href.indexOf('/share/') > -1) {
+      this.hideMenu = true;
+      this.getOptions();
+    } else {
+      this.prepareApplicationdata();
+    }
     this.loginListener = this.eventService.$sub(Events.LOGGEDIN, (from) => {
       this.prepareApplicationdata();
     });
   }
 
-  prepareIcons() {
-
+  getOptions() {
+    this.optionService.getOptions().subscribe(response => {
+      this.optionService.options = response;
+      this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
+    });
   }
 
   prepareApplicationdata() {
     this.userService.getMe().subscribe((res : any) => {
-      console.log(res);
-        this.optionService.getOptions().subscribe(response => {
-          this.optionService.options = response;
-          this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
-        });
+      console.log('getMe',res);
+        this.getOptions();
         this.userService.userData = res;
         this.userService.currentUserID = res.id;
         this.authService.updateNonces().subscribe((res : any) => {

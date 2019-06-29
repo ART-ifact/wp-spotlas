@@ -38,7 +38,7 @@ export class NonceInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(catchError((error)  => {
 
         if (error instanceof HttpErrorResponse) {
-
+          console.log(request)
           switch(error.status) {
             case 401:
                 this.router.navigate(['/loginpage']);

@@ -79,6 +79,14 @@
             <app-custom-checkbox name="winter" [checked]="location.properties.seasons.winter" iconName="winter"  (change)="setSeasonWinter($event)"></app-custom-checkbox>
         </div>
     </div>
+    <div class="grid-item">
+        <mat-slide-toggle color="primary" [checked]="location.shared" (change)="handleShare($event)">Share Location</mat-slide-toggle>
+    </div>
+    <div class="grid-item">
+        <mat-form-field *ngIf="location.shared">
+          <input matInput [value]="sharedURL" readonly placeholder="Shared Location Link">
+        </mat-form-field>
+    </div>
   </div>
 </ng-container>
 

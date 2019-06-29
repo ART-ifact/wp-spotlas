@@ -132,7 +132,8 @@ import { UserlistComponent } from './pages/userlist/userlist.component';
       AccessibilityComponent,
       CustomCheckboxComponent,
       FileInputComponent,
-      FormsModule
+      FormsModule,
+      MatFormFieldModule
     ],
   providers: [
     { provide: MapsAPILoader, useClass: CustomLazyAPIKeyLoader },

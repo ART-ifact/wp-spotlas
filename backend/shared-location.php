@@ -10,7 +10,8 @@ add_filter('rest_pre_dispatch', function ($request) {
     of_get_option('basepath') . 'wp-json/spotlas/login',
     '/wp-json/nonce/v1/get',
     '/wp-json/nonce/v1/verify',
-    '/wp-json/spotlas/login'
+    '/wp-json/spotlas/login',
+    '/wp-json/spotlas/options'
   );
   $isValidRequest = false;
 

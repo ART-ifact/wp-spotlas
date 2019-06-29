@@ -107,5 +107,20 @@ export module Helper {
         number[1].numerator / (60 * number[1].denominator) +
         number[2].numerator / (3600 * number[2].denominator)
     );
-}
+  }
+
+  export const generateHash = function() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 7; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  }
+
+  export const getShareURL = function(id, hash) {
+      var url = window.location.host + '/share/' + id + '/' + hash;
+      return url;
+  }
 }

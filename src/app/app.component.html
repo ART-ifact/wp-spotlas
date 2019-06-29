@@ -3,11 +3,11 @@
   <mat-toolbar-row>
     <img src="./assets/img/logo.svg" alt="logo">
     <span class="spacer"></span>
-    <mat-icon class="example-icon" aria-hidden="false" (click)="drawer.toggle()" aria-label="Example delete icon">menu</mat-icon>
+    <mat-icon *ngIf="!hideMenu" aria-hidden="false" (click)="drawer.toggle()" aria-label="Example delete icon">menu</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container class="example-container" [hasBackdrop]="true">
-  <mat-drawer #drawer mode="side" position="end">
+  <mat-drawer #drawer mode="side" position="end"  *ngIf="!hideMenu">
       <app-user-profile *ngIf="userService.userData" [userName]="userService.userData.name" [userId]="userService.userData.id" [userImage]="userService.userData"></app-user-profile>
       <h4 class="sidenav-header">Anwendungsmenü</h4>
       <mat-nav-list>

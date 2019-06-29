@@ -33,6 +33,10 @@ const routes: Routes = [
     component: LocationComponent
   },
   {
+    path: 'share/:id/:hash',
+    component: LocationComponent
+  },
+  {
     path: 'add-location',
     component: AddLocationComponent
   },

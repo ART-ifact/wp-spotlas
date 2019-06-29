@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LocationsService } from 'src/app/services/locations.service';
 import { OptionsService } from 'src/app/services/options.service';
 import { LocationService } from 'src/app/services/location.service';
+import { Helper } from 'src/app/helper/helper';
 
 @Component({
   selector: 'app-edit-location',
@@ -12,6 +13,7 @@ import { LocationService } from 'src/app/services/location.service';
 export class EditLocationComponent implements OnInit {
   public location;
   public id;
+  public sharedURL = '';
   public mapStyle = this.optionService.mapStyle;
   public categories : any[] = [
     {value: 'building', viewValue: 'Gebäude'},
@@ -50,6 +52,7 @@ export class EditLocationComponent implements OnInit {
     this.locationsService.loadLocation(this.id).subscribe(response => {
       this.location = response;
       console.log(this.location)
+      this.sharedURL = Helper.getShareURL(this.location.id, this.location.hash);
     })
     console.log(this.location)
   }
@@ -132,6 +135,19 @@ export class EditLocationComponent implements OnInit {
   setSeasonWinter(value) {
     console.log(value)
     this.location.properties.seasons.winter = value.target.value;
+  }
+
+  handleShare(event) {
+    console.log(event);
+    this.location.shared = event.checked;
+    if(this.location.shared === false) {
+        this.sharedURL = '';
+        this.location.hash = '';
+    } else {
+        var hash = Helper.generateHash();
+        this.location.hash = hash;
+        this.sharedURL = Helper.getShareURL(this.location.id, hash);
+    }
   }
 
     saveLocation() {

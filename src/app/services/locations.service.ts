@@ -68,7 +68,7 @@ export class LocationsService {
 
           let location : LocationItem = {
             id: item.id,
-            shared: item.shared,
+            shared: (item.shared == 'true'),
             hash: item.hash,
             title: item.title.rendered,
             note: item.content.rendered.replace(/(<([^>]+)>)/ig,""),
@@ -105,6 +105,46 @@ export class LocationsService {
       this.locations = result;
       return this.filterLocation(id);
     })
+  }
+
+  getSharedLocation(id, hash) {
+    return this.baseService.get(ApiEndpoints.getLocation + id+'?id='+id+'&hash='+hash).pipe(
+      map((result: any) => {
+
+        let item = result;
+
+          let location : LocationItem = {
+            id: item.id,
+            shared: (item.shared == 'true'),
+            hash: item.hash,
+            title: item.title.rendered,
+            note: item.content.rendered.replace(/(<([^>]+)>)/ig,""),
+            properties: {
+              accesibility : item.accesibility,
+              category: item.category,
+              adress: item.adress,
+              type: item.type.split(','),
+              wheater: {
+                cloudy: (item.cloudy == 'true'),
+                foggy: (item.foggy == 'true'),
+                rainy: (item.rainy == 'true'),
+                sunny: (item.sunny == 'true')
+              },
+              seasons: {
+                autumn: (item.autumn == 'true'),
+                spring: (item.spring == 'true'),
+                summer: (item.summer == 'true'),
+                winter: (item.winter == 'true')},
+              images: JSON.parse(item.images)
+            },
+            geoLocation: {
+              lat: parseFloat(item.lat),
+              lng: parseFloat(item.lng)
+            }
+          }
+        return location;
+      })
+    )
   }
 
   saveLocation(locationObject) {
