@@ -91,13 +91,14 @@ export class AppComponent {
   }
 
   prepareApplicationdata() {
-    this.userService.getUser().subscribe((res : any) => {
+    this.userService.getMe().subscribe((res : any) => {
       console.log(res);
         this.optionService.getOptions().subscribe(response => {
           this.optionService.options = response;
           this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
         });
         this.userService.userData = res;
+        this.userService.currentUserID = res.id;
         this.authService.updateNonces().subscribe((res : any) => {
           this.storage.setItem(StorageItems.mediaNonce, res.mediaNonce)
           this.storage.setItem(StorageItems.wpNonce, res.nonce)

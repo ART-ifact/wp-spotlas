@@ -1,0 +1,12 @@
+<div class="userlist-wrapper">
+  <mat-list role="list">
+    <ng-container *ngFor="let user of users">
+      <mat-list-item role="listitem">
+        {{user.name}}
+        <span class="spacer"></span>
+        <button mat-flat-button class="delete-button" color="warn" *ngIf="userService.userData.id !== user.id" (click)="openDeleteConfirmDialog(user.id)">Delete</button>
+        <button mat-flat-button color="primary" [routerLink]="['/user/edit/' + user.id]">Edit</button>
+      </mat-list-item>
+    </ng-container>
+  </mat-list>
+</div>

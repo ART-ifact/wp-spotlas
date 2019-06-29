@@ -35,7 +35,7 @@ export class AddUserComponent implements OnInit {
         duration : 2000,
         panelClass: ['success']
       });
-      this.router.navigate(['/'])
+      this.router.navigate(['/userlist'])
     });
   }
 

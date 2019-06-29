@@ -8,6 +8,7 @@ import { AddLocationComponent } from './pages/add-location/add-location.componen
 import { EditLocationComponent } from './pages/edit-location/edit-location.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
+import { UserlistComponent } from './pages/userlist/userlist.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'user/add',
     component: AddUserComponent
+  },
+  {
+    path: 'userlist',
+    component: UserlistComponent
   }
 ];
 

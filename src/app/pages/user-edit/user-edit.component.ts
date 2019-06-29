@@ -36,11 +36,20 @@ export class UserEditComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUser().subscribe((user : any) => {
-      this.username = user.name;
-      this.mail = user.userEmail;
-      this.loaded = true;
-    })
+    if (this.id) {
+      this.userService.getUser(this.id).subscribe((user : any) => {
+        this.username = user.name;
+        this.mail = user.userEmail;
+        this.loaded = true;
+      })
+    } else {
+      this.userService.getMe().subscribe((user : any) => {
+        this.username = user.name;
+        this.mail = user.userEmail;
+        this.loaded = true;
+      })
+    }
+
   }
 
   saveUser() {

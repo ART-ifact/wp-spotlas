@@ -8,11 +8,20 @@ import { ApiEndpoints } from '../classes/enum/api-endpoints.enum';
 })
 export class UserService {
   public userData;
+  public currentUserID;
 
   constructor(private baseService : BasicRestService) { }
 
-  getUser() {
-    return this.baseService.get(ApiEndpoints.getUser)
+  getMe() {
+    return this.baseService.get(ApiEndpoints.getMe)
+  }
+
+  getUser(id) {
+    return this.baseService.get(ApiEndpoints.getUser + id)
+  }
+
+  getUsers() {
+    return this.baseService.get(ApiEndpoints.getUsers)
   }
 
   isAdmin(id) {
@@ -29,5 +38,9 @@ export class UserService {
 
   addUser(form) {
     return this.baseService.post(ApiEndpoints.addUser, form);
+  }
+
+  deleteUser(id) {
+    return this.baseService.delete(ApiEndpoints.deleteUser + id + '?force=true&reassign=' + this.currentUserID);
   }
 }

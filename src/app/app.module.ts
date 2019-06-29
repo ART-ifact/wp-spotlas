@@ -61,6 +61,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
+import { UserlistComponent } from './pages/userlist/userlist.component';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { AddUserComponent } from './pages/add-user/add-user.component';
     ConfirmationDialogComponent,
     UserProfileComponent,
     UserEditComponent,
-    AddUserComponent
+    AddUserComponent,
+    UserlistComponent
   ],
   imports: [
     BrowserModule,

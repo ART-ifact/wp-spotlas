@@ -1,0 +1,28 @@
+.userlist-wrapper {
+  width: 50%;
+  min-width: 320px;
+  background: #383838;
+  margin: 24px auto 24px;
+
+  ::ng-deep {
+    .mat-list {
+      padding-top: 0;
+
+      .mat-list-item {
+        border-bottom: 1px solid #535353;
+
+        &:last-child {
+          border-bottom: 0;
+        }
+
+        .spacer {
+          flex: 1 1 auto;
+        }
+
+        .delete-button {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
