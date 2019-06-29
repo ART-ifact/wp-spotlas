@@ -62,6 +62,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import { UserlistComponent } from './pages/userlist/userlist.component';
+import { LocationsPipe } from './helper/locations.pipe';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { UserlistComponent } from './pages/userlist/userlist.component';
     UserProfileComponent,
     UserEditComponent,
     AddUserComponent,
-    UserlistComponent
+    UserlistComponent,
+    LocationsPipe
   ],
   imports: [
     BrowserModule,

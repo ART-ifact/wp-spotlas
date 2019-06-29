@@ -12,6 +12,23 @@ import { OptionsService } from './options.service';
 })
 export class LocationsService {
   public locations;
+  public filteredLocations = {
+    properties: {
+      type: [],
+      wheater: {
+        cloudy: false,
+        foggy: true,
+        rainy: false,
+        sunny: false
+      },
+      seasons: {
+        autumn: false,
+        spring: false,
+        summer: false,
+        winter: false
+      }
+    }
+  };
 
   constructor(private baseService : BasicRestService, private options : OptionsService) { }
 

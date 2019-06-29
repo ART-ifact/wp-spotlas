@@ -2,7 +2,7 @@
   <mat-form-field>
     <input matInput readonly [value]="fileName">
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="fileInput.click()">Pick Image</button>
+  <button mat-raised-button color="primary" (click)="fileInput.click()">{{language.getString('selectImportFile')}}</button>
   <input type="file" hidden accept="image/*" (change)="setFilename($event)" multiple="multiple" #fileInput>
 </div>
 <ul class="image-list">

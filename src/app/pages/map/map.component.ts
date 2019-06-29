@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OptionsService } from 'src/app/services/options.service';
 import { LocationsService } from 'src/app/services/locations.service';
 import { environment } from 'src/environments/environment';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-map',
@@ -20,7 +21,7 @@ export class MapComponent implements OnInit {
   }
   public mapStyle = this.optionService.mapStyle;
 
-  constructor(public optionService : OptionsService, public locationsService : LocationsService) { }
+  constructor(public optionService : OptionsService, public locationsService : LocationsService, public language : LanguageService) { }
 
   ngOnInit() {
     this.locationsService.getLocations().subscribe(response => {

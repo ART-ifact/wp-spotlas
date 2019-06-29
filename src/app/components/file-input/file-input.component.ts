@@ -7,6 +7,7 @@ import { ApiEndpoints } from 'src/app/classes/enum/api-endpoints.enum';
 import { Helper } from 'src/app/helper/helper';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { StorageItems } from 'src/app/classes/enum/storage-items.enum';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-file-input',
@@ -21,7 +22,13 @@ export class FileInputComponent implements OnInit {
 
   @Output() geoLocation = new EventEmitter();
   @Output() imageObject = new EventEmitter();
-  constructor(private authService : AuthService, private baseService : BasicRestService, private userService : UserService, private storage : LocalStorageService) { }
+  constructor(
+    private authService : AuthService,
+    private baseService : BasicRestService,
+    private userService : UserService,
+    private storage : LocalStorageService,
+    public language : LanguageService
+  ) { }
 
 
   ngOnInit() {

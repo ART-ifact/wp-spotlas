@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { OptionsService } from 'src/app/services/options.service';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-location',
@@ -22,6 +23,7 @@ export class LocationComponent implements OnInit {
   constructor(
     private route : ActivatedRoute,
     private locationService: LocationsService,
+    private language : LanguageService,
     public optionService:OptionsService,
     public dialog: MatDialog,
     private router : Router

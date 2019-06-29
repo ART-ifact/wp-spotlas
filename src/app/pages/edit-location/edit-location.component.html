@@ -1,8 +1,8 @@
 <mat-toolbar class="button-row" color="secondary">
   <mat-toolbar-row>
-    <button mat-raised-button color="accent" (click)="goBack()">Cancel</button>
+    <button mat-raised-button color="accent" (click)="goBack()">{{language.getString('cancel')}}</button>
     <span class="spacer"></span>
-    <button mat-raised-button color="primary" (click)="saveLocation()">Save</button>
+    <button mat-raised-button color="primary" (click)="saveLocation()">{{language.getString('save')}}</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <ng-container>
@@ -15,18 +15,18 @@
           </agm-marker>
       </agm-map>
       <button class="btn-current-location" mat-flat-button color="primary" (click)="getCurrentLocation()">Get Current Location</button>
-      <h3>Note</h3>
+      <h3>{{language.getString('note')}}</h3>
       <mat-form-field>
           <textarea matInput [value]="location.note" placeholder="Note" (change)="setNote($event)"></textarea>
       </mat-form-field>
     </div>
     <div class="grid-item">
     <div class="grid">
-      <h3>Locationname</h3>
+      <h3>{{language.getString('LocationName')}}</h3>
       <mat-form-field>
           <input matInput [value]="location.title" placeholder="Locationname" (change)="setTitle($event)">
       </mat-form-field>
-      <h3>Accessibility</h3>
+      <h3>{{language.getString('minAccessibility')}}</h3>
       <mat-slider
         [class.red]="location.properties.accesibility < 3"
         [class.orange]="location.properties.accesibility < 8 && location.properties.accesibility > 2"
@@ -42,9 +42,9 @@
         (change)="setAccessibility($event)"
         ></mat-slider>
       <div class="grid-item">
-        <h3>Category</h3>
+        <h3>{{language.getString('category')}}</h3>
         <mat-form-field>
-          <mat-label>Category</mat-label>
+          <mat-label>{{language.getString('category')}}</mat-label>
           <mat-select (selectionChange)="setCategory($event)" [ngModel]="location.properties.category">
             <mat-option *ngFor="let category of categories" [value]="category.value">
               {{category.viewValue}}
@@ -53,9 +53,9 @@
         </mat-form-field>
       </div>
       <div class="grid-item">
-        <h3>Stichwörter</h3>
+        <h3>{{language.getString('tags')}}</h3>
         <mat-form-field>
-            <mat-label>Tags</mat-label>
+            <mat-label>{{language.getString('tags')}}</mat-label>
             <mat-select multiple (selectionChange)="setTags($event)" [ngModel]="location.properties.type">
               <mat-option *ngFor="let tag of tags" [value]="tag.value">
                 {{tag.viewValue}}
@@ -64,14 +64,14 @@
           </mat-form-field>
       </div>
     </div>
-      <h3>Wheather</h3>
+      <h3>{{language.getString('wheather')}}</h3>
         <div class="four-items">
             <app-custom-checkbox name="sunny" [checked]="location.properties.wheater.sunny" iconName="sunny" (change)="setWeatherSunny($event)"></app-custom-checkbox>
             <app-custom-checkbox name="foggy" [checked]="location.properties.wheater.foggy" iconName="foggy" (change)="setWeatherFoggy($event)"></app-custom-checkbox>
             <app-custom-checkbox name="cloudy" [checked]="location.properties.wheater.cloudy" iconName="cloudy" (change)="setWeatherCloudy($event)"></app-custom-checkbox>
             <app-custom-checkbox name="rainy" [checked]="location.properties.wheater.rainy" iconName="rainy" (change)="setWeatherRainy($event)"></app-custom-checkbox>
         </div>
-        <h3>Seasons</h3>
+        <h3>{{language.getString('seasons')}}</h3>
         <div class="four-items">
             <app-custom-checkbox name="spring" [checked]="location.properties.seasons.spring" iconName="spring" (change)="setSeasonSpring($event)"></app-custom-checkbox>
             <app-custom-checkbox name="summer" [checked]="location.properties.seasons.summer" iconName="summer"  (change)="setSeasonSummer($event)"></app-custom-checkbox>
@@ -80,11 +80,11 @@
         </div>
     </div>
     <div class="grid-item">
-        <mat-slide-toggle color="primary" [checked]="location.shared" (change)="handleShare($event)">Share Location</mat-slide-toggle>
+        <mat-slide-toggle color="primary" [checked]="location.shared" (change)="handleShare($event)">{{language.getString('shareLocation')}}</mat-slide-toggle>
     </div>
     <div class="grid-item">
         <mat-form-field *ngIf="location.shared">
-          <input matInput [value]="sharedURL" readonly placeholder="Shared Location Link">
+          <input matInput [value]="sharedURL" readonly [placeholder]="language.getString('sharedURL')">
         </mat-form-field>
     </div>
   </div>

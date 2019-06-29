@@ -1,6 +1,6 @@
 <ng-container *ngIf="locationService.locations">
   <div class="grid-view">
-      <ng-container *ngFor="let location of locationService.locations">
+      <ng-container *ngFor="let location of locationService.locations  | locations: locationsService.locationsFilter;">
         <a [routerLink]="['/location/'+location.id]">
           <mat-card class="example-card">
               <div class="card-overlay">

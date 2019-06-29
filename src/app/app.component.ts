@@ -11,7 +11,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { DOCUMENT } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { StorageItems } from './classes/enum/storage-items.enum';
-import { MatSidenav, MatDrawer } from '@angular/material';
+import { LanguageService } from './services/language-service.service';
 
 
 @Component({
@@ -20,11 +20,11 @@ import { MatSidenav, MatDrawer } from '@angular/material';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild('sidenav', {static: false}) sidenav: MatDrawer ;
   title = 'spotlas-wp';
   public loginListener;
   public isAdmin : boolean = false;
   public hideMenu : boolean = false;
+  public showFilter : boolean = false;
 
   constructor (
     public userService : UserService,
@@ -37,6 +37,7 @@ export class AppComponent {
     private storage : LocalStorageService,
     private _renderer2: Renderer2,
     private authService : AuthService,
+    private language : LanguageService,
     @Inject(DOCUMENT) private _document: Document,
     ) {
       this.matIconRegistry.addSvgIcon(
@@ -94,6 +95,9 @@ export class AppComponent {
     this.optionService.getOptions().subscribe(response => {
       this.optionService.options = response;
       this.optionService.placesURL = "https://maps.google.com/maps/api/js?sensor=true&key="+this.optionService.options.apiKey+"&libraries=places&language=en-US";
+      this.language.loadTranslation(this.optionService.options.language).subscribe(languageStrings => {
+        this.language.strings = languageStrings;
+      });
     });
   }
 

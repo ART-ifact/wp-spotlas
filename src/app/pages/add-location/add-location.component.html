@@ -1,8 +1,8 @@
 <mat-toolbar class="button-row" color="secondary">
   <mat-toolbar-row>
-    <button mat-raised-button color="accent" (click)="goBack()">Cancel</button>
+    <button mat-raised-button color="accent" (click)="goBack()">{{language.getString('cancel')}}</button>
     <span class="spacer"></span>
-    <button mat-raised-button color="primary" (click)="saveLocation()">Save</button>
+    <button mat-raised-button color="primary" (click)="saveLocation()">{{language.getString('save')}}</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <ng-container>
@@ -10,24 +10,23 @@
     <div class="grid-item">
       <app-file-input (imageObject)="setImageArray($event)"></app-file-input>
       <app-geoautofill (position)="updateLocation($event)"></app-geoautofill>
-      {{locationObject.latitude.length }}
       <agm-map  *ngIf="optionService.options" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : parseInt(optionService.options.geoLocation.lat)" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  parseInt(optionService.options.geoLocation.lng)" [styles]="mapStyle">
           <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : optionService.options.geoLocation.lat" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  optionService.options.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker.svg'">
           </agm-marker>
       </agm-map>
-      <button class="btn-current-location" mat-flat-button color="primary" (click)="getCurrentLocation()">Get Current Location</button>
-      <h3>Note</h3>
+      <button class="btn-current-location" mat-flat-button color="primary" (click)="getCurrentLocation()">{{language.getString('getCurrentLocation')}}</button>
+      <h3>{{language.getString('note')}}</h3>
       <mat-form-field>
           <textarea matInput placeholder="Note" (change)="setNote($event)"></textarea>
       </mat-form-field>
     </div>
     <div class="grid-item">
     <div class="grid">
-      <h3>Locationname</h3>
+      <h3>{{language.getString('locationName')}}</h3>
       <mat-form-field>
           <input matInput placeholder="Locationname" (change)="setTitle($event)">
       </mat-form-field>
-      <h3>Accessibility</h3>
+      <h3>{{language.getString('minAccessibility')}}</h3>
       <mat-slider
         class="example-margin"
         [disabled]="false"
@@ -40,9 +39,9 @@
         (change)="setAccessibility($event)"
         ></mat-slider>
       <div class="grid-item">
-        <h3>Category</h3>
+        <h3>{{language.getString('category')}}</h3>
         <mat-form-field>
-          <mat-label>Category</mat-label>
+          <mat-label>{{language.getString('category')}}</mat-label>
           <mat-select (selectionChange)="setCategory($event)">
             <mat-option *ngFor="let category of categories" [value]="category.value">
               {{category.viewValue}}
@@ -51,9 +50,9 @@
         </mat-form-field>
       </div>
       <div class="grid-item">
-        <h3>Stichwörter</h3>
+        <h3>{{language.getString('tags')}}</h3>
         <mat-form-field>
-            <mat-label>Tags</mat-label>
+            <mat-label>{{language.getString('tags')}}</mat-label>
             <mat-select multiple (selectionChange)="setTags($event)">
               <mat-option *ngFor="let tag of tags" [value]="tag.value">
                 {{tag.viewValue}}
@@ -62,14 +61,14 @@
           </mat-form-field>
       </div>
     </div>
-      <h3>Wheather</h3>
+      <h3>{{language.getString('wheather')}}</h3>
         <div class="four-items">
             <app-custom-checkbox name="sunny" iconName="sunny" (change)="setWeatherSunny($event)"></app-custom-checkbox>
             <app-custom-checkbox name="foggy" iconName="foggy" (change)="setWeatherFoggy($event)"></app-custom-checkbox>
             <app-custom-checkbox name="cloudy" iconName="cloudy" (change)="setWeatherCloudy($event)"></app-custom-checkbox>
             <app-custom-checkbox name="rainy" iconName="rainy" (change)="setWeatherRainy($event)"></app-custom-checkbox>
         </div>
-        <h3>Seasons</h3>
+        <h3>{{language.getString('seasons')}}</h3>
         <div class="four-items">
             <app-custom-checkbox name="spring" iconName="spring" (change)="setSeasonSpring($event)"></app-custom-checkbox>
             <app-custom-checkbox name="summer" iconName="summer"  (change)="setSeasonSummer($event)"></app-custom-checkbox>

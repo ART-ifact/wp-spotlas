@@ -26,6 +26,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/translations",
               "src/manifest.webmanifest"
             ],
             "styles": [
