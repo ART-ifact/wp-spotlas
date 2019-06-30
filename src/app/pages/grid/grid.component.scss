@@ -2,6 +2,7 @@
 
 @import '../../../../global/styles/grid.scss';
 
+$card-height : 320px;
 
 ::ng-deep {
   mat-card {
@@ -13,7 +14,7 @@
       position: absolute;
       width: 100%;
       left: 0;
-      height: 280px;
+      height: $card-height;
       background: rgba(0, 0, 0, 0.8);
       top: 0;
       z-index: 1;
@@ -56,7 +57,7 @@
     }
 
     .image-wrapper {
-      max-height: 280px;
+      max-height: $card-height;
       overflow: hidden;
       width: calc(100% + 32px);
       margin: 8px -16px 0;
@@ -65,7 +66,7 @@
         position: relative;
         display: block;
         width: 100%;
-        height: 280px;
+        height: $card-height;
       }
 
       .mat-card-image {
