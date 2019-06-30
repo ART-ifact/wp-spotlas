@@ -1,13 +1,6 @@
-.grid-view {
-  display: flex;
-  flex-wrap: wrap;
 
-  > * {
-    flex: 1 0 20%; /* explanation below */
-    margin: 12px;
-    text-decoration: none;
-  }
-}
+
+@import '../../../../global/styles/grid.scss';
 
 
 ::ng-deep {

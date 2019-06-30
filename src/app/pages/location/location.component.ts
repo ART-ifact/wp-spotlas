@@ -8,6 +8,7 @@ import { OptionsService } from 'src/app/services/options.service';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import { LanguageService } from 'src/app/services/language-service.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-location',
@@ -26,7 +27,8 @@ export class LocationComponent implements OnInit {
     private language : LanguageService,
     public optionService:OptionsService,
     public dialog: MatDialog,
-    private router : Router
+    private router : Router,
+    private _location : Location
     ) { }
 
   ngOnInit() {
@@ -40,6 +42,10 @@ export class LocationComponent implements OnInit {
         this.getLocation();
       }
     })
+  }
+
+  goBack() {
+    this._location.back()
   }
 
   getSharedLocation() {

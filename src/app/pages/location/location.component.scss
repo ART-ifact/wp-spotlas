@@ -1,3 +1,5 @@
+@import '../../../../global/styles/grid.scss';
+
 .location-title {
   width: 100%;
   padding: 0 24px;
@@ -5,30 +7,6 @@
   box-sizing: border-box;
 }
 
-.grid {
-  margin-top: 24px;
-  display: flex;
-  flex-wrap: wrap;
-
-  .grid-item {
-    width: 50%;
-    padding: 0 12px;
-    box-sizing: border-box;
-
-    .four-items {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-
-      > * {
-        flex: 1 0 21%; /* explanation below */
-        margin: 5px;
-        justify-content: center;
-        display: flex;
-      }
-    }
-  }
-}
 
 .button-row {
   .spacer {
@@ -40,13 +18,6 @@
   }
 }
 
-@media only screen and (max-width: 680px) {
-  .grid {
-    .grid-item {
-      width: 100%;
-    }
-  }
-}
 
 ::ng-deep {
   agm-map {

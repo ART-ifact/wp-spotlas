@@ -1,8 +1,9 @@
 <mat-toolbar class="button-row" color="secondary" *ngIf="showButtonBar">
   <mat-toolbar-row *ngIf="location">
+    <button mat-raised-button color="accent" (click)="goBack()">{{language.getString('back')}}</button>
     <span class="spacer"></span>
     <button mat-raised-button class="mr-1" color="warn" (click)="openDialog(location.id)">{{language.getString('delete')}}</button>
-    <button mat-raised-button color="accent" [routerLink]="['/edit/'+location.id]">{{language.getString('edit')}}</button>
+    <button mat-raised-button color="primary" [routerLink]="['/edit/'+location.id]">{{language.getString('edit')}}</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <ng-container *ngIf="location">

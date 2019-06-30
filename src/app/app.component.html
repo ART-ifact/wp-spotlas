@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <img src="./assets/img/logo.svg" alt="logo">
+    <img [routerLink]="['/']" src="./assets/img/logo.svg" alt="logo">
     <span class="spacer"></span>
     <mat-icon *ngIf="!hideMenu" aria-hidden="false" class="filter-trigger" (click)="showFilter = true;drawer.toggle()" aria-label="Filter Icon">search</mat-icon>
     <mat-icon *ngIf="!hideMenu" aria-hidden="false" (click)="showFilter = false;drawer.toggle()" aria-label="Menu Icon">menu</mat-icon>
