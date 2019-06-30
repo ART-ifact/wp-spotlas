@@ -12,6 +12,7 @@ import { AuthService } from './services/auth.service';
 import { StorageItems } from './classes/enum/storage-items.enum';
 import { LanguageService } from './services/language-service.service';
 import { EventsService } from './services/events.service';
+import { UpdateService } from './services/update.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class AppComponent {
     private _renderer2: Renderer2,
     private authService : AuthService,
     private language : LanguageService,
+    private update: UpdateService,
     @Inject(DOCUMENT) private _document: Document,
     ) {
       this.matIconRegistry.addSvgIcon(
@@ -72,10 +74,8 @@ export class AppComponent {
         "autumn",
         this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/svg-icons/autumn.svg")
       );
-      router.events.subscribe((val) => {
-        if (val instanceof NavigationEnd)  {
-          //this.sidenav.close()
-        }
+      this.router.events.subscribe(() => {
+        this.update.checkForUpdates();
       });
       this.getOptions();
     }

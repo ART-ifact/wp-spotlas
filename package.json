@@ -1,6 +1,6 @@
 {
   "name": "spotlas-wp",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "watch": "ng build --output-path dist --watch --base-href=/wp-content/themes/wp-spotlas/dist/",
