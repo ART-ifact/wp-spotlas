@@ -1,0 +1,13 @@
+<mat-form-field class="m-b-1">
+    <input matInput placeholder="Titel" (change)="setTitleFilter($event)">
+</mat-form-field>
+<h3>{{language.getString('minAccessibility')}}</h3>
+<mat-slider
+[disabled]="false"
+[max]="10"
+[min]="0"
+[step]="1"
+[tickInterval]="1"
+(change)="setAccessibilityFilter($event)"
+class="m-b-1"
+></mat-slider>

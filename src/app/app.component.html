@@ -35,7 +35,9 @@
           </mat-nav-list>
         </ng-container>
       </ng-container>
-      <ng-container *ngIf="showFilter">Filter</ng-container>
+      <ng-container *ngIf="showFilter">
+        <app-filter></app-filter>
+      </ng-container>
   </mat-drawer>
   <router-outlet></router-outlet>
 </mat-drawer-container>

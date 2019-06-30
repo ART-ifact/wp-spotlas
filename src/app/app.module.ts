@@ -62,6 +62,7 @@ import { UserEditComponent } from './pages/user-edit/user-edit.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import { UserlistComponent } from './pages/userlist/userlist.component';
 import { LocationsPipe } from './helper/locations.pipe';
+import { FilterComponent } from './components/filter/filter.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { LocationsPipe } from './helper/locations.pipe';
     UserEditComponent,
     AddUserComponent,
     UserlistComponent,
-    LocationsPipe
+    LocationsPipe,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
