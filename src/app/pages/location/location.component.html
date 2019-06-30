@@ -45,7 +45,7 @@
 
 
       </mat-carousel>
-      <agm-map  [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [styles]="mapStyle">
+      <agm-map  class="m-b-1" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [styles]="mapStyle">
           <agm-marker  [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker_'+location.properties.category+'.svg'">
           </agm-marker>
         </agm-map>
@@ -70,14 +70,14 @@
       </div>
     </div>
       <h3>Wheather</h3>
-        <div class="four-items">
+        <div class="four-items m-b-1">
             <app-custom-checkbox name="sunny" iconName="sunny" [readonly]="true" [checked]="location.properties.wheater.sunny"></app-custom-checkbox>
             <app-custom-checkbox name="foggy" iconName="foggy" [readonly]="true" [checked]="location.properties.wheater.foggy"></app-custom-checkbox>
             <app-custom-checkbox name="cloudy" iconName="cloudy" [readonly]="true" [checked]="location.properties.wheater.cloudy"></app-custom-checkbox>
             <app-custom-checkbox name="rainy" iconName="rainy" [readonly]="true" [checked]="location.properties.wheater.rainy"></app-custom-checkbox>
         </div>
         <h3>Seasons</h3>
-        <div class="four-items">
+        <div class="four-items m-b-1">
             <app-custom-checkbox name="spring" iconName="spring" [readonly]="true" [checked]="location.properties.seasons.spring"></app-custom-checkbox>
             <app-custom-checkbox name="summer" iconName="summer" [readonly]="true" [checked]="location.properties.seasons.summer"></app-custom-checkbox>
             <app-custom-checkbox name="autumn" iconName="autumn" [readonly]="true" [checked]="location.properties.seasons.autumn"></app-custom-checkbox>

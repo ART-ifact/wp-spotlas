@@ -8,22 +8,22 @@
 <ng-container>
   <div class="grid">
     <div class="grid-item">
-      <app-file-input (imageObject)="setImageArray($event)"></app-file-input>
+      <app-file-input class="m-b-1" (imageObject)="setImageArray($event)"></app-file-input>
       <app-geoautofill (position)="updateLocation($event)"></app-geoautofill>
       <agm-map  *ngIf="optionService.options" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : parseInt(optionService.options.geoLocation.lat)" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  parseInt(optionService.options.geoLocation.lng)" [styles]="mapStyle">
           <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : optionService.options.geoLocation.lat" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  optionService.options.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker.svg'">
           </agm-marker>
       </agm-map>
-      <button class="btn-current-location" mat-flat-button color="primary" (click)="getCurrentLocation()">{{language.getString('getCurrentLocation')}}</button>
+      <button class="m-b-1 btn-current-location" mat-flat-button color="primary" (click)="getCurrentLocation()">{{language.getString('getCurrentLocation')}}</button>
       <h3>{{language.getString('note')}}</h3>
-      <mat-form-field>
+      <mat-form-field class="m-b-1">
           <textarea matInput placeholder="Note" (change)="setNote($event)"></textarea>
       </mat-form-field>
     </div>
     <div class="grid-item">
     <div class="grid">
       <h3>{{language.getString('locationName')}}</h3>
-      <mat-form-field>
+      <mat-form-field class="m-b-1">
           <input matInput placeholder="Locationname" (change)="setTitle($event)">
       </mat-form-field>
       <h3>{{language.getString('minAccessibility')}}</h3>
@@ -34,10 +34,11 @@
         [step]="1"
         [tickInterval]="1"
         (change)="setAccessibility($event)"
+        class="m-b-1"
         ></mat-slider>
       <div class="grid-item">
         <h3>{{language.getString('category')}}</h3>
-        <mat-form-field>
+        <mat-form-field class="m-b-1">
           <mat-label>{{language.getString('category')}}</mat-label>
           <mat-select (selectionChange)="setCategory($event)">
             <mat-option *ngFor="let category of categories" [value]="category.value">
@@ -48,7 +49,7 @@
       </div>
       <div class="grid-item">
         <h3>{{language.getString('type')}}</h3>
-        <mat-form-field>
+        <mat-form-field class="m-b-1">
             <mat-label>{{language.getString('type')}}</mat-label>
             <mat-select multiple (selectionChange)="setTags($event)">
               <mat-option *ngFor="let tag of tags" [value]="tag.value">
@@ -59,14 +60,14 @@
       </div>
     </div>
       <h3>{{language.getString('wheather')}}</h3>
-        <div class="four-items">
+        <div class="four-items m-b-1">
             <app-custom-checkbox name="sunny" iconName="sunny" (change)="setWeatherSunny($event)"></app-custom-checkbox>
             <app-custom-checkbox name="foggy" iconName="foggy" (change)="setWeatherFoggy($event)"></app-custom-checkbox>
             <app-custom-checkbox name="cloudy" iconName="cloudy" (change)="setWeatherCloudy($event)"></app-custom-checkbox>
             <app-custom-checkbox name="rainy" iconName="rainy" (change)="setWeatherRainy($event)"></app-custom-checkbox>
         </div>
         <h3>{{language.getString('seasons')}}</h3>
-        <div class="four-items">
+        <div class="four-items m-b-1">
             <app-custom-checkbox name="spring" iconName="spring" (change)="setSeasonSpring($event)"></app-custom-checkbox>
             <app-custom-checkbox name="summer" iconName="summer"  (change)="setSeasonSummer($event)"></app-custom-checkbox>
             <app-custom-checkbox name="autumn" iconName="autumn"  (change)="setSeasonAutumn($event)"></app-custom-checkbox>
