@@ -47,7 +47,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NonceInterceptor } from './services/nonce-interceptor';
 
-import { PubSubModule } from 'angular7-pubsub';
 import { GridComponent } from './pages/grid/grid.component';
 import { AccessibilityComponent } from './components/accessibility/accessibility.component';
 import { LocationComponent } from './pages/location/location.component';
@@ -124,7 +123,6 @@ import { LocationsPipe } from './helper/locations.pipe';
     MatSortModule,
     MatPaginatorModule,
     AgmCoreModule.forRoot(),
-    PubSubModule.forRoot(),
     AgmSnazzyInfoWindowModule,
     AgmJsMarkerClustererModule,
     MatCarouselModule,

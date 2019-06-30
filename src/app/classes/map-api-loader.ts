@@ -2,10 +2,10 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MapsAPILoader, LAZY_MAPS_API_CONFIG, LazyMapsAPILoaderConfigLiteral, GoogleMapsScriptProtocol } from '@agm/core';
 import { DocumentRef, WindowRef } from '@agm/core/utils/browser-globals';
-import { PubSubService } from 'angular7-pubsub';
 import { Events } from './enum/events.enum';
 import { OptionsService } from '../services/options.service';
 import { BasicRestService } from '../services/basic-rest.service';
+import { EventsService } from '../services/events.service';
 
 @Injectable()
 export class CustomLazyAPIKeyLoader extends MapsAPILoader {
@@ -15,7 +15,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     private _documentRef: DocumentRef;
     private optionListener;
 
-    constructor( @Inject(LAZY_MAPS_API_CONFIG) config: any, w: WindowRef, d: DocumentRef, private http: HttpClient, private optionService : OptionsService, private eventService : PubSubService) {
+    constructor( @Inject(LAZY_MAPS_API_CONFIG) config: any, w: WindowRef, d: DocumentRef, private http: HttpClient, private optionService : OptionsService, private eventService : EventsService) {
         super();
         this._config = config || {};
         this._windowRef = w;
@@ -40,7 +40,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
                 script.src = this._getScriptSrc(callbackName);
                 this._documentRef.getNativeDocument().body.appendChild(script);
         } else {
-          this.eventService.$sub(Events.OPTIONSLOADED, () => {
+          this.eventService.sub(Events.OPTIONSLOADED, () => {
             this._config.apiKey = this.optionService.options.apiKey;
                   script.src = this._getScriptSrc(callbackName);
                   this._documentRef.getNativeDocument().body.appendChild(script);
@@ -50,7 +50,7 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
 
 
         this._scriptLoadingPromise = new Promise<void>((resolve: Function, reject: Function) => {
-            (<any>this._windowRef.getNativeWindow())[callbackName] = () => { this.eventService.$pub(Events.MAPSLOADED); resolve(); };
+            (<any>this._windowRef.getNativeWindow())[callbackName] = () => { this.eventService.pub(Events.MAPSLOADED); resolve(); };
 
             script.onerror = (error: Event) => { reject(error); };
         });

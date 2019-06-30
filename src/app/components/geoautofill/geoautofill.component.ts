@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, EventEmitter, Output, ChangeDetectorRef, NgZone, ViewChild } from '@angular/core';
-import { PubSubService } from 'angular7-pubsub';
 import { Events } from 'src/app/classes/enum/events.enum';
 import { FormControl } from '@angular/forms';
+import { EventsService } from 'src/app/services/events.service';
 
 @Component({
   selector: 'app-geoautofill',
@@ -15,12 +15,12 @@ export class GeoautofillComponent implements OnInit {
   public autocomplete;
   @Output() position = new EventEmitter();
 
-  constructor(private eventService : PubSubService, private element: ElementRef, private ngZone: NgZone) { }
+  constructor(private eventService : EventsService, private element: ElementRef, private ngZone: NgZone) { }
   ngOnInit() {
     if('google' in window) {
       this.initAutocomplete();
     } else {
-      this.mapsListener = this.eventService.$sub(Events.MAPSLOADED,() => {
+      this.mapsListener = this.eventService.sub(Events.MAPSLOADED,() => {
         this.initAutocomplete();
       })
     }

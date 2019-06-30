@@ -3,6 +3,8 @@ import { Route, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Helper } from 'src/app/helper/helper';
 import { MatSnackBar } from '@angular/material';
+import { Location } from '@angular/common';
+import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -26,13 +28,23 @@ export class UserEditComponent implements OnInit {
     password: ""
   }
 
-  constructor(private route : ActivatedRoute, private userService : UserService, private _snackBar: MatSnackBar) { }
+  constructor(
+    private route : ActivatedRoute,
+    private userService : UserService,
+    private _snackBar: MatSnackBar,
+    public language : LanguageService,
+    private _location : Location
+    ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id")
       this.getUser();
     })
+  }
+
+  goBack() {
+    this._location.back()
   }
 
   getUser() {

@@ -1,6 +1,5 @@
 import { Component, Renderer2, Inject, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { PubSubService } from 'angular7-pubsub';
 import { UserService } from './services/user.service';
 import { OptionsService } from './services/options.service';
 import { Events } from './classes/enum/events.enum';
@@ -12,6 +11,7 @@ import { DOCUMENT } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { StorageItems } from './classes/enum/storage-items.enum';
 import { LanguageService } from './services/language-service.service';
+import { EventsService } from './services/events.service';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class AppComponent {
   constructor (
     public userService : UserService,
     private router: Router,
-    private eventService : PubSubService,
+    private eventService : EventsService,
     private optionService : OptionsService,
     private locationsService : LocationsService,
     private matIconRegistry: MatIconRegistry,
@@ -87,7 +87,7 @@ export class AppComponent {
     } else {
       this.prepareApplicationdata();
     }
-    this.loginListener = this.eventService.$sub(Events.LOGGEDIN, (from) => {
+    this.loginListener = this.eventService.sub(Events.LOGGEDIN, (from) => {
       this.prepareApplicationdata();
     });
   }

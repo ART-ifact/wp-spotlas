@@ -4,6 +4,7 @@ import { LocationsService } from 'src/app/services/locations.service';
 import { OptionsService } from 'src/app/services/options.service';
 import { LocationService } from 'src/app/services/location.service';
 import { Helper } from 'src/app/helper/helper';
+import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/services/language-service.service';
 
 @Component({
@@ -39,6 +40,7 @@ export class EditLocationComponent implements OnInit {
     public optionService : OptionsService,
     private locationsService : LocationsService,
     private router : Router,
+    private _location : Location,
     public language : LanguageService
   ) { }
 
@@ -150,6 +152,10 @@ export class EditLocationComponent implements OnInit {
         this.location.hash = hash;
         this.sharedURL = Helper.getShareURL(this.location.id, hash);
     }
+  }
+
+  goBack() {
+    this._location.back()
   }
 
     saveLocation() {

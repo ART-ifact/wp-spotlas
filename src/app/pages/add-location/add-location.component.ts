@@ -1,8 +1,6 @@
 import { Renderer2,Component, OnInit, Inject } from '@angular/core';
 import { OptionsService } from 'src/app/services/options.service';
 import { Location } from '@angular/common';
-import { PubSubService } from 'angular7-pubsub';
-import { Events } from 'src/app/classes/enum/events.enum';
 import { LocationService } from 'src/app/services/location.service';
 import { LocationItem } from 'src/app/classes/location';
 import { LocationsService } from 'src/app/services/locations.service';
@@ -44,7 +42,6 @@ export class AddLocationComponent implements OnInit {
     private _location: Location,
     private router: Router,
     public optionService : OptionsService,
-    private eventService : PubSubService,
     private location : LocationService,
     private locationsService : LocationsService,
     public language : LanguageService

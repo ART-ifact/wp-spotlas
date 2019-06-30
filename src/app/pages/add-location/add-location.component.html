@@ -28,13 +28,10 @@
       </mat-form-field>
       <h3>{{language.getString('minAccessibility')}}</h3>
       <mat-slider
-        class="example-margin"
         [disabled]="false"
-        [invert]="invert"
         [max]="10"
         [min]="0"
         [step]="1"
-        [thumbLabel]="test"
         [tickInterval]="1"
         (change)="setAccessibility($event)"
         ></mat-slider>
