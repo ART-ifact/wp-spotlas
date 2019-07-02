@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/services/language-service.service';
+import { LocationsService } from 'src/app/services/locations.service';
 
 @Component({
   selector: 'app-filter',
@@ -24,18 +25,30 @@ export class FilterComponent implements OnInit {
     {value: 'water', viewValue: 'Sehenswürdigkeit'}
   ];
 
+  public emptyFilter = {
+    title : '',
+    category : '',
+    type : '',
+    accessibility : 0,
+    cloudy: false,
+    foggy: false,
+    rainy: false,
+    sunny: false,
+    spring: false,
+    summer: false,
+    autumn: false,
+    winter: false,
+    shared: false
+  };
 
-  constructor(public language : LanguageService) { }
+  constructor(public language : LanguageService, public locationService : LocationsService) { }
 
   ngOnInit() {
   }
 
-  setTitleFilter(event) {
 
-  }
-
-  setAccessibilityFilter(event) {
-
+  resetFilter() {
+    this.locationService.filter = this.emptyFilter;
   }
 
 }
