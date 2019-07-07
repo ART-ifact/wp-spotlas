@@ -9,7 +9,7 @@ import { LocationStrategy } from '@angular/common';
 })
 export class GridComponent implements OnInit {
 
-  constructor(public locationService : LocationsService, private locationsService : LocationsService) { }
+  constructor(public locationService : LocationsService, public locationsService : LocationsService) { }
 
   ngOnInit() {
     this.locationsService.getLocations().subscribe(response => {

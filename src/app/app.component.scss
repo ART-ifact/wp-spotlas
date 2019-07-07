@@ -53,6 +53,11 @@ mat-toolbar-row {
         margin-right: 16px;
       }
     }
+
+    app-filter {
+      padding: 16px;
+      display: block;
+    }
   }
 }
 .spacer {
