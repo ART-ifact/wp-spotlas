@@ -63,6 +63,7 @@ import { AddUserComponent } from './pages/add-user/add-user.component';
 import { UserlistComponent } from './pages/userlist/userlist.component';
 import { LocationsPipe } from './helper/locations.pipe';
 import { FilterComponent } from './components/filter/filter.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 @NgModule({
@@ -128,7 +129,8 @@ import { FilterComponent } from './components/filter/filter.component';
     AgmSnazzyInfoWindowModule,
     AgmJsMarkerClustererModule,
     MatCarouselModule,
-    FormsModule
+    FormsModule,
+    FilterPipeModule
     ],
     exports: [
       AccessibilityComponent,

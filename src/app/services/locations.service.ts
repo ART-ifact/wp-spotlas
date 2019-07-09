@@ -14,19 +14,27 @@ export class LocationsService {
   public locations = [];
   public filteredLocations = [];
   public filter = {
-    title : '',
-    category : '',
-    type : '',
-    accessibility : 0,
-    cloudy: false,
-    foggy: false,
-    rainy: false,
-    sunny: false,
-    spring: false,
-    summer: false,
-    autumn: false,
-    winter: false,
-    shared: false
+    shared: null,
+    title: null,
+    note: null,
+    properties: {
+      accesibility : null,
+      category: null,
+      adress: null,
+      type: null,
+      wheater: {
+        cloudy: null,
+        foggy: null,
+        rainy: null,
+        sunny: null
+      },
+      seasons: {
+        autumn: null,
+        spring: null,
+        summer: null,
+        winter: null
+      }
+    },
   };
 
   constructor(private baseService : BasicRestService, private options : OptionsService) { }
@@ -183,42 +191,17 @@ export class LocationsService {
     return this.locations.filter(x => x.id == id)[0];
   }
 
-  locationFilter(filter) {
-    var category = filter.category;
-    var type = filter.type;
-    var title = filter.title;
-    var accessibility = filter.accessibility;
-    var cloudy = filter.cloudy;
-    var foggy = filter.foggy;
-    var rainy = filter.rainy;
-    var sunny = filter.sunny;
-    var spring = filter.spring;
-    var summer = filter.summer;
-    var autumn = filter.autumn;
-    var winter = filter.winter;
-    var shared = filter.shared;
+  locationFilter(filters) {
 
-    if (category === "" && title === "" && type === "" && shared === false && cloudy === false && accessibility === 0 && foggy === false && rainy === false && sunny === false && spring === false && summer === false && autumn === false && winter === false) {
-        //save performance, juste return the default array:
-        return this.filteredLocations;
-    } else {
-      let filteredLocations = this.filteredLocations.filter((location : LocationItem) => {
-        //return the array after passimng it through the filter function:
-        return (category === '' || location.properties.category === category) &&
-            (type === '' || location.properties.type.includes(type) === true) &&
-            (title === '' || location.title.includes(title) === true) &&
-            (shared === false || location.shared === true) &&
-            (accessibility === 0 || location.properties.accesibility >= accessibility) &&
-            (cloudy === false || location.properties.wheater.cloudy === cloudy) &&
-            (foggy === false || location.properties.wheater.foggy === foggy) &&
-            (rainy === false || location.properties.wheater.rainy === rainy) &&
-            (sunny === false || location.properties.wheater.sunny === sunny) &&
-            (spring === false || location.properties.seasons.spring === spring) &&
-            (summer === false || location.properties.seasons.summer === summer) &&
-            (autumn === false || location.properties.seasons.autumn === autumn) &&
-            (winter === false || location.properties.seasons.winter === winter);
-        });
-      this.filteredLocations = filteredLocations;
-    }
+
+    const filterKeys = Object.keys(filters);
+    return this.locations.filter(eachObj => {
+      return filterKeys.every(eachKey => {
+        if (!filters[eachKey].length) {
+          return true; // passing an empty filter means that filter is ignored.
+        }
+        return filters[eachKey].includes(eachObj[eachKey]);
+      });
+    });
   }
 }

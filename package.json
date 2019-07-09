@@ -31,6 +31,7 @@
     "exif-js": "^2.3.0",
     "hammerjs": "^2.0.8",
     "js-marker-clusterer": "^1.0.0",
+    "ngx-filter-pipe": "^2.1.2",
     "ngx-place-picker": "0.0.2",
     "rxjs": "^6.5.2",
     "snazzy-info-window": "^1.1.1",
