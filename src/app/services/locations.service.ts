@@ -124,6 +124,7 @@ export class LocationsService {
               }
               break;
             default:
+              break;
           }
         }
       }
