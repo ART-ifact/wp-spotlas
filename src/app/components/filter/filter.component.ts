@@ -29,24 +29,18 @@ export class FilterComponent implements OnInit {
     shared: null,
     title: null,
     note: null,
-    properties: {
-      accesibility : null,
-      category: null,
-      adress: null,
-      type: null,
-      wheater: {
-        cloudy: null,
-        foggy: null,
-        rainy: null,
-        sunny: null
-      },
-      seasons: {
-        autumn: null,
-        spring: null,
-        summer: null,
-        winter: null
-      }
-    },
+    accesibility : null,
+    category: null,
+    adress: null,
+    type: null,
+    foggy: null,
+    cloudy: null,
+    rainy: null,
+    sunny: null,
+    autumn: null,
+    spring: null,
+    summer: null,
+    winter: null
   };
 
   constructor(public language : LanguageService, public locationService : LocationsService) { }
@@ -54,13 +48,15 @@ export class FilterComponent implements OnInit {
   ngOnInit() {
   }
 
-  setFilter() {
-    console.log(this.locationService.filter);
+  setFilter(value) {
+    console.log('filter value', value);
+    this.locationService.filterItems();
   }
 
 
   resetFilter() {
     this.locationService.filter = this.emptyFilter;
+    this.locationService.resetFilter();
   }
 
 }

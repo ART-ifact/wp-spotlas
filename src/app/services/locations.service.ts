@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Helper } from '../helper/helper';
 import { ApiEndpoints } from '../classes/enum/api-endpoints.enum';
 import { OptionsService } from './options.service';
+import { formattedError } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -13,28 +14,23 @@ import { OptionsService } from './options.service';
 export class LocationsService {
   public locations = [];
   public filteredLocations = [];
+  public flattenedLocations = [];
   public filter = {
     shared: null,
     title: null,
     note: null,
-    properties: {
-      accesibility : null,
-      category: null,
-      adress: null,
-      type: null,
-      wheater: {
-        cloudy: null,
-        foggy: null,
-        rainy: null,
-        sunny: null
-      },
-      seasons: {
-        autumn: null,
-        spring: null,
-        summer: null,
-        winter: null
-      }
-    },
+    accesibility : null,
+    category: null,
+    adress: null,
+    type: null,
+    foggy: null,
+    cloudy: null,
+    rainy: null,
+    sunny: null,
+    autumn: null,
+    spring: null,
+    summer: null,
+    winter: null
   };
 
   constructor(private baseService : BasicRestService, private options : OptionsService) { }
@@ -43,13 +39,14 @@ export class LocationsService {
     return this.baseService.get(ApiEndpoints.getLocations).pipe(
       map((result: any) => {
         let locations : LocationItem[] = [];
+        this.filteredLocations = [];
 
         for (let index = 0, lenght = result.length; index < lenght; ++index) {
           let item = result[index];
 
           let locationItem : LocationItem = {
             id: item.id,
-            shared: item.shared,
+            shared: JSON.parse(item.shared),
             hash: item.hash,
             title: item.title.rendered,
             note: item.content.rendered.replace(/(<([^>]+)>)/ig,""),
@@ -59,16 +56,16 @@ export class LocationsService {
               adress: item.adress,
               type: item.type,
               wheater: {
-                cloudy: item.cloudy,
-                foggy: item.foggy,
-                rainy: item.rainy,
-                sunny: item.sunny
+                cloudy: JSON.parse(item.cloudy),
+                foggy: JSON.parse(item.foggy),
+                rainy: JSON.parse(item.rainy),
+                sunny: JSON.parse(item.sunny)
               },
               seasons: {
-                autumn: item.autumn,
-                spring: item.spring,
-                summer: item.summer,
-                winter: item.winter
+                autumn: JSON.parse(item.autumn),
+                spring: JSON.parse(item.spring),
+                summer: JSON.parse(item.summer),
+                winter: JSON.parse(item.winter)
               },
               images: JSON.parse(item.images)
             },
@@ -77,13 +74,64 @@ export class LocationsService {
               lng: item.lng
             }
           }
+          let flatLocation = this.flatten(locationItem);
+          this.flattenedLocations.push(flatLocation);
           locations.push(locationItem);
         }
         this.locations = locations;
         this.filteredLocations = locations;
+        console.log('flattened',this.flattenedLocations)
         return locations;
       })
     );
+  }
+
+  resetFilter() {
+    this.filteredLocations = this.locations;
+  }
+
+  filterItems() {
+    this.filteredLocations = [];
+    console.log(this.flattenedLocations)
+    this.flattenedLocations.forEach((location, index) => {
+      let accepted = false;
+      for (let key in this.filter) {
+        if (this.filter[key] !== null) {
+          console.log(typeof this.filter[key])
+          switch (typeof this.filter[key]) {
+            case 'string':
+              if (location[key].includes(this.filter[key])) {
+                accepted = true;
+              }
+              break;
+            case 'number':
+              if (location[key] <= this.filter[key]) {
+                accepted = true;
+              }
+              break;
+            case 'object':
+              console.log(key, this.filter[key])
+              this.filter[key].forEach(item => {
+                console.log('item in',item, location[key], location[key].hasOwnProperty(item))
+                if(location[key].includes(item)) {
+                  accepted = true;
+                }
+              })
+              break;
+            case 'boolean':
+              if (location[key] == this.filter[key]) {
+                accepted = true;
+              }
+              break;
+            default:
+          }
+        }
+      }
+      if(accepted) {
+        this.filteredLocations.push(this.locations[index]);
+      }
+      console.log('Filtered Locations',this.filteredLocations)
+    })
   }
 
   loadLocation(id) {
@@ -191,17 +239,29 @@ export class LocationsService {
     return this.locations.filter(x => x.id == id)[0];
   }
 
-  locationFilter(filters) {
-
-
-    const filterKeys = Object.keys(filters);
-    return this.locations.filter(eachObj => {
-      return filterKeys.every(eachKey => {
-        if (!filters[eachKey].length) {
-          return true; // passing an empty filter means that filter is ignored.
+  flatten(data) {
+    console.log('flat', data)
+    var result = {};
+    function recurse (cur, prop) {
+        if (Object(cur) !== cur) {
+            result[prop] = cur;
+        } else if (Array.isArray(cur)) {
+             for(var i=0, l=cur.length; i<l; i++)
+                 recurse(cur[i], prop + "[" + i + "]");
+            if (l == 0)
+                result[prop] = [];
+        } else {
+            var isEmpty = true;
+            for (var p in cur) {
+                isEmpty = false;
+                recurse(cur[p],  p);
+            }
+            if (isEmpty && prop)
+                result[prop] = {};
         }
-        return filters[eachKey].includes(eachObj[eachKey]);
-      });
-    });
-  }
+    }
+    recurse(data, "");
+    console.log('result', result)
+    return result;
+}
 }
