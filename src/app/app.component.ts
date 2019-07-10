@@ -13,6 +13,7 @@ import { StorageItems } from './classes/enum/storage-items.enum';
 import { LanguageService } from './services/language-service.service';
 import { EventsService } from './services/events.service';
 import { UpdateService } from './services/update.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class AppComponent {
   public isAdmin : boolean = false;
   public hideMenu : boolean = false;
   public showFilter : boolean = false;
+  public hasBackdrop : boolean;
 
   constructor (
     public userService : UserService,
@@ -40,8 +42,11 @@ export class AppComponent {
     private authService : AuthService,
     private language : LanguageService,
     private update: UpdateService,
+    private mediaMatcher: MediaMatcher,
     @Inject(DOCUMENT) private _document: Document,
     ) {
+      console.log(mediaMatcher.matchMedia('(max-width: 960px)').matches)
+      this.hasBackdrop = mediaMatcher.matchMedia('(max-width: 960px)').matches;
       this.matIconRegistry.addSvgIcon(
         "rainy",
         this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/svg-icons/rainy.svg")
