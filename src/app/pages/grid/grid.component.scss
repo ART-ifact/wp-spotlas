@@ -1,0 +1,87 @@
+
+
+@import '../../../../global/styles/grid.scss';
+
+$card-height : 320px;
+
+::ng-deep {
+  mat-card {
+    min-width: 280px;
+    padding-top: 0 !important;
+
+    .card-overlay {
+      transition: opacity 250ms linear;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      height: $card-height;
+      background: rgba(0, 0, 0, 0.8);
+      top: 0;
+      z-index: 1;
+      opacity: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+
+      .four-items {
+        margin-bottom: 12px;
+        > * {
+          margin: 0 16px;
+        }
+      }
+    }
+
+    &:hover {
+      .card-overlay {
+        opacity: 1;
+      }
+    }
+
+    .mat-card-content {
+      mat-icon {
+        float:left;
+      }
+
+      .title {
+        line-height: 26px;
+        margin-left: 8px;
+        font-size: 18px;
+      }
+    }
+
+    .mat-card-header-text {
+      margin: 0;
+      text-overflow: ellipsis
+    }
+
+    .image-wrapper {
+      max-height: $card-height;
+      overflow: hidden;
+      width: calc(100% + 32px);
+      margin: 8px -16px 0;
+
+      > div {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: $card-height;
+      }
+
+      .mat-card-image {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        transform: translateY(-50%);
+      }
+    }
+
+    app-accessibility {
+      display: block;
+      width: calc(100% + 32px);
+      margin: 0 -16px 16px -16px;
+    }
+  }
+}

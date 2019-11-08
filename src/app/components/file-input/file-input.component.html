@@ -1,0 +1,16 @@
+<div class="file-input">
+  <mat-form-field>
+    <input matInput readonly [value]="fileName">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="fileInput.click()">{{language.getString('selectImportFile')}}</button>
+  <input type="file" hidden accept="image/*" (change)="setFilename($event)" multiple="multiple" #fileInput>
+</div>
+<ul class="image-list">
+  <ng-container *ngFor="let image of imageArray">
+    <li>
+      <img src="{{image.thumb}}">
+      <button (click)="deleteImage(image.id)"><mat-icon>delete</mat-icon></button>
+    </li>
+  </ng-container>
+</ul>
+<span *ngIf="sending">loading</span>

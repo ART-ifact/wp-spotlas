@@ -1,0 +1,91 @@
+<mat-toolbar class="button-row" color="secondary" *ngIf="showButtonBar">
+  <mat-toolbar-row *ngIf="location">
+    <button mat-raised-button color="accent" (click)="goBack()">{{language.getString('back')}}</button>
+    <span class="spacer"></span>
+    <button mat-raised-button class="mr-1" color="warn" (click)="openDialog(location.id)">{{language.getString('delete')}}</button>
+    <button mat-raised-button color="primary" [routerLink]="['/edit/'+location.id]">{{language.getString('edit')}}</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<ng-container *ngIf="location">
+  <h1 class="location-title">{{location.title}}</h1>
+  <app-accessibility [accessibility]="location.properties.accesibility" [big]="true"></app-accessibility>
+  <div class="grid">
+    <div class="grid-item">
+        <mat-carousel
+        [autoplay]="false"
+        color="accent"
+        maxWidth="auto"
+        [slides]="location.properties.images.length"
+        [loop]="true"
+        [hideArrows]="location.properties.images.length > 0 ? false : true"
+        [hideIndicators]="location.properties.images.length > 0 ? false : true"
+        [useKeyboard]="true"
+        [useMouseWheel]="false"
+        orientation="ltr"
+      >
+      <ng-container *ngIf="location.properties.images.length > 0">
+          <mat-carousel-slide
+          #matCarouselSlide
+          *ngFor="let image of location.properties.images; let i = index"
+          overlayColor="#00000040"
+          [hideOverlay]="true"
+        >
+          <img [src]="image.large" alt="">
+        </mat-carousel-slide>
+      </ng-container>
+      <ng-container *ngIf="location.properties.images.length === 0">
+          <mat-carousel-slide
+          #matCarouselSlide
+          overlayColor="#00000040"
+          [hideOverlay]="true"
+        >
+          <img src="./assets/img/location-standard.jpg" alt="">
+        </mat-carousel-slide>
+      </ng-container>
+
+
+      </mat-carousel>
+      <agm-map  class="m-b-1" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [styles]="mapStyle">
+          <agm-marker  [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker_'+location.properties.category+'.svg'">
+          </agm-marker>
+        </agm-map>
+    </div>
+    <div class="grid-item">
+    <div class="grid">
+      <div class="grid-item">
+        <h3>{{language.getString('category')}}</h3>
+        <mat-icon *ngIf="location.properties.category == 'urban'">location_city</mat-icon>
+        <mat-icon *ngIf="location.properties.category == 'building'">home</mat-icon>
+        <mat-icon *ngIf="location.properties.category == 'landscape'">local_florist</mat-icon>
+        <mat-icon *ngIf="location.properties.category == 'water'">directions_boat</mat-icon>
+        {{location.properties.category}}
+      </div>
+      <div class="grid-item">
+        <h3>{{language.getString('type')}}</h3>
+        <mat-chip-list>
+        <ng-container *ngFor="let type of location.properties.type">
+          <mat-chip color="primary" selected>{{type}}</mat-chip>
+        </ng-container>
+        </mat-chip-list>
+      </div>
+    </div>
+      <h3>Wheather</h3>
+        <div class="four-items m-b-1">
+            <app-custom-checkbox name="sunny" iconName="sunny" [readonly]="true" [checked]="location.properties.wheater.sunny"></app-custom-checkbox>
+            <app-custom-checkbox name="foggy" iconName="foggy" [readonly]="true" [checked]="location.properties.wheater.foggy"></app-custom-checkbox>
+            <app-custom-checkbox name="cloudy" iconName="cloudy" [readonly]="true" [checked]="location.properties.wheater.cloudy"></app-custom-checkbox>
+            <app-custom-checkbox name="rainy" iconName="rainy" [readonly]="true" [checked]="location.properties.wheater.rainy"></app-custom-checkbox>
+        </div>
+        <h3>Seasons</h3>
+        <div class="four-items m-b-1">
+            <app-custom-checkbox name="spring" iconName="spring" [readonly]="true" [checked]="location.properties.seasons.spring"></app-custom-checkbox>
+            <app-custom-checkbox name="summer" iconName="summer" [readonly]="true" [checked]="location.properties.seasons.summer"></app-custom-checkbox>
+            <app-custom-checkbox name="autumn" iconName="autumn" [readonly]="true" [checked]="location.properties.seasons.autumn"></app-custom-checkbox>
+            <app-custom-checkbox name="winter" iconName="winter" [readonly]="true" [checked]="location.properties.seasons.winter"></app-custom-checkbox>
+        </div>
+      <h3>{{language.getString('note')}}</h3>
+      {{location.note}}
+    </div>
+  </div>
+</ng-container>
+
