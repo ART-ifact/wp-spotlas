@@ -1,8 +1,8 @@
 import { Injectable, isDevMode } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SwUpdate } from '@angular/service-worker';
 import { interval } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'

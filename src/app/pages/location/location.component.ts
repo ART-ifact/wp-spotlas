@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationsService } from 'src/app/services/locations.service';
 import { LocationItem } from 'src/app/classes/location';
-import { MatCarousel, MatCarouselComponent } from '@ngmodule/material-carousel';
+import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel';
 import { environment } from 'src/environments/environment';
 import { OptionsService } from 'src/app/services/options.service';
-import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import { LanguageService } from 'src/app/services/language-service.service';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-location',

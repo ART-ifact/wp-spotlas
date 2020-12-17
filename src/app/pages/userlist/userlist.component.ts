@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import { LanguageService } from 'src/app/services/language-service.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-userlist',

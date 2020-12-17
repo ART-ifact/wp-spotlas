@@ -10,11 +10,8 @@ import { MapComponent } from './pages/map/map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
-import { AgmJsMarkerClustererModule   } from '@agm/js-marker-clusterer';
-import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
 //Angular Material Components
-import {MatCheckboxModule} from '@angular/material';
-import {MatButtonModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -64,6 +61,8 @@ import { UserlistComponent } from './pages/userlist/userlist.component';
 import { LocationsPipe } from './helper/locations.pipe';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { MatButtonModule } from '@angular/material/button';
+import { AgmMarkerClustererModule } from '@agm/markerclusterer';
 
 
 @NgModule({
@@ -94,8 +93,6 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MatCheckboxModule,
-    MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -127,7 +124,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     MatPaginatorModule,
     AgmCoreModule.forRoot(),
     AgmSnazzyInfoWindowModule,
-    AgmJsMarkerClustererModule,
+    AgmMarkerClustererModule,
     MatCarouselModule,
     FormsModule,
     FilterPipeModule
@@ -137,7 +134,8 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
       CustomCheckboxComponent,
       FileInputComponent,
       FormsModule,
-      MatFormFieldModule
+      MatFormFieldModule,
+      AgmCoreModule
     ],
   providers: [
     { provide: MapsAPILoader, useClass: CustomLazyAPIKeyLoader },

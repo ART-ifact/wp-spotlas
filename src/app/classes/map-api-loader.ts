@@ -1,11 +1,17 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, Inject, Provider } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { MapsAPILoader, LAZY_MAPS_API_CONFIG, LazyMapsAPILoaderConfigLiteral, GoogleMapsScriptProtocol } from '@agm/core';
-import { DocumentRef, WindowRef } from '@agm/core/utils/browser-globals';
 import { Events } from './enum/events.enum';
 import { OptionsService } from '../services/options.service';
-import { BasicRestService } from '../services/basic-rest.service';
 import { EventsService } from '../services/events.service';
+
+export declare class WindowRef {
+  getNativeWindow(): any;
+}
+export declare class DocumentRef {
+  getNativeDocument(): any;
+}
+export declare const BROWSER_GLOBALS_PROVIDERS: Provider[];
 
 @Injectable()
 export class CustomLazyAPIKeyLoader extends MapsAPILoader {
@@ -13,7 +19,6 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     private _config: LazyMapsAPILoaderConfigLiteral;
     private _windowRef: WindowRef;
     private _documentRef: DocumentRef;
-    private optionListener;
 
     constructor( @Inject(LAZY_MAPS_API_CONFIG) config: any, w: WindowRef, d: DocumentRef, private http: HttpClient, private optionService : OptionsService, private eventService : EventsService) {
         super();

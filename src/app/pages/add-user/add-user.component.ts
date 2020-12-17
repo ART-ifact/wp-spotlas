@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Helper } from 'src/app/helper/helper';
-import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/services/language-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-user',
