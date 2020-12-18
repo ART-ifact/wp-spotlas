@@ -7,12 +7,9 @@ export class LocationService {
 
   constructor() { }
 
-  getPosition(): Promise<any>
-  {
+  getPosition(): Promise<any> {
     return new Promise((resolve, reject) => {
-
       navigator.geolocation.getCurrentPosition(resp => {
-
           resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
         },
         err => {

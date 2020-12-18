@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin() {
-    console.log(this.username, this.password)
     let loginForm = new FormData();
     loginForm.append('user_password', this.password);
     loginForm.append('user_login', this.username);

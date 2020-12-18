@@ -80,8 +80,8 @@ export class AddLocationComponent implements OnInit {
   }
 
   setPosition(position) {
-    this.locationObject.latitude = position.coords.lat;
-    this.locationObject.longitude = position.coords.lng;
+    this.locationObject.latitude = position.latLng.lat();
+    this.locationObject.longitude = position.latLng.lng();
     this.locationArray.geoLocation.lat = this.locationObject.latitude;
     this.locationArray.geoLocation.lng = this.locationObject.longitude;
   }

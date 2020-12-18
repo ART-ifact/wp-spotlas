@@ -5,26 +5,14 @@ import { Events } from './enum/events.enum';
 import { OptionsService } from '../services/options.service';
 import { EventsService } from '../services/events.service';
 
-export declare class WindowRef {
-  getNativeWindow(): any;
-}
-export declare class DocumentRef {
-  getNativeDocument(): any;
-}
-export declare const BROWSER_GLOBALS_PROVIDERS: Provider[];
-
 @Injectable()
 export class CustomLazyAPIKeyLoader extends MapsAPILoader {
     private _scriptLoadingPromise: Promise<void>;
     private _config: LazyMapsAPILoaderConfigLiteral;
-    private _windowRef: WindowRef;
-    private _documentRef: DocumentRef;
 
-    constructor( @Inject(LAZY_MAPS_API_CONFIG) config: any, w: WindowRef, d: DocumentRef, private http: HttpClient, private optionService : OptionsService, private eventService : EventsService) {
+    constructor( @Inject(LAZY_MAPS_API_CONFIG) config: any, private http: HttpClient, private optionService : OptionsService, private eventService : EventsService) {
         super();
         this._config = config || {};
-        this._windowRef = w;
-        this._documentRef = d;
     }
 
     load(): Promise<void> {
@@ -34,28 +22,30 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
 
 
 
-        const script = this._documentRef.getNativeDocument().createElement('script');
+        const script = document.createElement('script');
         script.type = 'text/javascript';
         script.async = true;
         script.defer = true;
         const callbackName: string = `angular2GoogleMapsLazyMapsAPILoader`;
 
+        console.warn('options:',this.optionService.options)
+
         if (this.optionService.options.apiKey) {
           this._config.apiKey = this.optionService.options.apiKey;
                 script.src = this._getScriptSrc(callbackName);
-                this._documentRef.getNativeDocument().body.appendChild(script);
+                document.body.appendChild(script);
         } else {
           this.eventService.sub(Events.OPTIONSLOADED, () => {
             this._config.apiKey = this.optionService.options.apiKey;
                   script.src = this._getScriptSrc(callbackName);
-                  this._documentRef.getNativeDocument().body.appendChild(script);
+                  document.body.appendChild(script);
           })
         }
 
 
 
         this._scriptLoadingPromise = new Promise<void>((resolve: Function, reject: Function) => {
-            (<any>this._windowRef.getNativeWindow())[callbackName] = () => { this.eventService.pub(Events.MAPSLOADED); resolve(); };
+            (<any>window)[callbackName] = () => { this.eventService.pub(Events.MAPSLOADED); resolve(); };
 
             script.onerror = (error: Event) => { reject(error); };
         });

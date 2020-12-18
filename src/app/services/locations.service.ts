@@ -35,6 +35,10 @@ export class LocationsService {
 
   constructor(private baseService : BasicRestService, private options : OptionsService) { }
 
+  checkTruthy(value : string) {
+    return (value == 'true')
+  }
+
   getLocations() {
     return this.baseService.get(ApiEndpoints.getLocations).pipe(
       map((result: any) => {
@@ -46,7 +50,7 @@ export class LocationsService {
 
           let locationItem : LocationItem = {
             id: item.id,
-            shared: JSON.parse(item.shared),
+            shared: (item.shared == 'true'),
             hash: item.hash,
             title: item.title.rendered,
             note: item.content.rendered.replace(/(<([^>]+)>)/ig,""),
@@ -56,16 +60,16 @@ export class LocationsService {
               adress: item.adress,
               type: item.type,
               wheater: {
-                cloudy: JSON.parse(item.cloudy),
-                foggy: JSON.parse(item.foggy),
-                rainy: JSON.parse(item.rainy),
-                sunny: JSON.parse(item.sunny)
+                cloudy: this.checkTruthy(item.cloudy),
+                foggy: this.checkTruthy(item.foggy),
+                rainy: this.checkTruthy(item.rainy),
+                sunny: this.checkTruthy(item.sunny)
               },
               seasons: {
-                autumn: JSON.parse(item.autumn),
-                spring: JSON.parse(item.spring),
-                summer: JSON.parse(item.summer),
-                winter: JSON.parse(item.winter)
+                autumn: this.checkTruthy(item.autumn),
+                spring: this.checkTruthy(item.spring),
+                summer: this.checkTruthy(item.summer),
+                winter: this.checkTruthy(item.winter)
               },
               images: JSON.parse(item.images)
             },

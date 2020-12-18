@@ -12,12 +12,12 @@ import { LanguageService } from 'src/app/services/language-service.service';
 export class MapComponent implements OnInit {
   public clusterstyle = {
     url: "/assets/img/marker.svg",
-        height: 50,
-        width: 50,
-        anchor: [-14, 0],
-        textColor: '#bd0b1d',
-        textSize: 11,
-        backgroundPosition: "center center"
+    height: 50,
+    width: 50,
+    anchor: [-14, 0],
+    textColor: '#bd0b1d',
+    textSize: 11,
+    backgroundPosition: "center center"
   }
   public mapStyle = this.optionService.mapStyle;
 
