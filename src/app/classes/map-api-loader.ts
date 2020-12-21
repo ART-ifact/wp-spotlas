@@ -28,21 +28,12 @@ export class CustomLazyAPIKeyLoader extends MapsAPILoader {
         script.defer = true;
         const callbackName: string = `angular2GoogleMapsLazyMapsAPILoader`;
 
-        console.warn('options:',this.optionService.options)
-
-        if (this.optionService.options.apiKey) {
-          this._config.apiKey = this.optionService.options.apiKey;
+        this.optionService.options.subscribe(options => {
+          let apiKey = options.apiKey;
+          this._config.apiKey = apiKey;
                 script.src = this._getScriptSrc(callbackName);
                 document.body.appendChild(script);
-        } else {
-          this.eventService.sub(Events.OPTIONSLOADED, () => {
-            this._config.apiKey = this.optionService.options.apiKey;
-                  script.src = this._getScriptSrc(callbackName);
-                  document.body.appendChild(script);
-          })
-        }
-
-
+        })
 
         this._scriptLoadingPromise = new Promise<void>((resolve: Function, reject: Function) => {
             (<any>window)[callbackName] = () => { this.eventService.pub(Events.MAPSLOADED); resolve(); };

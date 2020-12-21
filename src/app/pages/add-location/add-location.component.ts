@@ -1,5 +1,5 @@
 import { Renderer2,Component, OnInit, Inject } from '@angular/core';
-import { OptionsService } from 'src/app/services/options.service';
+import { Options, OptionsService } from 'src/app/services/options.service';
 import { Location } from '@angular/common';
 import { LocationService } from 'src/app/services/location.service';
 import { LocationItem } from 'src/app/classes/location';
@@ -14,6 +14,7 @@ import { LanguageService } from 'src/app/services/language-service.service';
   styleUrls: ['./add-location.component.scss']
 })
 export class AddLocationComponent implements OnInit {
+  public options: Options;
   public imageArray : string = '';
   public mapStyle = this.optionService.mapStyle;
   public locationObject = {
@@ -45,7 +46,11 @@ export class AddLocationComponent implements OnInit {
     private location : LocationService,
     private locationsService : LocationsService,
     public language : LanguageService
-  ) { }
+  ) {
+    this.optionService.options.subscribe(options => {
+      this.options = options
+    })
+  }
 
   ngOnInit() {
   }

@@ -3,11 +3,11 @@
   <mat-toolbar-row>
     <img [routerLink]="['/']" src="./assets/img/logo.svg" alt="logo">
     <span class="spacer"></span>
-    <mat-icon *ngIf="!hideMenu" aria-hidden="false" class="filter-trigger" (click)="showFilter = true;drawer.toggle()" aria-label="Filter Icon">search</mat-icon>
-    <mat-icon *ngIf="!hideMenu" aria-hidden="false" (click)="showFilter = false;drawer.toggle()" aria-label="Menu Icon">menu</mat-icon>
+    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" class="filter-trigger" (click)="showFilter = true;drawer.toggle()" aria-label="Filter Icon">search</mat-icon>
+    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" (click)="showFilter = false;drawer.toggle()" aria-label="Menu Icon">menu</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-drawer-container class="app-container" [hasBackdrop]="hasBackdrop">
+<mat-drawer-container class="app-container" [hasBackdrop]="uiService.hasBackdrop()">
   <mat-drawer #drawer mode="side" position="end" >
       <ng-container *ngIf="!showFilter">
         <app-user-profile *ngIf="userService.userData" [userName]="userService.userData.name" [userId]="userService.userData.id" [userImage]="userService.userData"></app-user-profile>
@@ -23,7 +23,7 @@
                <a matLine [routerLink]="['/']"><mat-icon>map</mat-icon> {{language.getString('map-view')}}</a>
           </mat-list-item>
         </mat-nav-list>
-        <ng-container *ngIf="isAdmin">
+        <ng-container *ngIf="userService.isAdmin()">
           <h4 class="sidenav-header">{{language.getString('user-menu')}}</h4>
           <mat-nav-list>
             <mat-list-item>

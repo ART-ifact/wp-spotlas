@@ -158,13 +158,13 @@ export class EditLocationComponent implements OnInit {
     this._location.back()
   }
 
-    saveLocation() {
-      console.log(this.location)
-      this.locationsService.editLocation(this.location).subscribe(res => {
-        console.log(res)
-        this.router.navigate(['location/' + this.id])
-      })
-    }
+  saveLocation() {
+    console.log(this.location)
+    this.locationsService.editLocation(this.location).subscribe(res => {
+      console.log(res)
+      this.router.navigate(['location/' + this.id])
+    })
+  }
 
 
 }

@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BasicRestService } from './basic-rest.service';
 import { LocationItem } from '../classes/location';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Helper } from '../helper/helper';
 import { ApiEndpoints } from '../classes/enum/api-endpoints.enum';
 import { OptionsService } from './options.service';
 import { formattedError } from '@angular/compiler';
+import { from, ReplaySubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationsService {
-  public locations = [];
-  public filteredLocations = [];
-  public flattenedLocations = [];
+  public locations : Subject<LocationItem[]> = new ReplaySubject();
   public filter = {
     shared: null,
     title: null,
@@ -33,7 +32,7 @@ export class LocationsService {
     winter: null
   };
 
-  constructor(private baseService : BasicRestService, private options : OptionsService) { }
+  constructor(private baseService : BasicRestService, private optionsService : OptionsService) { }
 
   checkTruthy(value : string) {
     return (value == 'true')
@@ -43,7 +42,6 @@ export class LocationsService {
     return this.baseService.get(ApiEndpoints.getLocations).pipe(
       map((result: any) => {
         let locations : LocationItem[] = [];
-        this.filteredLocations = [];
 
         for (let index = 0, lenght = result.length; index < lenght; ++index) {
           let item = result[index];
@@ -78,65 +76,12 @@ export class LocationsService {
               lng: item.lng
             }
           }
-          let flatLocation = this.flatten(locationItem);
-          this.flattenedLocations.push(flatLocation);
           locations.push(locationItem);
         }
-        this.locations = locations;
-        this.filteredLocations = locations;
-        console.log('flattened',this.flattenedLocations)
+        this.locations.next(locations);
         return locations;
       })
     );
-  }
-
-  resetFilter() {
-    this.filteredLocations = this.locations;
-  }
-
-  filterItems() {
-    this.filteredLocations = [];
-    console.log(this.flattenedLocations)
-    this.flattenedLocations.forEach((location, index) => {
-      let accepted = false;
-      for (let key in this.filter) {
-        if (this.filter[key] !== null) {
-          console.log(typeof this.filter[key])
-          switch (typeof this.filter[key]) {
-            case 'string':
-              if (location[key].includes(this.filter[key])) {
-                accepted = true;
-              }
-              break;
-            case 'number':
-              if (location[key] <= this.filter[key]) {
-                accepted = true;
-              }
-              break;
-            case 'object':
-              console.log(key, this.filter[key])
-              this.filter[key].forEach(item => {
-                console.log('item in',item, location[key], location[key].hasOwnProperty(item))
-                if(location[key].includes(item)) {
-                  accepted = true;
-                }
-              })
-              break;
-            case 'boolean':
-              if (location[key] == this.filter[key]) {
-                accepted = true;
-              }
-              break;
-            default:
-              break;
-          }
-        }
-      }
-      if(accepted) {
-        this.filteredLocations.push(this.locations[index]);
-      }
-      console.log('Filtered Locations',this.filteredLocations)
-    })
   }
 
   loadLocation(id) {
@@ -180,10 +125,9 @@ export class LocationsService {
   }
 
   getLocation(id) {
-    this.getLocations().subscribe(result => {
-      this.locations = result;
-      return this.filterLocation(id);
-    })
+    return this.locations.pipe(
+      filter(location => location[0].id == id)
+    )
   }
 
   getSharedLocation(id, hash) {
@@ -233,18 +177,20 @@ export class LocationsService {
 
   editLocation(locationObject) {
     let formData = Helper.buildFormData(locationObject, true);
-    return this.baseService.post(this.options.options.basePath + ApiEndpoints.editLocation, formData);
+    let subscribtion;
+    this.optionsService.options.subscribe(options => {
+      let basePath = options.basePath
+      subscribtion =  this.baseService.post(basePath + ApiEndpoints.editLocation, formData);
+    })
+    return subscribtion;
   }
 
   deleteLocation(id) {
     return this.baseService.delete(ApiEndpoints.deleteLocation + id + '?force=true');
   }
 
-  filterLocation(id) {
-    return this.locations.filter(x => x.id == id)[0];
-  }
-
-  flatten(data) {
+  // TODO: refactor
+  /*flatten(data) {
     console.log('flat', data)
     var result = {};
     function recurse (cur, prop) {
@@ -268,5 +214,5 @@ export class LocationsService {
     recurse(data, "");
     console.log('result', result)
     return result;
-}
+}*/
 }

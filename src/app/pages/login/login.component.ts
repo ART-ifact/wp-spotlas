@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { StorageItems } from 'src/app/classes/enum/storage-items.enum';
 import { LanguageService } from 'src/app/services/language-service.service';
 import { EventsService } from 'src/app/services/events.service';
+import { Logger } from 'src/app/helper/logger';
 
 @Component({
   selector: 'app-login',
@@ -38,11 +39,8 @@ export class LoginComponent implements OnInit {
     loginForm.append('user_password', this.password);
     loginForm.append('user_login', this.username);
     this.authService.login(loginForm).subscribe((response : any) => {
-      this.authService.nonce = response.nonce;
-      this.authService.mediaNonce = response.mediaNonce;
-      this.storage.setItem(StorageItems.logoutLink, response.logoutlink);
-      this.storage.setItem(StorageItems.wpNonce, response.nonce);
-      this.storage.setItem(StorageItems.mediaNonce, response.mediaNonce);
+      Logger.success('Login Successfull')
+      this.authService.storeAuthenticationData(response);
       this.eventService.pub(Events.LOGGEDIN);
       this.router.navigate(['/'])
     })

@@ -13,9 +13,9 @@ export class LanguageService {
   constructor(private baseService : BasicRestService, private optionService : OptionsService) { }
 
   getString(string) {
-    if (this.optionService.options) {
-      this.currentLanguage = this.optionService.options.language;
-    }
+    this.optionService.options.subscribe(options => {
+      this.currentLanguage = options.language;
+    })
     if (this.strings[this.currentLanguage].hasOwnProperty(string)) {
       return this.strings[this.currentLanguage][string];
     } else {

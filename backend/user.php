@@ -32,7 +32,7 @@ add_action( 'rest_api_init', function () {
 register_rest_field( 'user', 'userEmail',
     array(
         'get_callback'    => function ( $user ) {
-            return $user['email'];
+          return get_userdata($user['id'])->user_email;
         },
         'update_callback' => null,
         'schema'          => null,

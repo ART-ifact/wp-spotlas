@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OptionsService } from 'src/app/services/options.service';
+import { Options, OptionsService } from 'src/app/services/options.service';
 import { LocationsService } from 'src/app/services/locations.service';
 import { environment } from 'src/environments/environment';
 import { LanguageService } from 'src/app/services/language-service.service';
@@ -20,13 +20,16 @@ export class MapComponent implements OnInit {
     backgroundPosition: "center center"
   }
   public mapStyle = this.optionService.mapStyle;
+  public options : Options;
 
-  constructor(public optionService : OptionsService, public locationsService : LocationsService, public language : LanguageService) { }
+  constructor(public optionService : OptionsService, public locationsService : LocationsService, public language : LanguageService) {
+    this.optionService.options.subscribe(options => {
+      this.options = options;
+    })
+  }
 
   ngOnInit() {
-    this.locationsService.getLocations().subscribe(response => {
-      this.locationsService.locations = response;
-    })
+
   }
 
 }

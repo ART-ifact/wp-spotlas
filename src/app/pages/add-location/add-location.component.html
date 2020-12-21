@@ -10,8 +10,8 @@
     <div class="grid-item">
       <app-file-input class="m-b-1" (imageObject)="setImageArray($event)"></app-file-input>
       <app-geoautofill (position)="updateLocation($event)"></app-geoautofill>
-      <agm-map  *ngIf="optionService.options" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : parseInt(optionService.options.geoLocation.lat)" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  parseInt(optionService.options.geoLocation.lng)" [styles]="mapStyle">
-          <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : optionService.options.geoLocation.lat" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  optionService.options.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker.svg'">
+      <agm-map  *ngIf="options" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : parseInt(options.geoLocation.lat)" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  parseInt(options.geoLocation.lng)" [styles]="mapStyle">
+          <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : options.geoLocation.lat" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  options.geoLocation.lng" [iconUrl]="options.basePath + '/dist/assets/img/marker.svg'">
           </agm-marker>
       </agm-map>
       <button class="m-b-1 btn-current-location" mat-flat-button color="primary" (click)="getCurrentLocation()">{{language.getString('getCurrentLocation')}}</button>

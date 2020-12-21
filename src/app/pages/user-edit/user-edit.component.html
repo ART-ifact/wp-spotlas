@@ -5,12 +5,12 @@
     <button mat-raised-button color="primary" (click)="saveUser()">{{language.getString('save')}}</button>
   </mat-toolbar-row>
 </mat-toolbar>
-<form class="user-form" *ngIf="loaded">
+<form class="user-form" *ngIf="user">
   <mat-form-field class="userfield-full-width m-b-1">
-    <input matInput [placeholder]="language.getString('username')" name="username" readonly [(ngModel)]="username">
+    <input matInput [placeholder]="language.getString('username')" name="username" readonly [(ngModel)]="user.name">
   </mat-form-field>
   <mat-form-field class="userfield-full-width m-b-1">
-    <input matInput [placeholder]="language.getString('email')" name="mail" required [(ngModel)]="mail">
+    <input matInput [placeholder]="language.getString('email')" name="mail" required [(ngModel)]="user.userEmail">
   </mat-form-field>
   <mat-form-field class="userfield-full-width m-b-1">
     <input matInput [placeholder]="language.getString('newPassword')" [(ngModel)]="newpassword" name="new-password" requried type="password">

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "scripts": {
     "ng": "ng",
-    "watch": "ng build --watch --base-href=/wp-content/themes/wp-spotlas/dist/spotlas-wp/",
-    "start": "ng serve --base-href=/wp-content/themes/wp-spotlas/dist/spotlas-wp/",
-    "build": "ng build --prod=true --output-path dist --base-href=/wp-content/themes/wp-spotlas/dist/spotlas-wp/",
+    "watch": "ng build --watch --output-path=dist  --base-href=/wp-content/themes/wp-spotlas/dist/",
+    "start": "ng serve --base-href=/wp-content/themes/wp-spotlas/dist/",
+    "build": "ng build --prod=true --output-path dist --base-href=/wp-content/themes/wp-spotlas/dist/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

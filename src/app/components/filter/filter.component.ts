@@ -50,13 +50,13 @@ export class FilterComponent implements OnInit {
 
   setFilter(value) {
     console.log('filter value', value);
-    this.locationService.filterItems();
+    //TODO: refactor this.locationService.filterItems();
   }
 
 
   resetFilter() {
     this.locationService.filter = this.emptyFilter;
-    this.locationService.resetFilter();
+    //TODO: refactor this.locationService.resetFilter();
   }
 
 }
