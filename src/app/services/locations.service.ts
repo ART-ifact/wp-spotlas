@@ -14,28 +14,11 @@ import { from, ReplaySubject, Subject } from 'rxjs';
 })
 export class LocationsService {
   public locations : Subject<LocationItem[]> = new ReplaySubject();
-  public filter = {
-    shared: null,
-    title: null,
-    note: null,
-    accesibility : null,
-    category: null,
-    adress: null,
-    type: null,
-    foggy: null,
-    cloudy: null,
-    rainy: null,
-    sunny: null,
-    autumn: null,
-    spring: null,
-    summer: null,
-    winter: null
-  };
 
   constructor(private baseService : BasicRestService, private optionsService : OptionsService) { }
 
   checkTruthy(value : string) {
-    return (value == 'true')
+    return (value === 'true')
   }
 
   getLocations() {

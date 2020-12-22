@@ -123,4 +123,9 @@ export module Helper {
       var url = window.location.host + '/share/' + id + '/' + hash;
       return url;
   }
+
+  export const flatten = function(data) {
+    let result = Object.assign({}, ...function _flatten(o) { return [].concat(...Object.keys(o).map(k => typeof o[k] === 'object' ? _flatten(o[k]) : ({[k]: o[k]})))}(data))
+    return result;
+  }
 }

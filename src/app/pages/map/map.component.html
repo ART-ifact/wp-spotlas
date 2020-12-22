@@ -1,28 +1,28 @@
 <agm-map *ngIf="options" [latitude]="options.geoLocation.lat" [longitude]="options.geoLocation.lng" [styles]="mapStyle">
   <agm-marker-cluster *ngIf="locationsService.locations | async" [gridSize]="30"  [imageExtension]="svg" [imagePath]="options.basePath + '/dist/assets/img/clustericon'">
-  <template *ngFor="let marker of this.locationsService.locations | async">
-      <agm-marker *ngIf="marker?.properties.category !== 'null'" [latitude]="marker.geoLocation.lat" [longitude]="marker.geoLocation.lng" [iconUrl]="options.basePath  + '/dist/assets/img/marker_'+marker.properties.category+'.svg'">
+  <template *ngFor="let marker of this.locationsService.locations | async | filterLocations : filter">
+      <agm-marker *ngIf="marker && marker?.properties?.category !== 'null'" [latitude]="marker?.geoLocation?.lat" [longitude]="marker?.geoLocation?.lng" [iconUrl]="options.basePath  + '/dist/assets/img/marker_'+marker.properties.category+'.svg'">
         <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
             <ng-template #locationInfoWindow>
                 <div class="meta">
                   <h2>{{marker.title}}</h2>
                   <a class="image-wrapper" [routerLink]="['/location/'+marker.id]">
                     <div>
-                      <ng-container *ngIf="marker.properties.images.length > 0">
+                      <ng-container *ngIf="marker?.properties?.images.length > 0">
                         <img mat-card-image [src]="marker.properties.images[0].thumb" >
                       </ng-container>
-                      <ng-container *ngIf="marker.properties.images.length === 0">
+                      <ng-container *ngIf="marker?.properties?.images.length === 0">
                         <img mat-card-image src="./assets/img/location-standard.jpg" >
                       </ng-container>
                     </div>
                   </a>
-                  <app-accessibility [accessibility]="marker.properties.accesibility"></app-accessibility>
+                  <app-accessibility [accessibility]="marker?.properties?.accesibility"></app-accessibility>
                   <a target="blank" [href]="'http://maps.google.com/?daddr='+marker.geoLocation.lat+','+marker.geoLocation.lng" class="nav-link">{{language.getString('openInMaps')}}</a>
                 </div>
             </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>
-      <agm-marker *ngIf="marker?.properties.category === 'null'" [latitude]="marker.geoLocation.lat" [longitude]="marker.geoLocation.lng" [iconUrl]="options.basePath  + '/dist/assets/img/marker.svg'">
+      <agm-marker *ngIf="marker && marker?.properties.category === 'null'" [latitude]="marker.geoLocation.lat" [longitude]="marker.geoLocation.lng" [iconUrl]="options.basePath  + '/dist/assets/img/marker.svg'">
         <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
             <ng-container *ngTemplateOutlet="locationInfoWindow"></ng-container>
         </agm-snazzy-info-window>

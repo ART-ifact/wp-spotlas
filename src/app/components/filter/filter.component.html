@@ -1,6 +1,6 @@
-<div class="filter-wrapper" *ngIf="locationService.filter">
+<div class="filter-wrapper" *ngIf="filter">
   <mat-form-field class="m-b-1">
-      <input matInput placeholder="Titel" (keyup)="locationService.filter.title = $event.target.value; setFilter($event.target.value)">
+      <input matInput placeholder="Titel" [(ngModel)]="filter.title" (keyup)="filter.title = $event.target.value; setFilter($event.target.value)">
   </mat-form-field>
   <h3>{{language.getString('minAccessibility')}}</h3>
   <mat-slider
@@ -9,14 +9,15 @@
   [min]="0"
   [step]="1"
   [tickInterval]="1"
-  (change)="locationService.filter.accesibility = $event.value; setFilter($event.value)"
+  [(ngModel)]="filter.accesibility"
+  (change)="filter.accesibility = $event.value; setFilter($event.value)"
   class="m-b-1"
   ></mat-slider>
 
   <h3>{{language.getString('category')}}</h3>
   <mat-form-field class="m-b-1">
     <mat-label>{{language.getString('category')}}</mat-label>
-    <mat-select (selectionChange)="locationService.filter.category = $event.value; setFilter($event.value)">
+    <mat-select [(ngModel)]="filter.category" (selectionChange)="filter.category = $event.value; setFilter($event.value)">
       <mat-option *ngFor="let category of categories" [value]="category.value">
         {{category.viewValue}}
       </mat-option>
@@ -26,7 +27,7 @@
   <h3>{{language.getString('type')}}</h3>
   <mat-form-field class="m-b-1">
       <mat-label>{{language.getString('type')}}</mat-label>
-      <mat-select multiple (selectionChange)="locationService.filter.type = $event.value; setFilter($event.value)">
+      <mat-select multiple (selectionChange)="filter.type = $event.value; setFilter($event.value)" [(ngModel)]="filter.type">
         <mat-option *ngFor="let tag of tags" [value]="tag.value">
           {{tag.viewValue}}
         </mat-option>
@@ -35,17 +36,17 @@
 
   <h3>{{language.getString('wheather')}}</h3>
   <div class="four-items m-b-1">
-      <app-custom-checkbox name="sunny" iconName="sunny" (change)="locationService.filter.sunny = $event.value; setFilter()"></app-custom-checkbox>
-      <app-custom-checkbox name="foggy" iconName="foggy" (change)="locationService.filter.foggy = $event.value; setFilter()"></app-custom-checkbox>
-      <app-custom-checkbox name="cloudy" iconName="cloudy" (change)="locationService.filter.cloudy = $event.value; setFilter()"></app-custom-checkbox>
-      <app-custom-checkbox name="rainy" iconName="rainy" (change)="locationService.filter.rainy = $event.value; setFilter()"></app-custom-checkbox>
+      <app-custom-checkbox name="sunny" iconName="sunny" [(checked)]="filter.sunny" (change)="filter.sunny = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
+      <app-custom-checkbox name="foggy" iconName="foggy" [(checked)]="filter.foggy" (change)="filter.foggy = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
+      <app-custom-checkbox name="cloudy" iconName="cloudy" [(checked)]="filter.cloudy" (change)="filter.cloudy = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
+      <app-custom-checkbox name="rainy" iconName="rainy" [(checked)]="filter.rainy" (change)="filter.rainy = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
   </div>
   <h3>{{language.getString('seasons')}}</h3>
   <div class="four-items m-b-1">
-      <app-custom-checkbox name="spring" iconName="spring" (change)="locationService.filter.spring = $event.value; setFilter()"></app-custom-checkbox>
-      <app-custom-checkbox name="summer" iconName="summer"  (change)="locationService.filter.summer = $event.value; setFilter()"></app-custom-checkbox>
-      <app-custom-checkbox name="autumn" iconName="autumn"  (change)="locationService.filter.autumn = $event.value; setFilter()"></app-custom-checkbox>
-      <app-custom-checkbox name="winter" iconName="winter"  (change)="locationService.filter.winter = $event.value; setFilter()"></app-custom-checkbox>
+      <app-custom-checkbox name="spring" iconName="spring" [(checked)]="filter.spring" (change)="filter.spring = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
+      <app-custom-checkbox name="summer" iconName="summer" [(checked)]="filter.summer"  (change)="filter.summer = $event.value? true : undefined; setFilter()"></app-custom-checkbox>
+      <app-custom-checkbox name="autumn" iconName="autumn" [(checked)]="filter.autumn"  (change)="filter.autumn = $event.value? true : undefined; setFilter()"></app-custom-checkbox>
+      <app-custom-checkbox name="winter" iconName="winter" [(checked)]="filter.winter"  (change)="filter.winter = $event.value? true : undefined; setFilter()"></app-custom-checkbox>
   </div>
 
   <button mat-flat-button color="primary" (click)="resetFilter()">{{language.getString('resetFilter')}}</button>

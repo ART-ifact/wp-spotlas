@@ -1,6 +1,6 @@
 <ng-container *ngIf="locationService.locations | async">
   <div class="grid-view">
-      <ng-container *ngFor="let location of this.locationsService.locations | async">
+      <ng-container *ngFor="let location of this.locationsService.locations | async | filterLocations : filter">
         <a [routerLink]="['/location/'+location.id]">
           <mat-card class="example-card">
               <div class="card-overlay">

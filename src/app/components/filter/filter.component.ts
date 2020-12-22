@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FilterService } from 'src/app/services/filter.service';
 import { LanguageService } from 'src/app/services/language-service.service';
 import { LocationsService } from 'src/app/services/locations.service';
 
@@ -25,38 +26,55 @@ export class FilterComponent implements OnInit {
     {value: 'water', viewValue: 'Sehenswürdigkeit'}
   ];
 
-  public emptyFilter = {
-    shared: null,
-    title: null,
-    note: null,
-    accesibility : null,
-    category: null,
-    adress: null,
-    type: null,
-    foggy: null,
-    cloudy: null,
-    rainy: null,
-    sunny: null,
-    autumn: null,
-    spring: null,
-    summer: null,
-    winter: null
+  public filter = {
+    shared: undefined,
+    title: undefined,
+    note: undefined,
+    accesibility : undefined,
+    category: undefined,
+    adress: undefined,
+    type: undefined,
+    foggy: undefined,
+    cloudy: undefined,
+    rainy: undefined,
+    sunny: undefined,
+    autumn: undefined,
+    spring: undefined,
+    summer: undefined,
+    winter: undefined
   };
 
-  constructor(public language : LanguageService, public locationService : LocationsService) { }
+  public emptyFilter = {
+    shared: undefined,
+    title: undefined,
+    note: undefined,
+    accesibility : undefined,
+    category: undefined,
+    adress: undefined,
+    type: undefined,
+    foggy: undefined,
+    cloudy: undefined,
+    rainy: undefined,
+    sunny: undefined,
+    autumn: undefined,
+    spring: undefined,
+    summer: undefined,
+    winter: undefined
+  };
+
+  constructor(public language : LanguageService, public filterService : FilterService) { }
 
   ngOnInit() {
   }
 
   setFilter(value) {
-    console.log('filter value', value);
-    //TODO: refactor this.locationService.filterItems();
+    this.filterService.applyFilter(this.filter)
   }
 
 
   resetFilter() {
-    this.locationService.filter = this.emptyFilter;
-    //TODO: refactor this.locationService.resetFilter();
+    this.filter = this.emptyFilter;
+    this.filterService.applyFilter(this.emptyFilter)
   }
 
 }
