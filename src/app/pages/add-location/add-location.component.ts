@@ -7,6 +7,7 @@ import { LocationsService } from 'src/app/services/locations.service';
 import { Router } from '@angular/router';
 import { Helper } from 'src/app/helper/helper';
 import { LanguageService } from 'src/app/services/language-service.service';
+import { Logger } from 'src/app/helper/logger';
 
 @Component({
   selector: 'app-add-location',
@@ -71,11 +72,9 @@ export class AddLocationComponent implements OnInit {
     this.locationObject.longitude = position.lng;
     this.locationArray.geoLocation.lat = this.locationObject.latitude;
     this.locationArray.geoLocation.lng = this.locationObject.longitude;
-    console.log(this.locationObject)
   }
 
   setImageArray(imageArray) {
-    console.log('event', JSON.stringify(imageArray))
     this.imageArray = JSON.stringify(imageArray);
     this.locationArray.properties.images = this.imageArray;
   }

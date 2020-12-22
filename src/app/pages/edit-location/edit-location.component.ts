@@ -142,7 +142,6 @@ export class EditLocationComponent implements OnInit {
   }
 
   handleShare(event) {
-    console.log(event);
     this.location.shared = event.checked;
     if(this.location.shared === false) {
         this.sharedURL = '';
@@ -159,9 +158,7 @@ export class EditLocationComponent implements OnInit {
   }
 
   saveLocation() {
-    console.log(this.location)
     this.locationsService.editLocation(this.location).subscribe(res => {
-      console.log(res)
       this.router.navigate(['location/' + this.id])
     })
   }

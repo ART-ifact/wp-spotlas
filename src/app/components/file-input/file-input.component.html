@@ -3,7 +3,7 @@
     <input matInput readonly [value]="fileName">
   </mat-form-field>
   <button mat-raised-button color="primary" (click)="fileInput.click()">{{language.getString('selectImportFile')}}</button>
-  <input type="file" hidden accept="image/*" (change)="setFilename($event)" multiple="multiple" #fileInput>
+  <input type="file" hidden accept="image/*" (change)="setFilename($event.target.files)" multiple="multiple" #fileInput>
 </div>
 <ul class="image-list">
   <ng-container *ngFor="let image of imageArray">

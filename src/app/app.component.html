@@ -3,8 +3,8 @@
   <mat-toolbar-row>
     <img [routerLink]="['/']" src="./assets/img/logo.svg" alt="logo">
     <span class="spacer"></span>
-    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" class="filter-trigger" (click)="showFilter = true;drawer.toggle()" aria-label="Filter Icon">search</mat-icon>
-    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" (click)="showFilter = false;drawer.toggle()" aria-label="Menu Icon">menu</mat-icon>
+    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" class="filter-trigger pointable" (click)="showFilter = true;drawer.toggle()" aria-label="Filter Icon">search</mat-icon>
+    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" class="pointable" (click)="showFilter = false;drawer.toggle()" aria-label="Menu Icon">menu</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container class="app-container" [hasBackdrop]="uiService.hasBackdrop()">

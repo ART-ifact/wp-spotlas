@@ -8,7 +8,7 @@
 <ng-container>
   <div class="grid">
     <div class="grid-item">
-      <app-file-input class="m-b-1" (imageObject)="setImageArray($event)"></app-file-input>
+      <app-file-input class="m-b-1" (imageObject)="setImageArray($event)" (geoLocation)="updateLocation($event)"></app-file-input>
       <app-geoautofill (position)="updateLocation($event)"></app-geoautofill>
       <agm-map  *ngIf="options" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : parseInt(options.geoLocation.lat)" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  parseInt(options.geoLocation.lng)" [styles]="mapStyle">
           <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="locationObject.latitude > 0 ? locationObject.latitude : options.geoLocation.lat" [longitude]="locationObject.longitude > 0 ? locationObject.longitude :  options.geoLocation.lng" [iconUrl]="options.basePath + '/dist/assets/img/marker.svg'">
