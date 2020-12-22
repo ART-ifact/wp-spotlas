@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import { LanguageService } from 'src/app/services/language-service.service';
 import { MatDialog } from '@angular/material/dialog';
+import { User } from 'src/app/classes/user.iface';
 
 @Component({
   selector: 'app-userlist',
@@ -10,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./userlist.component.scss']
 })
 export class UserlistComponent implements OnInit {
-  public users;
+  public users : User[];
 
   constructor(
     public userService : UserService,
@@ -23,8 +24,7 @@ export class UserlistComponent implements OnInit {
   }
 
   getUserList() {
-    this.userService.getUsers().subscribe((users : any ) => {
-      console.log(users)
+    this.userService.getUsers().subscribe((users : User[] ) => {
       this.users = users;
     })
   }
@@ -44,7 +44,6 @@ export class UserlistComponent implements OnInit {
   }
 
   deleteUser(id) {
-    console.log('user to delete', id)
     this.userService.deleteUser(id).subscribe(res => {
       this.getUserList();
     });

@@ -12,8 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
-  public username;
-  public mail;
+  public username: string;
+  public mail: string;
   private form = {
     username: "",
     name: "",
@@ -38,7 +38,7 @@ export class AddUserComponent implements OnInit {
   saveUser() {
     this.form.username = this.username;
     this.form.email = this.mail;
-    this.userService.addUser(Helper.buildUserForm(this.form, false)).subscribe(response => {
+    this.userService.addUser(Helper.buildUserForm(this.form, false)).subscribe(() => {
       this._snackBar.open('User added!','',{
         duration : 2000,
         panelClass: ['success']

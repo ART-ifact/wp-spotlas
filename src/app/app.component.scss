@@ -78,6 +78,7 @@ mat-drawer-content {
 
 ::ng-deep {
   snack-bar-container {
+    text-align: center;
     &.info {
       color: white;
       background: dodgerblue;
@@ -86,6 +87,11 @@ mat-drawer-content {
     &.success {
       color: white;
       background: teal;
+    }
+
+    &.error {
+      color: white;
+      background: darkred;
     }
   }
 }

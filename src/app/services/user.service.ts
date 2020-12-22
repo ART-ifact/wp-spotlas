@@ -3,6 +3,8 @@ import { BasicRestService } from './basic-rest.service';
 import { environment } from 'src/environments/environment';
 import { ApiEndpoints } from '../classes/enum/api-endpoints.enum';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { User } from '../classes/user.iface';
 
 export interface userData {
   description: string,
@@ -19,7 +21,6 @@ export interface userData {
   providedIn: 'root'
 })
 export class UserService {
-  private userData : userData;
   private currentUserID : number;
 
   constructor(private baseService : BasicRestService) { }
@@ -27,7 +28,6 @@ export class UserService {
   getMe() {
     return this.baseService.get(ApiEndpoints.getMe).pipe(
       map((userData : userData) => {
-        this.userData = userData;
         this.currentUserID = userData.id;
         return userData;
       })
@@ -38,7 +38,11 @@ export class UserService {
     return this.baseService.get(ApiEndpoints.getUser + id)
   }
 
-  getUsers() {
+  isCurrentUser(id : number) {
+    return this.currentUserID == id;
+  }
+
+  getUsers() : Observable<User[]> {
     return this.baseService.get(ApiEndpoints.getUsers)
   }
 

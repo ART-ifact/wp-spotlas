@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/services/language-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Logger } from 'src/app/helper/logger';
+import { User } from 'src/app/classes/user.iface';
 
 @Component({
   selector: 'app-user-edit',
@@ -13,11 +14,11 @@ import { Logger } from 'src/app/helper/logger';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
-  private id;
-  public user : userData;
-  public newpassword;
-  public newpasswordrepeat;
-  public loaded = false;
+  private id : number;
+  public user : User;
+  public newpassword: string;
+  public newpasswordrepeat: string;
+  public loaded : boolean = false;
   private form = {
     username: "",
     name: "",
@@ -26,7 +27,7 @@ export class UserEditComponent implements OnInit {
     email: "",
     nickname: "",
     password: ""
-  }
+  };
 
   constructor(
     private route : ActivatedRoute,
@@ -39,7 +40,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.id = params.get("id")
+      this.id = parseInt(params.get("id"))
       this.getUser();
     })
   }
@@ -50,11 +51,11 @@ export class UserEditComponent implements OnInit {
 
   getUser() {
     if (this.id) {
-      this.userService.getUser(this.id).subscribe((user : userData) => {
+      this.userService.getUser(this.id).subscribe((user : User) => {
         this.user = user;
       })
     } else {
-      this.userService.getMe().subscribe((user: userData) => {
+      this.userService.getMe().subscribe((user: User) => {
         this.user = user;
       })
     }
@@ -64,7 +65,6 @@ export class UserEditComponent implements OnInit {
   saveUser() {
     this.form.username = this.user.name;
     if (this.newpassword !== this.newpasswordrepeat) {
-      console.log('password missmatch')
       this._snackBar.open('Passwords do mismatch','',{
         duration : 2000,
         panelClass: ['error']
