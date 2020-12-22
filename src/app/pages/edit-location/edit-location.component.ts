@@ -6,6 +6,9 @@ import { LocationService } from 'src/app/services/location.service';
 import { Helper } from 'src/app/helper/helper';
 import { Location } from '@angular/common';
 import { LanguageService } from 'src/app/services/language-service.service';
+import { Position } from 'src/app/classes/position.iface';
+import { Logger } from 'src/app/helper/logger';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-location',
@@ -38,6 +41,7 @@ export class EditLocationComponent implements OnInit {
   constructor(
     private route : ActivatedRoute,
     private locationService: LocationService,
+    private _snackBar: MatSnackBar,
     public optionService : OptionsService,
     private locationsService : LocationsService,
     private router : Router,
@@ -52,7 +56,6 @@ export class EditLocationComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = params.get("id")
-      console.log(this.id)
       this.getLocation();
     })
   }
@@ -60,90 +63,23 @@ export class EditLocationComponent implements OnInit {
   getLocation() {
     this.locationsService.loadLocation(this.id).subscribe(response => {
       this.location = response;
-      console.log(this.location)
       this.sharedURL = Helper.getShareURL(this.location.id, this.location.hash);
     })
-    console.log(this.location)
   }
 
   getCurrentLocation() {
+    let snackbar = this._snackBar.open('Searching your location...','',{
+      panelClass: ['info']
+    })
     this.locationService.getPosition().then(pos => {
+      snackbar.dismiss()
       this.updateLocation(pos);
     })
   }
 
-  updateLocation(position) {
+  updateLocation(position : Position) {
     this.location.geoLocation.lat = position.lat;
     this.location.geoLocation.lng = position.lng;
-  }
-
-  setPosition(position) {
-    this.location.geoLocation.lat = position.coords.lat;
-    this.location.geoLocation.lng = position.coords.lng;
-
-  }
-
-  setTitle(title) {
-    console.log(title)
-    this.location.title = title.target.value
-  }
-
-  setNote(note) {
-    console.log(note)
-    this.location.note = note.target.value
-  }
-
-  setAccessibility(value) {
-    console.log(value.value)
-    this.location.properties.accesibility = value.value;
-  }
-
-  setCategory(category) {
-    console.log(category)
-    this.location.properties.category = category.value;
-  }
-
-  setTags(tags) {
-    console.log(tags)
-    this.location.properties.type = tags.value;
-  }
-
-  setWeatherSunny(value) {
-    console.log(value)
-    this.location.properties.wheater.sunny = value.value;
-  }
-
-  setWeatherCloudy(value) {
-    console.log(value)
-    this.location.properties.wheater.cloudy = value.value;
-  }
-  setWeatherRainy(value) {
-    console.log(value)
-    this.location.properties.wheater.rainy = value.value;
-  }
-  setWeatherFoggy(value) {
-    console.log(value)
-    this.location.properties.wheater.foggy = value.value;
-  }
-
-  setSeasonSpring(value) {
-    console.log(value)
-    this.location.properties.seasons.spring = value.value;
-  }
-
-  setSeasonSummer(value) {
-    console.log(value)
-    this.location.properties.seasons.summer = value.value;
-  }
-
-  setSeasonAutumn(value) {
-    console.log(value)
-    this.location.properties.seasons.autumn = value.value;
-  }
-
-  setSeasonWinter(value) {
-    console.log(value)
-    this.location.properties.seasons.winter = value.target.value;
   }
 
   handleShare(event) {

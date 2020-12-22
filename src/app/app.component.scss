@@ -74,3 +74,19 @@ mat-drawer-content {
   flex-direction: column;
   align-items: flex-start;
 }
+
+
+::ng-deep {
+  snack-bar-container {
+    &.info {
+      color: white;
+      background: dodgerblue;
+    }
+
+    &.success {
+      color: white;
+      background: teal;
+    }
+  }
+}
+
