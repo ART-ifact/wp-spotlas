@@ -10,8 +10,8 @@
     <div class="grid-item">
       <app-file-input class="m-b-1" [imageArray]="location.properties.images" (imageObject)="setImageArray($event)"></app-file-input>
       <app-geoautofill (position)="updateLocation($event)"></app-geoautofill>
-      <agm-map *ngIf="optionService.options" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [styles]="mapStyle">
-          <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker.svg'">
+      <agm-map *ngIf="options" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [styles]="mapStyle">
+          <agm-marker (dragEnd)="setPosition($event)" [markerDraggable]="true" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [iconUrl]="options.basePath + '/dist/assets/img/marker.svg'">
           </agm-marker>
       </agm-map>
       <button class="btn-current-location m-b-1" mat-flat-button color="primary" (click)="getCurrentLocation()">Get Current Location</button>

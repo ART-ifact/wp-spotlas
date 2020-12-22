@@ -1,13 +1,13 @@
-import { Renderer2,Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Options, OptionsService } from 'src/app/services/options.service';
 import { Location } from '@angular/common';
 import { LocationService } from 'src/app/services/location.service';
-import { LocationItem } from 'src/app/classes/location';
 import { LocationsService } from 'src/app/services/locations.service';
 import { Router } from '@angular/router';
 import { Helper } from 'src/app/helper/helper';
 import { LanguageService } from 'src/app/services/language-service.service';
 import { Logger } from 'src/app/helper/logger';
+import { Position } from 'src/app/classes/position.iface';
 
 @Component({
   selector: 'app-add-location',
@@ -16,37 +16,36 @@ import { Logger } from 'src/app/helper/logger';
 })
 export class AddLocationComponent implements OnInit {
   public options: Options;
-  public imageArray : string = '';
+  public imageArray: string = '';
   public mapStyle = this.optionService.mapStyle;
-  public locationObject = {
-    latitude : 0,
-    longitude: 0
+  public locationObject: Position = {
+    lat: 0,
+    lng: 0
   }
-  public categories : any[] = [
-    {value: 'building', viewValue: 'Gebäude'},
-    {value: 'landscape', viewValue: 'Landschaft'},
-    {value: 'urban', viewValue: 'Urban'},
-    {value: 'water', viewValue: 'Wasser'}
+  public categories: any[] = [
+    { value: 'building', viewValue: 'Gebäude' },
+    { value: 'landscape', viewValue: 'Landschaft' },
+    { value: 'urban', viewValue: 'Urban' },
+    { value: 'water', viewValue: 'Wasser' }
   ];
-  public tags : any[] = [
-    {value: 'building', viewValue: 'industriell'},
-    {value: 'landscape', viewValue: 'historisch'},
-    {value: 'urban', viewValue: 'panorama'},
-    {value: 'water', viewValue: 'Sonnenaufgang'},
-    {value: 'water', viewValue: 'Sonnenuntergang'},
-    {value: 'water', viewValue: 'Outdoor'},
-    {value: 'water', viewValue: 'Architektur'},
-    {value: 'water', viewValue: 'Sehenswürdigkeit'}
+  public tags: any[] = [
+    { value: 'building', viewValue: 'industriell' },
+    { value: 'landscape', viewValue: 'historisch' },
+    { value: 'urban', viewValue: 'panorama' },
+    { value: 'water', viewValue: 'Sonnenaufgang' },
+    { value: 'water', viewValue: 'Sonnenuntergang' },
+    { value: 'water', viewValue: 'Outdoor' },
+    { value: 'water', viewValue: 'Architektur' },
+    { value: 'water', viewValue: 'Sehenswürdigkeit' }
   ];
-  private mapsListener;
-  private locationArray = Helper.getLocationArray();
+  public locationArray = Helper.getLocationArray();
   constructor(
     private _location: Location,
     private router: Router,
-    public optionService : OptionsService,
-    private location : LocationService,
-    private locationsService : LocationsService,
-    public language : LanguageService
+    public optionService: OptionsService,
+    private location: LocationService,
+    private locationsService: LocationsService,
+    public language: LanguageService
   ) {
     this.optionService.options.subscribe(options => {
       this.options = options
@@ -67,14 +66,14 @@ export class AddLocationComponent implements OnInit {
   }
 
 
-  updateLocation(position) {
-    this.locationObject.latitude = position.lat;
-    this.locationObject.longitude = position.lng;
-    this.locationArray.geoLocation.lat = this.locationObject.latitude;
-    this.locationArray.geoLocation.lng = this.locationObject.longitude;
+  updateLocation(position: Position) {
+    this.locationObject.lat = position.lat;
+    this.locationObject.lng = position.lng;
+    this.locationArray.geoLocation.lat = this.locationObject.lat;
+    this.locationArray.geoLocation.lng = this.locationObject.lng;
   }
 
-  setImageArray(imageArray) {
+  setImageArray(imageArray: string) {
     this.imageArray = JSON.stringify(imageArray);
     this.locationArray.properties.images = this.imageArray;
   }
@@ -84,81 +83,15 @@ export class AddLocationComponent implements OnInit {
   }
 
   setPosition(position) {
-    this.locationObject.latitude = position.latLng.lat();
-    this.locationObject.longitude = position.latLng.lng();
-    this.locationArray.geoLocation.lat = this.locationObject.latitude;
-    this.locationArray.geoLocation.lng = this.locationObject.longitude;
+    this.updateLocation({ lat: position.latLng.lat(), lng: position.latLng.lng() })
   }
 
-  setTitle(title) {
-    console.log(title)
-    this.locationArray.title = title.target.value
+  saveLocation() {
+    console.log(this.locationArray)
+    this.locationsService.saveLocation(this.locationArray).subscribe(res => {
+      console.log(res)
+      this.router.navigate(['location/' + res])
+    })
   }
-
-  setNote(note) {
-    console.log(note)
-    this.locationArray.note = note.target.value
-  }
-
-  setAccessibility(value) {
-    console.log(value.value)
-    this.locationArray.properties.accesibility = value.value;
-  }
-
-  setCategory(category) {
-    console.log(category)
-    this.locationArray.properties.category = category.value;
-  }
-
-  setTags(tags) {
-    console.log(tags)
-    this.locationArray.properties.type = tags.value;
-  }
-
-  setWeatherSunny(value) {
-    console.log(value)
-    this.locationArray.properties.wheater.sunny = value.value;
-  }
-
-  setWeatherCloudy(value) {
-    console.log(value)
-    this.locationArray.properties.wheater.cloudy = value.value;
-  }
-  setWeatherRainy(value) {
-    console.log(value)
-    this.locationArray.properties.wheater.rainy = value.value;
-  }
-  setWeatherFoggy(value) {
-    console.log(value)
-    this.locationArray.properties.wheater.foggy = value.value;
-  }
-
-  setSeasonSpring(value) {
-    console.log(value)
-    this.locationArray.properties.seasons.spring = value.value;
-  }
-
-  setSeasonSummer(value) {
-    console.log(value)
-    this.locationArray.properties.seasons.summer = value.value;
-  }
-
-  setSeasonAutumn(value) {
-    console.log(value)
-    this.locationArray.properties.seasons.autumn = value.value;
-  }
-
-  setSeasonWinter(value) {
-    console.log(value)
-    this.locationArray.properties.seasons.winter = value.target.value;
-  }
-
-    saveLocation() {
-      console.log(this.locationArray)
-      this.locationsService.saveLocation(this.locationArray).subscribe(res => {
-        console.log(res)
-        this.router.navigate(['location/' + res])
-      })
-    }
 
 }

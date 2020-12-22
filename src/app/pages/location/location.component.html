@@ -46,7 +46,7 @@
 
       </mat-carousel>
       <agm-map  class="m-b-1" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [styles]="mapStyle">
-          <agm-marker  [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [iconUrl]="optionService.options.basePath + '/dist/assets/img/marker_'+location.properties.category+'.svg'">
+          <agm-marker *ngIf="options" [latitude]="location.geoLocation.lat" [longitude]="location.geoLocation.lng" [iconUrl]="options.basePath + '/dist/assets/img/marker_'+location.properties.category+'.svg'">
           </agm-marker>
         </agm-map>
     </div>
@@ -83,7 +83,7 @@
             <app-custom-checkbox name="autumn" iconName="autumn" [readonly]="true" [checked]="location.properties.seasons.autumn"></app-custom-checkbox>
             <app-custom-checkbox name="winter" iconName="winter" [readonly]="true" [checked]="location.properties.seasons.winter"></app-custom-checkbox>
         </div>
-      <h3>{{language.getString('note')}}</h3>
+      <h3 *ngIf="location.note.length > 0">{{language.getString('note')}}</h3>
       {{location.note}}
     </div>
   </div>

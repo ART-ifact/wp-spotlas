@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationsService } from 'src/app/services/locations.service';
-import { OptionsService } from 'src/app/services/options.service';
+import { Options, OptionsService } from 'src/app/services/options.service';
 import { LocationService } from 'src/app/services/location.service';
 import { Helper } from 'src/app/helper/helper';
 import { Location } from '@angular/common';
@@ -33,6 +33,7 @@ export class EditLocationComponent implements OnInit {
     {value: 'water', viewValue: 'Architektur'},
     {value: 'water', viewValue: 'Sehenswürdigkeit'}
   ];
+  public options : Options;
 
   constructor(
     private route : ActivatedRoute,
@@ -42,7 +43,11 @@ export class EditLocationComponent implements OnInit {
     private router : Router,
     private _location : Location,
     public language : LanguageService
-  ) { }
+  ) {
+    this.optionService.options.subscribe(options => {
+      this.options = options
+    })
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {

@@ -55,8 +55,8 @@ export class LocationsService {
               images: JSON.parse(item.images)
             },
             geoLocation: {
-              lat: item.lat,
-              lng: item.lng
+              lat: parseInt(item.lat),
+              lng: parseInt(item.lng)
             }
           }
           locations.push(locationItem);

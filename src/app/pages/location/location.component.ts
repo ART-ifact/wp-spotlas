@@ -4,11 +4,12 @@ import { LocationsService } from 'src/app/services/locations.service';
 import { LocationItem } from 'src/app/classes/location';
 import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel';
 import { environment } from 'src/environments/environment';
-import { OptionsService } from 'src/app/services/options.service';
+import { Options, OptionsService } from 'src/app/services/options.service';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import { LanguageService } from 'src/app/services/language-service.service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { Logger } from 'src/app/helper/logger';
 
 @Component({
   selector: 'app-location',
@@ -21,6 +22,7 @@ export class LocationComponent implements OnInit {
   public location : LocationItem;
   public mapStyle = environment.mapStyle;
   public showButtonBar = true;
+  public options : Options;
   constructor(
     private route : ActivatedRoute,
     private locationService: LocationsService,
@@ -29,7 +31,11 @@ export class LocationComponent implements OnInit {
     public dialog: MatDialog,
     private router : Router,
     private _location : Location
-    ) { }
+    ) {
+      this.optionService.getOptions().subscribe(options => {
+        this.options = options;
+      })
+    }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -59,9 +65,8 @@ export class LocationComponent implements OnInit {
   getLocation() {
     this.locationService.loadLocation(this.id).subscribe(response => {
       this.location = response;
-      console.log(this.location)
+      Logger.dev(this.location)
     })
-    console.log(this.location)
   }
 
   deleteLocation(id) {
