@@ -51,7 +51,9 @@ import { FileInputComponent } from './components/file-input/file-input.component
 import { FilterComponent } from './components/filter/filter.component';
 import { GeoautofillComponent } from './components/geoautofill/geoautofill.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { CategoryPipe } from './helper/category.pipe';
 import { LocationsPipe } from './helper/locations.pipe';
+import { TypePipe } from './helper/type.pipe';
 import { AddLocationComponent } from './pages/add-location/add-location.component';
 import { AddUserComponent } from './pages/add-user/add-user.component';
 import { EditLocationComponent } from './pages/edit-location/edit-location.component';
@@ -90,7 +92,9 @@ export function createTranslateLoader(http: HttpClient) {
     AddUserComponent,
     UserlistComponent,
     LocationsPipe,
-    FilterComponent
+    FilterComponent,
+    CategoryPipe,
+    TypePipe
   ],
   imports: [
     BrowserModule,
@@ -147,7 +151,9 @@ export function createTranslateLoader(http: HttpClient) {
       FileInputComponent,
       FormsModule,
       MatFormFieldModule,
-      AgmCoreModule
+      AgmCoreModule,
+      CategoryPipe,
+      TypePipe
     ],
   providers: [
     { provide: MapsAPILoader, useClass: CustomLazyAPIKeyLoader },

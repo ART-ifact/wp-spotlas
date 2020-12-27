@@ -7,6 +7,7 @@ import { Helper } from 'src/app/helper/helper';
 import { LocationService } from 'src/app/services/location.service';
 import { LocationsService } from 'src/app/services/locations.service';
 import { Options, OptionsService } from 'src/app/services/options.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-edit-location',
@@ -18,22 +19,8 @@ export class EditLocationComponent implements OnInit {
   public id;
   public sharedURL = '';
   public mapStyle = this.optionService.mapStyle;
-  public categories: any[] = [
-    {value: 'building', viewValue: 'Gebäude'},
-    {value: 'landscape', viewValue: 'Landschaft'},
-    {value: 'urban', viewValue: 'Urban'},
-    {value: 'water', viewValue: 'Wasser'}
-  ];
-  public tags: any[] = [
-    {value: 'building', viewValue: 'industriell'},
-    {value: 'landscape', viewValue: 'historisch'},
-    {value: 'urban', viewValue: 'panorama'},
-    {value: 'water', viewValue: 'Sonnenaufgang'},
-    {value: 'water', viewValue: 'Sonnenuntergang'},
-    {value: 'water', viewValue: 'Outdoor'},
-    {value: 'water', viewValue: 'Architektur'},
-    {value: 'water', viewValue: 'Sehenswürdigkeit'}
-  ];
+  public categories: any[];
+  public tags: any[];
   public options: Options;
 
   constructor(
@@ -43,10 +30,19 @@ export class EditLocationComponent implements OnInit {
     public optionService: OptionsService,
     private locationsService: LocationsService,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private uiService: UiService
   ) {
     this.optionService.options.subscribe(options => {
       this.options = options;
+    });
+
+    this.uiService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
+
+    this.uiService.getTags().subscribe(tags => {
+      this.tags = tags;
     });
   }
 

@@ -1,11 +1,13 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Position } from 'src/app/classes/position.iface';
 import { Helper } from 'src/app/helper/helper';
 import { LocationService } from 'src/app/services/location.service';
 import { LocationsService } from 'src/app/services/locations.service';
 import { Options, OptionsService } from 'src/app/services/options.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-add-location',
@@ -20,32 +22,28 @@ export class AddLocationComponent implements OnInit {
     lat: 0,
     lng: 0
   };
-  public categories: any[] = [
-    { value: 'building', viewValue: 'Gebäude' },
-    { value: 'landscape', viewValue: 'Landschaft' },
-    { value: 'urban', viewValue: 'Urban' },
-    { value: 'water', viewValue: 'Wasser' }
-  ];
-  public tags: any[] = [
-    { value: 'building', viewValue: 'industriell' },
-    { value: 'landscape', viewValue: 'historisch' },
-    { value: 'urban', viewValue: 'panorama' },
-    { value: 'water', viewValue: 'Sonnenaufgang' },
-    { value: 'water', viewValue: 'Sonnenuntergang' },
-    { value: 'water', viewValue: 'Outdoor' },
-    { value: 'water', viewValue: 'Architektur' },
-    { value: 'water', viewValue: 'Sehenswürdigkeit' }
-  ];
+  public categories: any[];
+  public tags: any[];
   public locationArray = Helper.getLocationArray();
   constructor(
     private _location: Location,
     private router: Router,
     public optionService: OptionsService,
     private location: LocationService,
-    private locationsService: LocationsService
+    private locationsService: LocationsService,
+    private translate: TranslateService,
+    private uiService: UiService
   ) {
     this.optionService.options.subscribe(options => {
       this.options = options;
+    });
+
+    this.uiService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
+
+    this.uiService.getTags().subscribe(tags => {
+      this.tags = tags;
     });
   }
 

@@ -19,6 +19,15 @@
   }
 }
 
+.category-wrapper {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
 
 ::ng-deep {
   agm-map {

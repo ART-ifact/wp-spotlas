@@ -54,17 +54,20 @@
     <div class="grid">
       <div class="grid-item">
         <h3>{{'LOCATION.CATEGORY' | translate}}</h3>
-        <mat-icon *ngIf="location.properties.category == 'urban'">location_city</mat-icon>
-        <mat-icon *ngIf="location.properties.category == 'building'">home</mat-icon>
-        <mat-icon *ngIf="location.properties.category == 'landscape'">local_florist</mat-icon>
-        <mat-icon *ngIf="location.properties.category == 'water'">directions_boat</mat-icon>
-        {{location.properties.category}}
+        <div class="category-wrapper">
+          <mat-icon *ngIf="location.properties.category == 'urban'">location_city</mat-icon>
+          <mat-icon *ngIf="location.properties.category == 'building'">home</mat-icon>
+          <mat-icon *ngIf="location.properties.category == 'landscape'">local_florist</mat-icon>
+          <mat-icon *ngIf="location.properties.category == 'water'">directions_boat</mat-icon>
+          <span>{{location.properties.category | category }}</span>
+        </div>
+
       </div>
       <div class="grid-item">
         <h3>{{'LOCATION.TYPE' | translate}}</h3>
         <mat-chip-list>
-        <ng-container *ngFor="let type of location.properties.type">
-          <mat-chip color="primary" selected>{{type}}</mat-chip>
+        <ng-container *ngFor="let typeItem of location.properties.type">
+          <mat-chip color="primary" selected>{{typeItem | type}}</mat-chip>
         </ng-container>
         </mat-chip-list>
       </div>

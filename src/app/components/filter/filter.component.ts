@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterService } from 'src/app/services/filter.service';
-import { LocationsService } from 'src/app/services/locations.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-filter',
@@ -8,22 +8,8 @@ import { LocationsService } from 'src/app/services/locations.service';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
-  public categories : any[] = [
-    {value: 'building', viewValue: 'Gebäude'},
-    {value: 'landscape', viewValue: 'Landschaft'},
-    {value: 'urban', viewValue: 'Urban'},
-    {value: 'water', viewValue: 'Wasser'}
-  ];
-  public tags : any[] = [
-    {value: 'building', viewValue: 'industriell'},
-    {value: 'landscape', viewValue: 'historisch'},
-    {value: 'urban', viewValue: 'panorama'},
-    {value: 'water', viewValue: 'Sonnenaufgang'},
-    {value: 'water', viewValue: 'Sonnenuntergang'},
-    {value: 'water', viewValue: 'Outdoor'},
-    {value: 'water', viewValue: 'Architektur'},
-    {value: 'water', viewValue: 'Sehenswürdigkeit'}
-  ];
+  public categories: any[];
+  public tags: any[];
 
   public filter = {
     shared: undefined,
@@ -61,19 +47,26 @@ export class FilterComponent implements OnInit {
     winter: undefined
   };
 
-  constructor(public filterService : FilterService) { }
+  constructor(public filterService: FilterService, private uiService: UiService) { }
 
   ngOnInit() {
+    this.uiService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
+
+    this.uiService.getTags().subscribe(tags => {
+      this.tags = tags;
+    });
   }
 
   setFilter(value) {
-    this.filterService.applyFilter(this.filter)
+    this.filterService.applyFilter(this.filter);
   }
 
 
   resetFilter() {
     this.filter = this.emptyFilter;
-    this.filterService.applyFilter(this.emptyFilter)
+    this.filterService.applyFilter(this.emptyFilter);
   }
 
 }
