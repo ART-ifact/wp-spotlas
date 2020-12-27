@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Options, OptionsService } from 'src/app/services/options.service';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Position } from 'src/app/classes/position.iface';
+import { Helper } from 'src/app/helper/helper';
 import { LocationService } from 'src/app/services/location.service';
 import { LocationsService } from 'src/app/services/locations.service';
-import { Router } from '@angular/router';
-import { Helper } from 'src/app/helper/helper';
-import { LanguageService } from 'src/app/services/language-service.service';
-import { Logger } from 'src/app/helper/logger';
-import { Position } from 'src/app/classes/position.iface';
+import { Options, OptionsService } from 'src/app/services/options.service';
 
 @Component({
   selector: 'app-add-location',
@@ -16,12 +14,12 @@ import { Position } from 'src/app/classes/position.iface';
 })
 export class AddLocationComponent implements OnInit {
   public options: Options;
-  public imageArray: string = '';
+  public imageArray = '';
   public mapStyle = this.optionService.mapStyle;
   public locationObject: Position = {
     lat: 0,
     lng: 0
-  }
+  };
   public categories: any[] = [
     { value: 'building', viewValue: 'Gebäude' },
     { value: 'landscape', viewValue: 'Landschaft' },
@@ -44,25 +42,24 @@ export class AddLocationComponent implements OnInit {
     private router: Router,
     public optionService: OptionsService,
     private location: LocationService,
-    private locationsService: LocationsService,
-    public language: LanguageService
+    private locationsService: LocationsService
   ) {
     this.optionService.options.subscribe(options => {
-      this.options = options
-    })
+      this.options = options;
+    });
   }
 
   ngOnInit() {
   }
 
   goBack() {
-    this._location.back()
+    this._location.back();
   }
 
   getCurrentLocation() {
     this.location.getPosition().then(pos => {
       this.updateLocation(pos);
-    })
+    });
   }
 
 
@@ -79,19 +76,18 @@ export class AddLocationComponent implements OnInit {
   }
 
   parseInt(value) {
-    return parseInt(value)
+    return parseInt(value);
   }
 
   setPosition(position) {
-    this.updateLocation({ lat: position.latLng.lat(), lng: position.latLng.lng() })
+    this.updateLocation({ lat: position.latLng.lat(), lng: position.latLng.lng() });
   }
 
   saveLocation() {
-    console.log(this.locationArray)
     this.locationsService.saveLocation(this.locationArray).subscribe(res => {
-      console.log(res)
-      this.router.navigate(['location/' + res])
-    })
+      console.log(res);
+      this.router.navigate(['location/' + res]);
+    });
   }
 
 }

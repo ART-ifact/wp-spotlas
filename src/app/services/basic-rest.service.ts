@@ -1,12 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { Injectable, isDevMode } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { LocalStorageService } from './local-storage.service';
-import { UserService } from './user.service';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 import { StorageItems } from '../classes/enum/storage-items.enum';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +22,6 @@ export class BasicRestService {
     return this.httpClient.get<T>(path).pipe(
       tap(
         success => {
-          if (isDevMode()) {
-            //console.log('GET success' + path);
-          }
-
         },
         error => this.handleError(error)
       )
@@ -122,7 +117,7 @@ export class BasicRestService {
       ),
       map(
         (item: any) => {
-          //todo map if needed
+          // todo map if needed
           return item;
         }
       )
@@ -136,14 +131,13 @@ export class BasicRestService {
           console.log('Laden Sie bitte die Seite neu');
           break;
         case 404:
-          //this.router.navigate(['/not-found']);
+          // this.router.navigate(['/not-found']);
           break;
         case 403:
           this.router.navigate(['/loginpage']);
           return Observable.throw(error.error.text);
-          break;
         default:
-          //this.errorMessageService.errors.emit(new Error(`Fehler ${error.status} ${error.message}`));
+          // this.errorMessageService.errors.emit(new Error(`Fehler ${error.status} ${error.message}`));
           break;
       }
     } else {

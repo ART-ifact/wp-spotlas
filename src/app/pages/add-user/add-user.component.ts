@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { Helper } from 'src/app/helper/helper';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { LanguageService } from 'src/app/services/language-service.service';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Helper } from 'src/app/helper/helper';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-add-user',
@@ -15,21 +15,21 @@ export class AddUserComponent implements OnInit {
   public username: string;
   public mail: string;
   private form = {
-    username: "",
-    name: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    nickname: "",
-    password: ""
-  }
+    username: '',
+    name: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    nickname: '',
+    password: ''
+  };
 
   constructor(
-    private userService : UserService,
-    private _snackBar: MatSnackBar,
-    private router : Router,
-    public language : LanguageService,
-    private _location : Location
+    private userService: UserService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private location: Location,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -39,15 +39,16 @@ export class AddUserComponent implements OnInit {
     this.form.username = this.username;
     this.form.email = this.mail;
     this.userService.addUser(Helper.buildUserForm(this.form, false)).subscribe(() => {
-      this._snackBar.open('User added!','',{
+      this.snackBar.open(
+        this.translate.instant('USER.ADDED'), '', {
         duration : 2000,
         panelClass: ['success']
       });
-      this.router.navigate(['/userlist'])
+      this.router.navigate(['/userlist']);
     });
   }
 
   goBack() {
-    this._location.back()
+    this.location.back();
   }
 }

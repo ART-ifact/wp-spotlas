@@ -3,41 +3,39 @@
   <mat-toolbar-row>
     <img [routerLink]="['/']" src="./assets/img/logo.svg" alt="logo">
     <span class="spacer"></span>
-    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" class="filter-trigger pointable" (click)="showFilter = true;drawer.toggle()" aria-label="Filter Icon">search</mat-icon>
-    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" class="pointable" (click)="showFilter = false;drawer.toggle()" aria-label="Menu Icon">menu</mat-icon>
+    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" class="filter-trigger pointable" (click)="menuDrawer.close(); filterDrawer.toggle()" aria-label="Filter Icon">search</mat-icon>
+    <mat-icon *ngIf="!uiService.isSharedUrl()" aria-hidden="false" class="pointable" (click)="filterDrawer.close(); menuDrawer.toggle()" aria-label="Menu Icon">menu</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container class="app-container" [hasBackdrop]="uiService.hasBackdrop()">
-  <mat-drawer #drawer mode="side" position="end" >
-      <ng-container *ngIf="!showFilter">
-        <app-user-profile *ngIf="userService.userData" [userName]="userService.userData.name" [userId]="userService.userData.id" [userImage]="userService.userData"></app-user-profile>
-        <h4 class="sidenav-header">{{language.getString('application-menu')}}</h4>
+  <mat-drawer #filterDrawer mode="side" position="start" >
+      <app-filter></app-filter>
+  </mat-drawer>
+  <mat-drawer #menuDrawer mode="over" position="end" >
+     <app-user-profile *ngIf="currentUser" [userName]="currentUser.name" [userId]="currentUser.id" [userImage]="currentUser"></app-user-profile>
+        <h4 class="sidenav-header">{{ 'GENERAL.APPLICATION_MENU' | translate }}</h4>
         <mat-nav-list>
           <mat-list-item>
-              <a matLine [routerLink]="['/add-location']"><mat-icon>add_location</mat-icon> {{language.getString('add-location')}}</a>
+              <a matLine [routerLink]="['/add-location']"><mat-icon>add_location</mat-icon> {{ 'LOCATION.ADD' | translate }}</a>
           </mat-list-item>
           <mat-list-item>
-             <a matLine [routerLink]="['grid']"><mat-icon>grid_on</mat-icon> {{language.getString('grid-view')}}</a>
+             <a matLine [routerLink]="['grid']"><mat-icon>grid_on</mat-icon> {{ 'GENERAL.GRIDVIEW' | translate }}</a>
           </mat-list-item>
           <mat-list-item>
-               <a matLine [routerLink]="['/']"><mat-icon>map</mat-icon> {{language.getString('map-view')}}</a>
+               <a matLine [routerLink]="['/']"><mat-icon>map</mat-icon> {{ 'GENERAL.MAPVIEW' | translate }}</a>
           </mat-list-item>
         </mat-nav-list>
         <ng-container *ngIf="userService.isAdmin()">
-          <h4 class="sidenav-header">{{language.getString('user-menu')}}</h4>
+          <h4 class="sidenav-header">{{ 'USER.MENU' | translate }}</h4>
           <mat-nav-list>
             <mat-list-item>
-              <a matLine [routerLink]="['user/add']"><mat-icon>add_circle_outline</mat-icon> {{language.getString('add-user')}}</a>
+              <a matLine [routerLink]="['user/add']"><mat-icon>add_circle_outline</mat-icon> {{ 'USER.ADD' | translate }}</a>
             </mat-list-item>
             <mat-list-item>
-                <a matLine [routerLink]="['userlist']"><mat-icon>supervisor_account</mat-icon> {{language.getString('show-user-list')}}</a>
+                <a matLine [routerLink]="['userlist']"><mat-icon>supervisor_account</mat-icon> {{ 'USER.LIST' | translate }}</a>
             </mat-list-item>
           </mat-nav-list>
         </ng-container>
-      </ng-container>
-      <ng-container *ngIf="showFilter">
-        <app-filter></app-filter>
-      </ng-container>
   </mat-drawer>
   <router-outlet></router-outlet>
 </mat-drawer-container>

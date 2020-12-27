@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Route, ActivatedRoute, Router } from '@angular/router';
-import { userData, UserService } from 'src/app/services/user.service';
-import { Helper } from 'src/app/helper/helper';
 import { Location } from '@angular/common';
-import { LanguageService } from 'src/app/services/language-service.service';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Logger } from 'src/app/helper/logger';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/classes/user.iface';
+import { Helper } from 'src/app/helper/helper';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -14,50 +13,50 @@ import { User } from 'src/app/classes/user.iface';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
-  private id : number;
-  public user : User;
+  private id: number;
+  public user: User;
   public newpassword: string;
   public newpasswordrepeat: string;
-  public loaded : boolean = false;
+  public loaded = false;
   private form = {
-    username: "",
-    name: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    nickname: "",
-    password: ""
+    username: '',
+    name: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    nickname: '',
+    password: ''
   };
 
   constructor(
-    private route : ActivatedRoute,
-    private userService : UserService,
-    private _snackBar: MatSnackBar,
-    public language : LanguageService,
-    private _location : Location,
-    private router : Router
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private snackBar: MatSnackBar,
+    private location: Location,
+    private router: Router,
+    private translate: TranslateService
     ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.id = parseInt(params.get("id"))
+      this.id = parseInt(params.get('id'));
       this.getUser();
-    })
+    });
   }
 
   goBack() {
-    this._location.back()
+    this.location.back();
   }
 
   getUser() {
     if (this.id) {
-      this.userService.getUser(this.id).subscribe((user : User) => {
+      this.userService.getUser(this.id).subscribe((user: User) => {
         this.user = user;
-      })
+      });
     } else {
       this.userService.getMe().subscribe((user: User) => {
         this.user = user;
-      })
+      });
     }
 
   }
@@ -65,10 +64,10 @@ export class UserEditComponent implements OnInit {
   saveUser() {
     this.form.username = this.user.name;
     if (this.newpassword !== this.newpasswordrepeat) {
-      this._snackBar.open('Passwords do mismatch','',{
+      this.snackBar.open(this.translate.instant('USER.PASSWORD_MISMATCH'), '', {
         duration : 2000,
         panelClass: ['error']
-      })
+      });
       return;
     } else {
       this.form.password = this.newpassword;
@@ -76,19 +75,18 @@ export class UserEditComponent implements OnInit {
     this.form.email = this.user.userEmail;
     this.userService.editUser(this.id, Helper.buildUserForm(this.form, true)).subscribe(
       () => {
-        this._snackBar.open('Userprofile saved!','',{
+        this.snackBar.open(this.translate.instant('USER.PROFILE_SAVED'), '', {
           duration : 2000,
           panelClass: ['success']
         });
 
-        this.router.navigateByUrl('/userlist')
+        this.router.navigateByUrl('/userlist');
       },
       (error) => {
-        console.error(error)
-        this._snackBar.open("Couldn't save user",'',{
+        this.snackBar.open(this.translate.instant('USER.SAVE_ERROR'), '', {
           duration : 2000,
           panelClass: ['error']
-        })
+        });
       }
     );
   }

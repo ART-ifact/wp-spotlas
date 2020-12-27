@@ -12,45 +12,45 @@ export class LocationsPipe implements PipeTransform {
       return items;
     }
 
-    let filteredLocations = [];
-    let filters = [];
+    const filteredLocations = [];
+    const filters = [];
 
-    for (let key in filter) {
+    for (const key in filter) {
       if (filter[key] !== undefined) {
         filters[key] = filter[key];
       }
     }
     if (Object.keys(filters).length === 0) {
-      return items
+      return items;
     }
     for (let index = 0; index < items.length; index++) {
       const location = items[index];
-      let flattenLocation = Helper.flatten(location)
+      const flattenLocation = Helper.flatten(location);
       let truthyFilters = null;
       if (Object.keys(filters).length > 0) {
-        truthyFilters = 0
+        truthyFilters = 0;
       }
-      for(let entry in filters) {
+      for (const entry in filters) {
         switch (typeof filters[entry]) {
           case 'string':
             if (flattenLocation[entry].includes(filters[entry]) || filters[entry].length === 0) {
-              truthyFilters = truthyFilters + 1
+              truthyFilters = truthyFilters + 1;
             }
             break;
           case 'boolean':
             if (flattenLocation[entry] === filters[entry]) {
-              truthyFilters = truthyFilters + 1
+              truthyFilters = truthyFilters + 1;
             }
-          break;
+            break;
           case 'number':
             if (flattenLocation[entry] >= filters[entry]) {
-              truthyFilters = truthyFilters + 1
+              truthyFilters = truthyFilters + 1;
             }
             break;
           case 'object':
-            let tmpObject = flattenLocation[entry].split(',')
+            const tmpObject = flattenLocation[entry].split(',');
             if (tmpObject.every(i => filters[entry].includes(i))) {
-              truthyFilters = truthyFilters + 1
+              truthyFilters = truthyFilters + 1;
             }
             break;
           default:
@@ -59,7 +59,7 @@ export class LocationsPipe implements PipeTransform {
       }
 
       if (truthyFilters === Object.keys(filters).length) {
-        filteredLocations.push(location)
+        filteredLocations.push(location);
       }
     }
     return filteredLocations;

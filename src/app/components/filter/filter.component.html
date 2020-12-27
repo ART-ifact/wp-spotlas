@@ -2,7 +2,7 @@
   <mat-form-field class="m-b-1">
       <input matInput placeholder="Titel" [(ngModel)]="filter.title" (keyup)="filter.title = $event.target.value; setFilter($event.target.value)">
   </mat-form-field>
-  <h3>{{language.getString('minAccessibility')}}</h3>
+  <h3>{{'FILTER.MIN_ACCESSIBILITY' | translate}}</h3>
   <mat-slider
   [disabled]="false"
   [max]="10"
@@ -14,9 +14,9 @@
   class="m-b-1"
   ></mat-slider>
 
-  <h3>{{language.getString('category')}}</h3>
+  <h3>{{'FILTER.CATEGORY' | translate}}</h3>
   <mat-form-field class="m-b-1">
-    <mat-label>{{language.getString('category')}}</mat-label>
+    <mat-label>{{'FILTER.CATEGORY' | translate}}</mat-label>
     <mat-select [(ngModel)]="filter.category" (selectionChange)="filter.category = $event.value; setFilter($event.value)">
       <mat-option *ngFor="let category of categories" [value]="category.value">
         {{category.viewValue}}
@@ -24,9 +24,9 @@
     </mat-select>
   </mat-form-field>
 
-  <h3>{{language.getString('type')}}</h3>
+  <h3>{{'FILTER.TYPE' | translate}}</h3>
   <mat-form-field class="m-b-1">
-      <mat-label>{{language.getString('type')}}</mat-label>
+      <mat-label>{{'FILTER.TYPE' | translate}}</mat-label>
       <mat-select multiple (selectionChange)="filter.type = $event.value; setFilter($event.value)" [(ngModel)]="filter.type">
         <mat-option *ngFor="let tag of tags" [value]="tag.value">
           {{tag.viewValue}}
@@ -34,14 +34,14 @@
       </mat-select>
   </mat-form-field>
 
-  <h3>{{language.getString('wheather')}}</h3>
+  <h3>{{'FILTER.WHEATER' | translate}}</h3>
   <div class="four-items m-b-1">
       <app-custom-checkbox name="sunny" iconName="sunny" [(checked)]="filter.sunny" (change)="filter.sunny = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
       <app-custom-checkbox name="foggy" iconName="foggy" [(checked)]="filter.foggy" (change)="filter.foggy = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
       <app-custom-checkbox name="cloudy" iconName="cloudy" [(checked)]="filter.cloudy" (change)="filter.cloudy = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
       <app-custom-checkbox name="rainy" iconName="rainy" [(checked)]="filter.rainy" (change)="filter.rainy = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
   </div>
-  <h3>{{language.getString('seasons')}}</h3>
+  <h3>{{'FILTER.SEASONS' | translate}}</h3>
   <div class="four-items m-b-1">
       <app-custom-checkbox name="spring" iconName="spring" [(checked)]="filter.spring" (change)="filter.spring = $event.value ? true : undefined; setFilter()"></app-custom-checkbox>
       <app-custom-checkbox name="summer" iconName="summer" [(checked)]="filter.summer"  (change)="filter.summer = $event.value? true : undefined; setFilter()"></app-custom-checkbox>
@@ -49,5 +49,5 @@
       <app-custom-checkbox name="winter" iconName="winter" [(checked)]="filter.winter"  (change)="filter.winter = $event.value? true : undefined; setFilter()"></app-custom-checkbox>
   </div>
 
-  <button mat-flat-button color="primary" (click)="resetFilter()">{{language.getString('resetFilter')}}</button>
+  <button mat-flat-button color="primary" (click)="resetFilter()">{{'FILTER.RESET' | translate}}</button>
 </div>

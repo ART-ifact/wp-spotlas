@@ -2,15 +2,15 @@
   <mat-card class="login-card">
     <div class="login-form">
       <mat-form-field>
-        <input matInput [placeholder]="language.getString('username')" [(ngModel)]="username">
+        <input matInput placeholder="{{'LOGIN.NAME' | translate}}" [(ngModel)]="username">
       </mat-form-field>
       <mat-form-field>
-        <input matInput [placeholder]="language.getString('password')" [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <input matInput placeholder="{{'LOGIN.PASSWORD' | translate}}" [type]="hide ? 'password' : 'text'" [(ngModel)]="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-flat-button color="primary" (click)="doLogin()">{{language.getString('login')}}</button>
+      <button mat-flat-button color="primary" (click)="doLogin()">{{'LOGIN.LOGIN' | translate}}</button>
     </div>
   </mat-card>
 

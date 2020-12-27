@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BasicRestService } from './basic-rest.service';
-import { environment } from 'src/environments/environment';
-import { Logger } from '../helper/logger';
-import { LocalStorageService } from './local-storage.service';
-import { StorageItems } from '../classes/enum/storage-items.enum';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { StorageItems } from '../classes/enum/storage-items.enum';
+import { BasicRestService } from './basic-rest.service';
+import { LocalStorageService } from './local-storage.service';
 
 export interface authData {
   logoutlink: string,

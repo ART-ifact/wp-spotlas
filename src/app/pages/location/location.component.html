@@ -1,9 +1,9 @@
 <mat-toolbar class="button-row" color="secondary" *ngIf="showButtonBar">
   <mat-toolbar-row *ngIf="location">
-    <button mat-raised-button color="accent" (click)="goBack()">{{language.getString('back')}}</button>
+    <button mat-raised-button color="accent" (click)="goBack()">{{'GENERAL.CANCEL' | translate}}</button>
     <span class="spacer"></span>
-    <button mat-raised-button class="mr-1" color="warn" (click)="openDialog(location.id)">{{language.getString('delete')}}</button>
-    <button mat-raised-button color="primary" [routerLink]="['/edit/'+location.id]">{{language.getString('edit')}}</button>
+    <button mat-raised-button class="mr-1" color="warn" (click)="openDialog(location.id)">{{'GENERAL.DELETE' | translate}}</button>
+    <button mat-raised-button color="primary" [routerLink]="['/edit/'+location.id]">{{'GENERAL.SAVE' | translate}}</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <ng-container *ngIf="location">
@@ -53,7 +53,7 @@
     <div class="grid-item">
     <div class="grid">
       <div class="grid-item">
-        <h3>{{language.getString('category')}}</h3>
+        <h3>{{'LOCATION.CATEGORY' | translate}}</h3>
         <mat-icon *ngIf="location.properties.category == 'urban'">location_city</mat-icon>
         <mat-icon *ngIf="location.properties.category == 'building'">home</mat-icon>
         <mat-icon *ngIf="location.properties.category == 'landscape'">local_florist</mat-icon>
@@ -61,7 +61,7 @@
         {{location.properties.category}}
       </div>
       <div class="grid-item">
-        <h3>{{language.getString('type')}}</h3>
+        <h3>{{'LOCATION.TYPE' | translate}}</h3>
         <mat-chip-list>
         <ng-container *ngFor="let type of location.properties.type">
           <mat-chip color="primary" selected>{{type}}</mat-chip>
@@ -69,21 +69,21 @@
         </mat-chip-list>
       </div>
     </div>
-      <h3>Wheather</h3>
+      <h3>{{'LOCATION.WHEATER' | translate}}</h3>
         <div class="four-items m-b-1">
             <app-custom-checkbox name="sunny" iconName="sunny" [readonly]="true" [checked]="location.properties.wheater.sunny"></app-custom-checkbox>
             <app-custom-checkbox name="foggy" iconName="foggy" [readonly]="true" [checked]="location.properties.wheater.foggy"></app-custom-checkbox>
             <app-custom-checkbox name="cloudy" iconName="cloudy" [readonly]="true" [checked]="location.properties.wheater.cloudy"></app-custom-checkbox>
             <app-custom-checkbox name="rainy" iconName="rainy" [readonly]="true" [checked]="location.properties.wheater.rainy"></app-custom-checkbox>
         </div>
-        <h3>Seasons</h3>
+        <h3>{{'LOCATION.SEASONS' | translate}}</h3>
         <div class="four-items m-b-1">
             <app-custom-checkbox name="spring" iconName="spring" [readonly]="true" [checked]="location.properties.seasons.spring"></app-custom-checkbox>
             <app-custom-checkbox name="summer" iconName="summer" [readonly]="true" [checked]="location.properties.seasons.summer"></app-custom-checkbox>
             <app-custom-checkbox name="autumn" iconName="autumn" [readonly]="true" [checked]="location.properties.seasons.autumn"></app-custom-checkbox>
             <app-custom-checkbox name="winter" iconName="winter" [readonly]="true" [checked]="location.properties.seasons.winter"></app-custom-checkbox>
         </div>
-      <h3 *ngIf="location.note.length > 0">{{language.getString('note')}}</h3>
+      <h3 *ngIf="location.note.length > 0">{{'LOCATION.NOTE' | translate}}</h3>
       {{location.note}}
     </div>
   </div>

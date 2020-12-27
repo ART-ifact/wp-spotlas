@@ -1,18 +1,14 @@
-import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserService } from './services/user.service';
-import { OptionsService } from './services/options.service';
+import { Component } from '@angular/core';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Events } from './classes/enum/events.enum';
-import { LocalStorageService } from './services/local-storage.service';
-import { DOCUMENT } from '@angular/common';
 import { AuthService } from './services/auth.service';
-import { StorageItems } from './classes/enum/storage-items.enum';
 import { EventsService } from './services/events.service';
-import { UpdateService } from './services/update.service';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { UiService } from './services/ui.service';
-import { LanguageService } from './services/language-service.service';
 import { LocationsService } from './services/locations.service';
+import { Options, OptionsService } from './services/options.service';
+import { UiService } from './services/ui.service';
+import { UpdateService } from './services/update.service';
+import { UserService } from './services/user.service';
 
 
 @Component({
@@ -23,26 +19,29 @@ import { LocationsService } from './services/locations.service';
 export class AppComponent {
   title = 'spotlas-wp';
   public loginListener;
-  public showFilter : boolean = false;
+  public currentUser;
 
-  constructor (
-    public userService : UserService,
+  constructor(
+    public userService: UserService,
     private router: Router,
-    private eventService : EventsService,
-    private optionService : OptionsService,
-    private locationsService : LocationsService,
-    private storage : LocalStorageService,
+    private eventService: EventsService,
+    private optionService: OptionsService,
+    private locationsService: LocationsService,
     public uiService: UiService,
-    private authService : AuthService,
+    private authService: AuthService,
     private update: UpdateService,
-    public language: LanguageService,
-    @Inject(DOCUMENT) private _document: Document,
+    private translationService: TranslateService
     ) {
       this.uiService.prepareUIElements();
-      this.router.events.subscribe(() => {
+      this.router.events.subscribe((event: RouterEvent) => {
         this.update.checkForUpdates();
+        if (event instanceof NavigationEnd) {
+          this.authService.updateNonces().subscribe();
+        }
       });
-      this.optionService.getOptions().subscribe()
+      this.optionService.getOptions().subscribe((options: Options) => {
+        this.setupLanguage(options.language);
+      });
     }
 
   ngOnInit() {
@@ -54,11 +53,17 @@ export class AppComponent {
     });
   }
 
+  setupLanguage(useLanguage: string) {
+    this.translationService.setDefaultLang('en');
+    this.translationService.use(useLanguage);
+  }
+
   prepareApplicationdata() {
-    this.userService.getMe().subscribe(() => {
-      this.authService.updateNonces()
-      this.locationsService.getLocations().subscribe()
-    })
+    this.userService.getMe().subscribe(currentUser => {
+      this.currentUser = currentUser;
+      this.authService.updateNonces();
+      this.locationsService.getLocations().subscribe();
+    });
   }
 
   ngOnDestroy() {

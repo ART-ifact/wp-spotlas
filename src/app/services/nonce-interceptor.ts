@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpEvent,
-  HttpInterceptor,
-  HttpHandler,
-  HttpRequest,
-  HttpErrorResponse
-} from '@angular/common/http'
-import { Observable, throwError, of } from 'rxjs';
+  HttpErrorResponse, HttpEvent,
+
+  HttpHandler, HttpInterceptor,
+
+  HttpRequest
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from './local-storage.service';
@@ -19,11 +19,11 @@ export class NonceInterceptor implements HttpInterceptor {
   constructor(
             private authService: AuthService,
             private router: Router,
-            private storage : LocalStorageService
+            private storage: LocalStorageService
             ) { }
 
   // intercept request and add token
-    intercept(request: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
       if (this.storage.getItem('NONCE') !== null) {
         request = request.clone({
@@ -38,15 +38,15 @@ export class NonceInterceptor implements HttpInterceptor {
       return next.handle(request).pipe(catchError((error)  => {
 
         if (error instanceof HttpErrorResponse) {
-          console.log(request)
-          switch(error.status) {
+          console.log(request);
+          switch (error.status) {
             case 401:
                 this.router.navigate(['/loginpage']);
-              break;
+                break;
             case 403:
                 this.authService.nonce = null;
-                this.router.navigate(['/loginpage'])
-              break
+                this.router.navigate(['/loginpage']);
+                break;
           }
 
           return new Observable<never>();

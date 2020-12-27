@@ -23,12 +23,12 @@ export class FilterService {
     winter: undefined
   };
 
-  public filterObject : Subject<any> = new ReplaySubject();
+  public filterObject: Subject<any> = new ReplaySubject();
 
   constructor() { }
 
   public applyFilter(filter) {
-    this.filterObject.next(filter)
+    this.filterObject.next(filter);
   }
 
 

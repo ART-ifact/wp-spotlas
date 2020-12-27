@@ -17,7 +17,7 @@
                     </div>
                   </a>
                   <app-accessibility [accessibility]="marker?.properties?.accesibility"></app-accessibility>
-                  <a target="blank" [href]="'http://maps.google.com/?daddr='+marker.geoLocation.lat+','+marker.geoLocation.lng" class="nav-link">{{language.getString('openInMaps')}}</a>
+                  <a target="blank" [href]="'http://maps.google.com/?daddr='+marker.geoLocation.lat+','+marker.geoLocation.lng" class="nav-link">{{'LOCATION.OPEN_IN_MAPS' | translate}}</a>
                 </div>
             </ng-template>
         </agm-snazzy-info-window>
@@ -32,5 +32,4 @@
 </agm-map>
 
 <ng-template #locationInfoWindow>
-  My first Snazzy Info Window!
 </ng-template>

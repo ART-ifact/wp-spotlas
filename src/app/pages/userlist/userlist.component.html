@@ -4,8 +4,8 @@
       <mat-list-item role="listitem">
         {{user.name}}
         <span class="spacer"></span>
-        <button mat-flat-button class="delete-button" color="warn" *ngIf="!userService.isCurrentUser(user.id)" (click)="openDeleteConfirmDialog(user.id)">{{language.getString('delete')}}</button>
-        <button mat-flat-button color="primary" [routerLink]="['/user/edit/' + user.id]">{{language.getString('edit')}}</button>
+        <button mat-flat-button class="delete-button" color="warn" *ngIf="!userService.isCurrentUser(user.id)" (click)="openDeleteConfirmDialog(user.id)">{{'USER.DELETE' | translate}}</button>
+        <button mat-flat-button color="primary" [routerLink]="['/user/edit/' + user.id]">{{'USER.EDIT' | translate}}</button>
       </mat-list-item>
     </ng-container>
   </mat-list>

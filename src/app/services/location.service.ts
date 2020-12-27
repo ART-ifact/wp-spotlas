@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Logger } from '../helper/logger';
 
 @Injectable({
   providedIn: 'root'

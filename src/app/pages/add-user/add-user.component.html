@@ -1,15 +1,15 @@
 <mat-toolbar class="button-row" color="secondary">
   <mat-toolbar-row>
-    <button mat-raised-button color="accent" (click)="goBack()">{{language.getString('cancel')}}</button>
+    <button mat-raised-button color="accent" (click)="goBack()">{{'GENERAL.CANCEL' | translate}}</button>
     <span class="spacer"></span>
-    <button mat-raised-button color="primary" (click)="saveUser()">{{language.getString('save')}}</button>
+    <button mat-raised-button color="primary" (click)="saveUser()">{{'GENERAL.SAVE' | translate}}</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <form class="user-form">
   <mat-form-field class="userfield-full-width m-b-1">
-    <input matInput [placeholder]="language.getString('username')" name="username" required [(ngModel)]="username">
+    <input matInput placeholder="{{ 'USER.NAME' | translate }}" name="username" required [(ngModel)]="username">
   </mat-form-field>
   <mat-form-field class="userfield-full-width m-b-1">
-    <input matInput [placeholder]="language.getString('email')" name="mail" required [(ngModel)]="mail">
+    <input matInput placeholder="{{'USER.MAIL' | translate}}" name="mail" required [(ngModel)]="mail">
   </mat-form-field>
 </form>

@@ -4,6 +4,6 @@
     <a [routerLink]="['/user/edit/'+userId]">{{userName}}  <mat-icon>edit</mat-icon></a>
   </div>
   <div class="user-action">
-    <a mat-flat-button color="accent" [href]="storage.getItem('LOGOUTLINK')">{{language.getString('logout')}}</a>
+    <a mat-flat-button color="accent" [href]="storage.getItem('LOGOUTLINK')">{{'USER.LOGOUT' | translate}}</a>
   </div>
 </div>

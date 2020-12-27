@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterService } from 'src/app/services/filter.service';
-import { LanguageService } from 'src/app/services/language-service.service';
 import { LocationsService } from 'src/app/services/locations.service';
 
 @Component({
@@ -62,7 +61,7 @@ export class FilterComponent implements OnInit {
     winter: undefined
   };
 
-  constructor(public language : LanguageService, public filterService : FilterService) { }
+  constructor(public filterService : FilterService) { }
 
   ngOnInit() {
   }

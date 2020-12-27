@@ -1,8 +1,9 @@
 import { Injectable, isDevMode } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { SwUpdate } from '@angular/service-worker';
+import { TranslateService } from '@ngx-translate/core';
 import { interval } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { interval } from 'rxjs';
 export class UpdateService {
 
 
-  constructor(public updates: SwUpdate, private _snackBar: MatSnackBar) {
+  constructor(public updates: SwUpdate, private snackBar: MatSnackBar, private translate: TranslateService) {
     // If updates are enabled
     if (updates.isEnabled) {
       // poll the service worker to check for updates
@@ -22,24 +23,24 @@ export class UpdateService {
   public checkForUpdates() {
     if (this.updates.isEnabled) {
       this.updates.available.subscribe(event => {
-        if(isDevMode()) console.log('current version is', event.current);
-        if(isDevMode()) console.log('available version is', event.available);
+        if (isDevMode()) { console.log('current version is', event.current); }
+        if (isDevMode()) { console.log('available version is', event.available); }
         this.promptUser(event);
       });
       this.updates.activated.subscribe(event => {
-        if(isDevMode()) console.log('old version was', event.previous);
-        if(isDevMode()) console.log('new version is', event.current);
+        if (isDevMode()) { console.log('old version was', event.previous); }
+        if (isDevMode()) { console.log('new version is', event.current); }
       });
     }
   }
 
   // If there is an update, promt the user
   private promptUser(e): void {
-    if(e.available) {
-      if(isDevMode()) console.log('new worker available')
+    if (e.available) {
+      if (isDevMode()) { console.log('new worker available'); }
       this.updates.activateUpdate().then(() => {
-        let snackBarRef = this._snackBar.open('New Version available','Reload');
-        snackBarRef.onAction().subscribe(()=> document.location.reload());
+        const snackBarRef = this.snackBar.open(this.translate.instant('GENERAL.NEW_VERSION_AVAILABLE'), this.translate.instant('GENERAL.RELOAD'));
+        snackBarRef.onAction().subscribe(() => document.location.reload());
       });
     }
   }

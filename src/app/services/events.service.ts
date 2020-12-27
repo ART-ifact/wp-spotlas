@@ -12,7 +12,7 @@ export class EventsService {
   }
 
   pub(event) {
-    let newEvent = new CustomEvent(event, {});
+    const newEvent = new CustomEvent(event, {});
     window.dispatchEvent(newEvent);
   }
 }
