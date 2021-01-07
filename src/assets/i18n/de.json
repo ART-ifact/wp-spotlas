@@ -1,78 +1,78 @@
 {
-  "CATEGORIES" {
-    "BUILDING": "Gebäude",
-    "LANDSCAPE": "Landschaft",
-    "URBAN": "Städtisch",
-    "WATER": "Wasser"
-  },
-  "FILE": {
-    "SELECT": "Bild wählen",
-	  "UPLOADING": "lade hoch..."
-  },
-  "FILTER": {
-    "CATEGORY": "Kategorie",
-    "MIN_ACCESSIBILITY": "Zugänglichkeit",
-    "RESET": "zurücksetzen",
-    "SEASONS": "Jahreszeiten",
-    "TYPE": "Typ",
-    "WHEATER": "Wetter"
-  },
-  "GENERAL": {
-    "APPLICATION_MENU": "Anwendungsmenü",
-    "CANCEL": "Abbrechen",
-    "DELETE": "Löschen",
-    "GRIDVIEW": "Rasteransicht",
-    "MAPVIEW": "Kartenansicht",
-    "NEW_VERSION_AVAILABLE": "Neue Version verfügbar",
-    "RELOAD": "Neu laden",
-    "SAVE": "Speichern"
-  },
-  "LOCATION": {
-    "ACCESSIBILITY": "Zugänglichkeit",
-    "ADD": "Location hinzufügen",
-    "CATEGORY": "Kategorie",
-    "CURRENTLOCATION": "Aktuelle position",
-    "DELETE_CONFIRM": "Möchtest du die Location wirklich löschen?",
-    "NAME": "Name",
-    "NOTE": "Notiz",
-    "OPEN_IN_MAPS": "In Maps öffnen",
-    "SEARCHING": "Suche deinen Standort...",
-    "SEASONS": "Jahreszeiten",
-    "SHARE": "Location teilen",
-    "TAGS": "Stichwörter",
-    "TYPE": "Typ",
-    "WHEATER": "Wetter"
-  },
-  "LOGIN": {
-    "HIDE_PASSWORD": "Passwort anzeigen",
-    "LOGIN": "Login",
-    "NAME": "Benutzername",
-    "PASSWORD": "Passwort"
-  },
-  "TAGS": {
-    "ARCHITECTURE": "Architektur",
-    "HISTORIC": "historisch",
-    "INDUSTRIAL": "industriell",
-    "OUTDOOR": "outdoor",
-    "PANORAMIC": "panoramisch",
-    "SIGHT": "Sehenswürdigkeit",
-    "SUNRISE": "Sonnenaufgang",
-    "SUNSET": "Sonnenuntergang"
-  },
-  "USER": {
-    "ADD": "Nutzer hinzufügen",
-    "ADDED": "Benutzer hinzugefügt",
-    "DELETE": "Nutzer löschen",
-    "EDIT": "Bearbeiten",
-    "LIST": "Benutzerliste",
-    "LOGOUT": "Logout",
-    "MAIL": "E-Mail",
-    "MENU": "Benutzermenü",
-    "NAME": "Benutzername",
-    "NEW_PASSWORD": "Neues Passwort",
-    "NEW_PASSWORD_REPEAT": "Neues Password wiederholen",
-    "PASSWORD_MISMATCH": "Passwörter stimmen nicht überein",
-    "PROFILE_SAVED": "Benutzerprofil gespeichert!",
-    "SAVE_ERROR": "Konnte Benutzer nicht speichern."
-  }
+	"CATEGORIES": {
+		"BUILDING": "Gebäude",
+		"LANDSCAPE": "Landschaft",
+		"URBAN": "Städtisch",
+		"WATER": "Wasser"
+	},
+	"FILE": {
+		"SELECT": "Bild wählen",
+		"UPLOADING": "lade hoch..."
+	},
+	"FILTER": {
+		"CATEGORY": "Kategorie",
+		"MIN_ACCESSIBILITY": "Zugänglichkeit",
+		"RESET": "zurücksetzen",
+		"SEASONS": "Jahreszeiten",
+		"TYPE": "Typ",
+		"WHEATER": "Wetter"
+	},
+	"GENERAL": {
+		"APPLICATION_MENU": "Anwendungsmenü",
+		"CANCEL": "Abbrechen",
+		"DELETE": "Löschen",
+		"GRIDVIEW": "Rasteransicht",
+		"MAPVIEW": "Kartenansicht",
+		"NEW_VERSION_AVAILABLE": "Neue Version verfügbar",
+		"RELOAD": "Neu laden",
+		"SAVE": "Speichern"
+	},
+	"LOCATION": {
+		"ACCESSIBILITY": "Zugänglichkeit",
+		"ADD": "Location hinzufügen",
+		"CATEGORY": "Kategorie",
+		"CURRENTLOCATION": "Aktuelle position",
+		"DELETE_CONFIRM": "Möchtest du die Location wirklich löschen?",
+		"NAME": "Name",
+		"NOTE": "Notiz",
+		"OPEN_IN_MAPS": "In Maps öffnen",
+		"SEARCHING": "Suche deinen Standort...",
+		"SEASONS": "Jahreszeiten",
+		"SHARE": "Location teilen",
+		"TAGS": "Stichwörter",
+		"TYPE": "Typ",
+		"WHEATER": "Wetter"
+	},
+	"LOGIN": {
+		"HIDE_PASSWORD": "Passwort anzeigen",
+		"LOGIN": "Login",
+		"NAME": "Benutzername",
+		"PASSWORD": "Passwort"
+	},
+	"TAGS": {
+		"ARCHITECTURE": "Architektur",
+		"HISTORIC": "historisch",
+		"INDUSTRIAL": "industriell",
+		"OUTDOOR": "outdoor",
+		"PANORAMIC": "panoramisch",
+		"SIGHT": "Sehenswürdigkeit",
+		"SUNRISE": "Sonnenaufgang",
+		"SUNSET": "Sonnenuntergang"
+	},
+	"USER": {
+		"ADD": "Nutzer hinzufügen",
+		"ADDED": "Benutzer hinzugefügt",
+		"DELETE": "Nutzer löschen",
+		"EDIT": "Bearbeiten",
+		"LIST": "Benutzerliste",
+		"LOGOUT": "Logout",
+		"MAIL": "E-Mail",
+		"MENU": "Benutzermenü",
+		"NAME": "Benutzername",
+		"NEW_PASSWORD": "Neues Passwort",
+		"NEW_PASSWORD_REPEAT": "Neues Password wiederholen",
+		"PASSWORD_MISMATCH": "Passwörter stimmen nicht überein",
+		"PROFILE_SAVED": "Benutzerprofil gespeichert!",
+		"SAVE_ERROR": "Konnte Benutzer nicht speichern."
+	}
 }

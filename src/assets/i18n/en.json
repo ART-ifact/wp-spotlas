@@ -1,78 +1,78 @@
 {
-  "CATEGORIES": {
-    "BUILDING": "Building",
-    "LANDSCAPE": "Landscape",
-    "URBAN": "Urban",
-    "WATER": "Water"
-  },
+	"CATEGORIES": {
+		"BUILDING": "Building",
+		"LANDSCAPE": "Landscape",
+		"URBAN": "Urban",
+		"WATER": "Water"
+	},
 	"FILE": {
-    "SELECT": "Select File",
-    "UPLOADING": "Uploading..."
-  },
-  "FILTER": {
-    "CATEGORY": "Category",
-    "MIN_ACCESSIBILITY": "Minimal Accessibility",
-    "RESET": "reset",
-    "SEASONS": "Seasons",
-    "TYPE": "Type",
-    "WHEATER": "Wheather"
-  },
-	"GENERAL" : {
-    "APPLICATION_MENU": "Application menu",
-    "CANCEL": "Cancel",
-    "DELETE": "delete",
-    "GRIDVIEW": "Gridview",
-    "MAPVIEW": "Mapview",
-    "NEW_VERSION_AVAILABLE": "New Version available",
-    "RELOAD": "Reload",
-    "SAVE": "Save"
-  },
-  "LOCATION": {
-    "ACCESSIBILITY": "Accessibility",
-    "ADD": "Add location",
-    "CATEGORY": "Category",
-    "CURRENTLOCATION": "Get current location",
-    "DELETE_CONFIRM": "You really want to delete the location?",
-    "NAME": "Name",
-    "NOTE": "Note",
-    "OPEN_IN_MAPS": "Open in Maps",
-    "SEARCHING": "Searching your location...",
-    "SEASONS": "Seasons",
-    "SHARE": "Share location",
-    "TAGS": "Tags",
-    "TYPE": "Type",
-    "WHEATER": "Wheather"
-  },
-  "LOGIN": {
-    "HIDE_PASSWORD": "Show password",
-    "LOGIN": "Login",
-    "NAME": "Username",
-    "PASSWORD": "Password"
-  },
+		"SELECT": "Select File",
+		"UPLOADING": "Uploading..."
+	},
+	"FILTER": {
+		"CATEGORY": "Category",
+		"MIN_ACCESSIBILITY": "Minimal Accessibility",
+		"RESET": "reset",
+		"SEASONS": "Seasons",
+		"TYPE": "Type",
+		"WHEATER": "Wheather"
+	},
+	"GENERAL": {
+		"APPLICATION_MENU": "Application menu",
+		"CANCEL": "Cancel",
+		"DELETE": "delete",
+		"GRIDVIEW": "Gridview",
+		"MAPVIEW": "Mapview",
+		"NEW_VERSION_AVAILABLE": "New Version available",
+		"RELOAD": "Reload",
+		"SAVE": "Save"
+	},
+	"LOCATION": {
+		"ACCESSIBILITY": "Accessibility",
+		"ADD": "Add location",
+		"CATEGORY": "Category",
+		"CURRENTLOCATION": "Get current location",
+		"DELETE_CONFIRM": "You really want to delete the location?",
+		"NAME": "Name",
+		"NOTE": "Note",
+		"OPEN_IN_MAPS": "Open in Maps",
+		"SEARCHING": "Searching your location...",
+		"SEASONS": "Seasons",
+		"SHARE": "Share location",
+		"TAGS": "Tags",
+		"TYPE": "Type",
+		"WHEATER": "Wheather"
+	},
+	"LOGIN": {
+		"HIDE_PASSWORD": "Show password",
+		"LOGIN": "Login",
+		"NAME": "Username",
+		"PASSWORD": "Password"
+	},
 	"TAGS": {
-    "ARCHITECTURE": "Architecture",
-    "HISTORIC": "historic",
-    "INDUSTRIAL": "industrial",
-    "OUTDOOR": "outdoor",
-    "PANORAMIC": "panoramic",
-    "SIGHT": "Sight",
-    "SUNRISE": "Sunrise",
-    "SUNSET": "Sunset"
-  },
+		"ARCHITECTURE": "Architecture",
+		"HISTORIC": "historic",
+		"INDUSTRIAL": "industrial",
+		"OUTDOOR": "outdoor",
+		"PANORAMIC": "panoramic",
+		"SIGHT": "Sight",
+		"SUNRISE": "Sunrise",
+		"SUNSET": "Sunset"
+	},
 	"USER": {
-    "ADD": "Add user",
-    "ADDED": "User added!",
-    "DELETE": "delete User",
-    "EDIT": "edit",
-    "LIST": "Userlist",
-    "LOGOUT": "Logout",
-    "MAIL": "E-Mail",
-    "MENU": "Usermenu",
-    "NAME": "Username",
-    "NEW_PASSWORD": "New password",
-    "NEW_PASSWORD_REPEAT": "Repeat new password",
-    "PASSWORD_MISMATCH": "Passwords do mismatch",
-    "PROFILE_SAVED": "Userprofile saved!",
-    "SAVE_ERROR": "Couldn't save user"
-  }
+		"ADD": "Add user",
+		"ADDED": "User added!",
+		"DELETE": "delete User",
+		"EDIT": "edit",
+		"LIST": "Userlist",
+		"LOGOUT": "Logout",
+		"MAIL": "E-Mail",
+		"MENU": "Usermenu",
+		"NAME": "Username",
+		"NEW_PASSWORD": "New password",
+		"NEW_PASSWORD_REPEAT": "Repeat new password",
+		"PASSWORD_MISMATCH": "Passwords do mismatch",
+		"PROFILE_SAVED": "Userprofile saved!",
+		"SAVE_ERROR": "Couldn't save user"
+	}
 }

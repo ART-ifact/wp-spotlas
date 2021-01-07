@@ -1110,7 +1110,7 @@
     <primary_language>en-US</primary_language>
     <configuration>
         <indent>tab</indent>
-        <format>json</format>
+        <format>namespaced-json</format>
         <support_arrays>true</support_arrays>
     </configuration>
 </babeledit_project>
