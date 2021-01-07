@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-accessibility',
@@ -9,8 +9,8 @@ export class AccessibilityComponent implements OnInit {
 
   constructor() { }
 
-  @Input() accessibility : number = 0;
-  @Input() big : boolean = false;
+  @Input() accessibility = 0;
+  @Input() big = false;
   ngOnInit() {
   }
 
